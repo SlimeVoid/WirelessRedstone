@@ -20,7 +20,7 @@ import java.util.List;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.injectors.TileEntityRedstoneWirelessInjector;
+import wirelessredstone.network.packets.PacketWirelessTile;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
@@ -330,8 +330,13 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		return null;
 	}
 
-	public Packet getDescriptionPacket() {
-		return TileEntityRedstoneWirelessInjector.getDescriptionPacket(this);
+	@Override
+	public Packet getAuxillaryInfoPacket() {
+		return getUpdatePacket();
+	}
+
+	private Packet getUpdatePacket() {
+		return new PacketWirelessTile("fetchTile", this).getPacket();
 	}
 
 	public void handleData(IRedstoneWirelessData data) {

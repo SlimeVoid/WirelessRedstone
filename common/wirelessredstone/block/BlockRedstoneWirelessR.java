@@ -18,13 +18,14 @@ import java.util.Random;
 
 import wirelessredstone.core.WRCore;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.injectors.BlockRedstoneWirelessRInjector;
+import wirelessredstone.network.CommonPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 
@@ -112,7 +113,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if (tileentity != null)
-			WRCore.openGUI(world, entityplayer, tileentity);
+			WRCore.proxy.openGUI(world, entityplayer, tileentity);
 
 		return true;
 	}
@@ -180,9 +181,14 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 			setState(world, i, j, k, newState);
 			world.markBlockNeedsUpdate(i, j, k);
 			notifyNeighbors(world, i, j, k);
-
-			BlockRedstoneWirelessRInjector.updateRedstoneWirelessTick(world, i,
-					j, k);
+			
+			if(!world.isRemote) {
+				TileEntity entity = world.getBlockTileEntity(i, j, k);
+				if (entity instanceof TileEntityRedstoneWireless)
+					CommonPacketHandler.PacketHandlerOutput
+							.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+									world, 0);
+			}
 		}
 	}
 

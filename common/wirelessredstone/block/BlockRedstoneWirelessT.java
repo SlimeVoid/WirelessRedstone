@@ -114,7 +114,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if (tileentity != null)
-			WRCore.openGUI(world, entityplayer, tileentity);
+			WRCore.proxy.openGUI(world, entityplayer, tileentity);
 
 		return true;
 	}

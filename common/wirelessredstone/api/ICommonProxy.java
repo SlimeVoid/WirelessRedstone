@@ -19,8 +19,22 @@ public interface ICommonProxy extends IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z);
+	
+	public void openGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity);
 
 	public String getMinecraftDir();
 
-	void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz);
+	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz);
+	
+	public void addOverrides();
+
+	public void activateGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity);
+
+	World getWorld();
+
+	EntityPlayer getPlayer();
+
+	public void init();
 }

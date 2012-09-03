@@ -16,6 +16,7 @@ package net.minecraft.src;
 
 import java.util.List;
 
+import wirelessredstone.core.WRCore;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.CommonPacketHandler;
 
@@ -56,6 +57,7 @@ public class WirelessRedstone {
 	 */
 	@Init
 	public void WirelessRedstoneInit(FMLInitializationEvent event) {
+		WRCore.initialize();
 	}
 	
 	@PreInit

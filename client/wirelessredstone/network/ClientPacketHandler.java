@@ -42,17 +42,16 @@ import cpw.mods.fml.common.network.Player;
 
 public class ClientPacketHandler extends CommonPacketHandler {
 
-	@Override
-	public void handlePacket(PacketUpdate packet, World world,
+	public static void handlePacket(PacketUpdate packet, World world,
 			EntityPlayer entityplayer) {
 		if (packet instanceof PacketRedstoneWirelessOpenGui) {
-			PacketHandlerInput.openGUI((PacketRedstoneWirelessOpenGui) packet,
+			ClientPacketHandler.PacketHandlerInput.openGUI((PacketRedstoneWirelessOpenGui) packet,
 					world, entityplayer);
 		} else if (packet instanceof PacketRedstoneEther) {
-			PacketHandlerInput.handleEtherPacket((PacketRedstoneEther) packet,
+			ClientPacketHandler.PacketHandlerInput.handleEtherPacket((PacketRedstoneEther) packet,
 					world, entityplayer);
 		} else if (packet instanceof PacketWirelessTile) {
-			PacketHandlerInput.handleTilePacket((PacketWirelessTile) packet,
+			ClientPacketHandler.PacketHandlerInput.handleTilePacket((PacketWirelessTile) packet,
 					world, entityplayer);
 		}
 	}
@@ -65,7 +64,7 @@ public class ClientPacketHandler extends CommonPacketHandler {
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 
 			TileEntity tileentity = packet.getTarget(world);
-			WRCore.activateGUI(world, entityplayer, tileentity);
+			WRCore.proxy.activateGUI(world, entityplayer, tileentity);
 		}
 
 		private static void handleTilePacket(PacketWirelessTile packet,
@@ -148,6 +147,41 @@ public class ClientPacketHandler extends CommonPacketHandler {
 					LoggerRedstoneWireless.LogLevel.DEBUG);
 			ModLoader.getMinecraftInstance().getSendQueue()
 					.addToSendQueue(packet.getPacket());
+		}
+	}
+
+	@Override
+	public void onPacketData(NetworkManager manager,
+			Packet250CustomPayload packet, Player player) {
+		EntityPlayer entityplayer = (EntityPlayer)player;
+		World world = entityplayer.worldObj;
+		if (!world.isRemote) { 
+			super.onPacketData(manager, packet, player);
+			return;
+		}
+		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
+				packet.data));
+		try {
+			int packetID = data.read();
+			switch (packetID) {
+			case PacketIds.ETHER:
+				PacketRedstoneEther pRE = new PacketRedstoneEther();
+				pRE.readData(data);
+				ClientPacketHandler.handlePacket(pRE, world, entityplayer);
+				break;
+			case PacketIds.GUI:
+				PacketRedstoneWirelessOpenGui pORW = new PacketRedstoneWirelessOpenGui();
+				pORW.readData(data);
+				ClientPacketHandler.handlePacket(pORW, world, entityplayer);
+				break;
+			case PacketIds.TILE:
+				PacketWirelessTile pWT = new PacketWirelessTile();
+				pWT.readData(data);
+				ClientPacketHandler.handlePacket(pWT, world, entityplayer);
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }

@@ -30,10 +30,10 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class CommonPacketHandler implements IPacketHandler {
 	
-	public void handlePacket(PacketUpdate packet, World world,
+	public static void handlePacket(PacketUpdate packet, World world,
 			EntityPlayer player) {
 		if (packet instanceof PacketRedstoneEther) {
-			PacketHandlerInput.handleEther((PacketRedstoneEther) packet, world,
+			CommonPacketHandler.PacketHandlerInput.handleEther((PacketRedstoneEther) packet, world,
 					player);
 		}
 	}
@@ -343,27 +343,17 @@ public class CommonPacketHandler implements IPacketHandler {
 	@Override
 	public void onPacketData(NetworkManager manager,
 			Packet250CustomPayload packet, Player player) {
+		EntityPlayer entityplayer = (EntityPlayer)player;
+		World world = entityplayer.worldObj;
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				packet.data));
 		try {
-			EntityPlayer entityplayer = (EntityPlayer)player;
-			World world = entityplayer.worldObj;
 			int packetID = data.read();
 			switch (packetID) {
 			case PacketIds.ETHER:
 				PacketRedstoneEther pRE = new PacketRedstoneEther();
 				pRE.readData(data);
-				handlePacket(pRE, world, entityplayer);
-				break;
-			case PacketIds.GUI:
-				PacketRedstoneWirelessOpenGui pORW = new PacketRedstoneWirelessOpenGui();
-				pORW.readData(data);
-				handlePacket(pORW, world, entityplayer);
-				break;
-			case PacketIds.TILE:
-				PacketWirelessTile pWT = new PacketWirelessTile();
-				pWT.readData(data);
-				handlePacket(pWT, world, entityplayer);
+				CommonPacketHandler.handlePacket(pRE, world, entityplayer);
 				break;
 			}
 		} catch (Exception ex) {

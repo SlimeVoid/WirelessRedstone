@@ -521,6 +521,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @return Block texture ID
 	 */
+	@Override
 	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k,
 			int l) {
 		try {
@@ -815,4 +816,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	protected abstract boolean isRedstoneWirelessIndirectlyPoweringTo(
 			World world, int i, int j, int k, int l);
+	
+	@Override
+	public String getTextureFile() {
+		return "/WirelessSprites/terrain.png";
+	}
 }

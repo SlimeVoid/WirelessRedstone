@@ -4,6 +4,15 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.core.WRCore;
+import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.overrides.BaseModOverrideSMP;
+import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
+import wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
+import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
+import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
+import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class WRCommonProxy implements ICommonProxy {
 
@@ -30,7 +39,7 @@ public class WRCommonProxy implements ICommonProxy {
 	@Override
 	public String getMinecraftDir() {
 		// TODO Auto-generated method stub
-		return null;
+		return ".";
 	}
 
 	@Override
@@ -40,4 +49,37 @@ public class WRCommonProxy implements ICommonProxy {
 		
 	}
 
+	@Override
+	public void addOverrides() {
+	}
+
+	@Override
+	public void openGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void activateGUI(World world, EntityPlayer entityplayer,
+			TileEntity tileentity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public World getWorld() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EntityPlayer getPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void init() {		
+	}
 }
