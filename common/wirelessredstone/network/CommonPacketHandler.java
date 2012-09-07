@@ -9,6 +9,7 @@ import cpw.mods.fml.common.network.Player;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.EntityClientPlayerMP;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet;
@@ -41,13 +42,13 @@ public class CommonPacketHandler implements IPacketHandler {
 	public static class PacketHandlerOutput {
 		private static class PacketHandlerOutputSender implements Runnable {
 			private int delay;
-			private EntityPlayerMP player;
+			private EntityPlayer player;
 			private PacketUpdate packet;
 
 			public PacketHandlerOutputSender(EntityPlayer player,
 					PacketUpdate packet, int delay) {
 				this(packet, delay);
-				this.player = (EntityPlayerMP) player;
+				this.player = player;
 			}
 
 			public PacketHandlerOutputSender(PacketUpdate packet, int delay) {
@@ -72,15 +73,23 @@ public class CommonPacketHandler implements IPacketHandler {
 				}
 
 				if (player == null) {
-					sendToAll(packet);
+					CommonPacketHandler.sendToAll(packet);
 				} else {
-					player.serverForThisPlayer.theNetworkManager
+					if (player instanceof EntityClientPlayerMP) {
+						((EntityClientPlayerMP)player)
+							.sendQueue
 							.addToSendQueue(packet.getPacket());
+					} else if (player instanceof EntityPlayerMP) {
+						((EntityPlayerMP)player)
+							.serverForThisPlayer
+							.theNetworkManager
+							.addToSendQueue(packet.getPacket());
+					}
 				}
 			}
 		}
 
-		public static void sendGuiPacketTo(EntityPlayerMP player,
+		public static void sendGuiPacketTo(EntityPlayer player,
 				TileEntityRedstoneWireless entity) {
 			PacketRedstoneWirelessOpenGui packet = new PacketRedstoneWirelessOpenGui(
 					entity);
@@ -94,7 +103,7 @@ public class CommonPacketHandler implements IPacketHandler {
 
 		public static void sendEtherTileToAll(
 				TileEntityRedstoneWireless entity, World world, int delay) {
-			PacketRedstoneEther packet = prepareRedstoneEtherPacket(entity,
+			PacketRedstoneEther packet = CommonPacketHandler.prepareRedstoneEtherPacket(entity,
 					world);
 
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
@@ -105,7 +114,7 @@ public class CommonPacketHandler implements IPacketHandler {
 
 		public static void sendEtherTileTo(EntityPlayer entityplayermp,
 				TileEntityRedstoneWireless entity, World world, int delay) {
-			PacketRedstoneEther packet = prepareRedstoneEtherPacket(entity,
+			PacketRedstoneEther packet = CommonPacketHandler.prepareRedstoneEtherPacket(entity,
 					world);
 
 			LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
@@ -121,7 +130,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntityRedstoneWireless tileentity, World world, int delay) {
 			PacketWirelessTile packet = prepareWirelessTileEntityPacket(
 					tileentity, world);
-			sendToAll(packet);
+			CommonPacketHandler.sendToAll(packet);
 		}
 
 		public static void sendEtherNodeTileToAll(RedstoneEtherNode node,
@@ -131,7 +140,7 @@ public class CommonPacketHandler implements IPacketHandler {
 			TileEntity entity = world
 					.getBlockTileEntity(node.i, node.j, node.k);
 			if (entity instanceof TileEntityRedstoneWireless) {
-				sendEtherTileToAll((TileEntityRedstoneWireless) entity, world,
+				CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWireless) entity, world,
 						delay);
 			}
 		}
@@ -151,7 +160,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j,
 						node.k);
 				if (entity instanceof TileEntityRedstoneWirelessR) {
-					sendEtherTileTo(entityplayermp,
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileTo(entityplayermp,
 							(TileEntityRedstoneWirelessR) entity, world, delay);
 				}
 			}
@@ -161,7 +170,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j,
 						node.k);
 				if (entity instanceof TileEntityRedstoneWirelessT) {
-					sendEtherTileTo(entityplayermp,
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileTo(entityplayermp,
 							(TileEntityRedstoneWirelessT) entity, world, delay);
 				}
 			}
@@ -182,7 +191,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j,
 						node.k);
 				if (entity instanceof TileEntityRedstoneWirelessR) {
-					sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
 							world, delay);
 				}
 			}
@@ -192,7 +201,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j,
 						node.k);
 				if (entity instanceof TileEntityRedstoneWirelessT) {
-					sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
 							world, delay);
 				}
 			}
@@ -211,7 +220,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j,
 						node.k);
 				if (entity instanceof TileEntityRedstoneWirelessR) {
-					sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
 							world, delay);
 				}
 			}
@@ -220,7 +229,7 @@ public class CommonPacketHandler implements IPacketHandler {
 				TileEntity entity = world.getBlockTileEntity(node.i, node.j,
 						node.k);
 				if (entity instanceof TileEntityRedstoneWirelessT) {
-					sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
 							world, delay);
 				}
 			}
@@ -248,7 +257,7 @@ public class CommonPacketHandler implements IPacketHandler {
 					entity.onInventoryChanged();
 					world.markBlockNeedsUpdate(packet.xPosition,
 							packet.yPosition, packet.zPosition);
-					PacketHandlerOutput.sendEtherTileToAll(
+					CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll(
 							(TileEntityRedstoneWireless) entity, world, 0);
 				}
 			}

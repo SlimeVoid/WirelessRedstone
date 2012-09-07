@@ -11,7 +11,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 		TileEntityRedstoneWirelessOverride {
 	@Override
 	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
-		return tileentity.worldObj.isRemote;
+		return false;//tileentity.worldObj.isRemote;
 	}
 
 	@Override

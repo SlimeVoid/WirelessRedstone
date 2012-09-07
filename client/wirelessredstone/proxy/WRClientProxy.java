@@ -95,18 +95,18 @@ public class WRClientProxy extends WRCommonProxy {
 		WRCore.addGuiOverrideToReceiver(GUIOverride);
 		WRCore.addGuiOverrideToTransmitter(GUIOverride);
 
-		BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
-		WRCore.addOverrideToReceiver(blockOverride);
-		WRCore.addOverrideToTransmitter(blockOverride);
+		//BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
+		//WRCore.addOverrideToReceiver(blockOverride);
+		//WRCore.addOverrideToTransmitter(blockOverride);
 
 		TileEntityRedstoneWirelessOverrideSMP tileOverride = new TileEntityRedstoneWirelessOverrideSMP();
 		TileEntityRedstoneWireless.addOverride(tileOverride);
 
-		RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
-		RedstoneEther.getInstance().addOverride(etherOverrideSMP);
+		//RedstoneEtherOverrideSMP etherOverrideSMP = new RedstoneEtherOverrideSMP();
+		//RedstoneEther.getInstance().addOverride(etherOverrideSMP);
 
-		BaseModOverrideSMP baseModOverride = new BaseModOverrideSMP();
-		this.addOverride(baseModOverride);
+		//BaseModOverrideSMP baseModOverride = new BaseModOverrideSMP();
+		//this.addOverride(baseModOverride);
 	}
 
 	private static List<IBaseModOverride> overrides;
@@ -135,21 +135,7 @@ public class WRClientProxy extends WRCommonProxy {
 			ModLoader.openGUI(entityplayer, WRCore.guiWirelessT);
 		}
 	}
-
-	@Override
-	public void openGUI(World world, EntityPlayer entityplayer,
-			TileEntity tileentity) {
-		boolean prematureExit = false;
-		for (IBaseModOverride override : overrides) {
-			if (override.beforeOpenGui(world, entityplayer, tileentity))
-				prematureExit = true;
-		}
-
-		if (!prematureExit) {
-			activateGUI(world, entityplayer, tileentity);
-		}
-	}
-
+	
 	/**
 	 * Retrieves the world object without parameters
 	 * 

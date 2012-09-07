@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.overrides;
 
+import net.minecraft.src.ModLoader;
 import wirelessredstone.api.IGuiRedstoneWirelessInventoryOverride;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -24,7 +25,7 @@ public class GuiRedstoneWirelessInventoryOverrideSMP implements
 	@Override
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq) {
-		if (entity.worldObj.isRemote) {
+		ModLoader.getMinecraftInstance().thePlayer.addChatMessage("isRemote: " + entity.worldObj.isRemote);
 			int OLD = Integer.parseInt(oldFreq.toString());
 			int NEW = Integer.parseInt(newFreq.toString());
 			ClientPacketHandler.PacketHandlerOutput
@@ -32,7 +33,5 @@ public class GuiRedstoneWirelessInventoryOverrideSMP implements
 							entity.getBlockCoord(0), entity.getBlockCoord(1),
 							entity.getBlockCoord(2), (NEW - OLD), false);
 			return true;
-		}
-		return false;
 	}
 }

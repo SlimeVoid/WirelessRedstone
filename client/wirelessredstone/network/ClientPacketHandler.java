@@ -155,8 +155,7 @@ public class ClientPacketHandler extends CommonPacketHandler {
 			Packet250CustomPayload packet, Player player) {
 		EntityPlayer entityplayer = (EntityPlayer)player;
 		World world = entityplayer.worldObj;
-		if (!world.isRemote) { 
-			super.onPacketData(manager, packet, player);
+		if (!world.isRemote) {
 			return;
 		}
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(

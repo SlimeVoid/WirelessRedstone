@@ -148,8 +148,8 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 					prematureExit = true;
 			}
 
-			if (oldFreq != freq)
-				setFreq(Integer.toString(freq));
+//			if (oldFreq != freq)
+//				setFreq(Integer.toString(freq));
 
 			if (prematureExit)
 				return;
