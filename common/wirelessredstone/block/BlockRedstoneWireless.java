@@ -23,6 +23,7 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 import net.minecraft.src.BlockContainer;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
@@ -51,6 +52,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		super(i, Material.circuits);
 		setHardness(hardness);
 		setResistance(resistance);
+		setCreativeTab(CreativeTabs.tabRedstone);
 		overrides = new ArrayList<IBlockRedstoneWirelessOverride>();
 	}
 

@@ -112,8 +112,6 @@ public class WRCore {
 	 * Wireless Redstone load state
 	 */
 	public static boolean isLoaded = false;
-
-	private static List<Block> creativeBlockList;
 	
 	@SidedProxy(
 			clientSide="wirelessredstone.proxy.WRClientProxy",
