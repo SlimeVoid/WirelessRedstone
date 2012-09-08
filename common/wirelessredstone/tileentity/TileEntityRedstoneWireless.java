@@ -41,11 +41,12 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	protected boolean[] indirPower;
 	protected static List<ITileEntityRedstoneWirelessOverride> overrides = new ArrayList();
 
-	public TileEntityRedstoneWireless() {
+	public TileEntityRedstoneWireless(BlockRedstoneWireless block) {
 		firstTick = true;
 		oldFreq = "";
 		currentFreq = "0";
 		firstTick = false;
+		blockRedstoneWireless = block;
 		flushPowerRoute();
 		flushIndirPower();
 	}
