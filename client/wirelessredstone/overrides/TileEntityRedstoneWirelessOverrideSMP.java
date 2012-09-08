@@ -1,14 +1,14 @@
 package wirelessredstone.overrides;
 
 import wirelessredstone.api.IRedstoneWirelessData;
+import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessOverride;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class TileEntityRedstoneWirelessOverrideSMP implements
-		TileEntityRedstoneWirelessOverride {
+		ITileEntityRedstoneWirelessOverride {
 	@Override
 	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
 		return false;//tileentity.worldObj.isRemote;

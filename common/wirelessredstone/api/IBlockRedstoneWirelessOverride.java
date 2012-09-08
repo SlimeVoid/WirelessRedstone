@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.block;
+package wirelessredstone.api;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ import net.minecraft.src.World;
  * 
  * @author ali4z
  */
-public interface BlockRedstoneWirelessOverride {
+public interface IBlockRedstoneWirelessOverride {
 	/**
 	 * Triggers before the block is added to the world.
 	 * 

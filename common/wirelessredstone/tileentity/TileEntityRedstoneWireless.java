@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wirelessredstone.api.IRedstoneWirelessData;
+import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketWirelessTile;
@@ -38,7 +39,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public String currentFreq;
 	protected boolean[] powerRoute;
 	protected boolean[] indirPower;
-	protected static List<TileEntityRedstoneWirelessOverride> overrides = new ArrayList();
+	protected static List<ITileEntityRedstoneWirelessOverride> overrides = new ArrayList();
 
 	public TileEntityRedstoneWireless() {
 		firstTick = true;
@@ -49,7 +50,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		flushIndirPower();
 	}
 
-	public static void addOverride(TileEntityRedstoneWirelessOverride override) {
+	public static void addOverride(ITileEntityRedstoneWirelessOverride override) {
 		overrides.add(override);
 	}
 
@@ -94,7 +95,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	@Override
 	public void updateEntity() {
 		boolean prematureExit = false;
-		for (TileEntityRedstoneWirelessOverride override : overrides) {
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
 			if (override.beforeUpdateEntity(this))
 				prematureExit = true;
 		}
@@ -111,7 +112,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			onUpdateEntity();
 		}
 
-		for (TileEntityRedstoneWirelessOverride override : overrides) {
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
 			override.afterUpdateEntity(this);
 		}
 	}
@@ -342,7 +343,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public void handleData(IRedstoneWirelessData data) {
 		boolean prematureExit = false;
 
-		for (TileEntityRedstoneWirelessOverride override : overrides) {
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
 			if (override.beforeHandleData(this, data)) {
 				prematureExit = true;
 			}

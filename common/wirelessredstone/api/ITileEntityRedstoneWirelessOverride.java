@@ -1,8 +1,8 @@
-package wirelessredstone.tileentity;
+package wirelessredstone.api;
 
-import wirelessredstone.api.IRedstoneWirelessData;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public interface TileEntityRedstoneWirelessOverride {
+public interface ITileEntityRedstoneWirelessOverride {
 	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity);
 
 	public void afterUpdateEntity(TileEntityRedstoneWireless tileentity);

@@ -6,13 +6,13 @@ import java.util.List;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.IBaseModOverride;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.block.BlockItemRedstoneWirelessR;
 import wirelessredstone.block.BlockItemRedstoneWirelessT;
 import wirelessredstone.block.BlockRedstoneWireless;
-import wirelessredstone.block.BlockRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
@@ -213,7 +213,7 @@ public class WRCore {
 	 *            Block override
 	 */
 	public static void addOverrideToReceiver(
-			BlockRedstoneWirelessOverride override) {
+			IBlockRedstoneWirelessOverride override) {
 		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
 				"Override added to "
 						+ WRCore.blockWirelessR.getClass().toString()
@@ -230,7 +230,7 @@ public class WRCore {
 	 *            Block override
 	 */
 	public static void addOverrideToTransmitter(
-			BlockRedstoneWirelessOverride override) {
+			IBlockRedstoneWirelessOverride override) {
 		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
 				"Override added to "
 						+ WRCore.blockWirelessT.getClass().toString()

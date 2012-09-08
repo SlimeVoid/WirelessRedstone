@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -37,7 +38,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	/**
 	 * A list of overrides.
 	 */
-	private List<BlockRedstoneWirelessOverride> overrides;
+	private List<IBlockRedstoneWirelessOverride> overrides;
 
 	/**
 	 * Constructor sets the block ID, material and initializes the override
@@ -50,7 +51,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		super(i, Material.circuits);
 		setHardness(hardness);
 		setResistance(resistance);
-		overrides = new ArrayList<BlockRedstoneWirelessOverride>();
+		overrides = new ArrayList<IBlockRedstoneWirelessOverride>();
 	}
 
 	/**
@@ -59,7 +60,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @param override
 	 *            Block override
 	 */
-	public void addOverride(BlockRedstoneWirelessOverride override) {
+	public void addOverride(IBlockRedstoneWirelessOverride override) {
 		overrides.add(override);
 	}
 
@@ -223,7 +224,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
 		// Run overrides.
 		boolean prematureExit = false;
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeBlockRedstoneWirelessAdded(world, i, j, k))
 				prematureExit = true;
 		}
@@ -242,7 +243,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		}
 
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides)
+		for (IBlockRedstoneWirelessOverride override : overrides)
 			override.afterBlockRedstoneWirelessAdded(world, i, j, k);
 	}
 
@@ -286,7 +287,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
 		// Run overrides.
 		boolean prematureExit = false;
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeBlockRedstoneWirelessRemoved(world, i, j, k))
 				prematureExit = true;
 		}
@@ -304,7 +305,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		}
 
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides)
+		for (IBlockRedstoneWirelessOverride override : overrides)
 			override.afterBlockRedstoneWirelessRemoved(world, i, j, k);
 	}
 
@@ -371,7 +372,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
 		boolean prematureExit = false;
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeBlockRedstoneWirelessActivated(world, i, j, k,
 					entityplayer))
 				prematureExit = true;
@@ -391,7 +392,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		}
 
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			override.afterBlockRedstoneWirelessActivated(world, i, j, k,
 					entityplayer);
 		}
@@ -443,7 +444,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
 		boolean prematureExit = false;
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeBlockRedstoneWirelessNeighborChange(world, i, j,
 					k, l))
 				prematureExit = true;
@@ -461,7 +462,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		}
 
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			override.afterBlockRedstoneWirelessNeighborChange(world, i, j, k, l);
 		}
 	}
@@ -662,7 +663,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 				LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		boolean prematureExit = false;
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeUpdateRedstoneWirelessTick(world, i, j, k,
 					random))
 				prematureExit = true;
@@ -680,7 +681,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		}
 
 		// Run overrides.
-		for (BlockRedstoneWirelessOverride override : overrides) {
+		for (IBlockRedstoneWirelessOverride override : overrides) {
 			override.afterUpdateRedstoneWirelessTick(world, i, j, k, random);
 		}
 	}

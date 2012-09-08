@@ -4,10 +4,10 @@ import java.util.Random;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
-import wirelessredstone.block.BlockRedstoneWirelessOverride;
+import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 
 public class BlockRedstoneWirelessOverrideSMP implements
-		BlockRedstoneWirelessOverride {
+		IBlockRedstoneWirelessOverride {
 
 	@Override
 	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j,
