@@ -88,7 +88,7 @@ public class WRClientProxy extends WRCommonProxy {
 	public void addOverrides() {
 		overrides = new ArrayList();
 		
-		RedstoneEtherOverrideSSP etherOverride = new RedstoneEtherOverrideSSP();
+		RedstoneEtherOverrideSMP etherOverride = new RedstoneEtherOverrideSMP();
 		RedstoneEther.getInstance().addOverride(etherOverride);
 		
 		GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();

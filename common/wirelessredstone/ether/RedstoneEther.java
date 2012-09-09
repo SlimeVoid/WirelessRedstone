@@ -592,6 +592,8 @@ public class RedstoneEther {
 	 * @return false if the block is not loaded, true if it is.
 	 */
 	public synchronized boolean isLoaded(World world, int i, int j, int k) {
+		if ( world == null ) return false;
+		
 		LoggerRedstoneWireless.getInstance("RedstoneEther").write(
 				"isLoaded(world, " + i + ", " + j + ", " + k + "):["
 						+ (world.getBlockId(i, j, k) != 0) + "&"
