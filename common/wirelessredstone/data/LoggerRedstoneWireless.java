@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.ModLoader;
 
 /**
@@ -171,8 +172,7 @@ public class LoggerRedstoneWireless {
 
 		public LoggerRedstoneWirelessWriter() {
 			try {
-				file = new File(Minecraft.getMinecraftDir().getPath()
-						+ File.separator + "wirelessRedstone.log");
+				file = new File("./wirelessRedstone.log");
 				fstream = new FileWriter(file);
 				out = new PrintWriter(fstream);
 			} catch (IOException e) {

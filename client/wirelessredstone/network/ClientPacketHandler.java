@@ -44,12 +44,8 @@ import cpw.mods.fml.common.network.Player;
 
 public class ClientPacketHandler implements IPacketHandler {
 	
-	private static Map<Integer,IPacketHandler> clientHandlers;
-	
-	public ClientPacketHandler() {
-		clientHandlers = new HashMap<Integer,IPacketHandler>();
-	}
-	
+	private static Map<Integer,IPacketHandler> clientHandlers = new HashMap<Integer,IPacketHandler>();
+		
 	public static void reigsterPacketHandler(int packetID, IPacketHandler handler) {
 		clientHandlers.put(packetID, handler);
 	}

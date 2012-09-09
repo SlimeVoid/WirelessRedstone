@@ -37,7 +37,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 @Mod(modid = "WirelessRedstoneCore", name = "A&E Wireless Redstone", version = "1.6")
 @NetworkMod(
 		clientSideRequired = true,
-		serverSideRequired = false,
+		serverSideRequired = true,
 		clientPacketHandlerSpec =
 		@SidedPacketHandler(
 				channels = { "WR" },

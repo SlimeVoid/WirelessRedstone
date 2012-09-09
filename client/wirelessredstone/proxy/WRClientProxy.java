@@ -11,7 +11,9 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.api.IBaseModOverride;
+import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.overrides.BaseModOverrideSMP;
 import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
@@ -20,6 +22,7 @@ import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
+import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessR;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessT;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -35,6 +38,16 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
  */
 public class WRClientProxy extends WRCommonProxy {
 
+	/**
+	 * Wireless Receiver GUI
+	 */
+	public static GuiRedstoneWirelessInventory guiWirelessR;
+	/**
+	 * Wireless Transmitter GUI
+	 */
+	public static GuiRedstoneWirelessInventory guiWirelessT;
+	
+	
 	@Override
 	public void init() {
 		initGUIs();
@@ -44,8 +57,41 @@ public class WRClientProxy extends WRCommonProxy {
 	 * Initializes GUI objects.
 	 */
 	public static void initGUIs() {
-		WRCore.guiWirelessR = new GuiRedstoneWirelessR();
-		WRCore.guiWirelessT = new GuiRedstoneWirelessT();
+		guiWirelessR = new GuiRedstoneWirelessR();
+		guiWirelessT = new GuiRedstoneWirelessT();
+	}
+
+
+	/**
+	 * Adds a GUI override to the Receiver.
+	 * 
+	 * @param override
+	 *            GUI override
+	 */
+	public static void addGuiOverrideToReceiver(
+			IGuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ guiWirelessR.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		guiWirelessR.addOverride(override);
+	}
+
+	/**
+	 * Adds a GUI override to the Transmitter.
+	 * 
+	 * @param override
+	 *            GUI override
+	 */
+	public static void addGuiOverrideToTransmitter(
+			IGuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+				"Override added to "
+						+ guiWirelessT.getClass().toString()
+						+ ": " + override.getClass().toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG);
+		guiWirelessT.addOverride(override);
 	}
 	
 	@Override
@@ -92,8 +138,8 @@ public class WRClientProxy extends WRCommonProxy {
 		RedstoneEther.getInstance().addOverride(etherOverride);
 		
 		GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
-		WRCore.addGuiOverrideToReceiver(GUIOverride);
-		WRCore.addGuiOverrideToTransmitter(GUIOverride);
+		addGuiOverrideToReceiver(GUIOverride);
+		addGuiOverrideToTransmitter(GUIOverride);
 
 		//BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
 		//WRCore.addOverrideToReceiver(blockOverride);
@@ -125,14 +171,14 @@ public class WRClientProxy extends WRCommonProxy {
 	public void activateGUI(World world, EntityPlayer entityplayer,
 			TileEntity tileentity) {
 		if (tileentity instanceof TileEntityRedstoneWirelessR) {
-			WRCore.guiWirelessR
+			guiWirelessR
 					.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
-			ModLoader.openGUI(entityplayer, WRCore.guiWirelessR);
+			ModLoader.openGUI(entityplayer, guiWirelessR);
 		}
 		if (tileentity instanceof TileEntityRedstoneWirelessT) {
-			WRCore.guiWirelessT
+			guiWirelessT
 					.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
-			ModLoader.openGUI(entityplayer, WRCore.guiWirelessT);
+			ModLoader.openGUI(entityplayer, guiWirelessT);
 		}
 	}
 	

@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 
 /**
  * Configuration store.<br>
@@ -150,8 +151,7 @@ public class ConfigStoreRedstoneWireless {
 		conf = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
 		LoggerRedstoneWireless.getInstance(name).write("Loading Properties.",
 				LoggerRedstoneWireless.LogLevel.INFO);
-		File fullPath = new File(Minecraft.getMinecraftDir().getPath()
-				+ File.separator + file.getName());
+		File fullPath = new File("./"+file.getName());
 
 		try {
 			if (fullPath.canRead()) {

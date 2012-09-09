@@ -26,10 +26,6 @@ import wirelessredstone.network.handlers.ClientTilePacketHandler;
 import wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
-import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessR;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessT;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -61,14 +57,6 @@ public class WRCore {
 	 * Wireless Transmitter Block
 	 */
 	public static Block blockWirelessT;
-	/**
-	 * Wireless Receiver GUI
-	 */
-	public static GuiRedstoneWirelessInventory guiWirelessR;
-	/**
-	 * Wireless Transmitter GUI
-	 */
-	public static GuiRedstoneWirelessInventory guiWirelessT;
 
 	/**
 	 * Wireless Receiver Block ID
@@ -253,38 +241,6 @@ public class WRCore {
 				LoggerRedstoneWireless.LogLevel.DEBUG);
 		((BlockRedstoneWireless) WRCore.blockWirelessT)
 				.addOverride(override);
-	}
-
-	/**
-	 * Adds a GUI override to the Receiver.
-	 * 
-	 * @param override
-	 *            GUI override
-	 */
-	public static void addGuiOverrideToReceiver(
-			IGuiRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
-				"Override added to "
-						+ WRCore.guiWirelessR.getClass().toString()
-						+ ": " + override.getClass().toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
-		WRCore.guiWirelessR.addOverride(override);
-	}
-
-	/**
-	 * Adds a GUI override to the Transmitter.
-	 * 
-	 * @param override
-	 *            GUI override
-	 */
-	public static void addGuiOverrideToTransmitter(
-			IGuiRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
-				"Override added to "
-						+ WRCore.guiWirelessT.getClass().toString()
-						+ ": " + override.getClass().toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
-		WRCore.guiWirelessT.addOverride(override);
 	}
 
 	public static Entity getEntityByID(World world, EntityPlayer entityplayer,

@@ -33,12 +33,8 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class CommonPacketHandler implements IPacketHandler {
 
-	private static Map<Integer,IPacketHandler> commonHandlers;
-	
-	public CommonPacketHandler() {
-		commonHandlers = new HashMap<Integer,IPacketHandler>();
-	}
-	
+	private static Map<Integer,IPacketHandler> commonHandlers = new HashMap<Integer,IPacketHandler>();
+		
 	public static void reigsterPacketHandler(int packetID, IPacketHandler handler) {
 		commonHandlers.put(packetID, handler);
 	}
