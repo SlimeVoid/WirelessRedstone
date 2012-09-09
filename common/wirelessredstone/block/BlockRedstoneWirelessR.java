@@ -181,6 +181,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 			notifyNeighbors(world, i, j, k);
 			
 			if(!world.isRemote) {
+				System.out.println("RX:blockTileUpdate");
 				TileEntity entity = world.getBlockTileEntity(i, j, k);
 				if (entity instanceof TileEntityRedstoneWireless)
 					ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity, world);

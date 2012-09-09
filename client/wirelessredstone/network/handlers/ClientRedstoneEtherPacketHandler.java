@@ -8,6 +8,8 @@ import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import wirelessredstone.block.BlockRedstoneWireless;
+import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
@@ -56,7 +58,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 				tileentity instanceof TileEntityRedstoneWirelessT
 		) {
 			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
-		} else {
+/*		} else {
 			tileentity = new TileEntityRedstoneWirelessT();
 			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
 			world.setBlockTileEntity(
@@ -64,8 +66,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 					packet.yPosition, 
 					packet.zPosition, 
 					tileentity
-			);
-
+			);*/
 		}
 		RedstoneEther.getInstance().addTransmitter(
 				world,
@@ -82,7 +83,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 				tileentity instanceof TileEntityRedstoneWirelessR
 		) {
 			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
-		} else {
+/*		} else {
 			tileentity = new TileEntityRedstoneWirelessR();
 			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
 			world.setBlockTileEntity(
@@ -90,7 +91,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 					packet.yPosition, 
 					packet.zPosition, 
 					tileentity
-			);
+			);*/
 		}
 		RedstoneEther.getInstance().addReceiver(
 				world,
@@ -98,6 +99,13 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 				packet.yPosition, 
 				packet.zPosition,
 				packet.getFreq().toString()
+		);
+		((BlockRedstoneWireless)WRCore.blockWirelessR).setState(
+				world,
+				packet.xPosition,
+				packet.yPosition,
+				packet.zPosition,
+				packet.getState()
 		);
 	}
 

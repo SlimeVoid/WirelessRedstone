@@ -16,6 +16,7 @@ package net.minecraft.src;
 
 import wirelessredstone.core.WRCore;
 import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.RedstoneWirelessConnectionHandler;
 import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -39,6 +40,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = true,
+		connectionHandler = RedstoneWirelessConnectionHandler.class,
 		clientPacketHandlerSpec =
 		@SidedPacketHandler(
 				channels = { "WR" },

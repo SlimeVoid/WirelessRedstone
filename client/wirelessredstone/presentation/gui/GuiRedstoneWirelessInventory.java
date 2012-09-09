@@ -160,6 +160,9 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 					false
 			);
 
+			if (oldFreq != freq)
+				setFreq(Integer.toString(freq));
+
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"WirelessRedstone: " + this.getClass().toString())
