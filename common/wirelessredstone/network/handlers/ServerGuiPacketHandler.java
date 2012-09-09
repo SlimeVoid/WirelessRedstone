@@ -1,13 +1,12 @@
 package wirelessredstone.network.handlers;
 
+import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.NetworkManager;
+import net.minecraft.src.Packet250CustomPayload;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGui;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.NetworkManager;
-import net.minecraft.src.Packet250CustomPayload;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 

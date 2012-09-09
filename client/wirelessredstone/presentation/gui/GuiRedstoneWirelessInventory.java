@@ -14,12 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.presentation.gui;
 
+import net.minecraft.src.GuiButton;
 import wirelessredstone.api.IGuiRedstoneWirelessInventoryOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import net.minecraft.src.GuiButton;
 
 /**
  * Wireless Redstone GUI screen.

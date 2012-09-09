@@ -19,27 +19,9 @@ import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
-import wirelessredstone.core.WRCore;
-import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.presentation.gui.GuiRedstoneWireless;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
-import wirelessredstone.network.packets.PacketRedstoneEther;
-import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGui;
-import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.network.packets.core.PacketUpdate;
-import wirelessredstone.network.packets.PacketWirelessTile;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 

@@ -3,7 +3,6 @@ package wirelessredstone.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
@@ -12,13 +11,9 @@ import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.api.IBaseModOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
-import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.overrides.BaseModOverrideSMP;
-import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
 import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
-import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
@@ -27,6 +22,7 @@ import wirelessredstone.presentation.gui.GuiRedstoneWirelessT;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+import cpw.mods.fml.client.registry.ClientRegistry;
 /**
  * WRClientProxy class
  * 

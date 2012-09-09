@@ -19,11 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.minecraft.src.World;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessReadWriteLock;
-
-import net.minecraft.src.World;
 
 /**
  * Wireless Redstone Frequency node container.<br>

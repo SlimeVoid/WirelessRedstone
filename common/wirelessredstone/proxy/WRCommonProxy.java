@@ -5,14 +5,7 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.core.WRCore;
-import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
-import wirelessredstone.overrides.BaseModOverrideSMP;
-import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
-import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
-import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
-import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class WRCommonProxy implements ICommonProxy {

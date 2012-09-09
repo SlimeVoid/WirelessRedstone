@@ -11,7 +11,6 @@ import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGui;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.presentation.gui.GuiRedstoneWireless;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;

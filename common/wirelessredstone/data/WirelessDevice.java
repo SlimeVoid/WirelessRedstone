@@ -1,8 +1,8 @@
 package wirelessredstone.data;
 
-import wirelessredstone.api.IWirelessDevice;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
+import wirelessredstone.api.IWirelessDevice;
 
 public class WirelessDevice implements IWirelessDevice {
 

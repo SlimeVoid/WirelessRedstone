@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
 
 /**
  * Configuration store.<br>

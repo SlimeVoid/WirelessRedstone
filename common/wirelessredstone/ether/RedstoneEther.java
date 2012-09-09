@@ -22,10 +22,9 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import net.minecraft.src.World;
 import wirelessredstone.api.IRedstoneEtherOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
-
-import net.minecraft.src.World;
 
 /**
  * Wireless Redstone Ether.<br>

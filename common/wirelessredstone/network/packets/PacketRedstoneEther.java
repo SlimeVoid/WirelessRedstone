@@ -1,6 +1,5 @@
 package wirelessredstone.network.packets;
 
-import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.core.WRCore;

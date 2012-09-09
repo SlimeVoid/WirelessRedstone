@@ -1,15 +1,14 @@
 package wirelessredstone.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.registry.GameRegistry;
-
+import net.minecraft.src.Block;
+import net.minecraft.src.Entity;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
-import wirelessredstone.api.IBaseModOverride;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.block.BlockItemRedstoneWirelessR;
 import wirelessredstone.block.BlockItemRedstoneWirelessT;
 import wirelessredstone.block.BlockRedstoneWireless;
@@ -17,7 +16,6 @@ import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ClientGuiPacketHandler;
@@ -27,20 +25,11 @@ import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.handlers.ServerTilePacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
-
-import net.minecraft.src.Block;
-import net.minecraft.src.Entity;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.NetworkManager;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * WirelessRedstone class

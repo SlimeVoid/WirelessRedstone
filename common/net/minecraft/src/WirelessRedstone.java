@@ -14,12 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
-import java.util.List;
-
 import wirelessredstone.core.WRCore;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.ServerPacketHandler;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.PostInit;

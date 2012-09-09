@@ -17,12 +17,6 @@ package wirelessredstone.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import wirelessredstone.api.IRedstoneWirelessData;
-import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
-import wirelessredstone.block.BlockRedstoneWireless;
-import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.packets.PacketWirelessTile;
-
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.IInventory;
 import net.minecraft.src.ItemStack;
@@ -30,6 +24,11 @@ import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.NBTTagList;
 import net.minecraft.src.Packet;
 import net.minecraft.src.TileEntity;
+import wirelessredstone.api.IRedstoneWirelessData;
+import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
+import wirelessredstone.block.BlockRedstoneWireless;
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.packets.PacketWirelessTile;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		IInventory {

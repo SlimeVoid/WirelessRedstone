@@ -16,18 +16,16 @@ package wirelessredstone.block;
 
 import java.util.Random;
 
+import net.minecraft.src.Block;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.IBlockAccess;
+import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-
-import net.minecraft.src.Block;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
 
 /**
  * Wireless Receiver Block.

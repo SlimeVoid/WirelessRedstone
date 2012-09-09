@@ -18,10 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import wirelessredstone.api.IBlockRedstoneWirelessOverride;
-import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-
 import net.minecraft.src.BlockContainer;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
@@ -29,6 +25,9 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import wirelessredstone.api.IBlockRedstoneWirelessOverride;
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
  * Base Wireless Redstone Block.
