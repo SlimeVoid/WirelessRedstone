@@ -2,7 +2,9 @@ package wirelessredstone.network;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
@@ -30,17 +32,36 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class CommonPacketHandler implements IPacketHandler {
-	
-	public static void handlePacket(PacketUpdate packet, World world,
-			EntityPlayer player) {
-		if (packet instanceof PacketRedstoneEther) {
-			CommonPacketHandler.PacketHandlerInput.handleEther((PacketRedstoneEther) packet, world,
-					player);
-		}
-	}
 
+	private static Map<Integer,IPacketHandler> commonHandlers;
+	
+	public CommonPacketHandler() {
+		commonHandlers = new HashMap<Integer,IPacketHandler>();
+	}
+	
+	public static void reigsterPacketHandler(int packetID, IPacketHandler handler) {
+		commonHandlers.put(packetID, handler);
+	}
+	
+	@Override
+	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
+		try {
+			int packetID = data.read();
+			
+			if ( commonHandlers.containsKey(packetID) )
+				commonHandlers.get(packetID).onPacketData(manager, packet, player);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
 	public static class PacketHandlerOutput {
-		private static class PacketHandlerOutputSender implements Runnable {
+		private static class PacketHandlerOutputSender {
 			private int delay;
 			private EntityPlayer player;
 			private PacketUpdate packet;
@@ -57,21 +78,6 @@ public class CommonPacketHandler implements IPacketHandler {
 			}
 
 			public void send() {
-				Thread thr = new Thread(this);
-				thr.setName("WirelessRedstonePacketSender." + packet.toString());
-				thr.start();
-			}
-
-			@Override
-			public void run() {
-				if (delay > 0) {
-					try {
-						Thread.sleep(delay);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-
 				if (player == null) {
 					CommonPacketHandler.sendToAll(packet);
 				} else {
@@ -236,72 +242,6 @@ public class CommonPacketHandler implements IPacketHandler {
 		}
 	}
 
-	private static class PacketHandlerInput {
-		public static void handleEther(PacketRedstoneEther packet, World world,
-				EntityPlayer player) {
-			LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-					"handleEther:" + player.username + ":" + packet.toString(),
-					LoggerRedstoneWireless.LogLevel.DEBUG);
-
-			if (packet.getCommand().equals("changeFreq")) {
-				TileEntity entity = packet.getTarget(world);
-
-				if (entity instanceof TileEntityRedstoneWireless) {
-					int dFreq = Integer.parseInt(packet.getFreq());
-					int oldFreq = Integer
-							.parseInt(((TileEntityRedstoneWireless) entity)
-									.getFreq().toString());
-
-					((TileEntityRedstoneWireless) entity).setFreq(Integer
-							.toString(oldFreq + dFreq));
-					entity.onInventoryChanged();
-					world.markBlockNeedsUpdate(packet.xPosition,
-							packet.yPosition, packet.zPosition);
-					CommonPacketHandler.PacketHandlerOutput.sendEtherTileToAll(
-							(TileEntityRedstoneWireless) entity, world, 0);
-				}
-			}
-
-			else if (packet.getCommand().equals("addTransmitter")) {
-				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-						"handleEther:" + player.username + ":"
-								+ packet.toString(),
-						LoggerRedstoneWireless.LogLevel.INFO);
-
-				RedstoneEther.getInstance().addTransmitter(world,
-						packet.xPosition, packet.yPosition, packet.zPosition,
-						packet.getFreq());
-			}
-
-			else if (packet.getCommand().equals("setTransmitterState")) {
-				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-						"handleEther:" + player.username + ":"
-								+ packet.toString(),
-						LoggerRedstoneWireless.LogLevel.INFO);
-
-				RedstoneEther.getInstance().setTransmitterState(world,
-						packet.xPosition, packet.yPosition, packet.zPosition,
-						packet.getFreq(), packet.getState());
-			}
-
-			else if (packet.getCommand().equals("remTransmitter")) {
-				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-						"handleEther:" + player.username + ":"
-								+ packet.toString(),
-						LoggerRedstoneWireless.LogLevel.INFO);
-
-				RedstoneEther.getInstance().remTransmitter(world,
-						packet.xPosition, packet.yPosition, packet.zPosition,
-						packet.getFreq());
-			} else {
-				LoggerRedstoneWireless.getInstance("PacketHandlerInput").write(
-						"handleEther:" + player.username + ":"
-								+ packet.toString() + "UNKNOWN COMMAND",
-						LoggerRedstoneWireless.LogLevel.WARNING);
-			}
-		}
-	}
-
 	private static PacketRedstoneEther prepareRedstoneEtherPacket(
 			TileEntityRedstoneWireless entity, World world) {
 		PacketRedstoneEther out = new PacketRedstoneEther(entity, world);
@@ -346,27 +286,6 @@ public class CommonPacketHandler implements IPacketHandler {
 					entityplayermp.serverForThisPlayer.theNetworkManager
 							.addToSendQueue(packet);
 			}
-		}
-	}
-
-	@Override
-	public void onPacketData(NetworkManager manager,
-			Packet250CustomPayload packet, Player player) {
-		EntityPlayer entityplayer = (EntityPlayer)player;
-		World world = entityplayer.worldObj;
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				packet.data));
-		try {
-			int packetID = data.read();
-			switch (packetID) {
-			case PacketIds.ETHER:
-				PacketRedstoneEther pRE = new PacketRedstoneEther();
-				pRE.readData(data);
-				CommonPacketHandler.handlePacket(pRE, world, entityplayer);
-				break;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 }

@@ -18,6 +18,13 @@ import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.CommonPacketHandler;
+import wirelessredstone.network.handlers.ClientGuiPacketHandler;
+import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.ClientTilePacketHandler;
+import wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
+import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
@@ -131,6 +138,8 @@ public class WRCore {
 			
 			proxy.init();
 
+			initPacketHandlers();
+			
 			initBlocks();
 
 			proxy.addOverrides();
@@ -147,6 +156,14 @@ public class WRCore {
 
 	}
 
+	public static void initPacketHandlers() {
+		CommonPacketHandler.reigsterPacketHandler(PacketIds.ETHER, new RedstoneEtherPacketHandler());
+		
+		ClientPacketHandler.reigsterPacketHandler(PacketIds.ETHER, new ClientRedstoneEtherPacketHandler());
+		ClientPacketHandler.reigsterPacketHandler(PacketIds.GUI, new ClientGuiPacketHandler());
+		ClientPacketHandler.reigsterPacketHandler(PacketIds.TILE, new ClientTilePacketHandler());
+	}
+	
 	/**
 	 * Initializes Block objects.
 	 */

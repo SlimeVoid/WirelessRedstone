@@ -61,7 +61,7 @@ public class WirelessRedstone {
 	}
 	
 	@PreInit
-	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {	
+	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
 	}
 	
 	@PostInit
