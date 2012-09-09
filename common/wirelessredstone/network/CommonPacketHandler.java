@@ -77,11 +77,13 @@ public class CommonPacketHandler implements IPacketHandler {
 				if (player == null) {
 					CommonPacketHandler.sendToAll(packet);
 				} else {
+					/*
 					if (player instanceof EntityClientPlayerMP) {
+						System.out.println("AAAAAH!");
 						((EntityClientPlayerMP)player)
 							.sendQueue
 							.addToSendQueue(packet.getPacket());
-					} else if (player instanceof EntityPlayerMP) {
+					} else */if (player instanceof EntityPlayerMP) {
 						((EntityPlayerMP)player)
 							.serverForThisPlayer
 							.theNetworkManager

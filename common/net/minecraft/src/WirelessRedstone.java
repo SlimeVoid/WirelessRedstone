@@ -34,7 +34,11 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  * 
  * @author ali4z
  */
-@Mod(modid = "WirelessRedstoneCore", name = "A&E Wireless Redstone", version = "1.6")
+@Mod(
+		modid = "WirelessRedstoneCore", 
+		name = "A&E Wireless Redstone", 
+		version = "1.6"
+)
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = true,
@@ -48,7 +52,8 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 				channels = { "WR" },
 				packetHandler = CommonPacketHandler.class
 				),
-		versionBounds = "[1.3]")
+		versionBounds = "[1.6]"
+)
 public class WirelessRedstone {
 
 	/**
