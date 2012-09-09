@@ -18,7 +18,7 @@ import java.util.Random;
 
 import wirelessredstone.core.WRCore;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.network.CommonPacketHandler;
+import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
@@ -185,9 +185,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 			if(!world.isRemote) {
 				TileEntity entity = world.getBlockTileEntity(i, j, k);
 				if (entity instanceof TileEntityRedstoneWireless)
-					CommonPacketHandler.PacketHandlerOutput
-							.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
-									world, 0);
+					ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity, world);
 			}
 		}
 	}

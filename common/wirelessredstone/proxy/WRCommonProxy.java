@@ -1,12 +1,13 @@
 package wirelessredstone.proxy;
 
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.network.CommonPacketHandler;
+import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.overrides.BaseModOverrideSMP;
 import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
 import wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
@@ -59,7 +60,7 @@ public class WRCommonProxy implements ICommonProxy {
 			TileEntity tileentity) {
 		if (!world.isRemote) {
 			if (tileentity instanceof TileEntityRedstoneWireless) {
-				CommonPacketHandler.PacketHandlerOutput.sendGuiPacketTo(entityplayer, (TileEntityRedstoneWireless)tileentity);
+				ServerGuiPacketHandler.sendGuiPacketTo((EntityPlayerMP) entityplayer, (TileEntityRedstoneWireless)tileentity);
 			}
 		}
 	}

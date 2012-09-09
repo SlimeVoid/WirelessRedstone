@@ -18,7 +18,7 @@ import java.util.List;
 
 import wirelessredstone.core.WRCore;
 import wirelessredstone.network.ClientPacketHandler;
-import wirelessredstone.network.CommonPacketHandler;
+import wirelessredstone.network.ServerPacketHandler;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -50,7 +50,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 		serverPacketHandlerSpec =
 		@SidedPacketHandler(
 				channels = { "WR" },
-				packetHandler = CommonPacketHandler.class
+				packetHandler = ServerPacketHandler.class
 				),
 		versionBounds = "[1.6]"
 )

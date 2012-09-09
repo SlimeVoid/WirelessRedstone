@@ -19,11 +19,13 @@ import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
-import wirelessredstone.network.CommonPacketHandler;
+import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ClientGuiPacketHandler;
 import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.network.handlers.ClientTilePacketHandler;
-import wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.ServerGuiPacketHandler;
+import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.ServerTilePacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -145,7 +147,9 @@ public class WRCore {
 	}
 
 	public static void initPacketHandlers() {
-		CommonPacketHandler.reigsterPacketHandler(PacketIds.ETHER, new RedstoneEtherPacketHandler());
+		ServerPacketHandler.reigsterPacketHandler(PacketIds.ETHER, new ServerRedstoneEtherPacketHandler());
+		ServerPacketHandler.reigsterPacketHandler(PacketIds.GUI, new ServerGuiPacketHandler());
+		ServerPacketHandler.reigsterPacketHandler(PacketIds.TILE, new ServerTilePacketHandler());
 		
 		ClientPacketHandler.reigsterPacketHandler(PacketIds.ETHER, new ClientRedstoneEtherPacketHandler());
 		ClientPacketHandler.reigsterPacketHandler(PacketIds.GUI, new ClientGuiPacketHandler());
