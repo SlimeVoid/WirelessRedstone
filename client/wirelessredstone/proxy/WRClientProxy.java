@@ -17,7 +17,6 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.overrides.BaseModOverrideSMP;
 import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
-import wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
@@ -137,9 +136,9 @@ public class WRClientProxy extends WRCommonProxy {
 		RedstoneEtherOverrideSMP etherOverride = new RedstoneEtherOverrideSMP();
 		RedstoneEther.getInstance().addOverride(etherOverride);
 		
-		GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
-		addGuiOverrideToReceiver(GUIOverride);
-		addGuiOverrideToTransmitter(GUIOverride);
+		//GuiRedstoneWirelessInventoryOverrideSMP GUIOverride = new GuiRedstoneWirelessInventoryOverrideSMP();
+		//addGuiOverrideToReceiver(GUIOverride);
+		//addGuiOverrideToTransmitter(GUIOverride);
 
 		//BlockRedstoneWirelessOverrideSMP blockOverride = new BlockRedstoneWirelessOverrideSMP();
 		//WRCore.addOverrideToReceiver(blockOverride);

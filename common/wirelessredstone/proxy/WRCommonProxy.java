@@ -10,7 +10,6 @@ import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.overrides.BaseModOverrideSMP;
 import wirelessredstone.overrides.BlockRedstoneWirelessOverrideSMP;
-import wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverrideSMP;
 import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.overrides.RedstoneEtherOverrideSSP;
 import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;

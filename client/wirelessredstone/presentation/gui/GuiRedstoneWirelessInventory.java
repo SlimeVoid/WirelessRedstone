@@ -17,6 +17,7 @@ package wirelessredstone.presentation.gui;
 import wirelessredstone.api.IGuiRedstoneWirelessInventoryOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.src.GuiButton;
 
@@ -147,12 +148,17 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 						.beforeFrequencyChange(inventory, oldFreq, freq))
 					prematureExit = true;
 			}
-
-//			if (oldFreq != freq)
-//				setFreq(Integer.toString(freq));
-
 			if (prematureExit)
 				return;
+			
+			ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(
+					"changeFreq",
+					inventory.getBlockCoord(0), 
+					inventory.getBlockCoord(1),
+					inventory.getBlockCoord(2), 
+					(freq - oldFreq), 
+					false
+			);
 
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(

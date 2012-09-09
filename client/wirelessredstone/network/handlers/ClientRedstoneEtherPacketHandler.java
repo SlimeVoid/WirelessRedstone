@@ -5,11 +5,13 @@ import java.io.DataInputStream;
 
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
@@ -98,5 +100,17 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 				packet.zPosition,
 				packet.getFreq().toString()
 		);
+	}
+
+	public static void sendRedstoneEtherPacket(String command, int i, int j, int k, Object freq, boolean state) {
+		PacketRedstoneEther packet = new PacketRedstoneEther(command);
+		packet.setPosition(i, j, k, 0);
+		packet.setFreq(freq);
+		packet.setState(state);
+		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
+				"sendRedstoneEtherPacket:" + packet.toString(),
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		ClientPacketHandler.sendPacket((Packet250CustomPayload) packet.getPacket());
 	}
 }

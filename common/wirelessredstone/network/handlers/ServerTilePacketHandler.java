@@ -1,0 +1,21 @@
+package wirelessredstone.network.handlers;
+
+import wirelessredstone.network.ServerPacketHandler;
+import wirelessredstone.network.packets.PacketWirelessTile;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import net.minecraft.src.NetworkManager;
+import net.minecraft.src.Packet250CustomPayload;
+import net.minecraft.src.World;
+import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.Player;
+
+public class ServerTilePacketHandler implements IPacketHandler {
+
+	@Override
+	public void onPacketData(NetworkManager manager,Packet250CustomPayload packet, Player player) {}
+
+	public static void sendWirelessTileToAll(TileEntityRedstoneWireless tileentity, World world) {
+		PacketWirelessTile packet = new PacketWirelessTile("fetchTile", tileentity);
+		ServerPacketHandler.broadcastPacket((Packet250CustomPayload)packet.getPacket());
+	}
+}
