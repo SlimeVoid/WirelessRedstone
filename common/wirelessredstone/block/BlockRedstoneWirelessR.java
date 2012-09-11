@@ -152,7 +152,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 
 	@Override
 	protected TileEntityRedstoneWireless getBlockRedstoneWirelessEntity() {
-		return new TileEntityRedstoneWirelessR();
+		return new TileEntityRedstoneWirelessR(this);
 	}
 
 	/**

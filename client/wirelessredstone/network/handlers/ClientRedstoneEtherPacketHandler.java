@@ -14,6 +14,7 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -46,9 +47,9 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 		
 		TileEntity tileentity = packet.getTarget(world);
 		
-		if (packet.getCommand().equals("addTransmitter")) {
+		if (packet.getCommand() == PacketRedstoneWirelessCommands.addTransmitter.getCommand()) {
 			handleAddTransmitter(packet,world,tileentity);
-		} else if (packet.getCommand().equals("addReceiver")) {
+		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.addReceiver.getCommand()) {
 			handleAddReceiver(packet,world,tileentity);
 		}
 	}
@@ -109,7 +110,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 		);
 	}
 
-	public static void sendRedstoneEtherPacket(String command, int i, int j, int k, Object freq, boolean state) {
+	public static void sendRedstoneEtherPacket(int command, int i, int j, int k, Object freq, boolean state) {
 		PacketRedstoneEther packet = new PacketRedstoneEther(command);
 		packet.setPosition(i, j, k, 0);
 		packet.setFreq(freq);

@@ -21,59 +21,33 @@ public class PacketRedstoneEther extends PacketWireless {
 		super(PacketIds.ETHER);
 	}
 
-	public PacketRedstoneEther(String command) {
-		super(PacketIds.ETHER, new PacketPayload(0, 0, 2, 1));
+	public PacketRedstoneEther(int command) {
+		super(PacketIds.ETHER, new PacketPayload(0, 0, 1, 1));
 		setCommand(command);
 	}
 
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world) {
-		super(PacketIds.ETHER, new PacketPayload(0, 0, 2, 1));
+		super(PacketIds.ETHER, new PacketPayload(0, 0, 1, 1));
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1),
 				entity.getBlockCoord(2), 0);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
+			setCommand(PacketRedstoneWirelessCommands.addReceiver.getCommand());
 			setState(((BlockRedstoneWireless) WRCore.blockWirelessR)
 					.getState(world, this.xPosition, this.yPosition,
 							this.zPosition));
-			setCommand("addReceiver");
 		} else if (entity instanceof TileEntityRedstoneWirelessT) {
+			setCommand(PacketRedstoneWirelessCommands.addTransmitter.getCommand());
 			setState(((BlockRedstoneWireless) WRCore.blockWirelessT)
 					.getState(world, this.xPosition, this.yPosition,
 							this.zPosition));
-			setCommand("addTransmitter");
 		}
 		setFreq(entity.getFreq());
 	}
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+		return PacketRedstoneWirelessCommands.commandToString(this.getCommand()) + "(" + xPosition + "," + yPosition + ","
 				+ zPosition + ")[" + this.getFreq() + "]:" + this.getState();
-	}
-
-	@Override
-	public String getCommand() {
-		return this.payload.getStringPayload(0);
-	}
-
-	@Override
-	public void setCommand(String command) {
-		this.payload.setStringPayload(0, command);
-		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write(
-				"setCommand(" + command + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
-	}
-
-	@Override
-	public String getFreq() {
-		return this.payload.getStringPayload(1);
-	}
-
-	@Override
-	public void setFreq(Object freq) {
-		this.payload.setStringPayload(1, freq.toString());
-		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write(
-				"setFreq(" + freq.toString() + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
 	@Override

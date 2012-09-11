@@ -1,5 +1,9 @@
 package wirelessredstone.network.packets;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.network.packets.core.PacketPayload;
@@ -12,6 +16,21 @@ import wirelessredstone.network.packets.core.PacketUpdate;
  * 
  */
 public abstract class PacketWireless extends PacketUpdate {
+	
+	private int command;
+
+	@Override
+	public void writeData(DataOutputStream data) throws IOException {
+		super.writeData(data);
+		data.writeInt(this.command);
+	}
+
+	@Override
+	public void readData(DataInputStream data) throws IOException {
+		super.readData(data);
+		this.command = data.readInt();
+	}
+	
 	/**
 	 * Constructor for Default Wireless Packets
 	 * 
@@ -51,8 +70,8 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * 
 	 * @return Returns getStringPayload(0) by default
 	 */
-	public String getCommand() {
-		return this.payload.getStringPayload(0);
+	public int getCommand() {
+		return this.command;
 	}
 
 	/**
@@ -61,8 +80,8 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * @param command
 	 *            The command to be added
 	 */
-	public void setCommand(String command) {
-		this.payload.setStringPayload(0, command);
+	public void setCommand(int command) {
+		this.command = command;
 	}
 
 	/**
@@ -72,7 +91,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * @return Returns getStringPayload(1) by default
 	 */
 	public String getFreq() {
-		return this.payload.getStringPayload(1);
+		return this.payload.getStringPayload(0);
 	}
 
 	/**
@@ -82,7 +101,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	 *            The command to be added
 	 */
 	public void setFreq(Object freq) {
-		this.payload.setStringPayload(1, freq.toString());
+		this.payload.setStringPayload(0, freq.toString());
 	}
 
 	/**

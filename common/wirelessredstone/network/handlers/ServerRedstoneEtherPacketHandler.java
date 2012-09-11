@@ -16,6 +16,7 @@ import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.ether.RedstoneEtherNode;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -47,13 +48,14 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 
-		if (packet.getCommand().equals("changeFreq")) {
+		System.out.println(PacketRedstoneWirelessCommands.commandToString(packet.getCommand()));
+		if (packet.getCommand() == PacketRedstoneWirelessCommands.changeFreq.getCommand()) {
 			handleChangeFreq(packet,world);
-		} else if (packet.getCommand().equals("addTransmitter")) {
+		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.addTransmitter.getCommand()) {
 			handleAddTransmitter(packet,world);
-		} else if (packet.getCommand().equals("setTransmitterState")) {
+		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.setTransmitterState.getCommand()) {
 			handleSetTransmitterState(packet,world);
-		} else if (packet.getCommand().equals("remTransmitter")) {
+		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.remTransmitter.getCommand()) {
 			handleRemTransmitter(packet,world);
 		} else {
 			LoggerRedstoneWireless.getInstance("RedstoneEtherPacketHandler").write(

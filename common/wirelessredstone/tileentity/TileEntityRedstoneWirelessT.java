@@ -15,11 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package wirelessredstone.tileentity;
 
 import wirelessredstone.block.BlockRedstoneWireless;
+import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.core.WRCore;
 
 public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
-	public TileEntityRedstoneWirelessT() {
-		super((BlockRedstoneWireless) WRCore.blockWirelessT);
+	public TileEntityRedstoneWirelessT(BlockRedstoneWirelessT block) {
+		super(block);
 	}
 
 	@Override

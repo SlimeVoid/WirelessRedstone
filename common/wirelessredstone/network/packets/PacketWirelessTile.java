@@ -15,13 +15,13 @@ public class PacketWirelessTile extends PacketWireless implements
 		super(PacketIds.TILE);
 	}
 
-	public PacketWirelessTile(String command, TileEntityRedstoneWireless entity) {
-		super(PacketIds.TILE, new PacketPayload(0, 0, 2, 13));
+	public PacketWirelessTile(int command, TileEntityRedstoneWireless entity) {
+		super(PacketIds.TILE, new PacketPayload(0, 0, 1, 13));
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1),
 				entity.getBlockCoord(2), 0);
 		LoggerRedstoneWireless.getInstance(
 				"WirelessRedstone: " + this.getClass().toString()).write(
-				"[fetchTile]" + this.xPosition + this.yPosition
+				PacketRedstoneWirelessCommands.commandToString(this.getCommand()) + this.xPosition + this.yPosition
 						+ this.zPosition, LogLevel.INFO);
 		this.setCommand(command);
 		this.setFreq(entity.getFreq());
@@ -33,7 +33,7 @@ public class PacketWirelessTile extends PacketWireless implements
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+		return PacketRedstoneWirelessCommands.commandToString(this.getCommand()) + "(" + xPosition + "," + yPosition + ","
 				+ zPosition + ")[" + this.getFreq() + "]";
 	}
 

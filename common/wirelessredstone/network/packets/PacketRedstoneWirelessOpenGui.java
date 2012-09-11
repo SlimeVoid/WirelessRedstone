@@ -22,7 +22,7 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 		this();
 		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1),
 				entity.getBlockCoord(2), 0);
-		this.payload = new PacketPayload(1, 0, 2, 1);
+		this.payload = new PacketPayload(1, 0, 1, 1);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
 			this.setType(0);
 		} else if (entity instanceof TileEntityRedstoneWirelessT) {
@@ -45,16 +45,6 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 
 	public void setType(int type) {
 		this.payload.setIntPayload(0, type);
-	}
-
-	@Override
-	public String getFreq() {
-		return this.payload.getStringPayload(0);
-	}
-
-	@Override
-	public void setFreq(Object freq) {
-		this.payload.setStringPayload(0, freq.toString());
 	}
 
 	public boolean getFirstTick() {

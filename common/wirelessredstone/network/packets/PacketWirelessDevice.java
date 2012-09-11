@@ -33,7 +33,7 @@ public class PacketWirelessDevice extends PacketWireless {
 	}
 
 	public void setName(String name) {
-		this.payload.setStringPayload(0, name);
+		this.payload.setStringPayload(1, name);
 	}
 
 	public int getID() {
@@ -41,7 +41,7 @@ public class PacketWirelessDevice extends PacketWireless {
 	}
 
 	public String getName() {
-		return this.payload.getStringPayload(0);
+		return this.payload.getStringPayload(1);
 	}
 
 	@Override

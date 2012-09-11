@@ -28,6 +28,7 @@ import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.PacketWirelessTile;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
@@ -337,7 +338,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	}
 
 	private Packet getUpdatePacket() {
-		return new PacketWirelessTile("fetchTile", this).getPacket();
+		return new PacketWirelessTile(	PacketRedstoneWirelessCommands
+											.fetchTile
+											.getCommand(),
+										this).getPacket();
 	}
 
 	public void handleData(IRedstoneWirelessData data) {
