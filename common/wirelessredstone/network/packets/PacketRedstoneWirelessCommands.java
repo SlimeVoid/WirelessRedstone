@@ -32,7 +32,7 @@ public enum PacketRedstoneWirelessCommands {
 				return value.toString();
 			}
 		}
-		return "No Command Exists";
+		return "No Command Exists with value " + command;
 	}
 	
 	public static void registerCommands() {
