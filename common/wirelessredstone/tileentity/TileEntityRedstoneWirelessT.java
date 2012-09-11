@@ -19,8 +19,8 @@ import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.core.WRCore;
 
 public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
-	public TileEntityRedstoneWirelessT(BlockRedstoneWirelessT block) {
-		super(block);
+	public TileEntityRedstoneWirelessT() {
+		super((BlockRedstoneWireless)WRCore.blockWirelessT);
 	}
 
 	@Override

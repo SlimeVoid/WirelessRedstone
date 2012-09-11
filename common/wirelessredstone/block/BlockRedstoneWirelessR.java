@@ -34,7 +34,6 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
  */
 public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	private boolean initialSchedule;
-	private static BlockRedstoneWirelessR instance;
 
 	/**
 	 * Constructor.<br>
@@ -152,7 +151,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 
 	@Override
 	protected TileEntityRedstoneWireless getBlockRedstoneWirelessEntity() {
-		return new TileEntityRedstoneWirelessR(this);
+		return new TileEntityRedstoneWirelessR();
 	}
 
 	/**

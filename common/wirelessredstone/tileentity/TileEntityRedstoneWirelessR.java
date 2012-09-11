@@ -19,8 +19,8 @@ import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.core.WRCore;
 
 public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
-	public TileEntityRedstoneWirelessR(BlockRedstoneWirelessR block) {
-		super(block);
+	public TileEntityRedstoneWirelessR() {
+		super((BlockRedstoneWireless)WRCore.blockWirelessR);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
 	@Override
 	protected void onUpdateEntity() {
 		if (!((BlockRedstoneWirelessR) blockRedstoneWireless).hasTicked()) {
-			WRCore.blockWirelessR.updateTick(worldObj,
+			((BlockRedstoneWirelessR)blockRedstoneWireless).updateTick(worldObj,
 					getBlockCoord(0), getBlockCoord(1), getBlockCoord(2), null);
 		}
 	}
