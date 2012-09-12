@@ -1,3 +1,14 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
+ */
 package wirelessredstone.core;
 
 import net.minecraft.src.Block;
@@ -37,7 +48,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  * To allow abstraction from the BaseMod code
  * 
- * @author Eurymachus & Aliz4
+ * @author Eurymachus & Ali4z
  * 
  */
 public class WRCore {
@@ -99,55 +110,73 @@ public class WRCore {
 	 * Wireless Redstone load state
 	 */
 	public static boolean isLoaded = false;
-	
+
 	@SidedProxy(
-			clientSide="wirelessredstone.proxy.WRClientProxy",
-			serverSide="wirelessredstone.proxy.WRCommonProxy")
+			clientSide = "wirelessredstone.proxy.WRClientProxy",
+			serverSide = "wirelessredstone.proxy.WRCommonProxy")
 	public static ICommonProxy proxy;
 
 	/**
+	 * Fires off all the canons.<br>
 	 * Loads configurations and initializes objects. Loads ModLoader related
-	 * stuff.<br>
-	 * - Load Block textures<br>
-	 * - Register Blocks and Tile Entities<br>
-	 * - Recipes
+	 * stuff.
 	 */
 	public static boolean initialize() {
 
-			loadConfig();
-			
-			proxy.init();
-			
-			PacketRedstoneWirelessCommands.registerCommands();
+		loadConfig();
 
-			initPacketHandlers();
-			
-			initBlocks();
+		proxy.init();
 
-			proxy.addOverrides();
+		PacketRedstoneWirelessCommands.registerCommands();
 
-			registerBlocks();
-			
-			proxy.registerRenderInformation();
-			
-			proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
-			
-			addRecipes();
+		initPacketHandlers();
 
-			return true;
+		initBlocks();
+
+		proxy.addOverrides();
+
+		registerBlocks();
+
+		proxy.registerRenderInformation();
+
+		proxy
+				.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
+
+		addRecipes();
+
+		return true;
 
 	}
 
+	/**
+	 * Initializes packet handlers.<br>
+	 * - Ether<br>
+	 * - Gui<br>
+	 * - Tile<br>
+	 * For Server and Client.
+	 */
 	public static void initPacketHandlers() {
-		ServerPacketHandler.registerPacketHandler(PacketIds.ETHER, new ServerRedstoneEtherPacketHandler());
-		ServerPacketHandler.registerPacketHandler(PacketIds.GUI, new ServerGuiPacketHandler());
-		ServerPacketHandler.registerPacketHandler(PacketIds.TILE, new ServerTilePacketHandler());
-		
-		ClientPacketHandler.registerPacketHandler(PacketIds.ETHER, new ClientRedstoneEtherPacketHandler());
-		ClientPacketHandler.registerPacketHandler(PacketIds.GUI, new ClientGuiPacketHandler());
-		ClientPacketHandler.registerPacketHandler(PacketIds.TILE, new ClientTilePacketHandler());
+		ServerPacketHandler.registerPacketHandler(
+				PacketIds.ETHER,
+					new ServerRedstoneEtherPacketHandler());
+		ServerPacketHandler.registerPacketHandler(
+				PacketIds.GUI,
+					new ServerGuiPacketHandler());
+		ServerPacketHandler.registerPacketHandler(
+				PacketIds.TILE,
+					new ServerTilePacketHandler());
+
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.ETHER,
+					new ClientRedstoneEtherPacketHandler());
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.GUI,
+					new ClientGuiPacketHandler());
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.TILE,
+					new ClientTilePacketHandler());
 	}
-	
+
 	/**
 	 * Initializes Block objects.
 	 */
@@ -159,35 +188,53 @@ public class WRCore {
 	}
 
 	/**
-	 * Registers the Blocks and TileEntities with ModLoader
+	 * Registers the Blocks, block names and TileEntities
 	 */
 	public static void registerBlocks() {
-		GameRegistry.registerBlock(blockWirelessR,
-				BlockItemRedstoneWirelessR.class);
+		GameRegistry.registerBlock(
+				blockWirelessR,
+					BlockItemRedstoneWirelessR.class);
 		ModLoader.addName(blockWirelessR, "Wireless Receiver");
 		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfänger");
-		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessR.class,
-				"Wireless Receiver");
+		GameRegistry.registerTileEntity(
+				TileEntityRedstoneWirelessR.class,
+					"Wireless Receiver");
 
-		ModLoader.registerBlock(blockWirelessT,
-				BlockItemRedstoneWirelessT.class);
+		ModLoader.registerBlock(
+				blockWirelessT,
+					BlockItemRedstoneWirelessT.class);
 		ModLoader.addName(blockWirelessT, "Wireless Transmitter");
 		ModLoader.addName(blockWirelessT, "de_DE", "Drahtloser Sender");
-		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessT.class,
-				"Wireless Transmitter");
+		GameRegistry.registerTileEntity(
+				TileEntityRedstoneWirelessT.class,
+					"Wireless Transmitter");
 	}
 
 	/**
-	 * Registers receipts with ModLoader
+	 * Registers receipts with ModLoader<br>
+	 * - Receipt for Receiver.<br>
+	 * - Receipt for Transmitter.
 	 */
 	public static void addRecipes() {
 		GameRegistry.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
-				"IRI", "RLR", "IRI", Character.valueOf('I'), Item.ingotIron,
-				Character.valueOf('R'), Item.redstone, Character.valueOf('L'),
+				"IRI",
+				"RLR",
+				"IRI",
+				Character.valueOf('I'),
+				Item.ingotIron,
+				Character.valueOf('R'),
+				Item.redstone,
+				Character.valueOf('L'),
 				Block.lever });
 		GameRegistry.addRecipe(new ItemStack(blockWirelessT, 1), new Object[] {
-				"IRI", "RTR", "IRI", Character.valueOf('I'), Item.ingotIron,
-				Character.valueOf('R'), Item.redstone, Character.valueOf('T'),
+				"IRI",
+				"RTR",
+				"IRI",
+				Character.valueOf('I'),
+				Item.ingotIron,
+				Character.valueOf('R'),
+				Item.redstone,
+				Character.valueOf('T'),
 				Block.torchRedstoneActive });
 	}
 
@@ -198,49 +245,62 @@ public class WRCore {
 	 */
 	private static void loadConfig() {
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"WirelessRedstone").get("Receiver.ID", Integer.class,
-				new Integer(rxID));
+				"WirelessRedstone").get(
+				"Receiver.ID",
+					Integer.class,
+					new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"WirelessRedstone").get("Transmitter.ID", Integer.class,
-				new Integer(txID));
+				"WirelessRedstone").get(
+				"Transmitter.ID",
+					Integer.class,
+					new Integer(txID));
 	}
 
 	/**
 	 * Adds a Block override to the Receiver.
 	 * 
-	 * @param override
-	 *            Block override
+	 * @param override Block override
 	 */
-	public static void addOverrideToReceiver(
-			IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
-				"Override added to "
-						+ WRCore.blockWirelessR.getClass().toString()
-						+ ": " + override.getClass().toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
-		((BlockRedstoneWireless) WRCore.blockWirelessR)
-				.addOverride(override);
+	public static void addOverrideToReceiver(IBlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless
+				.getInstance("Wireless Redstone")
+					.write(
+							"Override added to " + WRCore.blockWirelessR
+									.getClass()
+										.toString() + ": " + override
+									.getClass()
+										.toString(),
+								LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless) WRCore.blockWirelessR).addOverride(override);
 	}
 
 	/**
 	 * Adds a Block override to the Transmitter.
 	 * 
-	 * @param override
-	 *            Block override
+	 * @param override Block override
 	 */
-	public static void addOverrideToTransmitter(
-			IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
-				"Override added to "
-						+ WRCore.blockWirelessT.getClass().toString()
-						+ ": " + override.getClass().toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
-		((BlockRedstoneWireless) WRCore.blockWirelessT)
-				.addOverride(override);
+	public static void addOverrideToTransmitter(IBlockRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless
+				.getInstance("Wireless Redstone")
+					.write(
+							"Override added to " + WRCore.blockWirelessT
+									.getClass()
+										.toString() + ": " + override
+									.getClass()
+										.toString(),
+								LoggerRedstoneWireless.LogLevel.DEBUG);
+		((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
 	}
 
-	public static Entity getEntityByID(World world, EntityPlayer entityplayer,
-			int entityId) {
+	/**
+	 * Fetches an entity by ID.
+	 * 
+	 * @param world The world object 
+	 * @param entityplayer The payer
+	 * @param entityId Entity ID
+	 * @return The Entity.
+	 */
+	public static Entity getEntityByID(World world, EntityPlayer entityplayer, int entityId) {
 		if (entityId == entityplayer.entityId) {
 			return entityplayer;
 		} else {
