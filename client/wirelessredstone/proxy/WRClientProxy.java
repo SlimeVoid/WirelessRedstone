@@ -41,7 +41,9 @@ public class WRClientProxy extends WRCommonProxy {
 	 * Wireless Transmitter GUI
 	 */
 	public static GuiRedstoneWirelessInventory guiWirelessT;
-	
+
+
+	private static List<IBaseModOverride> overrides;
 	
 	@Override
 	public void init() {
@@ -149,8 +151,6 @@ public class WRClientProxy extends WRCommonProxy {
 		//BaseModOverrideSMP baseModOverride = new BaseModOverrideSMP();
 		//this.addOverride(baseModOverride);
 	}
-
-	private static List<IBaseModOverride> overrides;
 
 	/**
 	 * Adds a Base override to the The Mod.

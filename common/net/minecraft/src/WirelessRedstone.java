@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package net.minecraft.src;
 
@@ -27,47 +24,63 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
+
 /**
  * Wireless Redstone ModLoader initializing class.
  * 
  * @author ali4z
  */
 @Mod(
-		modid = "WirelessRedstoneCore", 
-		name = "A&E Wireless Redstone", 
-		version = "1.6"
-)
+		modid = "WirelessRedstoneCore",
+		name = "A&E Wireless Redstone",
+		version = "1.6")
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = true,
 		connectionHandler = RedstoneWirelessConnectionHandler.class,
-		clientPacketHandlerSpec =
-		@SidedPacketHandler(
+		clientPacketHandlerSpec = @SidedPacketHandler(
 				channels = { "WR" },
-				packetHandler = ClientPacketHandler.class
-				),
-		serverPacketHandlerSpec =
-		@SidedPacketHandler(
+				packetHandler = ClientPacketHandler.class),
+		serverPacketHandlerSpec = @SidedPacketHandler(
 				channels = { "WR" },
-				packetHandler = ServerPacketHandler.class
-				),
-		versionBounds = "[1.6]"
-)
+				packetHandler = ServerPacketHandler.class),
+		versionBounds = "[1.6]")
+/**
+ * FML fascade class.¨
+ * This class uses FML annotations and sorts initialization.
+ * 
+ * ConnectionHandler: RedstoneWirelessConnectionHandler
+ * ClientPacketHandler: ClientPacketHandler
+ * ServerPacketHandler: ServerPacketHandler
+ * 
+ * @author Eurymachus, ali4z
+ */
 public class WirelessRedstone {
 
 	/**
-	 * Constructor sets the instance.
-	 * @return 
+	 * Initialization
+	 * 
+	 * @param event
 	 */
 	@Init
 	public void WirelessRedstoneInit(FMLInitializationEvent event) {
 		WRCore.initialize();
 	}
-	
+
+	/**
+	 * Pre-initialization
+	 * 
+	 * @param event
+	 */
 	@PreInit
 	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
 	}
-	
+
+	/**
+	 * Post-initialization
+	 * 
+	 * @param event
+	 */
 	@PostInit
 	public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
 	}
