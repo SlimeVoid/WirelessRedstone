@@ -20,7 +20,7 @@ public enum PacketRedstoneWirelessCommands {
 	}
 
 	public String toString() {
-		if (this != null && !this.name.isEmpty()) {
+		if (this != null && this.name != null && !this.name.isEmpty()) {
 			return this.name;
 		}
 		return "Command not initialzed";

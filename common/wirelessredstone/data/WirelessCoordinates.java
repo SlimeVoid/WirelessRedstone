@@ -14,7 +14,7 @@ package wirelessredstone.data;
 /**
  * A set of coordinates.
  * 
- * @author ali4z
+ * @author Eurymachus
  * 
  */
 public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
