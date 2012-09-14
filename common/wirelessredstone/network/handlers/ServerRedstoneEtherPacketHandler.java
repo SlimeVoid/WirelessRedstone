@@ -13,7 +13,9 @@ package wirelessredstone.network.handlers;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
@@ -26,6 +28,7 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.ether.RedstoneEtherNode;
 import wirelessredstone.network.ServerPacketHandler;
+import wirelessredstone.network.packets.executor.IEtherPacketExecutor;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -40,7 +43,17 @@ import cpw.mods.fml.common.network.Player;
  * @author ali4z
  */
 public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
-
+	private static Map<Integer, IEtherPacketExecutor> executors = new HashMap<Integer, IEtherPacketExecutor>();
+	/**
+	 * Register an executor with the server-side packet sub-handler.
+	 * 
+	 * @param commandID Command ID for the executor to handle.
+	 * @param executor The executor
+	 */
+	public static void registerPacketHandler(int commandID, IEtherPacketExecutor executor) {
+		executors.put(commandID, executor);
+	}
+	
 	/**
 	 * Receive a packet from the handler.<br>
 	 * Assembles the packet into an ether packet and routes to handlePacket().
@@ -76,32 +89,12 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 					.write(
 							"handlePacket:" + ((EntityPlayer) player).username + ":" + packet.toString(),
 							LoggerRedstoneWireless.LogLevel.DEBUG);
-
-		// Change frequency command was given.
-		// Route to handleChangeFreq()
-		if (packet.getCommand() == PacketRedstoneWirelessCommands.changeFreq
-				.getCommand()) {
-			handleChangeFreq(packet, world);
-
-			// Add transmitter command was given.
-			// Route to handleAddTransmitter()
-		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.addTransmitter
-				.getCommand()) {
-			handleAddTransmitter(packet, world);
-
-			// Set transmitter state command was given.
-			// Route to handleSetTransmitterState()
-		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.setTransmitterState
-				.getCommand()) {
-			handleSetTransmitterState(packet, world);
-
-			// Remove transmitter command was given.
-			// Route to handleRemTransmitter()
-		} else if (packet.getCommand() == PacketRedstoneWirelessCommands.remTransmitter
-				.getCommand()) {
-			handleRemTransmitter(packet, world);
-
-			// Command unknown. Log a warning.
+		// Fetch the command.
+		int command = packet.getCommand();
+		
+		// Execute the command.
+		if ( executors.containsKey(command)) {
+			executors.get(command).execute(packet, world);
 		} else {
 			LoggerRedstoneWireless
 					.getInstance("RedstoneEtherPacketHandler")
@@ -110,93 +103,6 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 								LoggerRedstoneWireless.LogLevel.WARNING);
 		}
 	}
-
-	/**
-	 * Handle a change frequency command.<br>
-	 * Changes the frequency for a node, updates said node then broadcasts the
-	 * change to all clients.
-	 * 
-	 * @param packet The packet.
-	 * @param world The world object
-	 */
-	private void handleChangeFreq(PacketRedstoneEther packet, World world) {
-		// Fetch the tile from the packet
-		TileEntity entity = packet.getTarget(world);
-
-		if (entity instanceof TileEntityRedstoneWireless) {
-			// Assemble frequencies.
-			int dFreq = Integer.parseInt(packet.getFreq());
-			int oldFreq = Integer
-					.parseInt(((TileEntityRedstoneWireless) entity)
-							.getFreq()
-								.toString());
-
-			// Set the frequency to the tile
-			((TileEntityRedstoneWireless) entity).setFreq(Integer
-					.toString(oldFreq + dFreq));
-			entity.onInventoryChanged();
-			
-			// Makr the block for update with the world.
-			world.markBlockNeedsUpdate(
-					packet.xPosition,
-					packet.yPosition,
-					packet.zPosition);
-
-			// Broadcast change to all clients.
-			sendEtherTileToAll((TileEntityRedstoneWireless) entity, world);
-		}
-	}
-
-	/**
-	 * Handle a add transmitter command.<br>
-	 * Adds the transmitter to the ether.
-	 * 
-	 * @param packet The packet.
-	 * @param world The world object
-	 */
-	private void handleAddTransmitter(PacketRedstoneEther packet, World world) {
-		RedstoneEther.getInstance().addTransmitter(
-				world,
-				packet.xPosition,
-				packet.yPosition,
-				packet.zPosition,
-				packet.getFreq());
-	}
-
-	/**
-	 * Handle a set transmitter state command.<br>
-	 * Sets the transmitter's state on the ether.
-	 * 
-	 * @param packet The packet.
-	 * @param world The world object
-	 */
-	private void handleSetTransmitterState(PacketRedstoneEther packet, World world) {
-		RedstoneEther.getInstance().setTransmitterState(
-				world,
-				packet.xPosition,
-				packet.yPosition,
-				packet.zPosition,
-				packet.getFreq(),
-				packet.getState());
-	}
-
-	/**
-	 * Handle a remove transmitter command.<br>
-	 * Removes the transmitter from the ether.
-	 * 
-	 * @param packet The packet.
-	 * @param world The world object
-	 */
-	private void handleRemTransmitter(PacketRedstoneEther packet, World world) {
-		RedstoneEther.getInstance().remTransmitter(
-				world,
-				packet.xPosition,
-				packet.yPosition,
-				packet.zPosition,
-				packet.getFreq());
-	}
-
-	
 	
 	
 	/**

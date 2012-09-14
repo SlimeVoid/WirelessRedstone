@@ -1,0 +1,60 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
+ */
+package wirelessredstone.network.packets.executor;
+
+import net.minecraft.src.TileEntity;
+import net.minecraft.src.World;
+import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
+import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+
+/**
+ * Execute a change frequency command.<br>
+ * <br>
+ * Changes the frequency for a node, updates said node then broadcasts the
+ * change to all clients.
+ * 
+ * @author ali4z
+ */
+public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
+
+	@Override
+	public void execute(PacketRedstoneEther packet, World world) {
+		// Fetch the tile from the packet
+		TileEntity entity = packet.getTarget(world);
+
+		if (entity instanceof TileEntityRedstoneWireless) {
+			// Assemble frequencies.
+			int dFreq = Integer.parseInt(packet.getFreq());
+			int oldFreq = Integer
+					.parseInt(((TileEntityRedstoneWireless) entity)
+							.getFreq()
+								.toString());
+
+			// Set the frequency to the tile
+			((TileEntityRedstoneWireless) entity).setFreq(Integer
+					.toString(oldFreq + dFreq));
+			entity.onInventoryChanged();
+
+			// Makr the block for update with the world.
+			world.markBlockNeedsUpdate(
+					packet.xPosition,
+					packet.yPosition,
+					packet.zPosition);
+
+			// Broadcast change to all clients.
+			ServerRedstoneEtherPacketHandler.sendEtherTileToAll(
+					(TileEntityRedstoneWireless) entity,
+					world);
+		}
+	}
+}
