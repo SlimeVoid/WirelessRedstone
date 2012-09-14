@@ -81,25 +81,25 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 	 * 
 	 * @param packet The received packet
 	 * @param world The world object
-	 * @param player The sending player.
+	 * @param entityplayer The sending player.
 	 */
-	private void handlePacket(PacketRedstoneEther packet, World world, EntityPlayer player) {
+	private void handlePacket(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
 		LoggerRedstoneWireless
 				.getInstance("RedstoneEtherPacketHandler")
 					.write(
-							"handlePacket:" + ((EntityPlayer) player).username + ":" + packet.toString(),
+							"handlePacket:" + ((EntityPlayer) entityplayer).username + ":" + packet.toString(),
 							LoggerRedstoneWireless.LogLevel.DEBUG);
 		// Fetch the command.
 		int command = packet.getCommand();
 		
 		// Execute the command.
 		if ( executors.containsKey(command)) {
-			executors.get(command).execute(packet, world);
+			executors.get(command).execute(packet, world, entityplayer);
 		} else {
 			LoggerRedstoneWireless
 					.getInstance("RedstoneEtherPacketHandler")
 						.write(
-								"handlePacket:" + ((EntityPlayer) player).username + ":" + packet.toString() + "UNKNOWN COMMAND",
+								"handlePacket:" + ((EntityPlayer) entityplayer).username + ":" + packet.toString() + "UNKNOWN COMMAND",
 								LoggerRedstoneWireless.LogLevel.WARNING);
 		}
 	}

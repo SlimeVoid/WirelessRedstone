@@ -6,6 +6,11 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.NetClientHandler;
+import net.minecraft.src.NetHandler;
+import net.minecraft.src.NetworkManager;
+import net.minecraft.src.Packet1Login;
+import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -13,6 +18,9 @@ import wirelessredstone.api.IBaseModOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
@@ -195,5 +203,25 @@ public class WRClientProxy extends WRCommonProxy {
 	@Override
 	public EntityPlayer getPlayer() {
 		return ModLoader.getMinecraftInstance().thePlayer;
+	}
+	
+	/**
+	 * Retrieves the world object with NetHandler parameters.
+	 * 
+	 * @return Minecraft world object.
+	 */
+	public World getWorld(NetHandler handler) {
+		if (handler instanceof NetClientHandler) {
+			return ((NetClientHandler)handler).getPlayer().worldObj;
+		}
+		return null;
+	}
+
+	@Override
+	public void login(NetHandler handler, NetworkManager manager, Packet1Login login) {
+		World world = getWorld(handler);
+		if (world != null) {
+			ClientPacketHandler.sendPacket((Packet250CustomPayload)((new PacketRedstoneEther(PacketRedstoneWirelessCommands.fetchEther.getCommand())).getPacket()));
+		}
 	}
 }

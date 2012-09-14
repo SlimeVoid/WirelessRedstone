@@ -37,6 +37,7 @@ import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.executor.ClientEtherPacketRXAddExecutor;
 import wirelessredstone.network.packets.executor.ClientEtherPacketTXAddExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketChangeFreqExecutor;
+import wirelessredstone.network.packets.executor.EtherPacketFetchEtherExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketRXAddExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketRXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXAddExecutor;
@@ -189,6 +190,9 @@ public class WRCore {
 		ServerRedstoneEtherPacketHandler.registerPacketHandler(
 				PacketRedstoneWirelessCommands.remReceiver.getCommand(),
 				new EtherPacketRXRemExecutor());
+		ServerRedstoneEtherPacketHandler.registerPacketHandler(
+				PacketRedstoneWirelessCommands.fetchEther.getCommand(),
+				new EtherPacketFetchEtherExecutor());
 		// GUI Packets
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.GUI,

@@ -63,7 +63,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 		
 		// Execute the command.
 		if ( executors.containsKey(command)) {
-			executors.get(command).execute(packet, world);
+			executors.get(command).execute(packet, world, entityplayer);
 		} else {
 			LoggerRedstoneWireless
 					.getInstance("ClientRedstoneEtherPacketHandler")

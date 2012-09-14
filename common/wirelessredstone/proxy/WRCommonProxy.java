@@ -2,6 +2,9 @@ package wirelessredstone.proxy;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.NetHandler;
+import net.minecraft.src.NetworkManager;
+import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
@@ -73,5 +76,16 @@ public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public void init() {
+	}
+
+	@Override
+	public World getWorld(NetHandler handler) {
+		return null;
+	}
+
+	@Override
+	public void login(NetHandler handler, NetworkManager manager, Packet1Login login) {
+		// TODO Auto-generated method stub
+		
 	}
 }

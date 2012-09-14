@@ -11,6 +11,7 @@
  */
 package wirelessredstone.network.packets.executor;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 /**
@@ -26,5 +27,5 @@ public interface IEtherPacketExecutor {
 	 * @param packet The redstone ether packet.
 	 * @param world The world object.
 	 */
-	public void execute(PacketRedstoneEther packet, World world);
+	public void execute(PacketRedstoneEther packet, World world, EntityPlayer entityplayer);
 }

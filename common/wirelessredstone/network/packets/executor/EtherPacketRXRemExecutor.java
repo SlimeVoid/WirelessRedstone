@@ -1,5 +1,6 @@
 package wirelessredstone.network.packets.executor;
 
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneEther;
@@ -14,7 +15,7 @@ import wirelessredstone.network.packets.PacketRedstoneEther;
 public class EtherPacketRXRemExecutor implements IEtherPacketExecutor {
 
 	@Override
-	public void execute(PacketRedstoneEther packet, World world) {
+	public void execute(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
 		RedstoneEther.getInstance().remReceiver(
 				world,
 				packet.xPosition,

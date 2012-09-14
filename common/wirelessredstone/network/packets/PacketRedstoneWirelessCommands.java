@@ -7,7 +7,8 @@ public enum PacketRedstoneWirelessCommands {
 	remReceiver,
 	setTransmitterState,
 	changeFreq,
-	fetchTile;
+	fetchTile,
+	fetchEther;
 
 	private int value;
 	private String name;
@@ -57,5 +58,8 @@ public enum PacketRedstoneWirelessCommands {
 
 		fetchTile.value = 6;
 		fetchTile.name = "fetchTile";
+		
+		fetchEther.value = 7;
+		fetchEther.name = "fetchEther";
 	}
 }
