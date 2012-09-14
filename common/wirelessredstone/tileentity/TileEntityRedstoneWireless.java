@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.tileentity;
 
@@ -31,8 +28,7 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.PacketWirelessTile;
 
-public abstract class TileEntityRedstoneWireless extends TileEntity implements
-		IInventory {
+public abstract class TileEntityRedstoneWireless extends TileEntity implements IInventory {
 	protected BlockRedstoneWireless blockRedstoneWireless;
 	public boolean firstTick = true;
 	public String oldFreq;
@@ -74,9 +70,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			currentFreq = i;
 			updateEntity();
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -104,8 +101,13 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		if (!prematureExit) {
 			String freq = getFreq().toString();
 			if (!oldFreq.equals(freq) || firstTick) {
-				blockRedstoneWireless.changeFreq(worldObj, getBlockCoord(0),
-						getBlockCoord(1), getBlockCoord(2), oldFreq, freq);
+				blockRedstoneWireless.changeFreq(
+						worldObj,
+						getBlockCoord(0),
+						getBlockCoord(1),
+						getBlockCoord(2),
+						oldFreq,
+						freq);
 				oldFreq = freq;
 				if (firstTick)
 					firstTick = false;
@@ -174,32 +176,32 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	/**
 	 * Sets the directions the Wireless Tile Entity is powering
 	 * 
-	 * @param dir
-	 *            is the new set of directions
+	 * @param dir is the new set of directions
 	 */
 	public void setPowerDirections(boolean[] dir) {
 		try {
 			powerRoute = dir;
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
 	/**
 	 * Sets the directions the Wireless Tile Entity is powering
 	 * 
-	 * @param indir
-	 *            is the new set of directions
+	 * @param indir is the new set of directions
 	 */
 	public void setInDirectlyPowering(boolean[] indir) {
 		try {
 			indirPower = indir;
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -258,9 +260,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			}
 
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -292,9 +295,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			nbttagcompound.setTag("IndirPower", nbttaglist4);
 
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -309,12 +313,15 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
 				return false;
 			}
-			return entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D,
+			return entityplayer.getDistanceSq(
+					xCoord + 0.5D,
+					yCoord + 0.5D,
 					zCoord + 0.5D) <= 64D;
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 			return false;
 		}
 	}
@@ -338,10 +345,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	}
 
 	private Packet getUpdatePacket() {
-		return new PacketWirelessTile(	PacketRedstoneWirelessCommands
-											.fetchTile
-											.getCommand(),
-										this).getPacket();
+		return new PacketWirelessTile(
+				PacketRedstoneWirelessCommands.fetchTile.getCommand(),
+					this).getPacket();
 	}
 
 	public void handleData(IRedstoneWirelessData data) {

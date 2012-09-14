@@ -76,10 +76,10 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	protected void onBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
 		RedstoneEther.getInstance().addReceiver(
 				world,
-					i,
-					j,
-					k,
-					getFreq(world, i, j, k));
+				i,
+				j,
+				k,
+				getFreq(world, i, j, k));
 		world.notifyBlocksOfNeighborChange(i, j, k, blockID);
 
 		updateTick(world, i, j, k, null);
@@ -95,10 +95,10 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	protected void onBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
 		RedstoneEther.getInstance().remReceiver(
 				world,
-					i,
-					j,
-					k,
-					getFreq(world, i, j, k));
+				i,
+				j,
+				k,
+				getFreq(world, i, j, k));
 		world.notifyBlocksOfNeighborChange(i, j, k, blockID);
 	}
 
@@ -184,7 +184,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 				if (entity instanceof TileEntityRedstoneWireless)
 					ServerRedstoneEtherPacketHandler.sendEtherTileToAll(
 							(TileEntityRedstoneWireless) entity,
-								world);
+							world);
 			}
 		}
 	}

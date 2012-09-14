@@ -13,14 +13,14 @@ import cpw.mods.fml.common.network.Player;
 public class ServerTilePacketHandler implements IPacketHandler {
 
 	@Override
-	public void onPacketData(NetworkManager manager,Packet250CustomPayload packet, Player player) {}
+	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	}
 
 	public static void sendWirelessTileToAll(TileEntityRedstoneWireless tileentity, World world) {
 		PacketWirelessTile packet = new PacketWirelessTile(
-				PacketRedstoneWirelessCommands
-					.fetchTile
-					.getCommand(),
-				tileentity);
-		ServerPacketHandler.broadcastPacket((Packet250CustomPayload)packet.getPacket());
+				PacketRedstoneWirelessCommands.fetchTile.getCommand(),
+					tileentity);
+		ServerPacketHandler.broadcastPacket((Packet250CustomPayload) packet
+				.getPacket());
 	}
 }

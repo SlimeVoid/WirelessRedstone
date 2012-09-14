@@ -125,10 +125,8 @@ public class PacketPayload {
 	/**
 	 * Adds a new int value to intPayload
 	 * 
-	 * @param index
-	 *            The index in the array
-	 * @param newInt
-	 *            The value to be added
+	 * @param index The index in the array
+	 * @param newInt The value to be added
 	 * @return true if successful or false if unsuccessful
 	 */
 	public boolean setIntPayload(int index, int newInt) {
@@ -142,10 +140,8 @@ public class PacketPayload {
 	/**
 	 * Adds a new float value to floatPayload
 	 * 
-	 * @param index
-	 *            The index in the array
-	 * @param newFloat
-	 *            The value to be added
+	 * @param index The index in the array
+	 * @param newFloat The value to be added
 	 * @return true if successful or false if unsuccessful
 	 */
 	public boolean setFloatPayload(int index, float newFloat) {
@@ -159,10 +155,8 @@ public class PacketPayload {
 	/**
 	 * Adds a new double value to doublePayload
 	 * 
-	 * @param index
-	 *            The index in the array
-	 * @param newDouble
-	 *            The value to be added
+	 * @param index The index in the array
+	 * @param newDouble The value to be added
 	 * @return true if successful or false if unsuccessful
 	 */
 	public boolean setDoublePayload(int index, double newDouble) {
@@ -176,10 +170,8 @@ public class PacketPayload {
 	/**
 	 * Adds a new String value to stringPayload
 	 * 
-	 * @param index
-	 *            The index in the array
-	 * @param newString
-	 *            The value to be added
+	 * @param index The index in the array
+	 * @param newString The value to be added
 	 * @return true if successful or false if unsuccessful
 	 */
 	public boolean setStringPayload(int index, String newString) {
@@ -193,10 +185,8 @@ public class PacketPayload {
 	/**
 	 * Adds a new boolean value to boolPayload
 	 * 
-	 * @param index
-	 *            The index in the array
-	 * @param newBool
-	 *            The value to be added
+	 * @param index The index in the array
+	 * @param newBool The value to be added
 	 * @return true if successful or false if unsuccessful
 	 */
 	public boolean setBoolPayload(int index, boolean newBool) {
@@ -210,8 +200,7 @@ public class PacketPayload {
 	/**
 	 * Retrieves an int value stored in intPayload
 	 * 
-	 * @param index
-	 *            The index in the array
+	 * @param index The index in the array
 	 * @return intPayload[index] or 0 if null
 	 */
 	public int getIntPayload(int index) {
@@ -223,8 +212,7 @@ public class PacketPayload {
 	/**
 	 * Retrieves a float value stored in floatPayload
 	 * 
-	 * @param index
-	 *            The index in the array
+	 * @param index The index in the array
 	 * @return floatPayload[index] or 0 if null
 	 */
 	public float getFloatPayload(int index) {
@@ -236,8 +224,7 @@ public class PacketPayload {
 	/**
 	 * Retrieves a double value stored in doublePayload
 	 * 
-	 * @param index
-	 *            The index in the array
+	 * @param index The index in the array
 	 * @return doublePayload[index] or 0 if null
 	 */
 	public double getDoublePayload(int index) {
@@ -249,13 +236,11 @@ public class PacketPayload {
 	/**
 	 * Retrieves a String value stored in stringPayload
 	 * 
-	 * @param index
-	 *            The index in the array
+	 * @param index The index in the array
 	 * @return stringPayload[index] or "null" if null
 	 */
 	public String getStringPayload(int index) {
-		if (this.stringPayload != null && index < this.getStringSize()
-				&& this.stringPayload[index] != null)
+		if (this.stringPayload != null && index < this.getStringSize() && this.stringPayload[index] != null)
 			return this.stringPayload[index];
 		return "null";
 	}
@@ -263,8 +248,7 @@ public class PacketPayload {
 	/**
 	 * Retrieves a boolean value stored in boolPayload
 	 * 
-	 * @param index
-	 *            The index in the array
+	 * @param index The index in the array
 	 * @return boolPayload[index] or false if null
 	 */
 	public boolean getBoolPayload(int index) {
@@ -276,17 +260,12 @@ public class PacketPayload {
 	/**
 	 * Constructor Create a new PacketPayload
 	 * 
-	 * @param intSize
-	 *            The size of the new intPayload array
-	 * @param floatSize
-	 *            The size of the new floatPayload array
-	 * @param stringSize
-	 *            The size of the new stringPayload array
-	 * @param boolSize
-	 *            The size of the new boolPayload array
+	 * @param intSize The size of the new intPayload array
+	 * @param floatSize The size of the new floatPayload array
+	 * @param stringSize The size of the new stringPayload array
+	 * @param boolSize The size of the new boolPayload array
 	 */
-	public PacketPayload(int intSize, int floatSize, int stringSize,
-			int boolSize) {
+	public PacketPayload(int intSize, int floatSize, int stringSize, int boolSize) {
 		this.intPayload = new int[intSize];
 		this.floatPayload = new float[floatSize];
 		this.stringPayload = new String[stringSize];
@@ -296,19 +275,13 @@ public class PacketPayload {
 	/**
 	 * Constructor Create a new PacketPayload
 	 * 
-	 * @param intSize
-	 *            The size of the new intPayload array
-	 * @param floatSize
-	 *            The size of the new floatPayload array
-	 * @param stringSize
-	 *            The size of the new stringPayload array
-	 * @param boolSize
-	 *            The size of the new boolPayload array
-	 * @param doubleSize
-	 *            The size of the new doublePayload array
+	 * @param intSize The size of the new intPayload array
+	 * @param floatSize The size of the new floatPayload array
+	 * @param stringSize The size of the new stringPayload array
+	 * @param boolSize The size of the new boolPayload array
+	 * @param doubleSize The size of the new doublePayload array
 	 */
-	public PacketPayload(int intSize, int floatSize, int stringSize,
-			int boolSize, int doubleSize) {
+	public PacketPayload(int intSize, int floatSize, int stringSize, int boolSize, int doubleSize) {
 		this(intSize, floatSize, stringSize, boolSize);
 		this.doublePayload = new double[doubleSize];
 	}
@@ -337,26 +310,47 @@ public class PacketPayload {
 	}
 
 	public void splitTail(IndexInPayload index) {
-		PacketPayload payload = new PacketPayload(intPayload.length
-				- index.intIndex, floatPayload.length - index.floatIndex,
-				stringPayload.length - index.stringIndex, boolPayload.length
-						- index.boolIndex);
+		PacketPayload payload = new PacketPayload(
+				intPayload.length - index.intIndex,
+					floatPayload.length - index.floatIndex,
+					stringPayload.length - index.stringIndex,
+					boolPayload.length - index.boolIndex);
 
 		if (intPayload.length > 0)
-			System.arraycopy(intPayload, index.intIndex, payload.intPayload, 0,
+			System.arraycopy(
+					intPayload,
+					index.intIndex,
+					payload.intPayload,
+					0,
 					payload.intPayload.length);
 		if (floatPayload.length > 0)
-			System.arraycopy(floatPayload, index.floatIndex,
-					payload.floatPayload, 0, payload.floatPayload.length);
+			System.arraycopy(
+					floatPayload,
+					index.floatIndex,
+					payload.floatPayload,
+					0,
+					payload.floatPayload.length);
 		if (doublePayload.length > 0)
-			System.arraycopy(doublePayload, index.doubleIndex,
-					payload.doublePayload, 0, payload.doublePayload.length);
+			System.arraycopy(
+					doublePayload,
+					index.doubleIndex,
+					payload.doublePayload,
+					0,
+					payload.doublePayload.length);
 		if (stringPayload.length > 0)
-			System.arraycopy(stringPayload, index.stringIndex,
-					payload.stringPayload, 0, payload.stringPayload.length);
+			System.arraycopy(
+					stringPayload,
+					index.stringIndex,
+					payload.stringPayload,
+					0,
+					payload.stringPayload.length);
 		if (boolPayload.length > 0)
-			System.arraycopy(boolPayload, index.boolIndex, payload.boolPayload,
-					0, payload.boolPayload.length);
+			System.arraycopy(
+					boolPayload,
+					index.boolIndex,
+					payload.boolPayload,
+					0,
+					payload.boolPayload.length);
 	}
 
 	public void addIntValue(int newValue) {

@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.ether;
 
@@ -60,8 +57,7 @@ public class RedstoneEtherFrequency {
 	 * Removes transmitters from the register if they are not loaded in the
 	 * world.
 	 * 
-	 * @param world
-	 *            the world object
+	 * @param world the world object
 	 * @return Frequency broadcasting state.
 	 */
 	public boolean getState(World world) {
@@ -70,19 +66,23 @@ public class RedstoneEtherFrequency {
 			List<RedstoneEtherNode> rem = new LinkedList<RedstoneEtherNode>();
 
 			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
-					"getState(world)", LoggerRedstoneWireless.LogLevel.DEBUG);
+					"getState(world)",
+					LoggerRedstoneWireless.LogLevel.DEBUG);
 
 			// Iterate through Transmitters.
 			txLock.readLock();
 			for (RedstoneEtherNode tx : txs.values()) {
 				// Add to remove list if block is not loaded.
-				if (!RedstoneEther.getInstance().isLoaded(world, tx.i, tx.j,
+				if (!RedstoneEther.getInstance().isLoaded(
+						world,
+						tx.i,
+						tx.j,
 						tx.k)) {
 					LoggerRedstoneWireless
-							.getInstance("RedstoneEtherFrequency").write(
-									"getState(world): " + tx
-											+ " not loaded. Removing",
-									LoggerRedstoneWireless.LogLevel.WARNING);
+							.getInstance("RedstoneEtherFrequency")
+								.write(
+										"getState(world): " + tx + " not loaded. Removing",
+										LoggerRedstoneWireless.LogLevel.WARNING);
 					rem.add(tx);
 					continue;
 				}
@@ -99,9 +99,10 @@ public class RedstoneEtherFrequency {
 				remTransmitter(world, tx.i, tx.j, tx.k);
 
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 
 		return state;
@@ -111,44 +112,39 @@ public class RedstoneEtherFrequency {
 	 * Sets the state of a transmitter in the register.<br>
 	 * Triggers an update to all registered receivers.
 	 * 
-	 * @param world
-	 *            the world object
-	 * @param i
-	 *            world X coordinate of transmitter
-	 * @param j
-	 *            world Y coordinate of transmitter
-	 * @param k
-	 *            world Z coordinate of transmitter
-	 * @param state
-	 *            state of transmitter
+	 * @param world the world object
+	 * @param i world X coordinate of transmitter
+	 * @param j world Y coordinate of transmitter
+	 * @param k world Z coordinate of transmitter
+	 * @param state state of transmitter
 	 */
-	public void setTransmitterState(World world, int i, int j, int k,
-			boolean state) {
+	public void setTransmitterState(World world, int i, int j, int k, boolean state) {
 		try {
 			if (!txs.containsKey(new RedstoneEtherNode(i, j, k)))
 				return;
 
 			txLock.readLock();
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
-					"setTransmitterState(world, " + i + ", " + j + ", " + k
-							+ ", " + state + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+			LoggerRedstoneWireless
+					.getInstance("RedstoneEtherFrequency")
+						.write(
+								"setTransmitterState(world, " + i + ", " + j + ", " + k + ", " + state + ")",
+								LoggerRedstoneWireless.LogLevel.DEBUG);
 			txs.get(new RedstoneEtherNode(i, j, k)).state = state;
 			txLock.readUnlock();
 
 			updateReceivers(world);
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
 	/**
 	 * Add transmitter node to the register.
 	 * 
-	 * @param tx
-	 *            transmitter node
+	 * @param tx transmitter node
 	 */
 	public void addTransmitter(RedstoneEtherNode tx) {
 		try {
@@ -159,17 +155,17 @@ public class RedstoneEtherFrequency {
 			txs.put(tx, tx);
 			txLock.writeUnlock();
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
 	/**
 	 * Add receiver node to the register.
 	 * 
-	 * @param rx
-	 *            receiver node
+	 * @param rx receiver node
 	 */
 	public void addReceiver(RedstoneEtherNode rx) {
 		try {
@@ -180,9 +176,10 @@ public class RedstoneEtherFrequency {
 			rxs.put(rx, rx);
 			rxLock.writeUnlock();
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -190,14 +187,10 @@ public class RedstoneEtherFrequency {
 	 * Remove transmitter from the register.<br>
 	 * Triggers an update to all registered receivers.
 	 * 
-	 * @param world
-	 *            the world object
-	 * @param i
-	 *            world X coordinate of transmitter
-	 * @param j
-	 *            world Y coordinate of transmitter
-	 * @param k
-	 *            world Z coordinate of transmitter
+	 * @param world the world object
+	 * @param i world X coordinate of transmitter
+	 * @param j world Y coordinate of transmitter
+	 * @param k world Z coordinate of transmitter
 	 */
 	public void remTransmitter(World world, int i, int j, int k) {
 		try {
@@ -213,21 +206,19 @@ public class RedstoneEtherFrequency {
 
 			updateReceivers(world);
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
 	/**
 	 * Removes a receiver from the register.
 	 * 
-	 * @param i
-	 *            world X coordinate of receiver
-	 * @param j
-	 *            world Y coordinate of receiver
-	 * @param k
-	 *            world Z coordinate of receiver
+	 * @param i world X coordinate of receiver
+	 * @param j world Y coordinate of receiver
+	 * @param k world Z coordinate of receiver
 	 */
 	public void remReceiver(int i, int j, int k) {
 		try {
@@ -241,9 +232,10 @@ public class RedstoneEtherFrequency {
 			rxs.remove(new RedstoneEtherNode(i, j, k));
 			rxLock.writeUnlock();
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -251,8 +243,7 @@ public class RedstoneEtherFrequency {
 	 * Triggers an update to all registered receivers.<br>
 	 * Removes receivers from the register that is not loaded into the world.
 	 * 
-	 * @param world
-	 *            the world object
+	 * @param world the world object
 	 */
 	private void updateReceivers(World world) {
 		try {
@@ -267,20 +258,22 @@ public class RedstoneEtherFrequency {
 			// Iterate through Receivers.
 			for (RedstoneEtherNode rx : rxs.values()) {
 				// Add to remove list if block is not loaded.
-				if (!RedstoneEther.getInstance().isLoaded(world, rx.i, rx.j,
+				if (!RedstoneEther.getInstance().isLoaded(
+						world,
+						rx.i,
+						rx.j,
 						rx.k)) {
 					LoggerRedstoneWireless
-							.getInstance("RedstoneEtherFrequency").write(
-									"updateReceivers(world): " + rx
-											+ " not loaded. Removing",
-									LoggerRedstoneWireless.LogLevel.WARNING);
+							.getInstance("RedstoneEtherFrequency")
+								.write(
+										"updateReceivers(world): " + rx + " not loaded. Removing",
+										LoggerRedstoneWireless.LogLevel.WARNING);
 					rem.add(rx);
 					continue;
 				}
 
 				// Update RX tick.
-				WRCore.blockWirelessR.updateTick(world, rx.i, rx.j,
-						rx.k, null);
+				WRCore.blockWirelessR.updateTick(world, rx.i, rx.j, rx.k, null);
 			}
 			rxLock.readUnlock();
 
@@ -288,9 +281,10 @@ public class RedstoneEtherFrequency {
 			for (RedstoneEtherNode rx : rem)
 				remReceiver(rx.i, rx.j, rx.k);
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 	}
 
@@ -307,12 +301,9 @@ public class RedstoneEtherFrequency {
 	 * Fetch the coordinate array of the closest ACTIVE transmitter from a given
 	 * point on the world.
 	 * 
-	 * @param i
-	 *            world X coordinate
-	 * @param j
-	 *            world Y coordinate
-	 * @param k
-	 *            world Z coordinate
+	 * @param i world X coordinate
+	 * @param j world Y coordinate
+	 * @param k world Z coordinate
 	 * @return Closest transmitter coordinate: {X,Y,Z}
 	 */
 	@SuppressWarnings("unchecked")
@@ -353,9 +344,10 @@ public class RedstoneEtherFrequency {
 			else
 				return pos;
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 
 		return null;
@@ -365,14 +357,10 @@ public class RedstoneEtherFrequency {
 	 * Fetch the coordinate array of the closest transmitter from a given point
 	 * on the world.
 	 * 
-	 * @param i
-	 *            world X coordinate
-	 * @param j
-	 *            world Y coordinate
-	 * @param k
-	 *            world Z coordinate
-	 * @param freq
-	 *            frequency
+	 * @param i world X coordinate
+	 * @param j world Y coordinate
+	 * @param k world Z coordinate
+	 * @param freq frequency
 	 * @return Closest transmitter coordinate: {X,Y,Z}
 	 */
 	public int[] getClosestTransmitter(int i, int j, int k) {
@@ -410,9 +398,10 @@ public class RedstoneEtherFrequency {
 			else
 				return pos;
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+			LoggerRedstoneWireless
+					.getInstance(
+							"WirelessRedstone: " + this.getClass().toString())
+						.writeStackTrace(e);
 		}
 		return null;
 	}

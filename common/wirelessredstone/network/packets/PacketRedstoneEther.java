@@ -28,26 +28,35 @@ public class PacketRedstoneEther extends PacketWireless {
 
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world) {
 		super(PacketIds.ETHER, new PacketPayload(0, 0, 1, 1));
-		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1),
-				entity.getBlockCoord(2), 0);
+		this.setPosition(
+				entity.getBlockCoord(0),
+				entity.getBlockCoord(1),
+				entity.getBlockCoord(2),
+				0);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
 			setCommand(PacketRedstoneWirelessCommands.addReceiver.getCommand());
-			setState(((BlockRedstoneWireless) WRCore.blockWirelessR)
-					.getState(world, this.xPosition, this.yPosition,
-							this.zPosition));
+			setState(((BlockRedstoneWireless) WRCore.blockWirelessR).getState(
+					world,
+					this.xPosition,
+					this.yPosition,
+					this.zPosition));
 		} else if (entity instanceof TileEntityRedstoneWirelessT) {
-			setCommand(PacketRedstoneWirelessCommands.addTransmitter.getCommand());
-			setState(((BlockRedstoneWireless) WRCore.blockWirelessT)
-					.getState(world, this.xPosition, this.yPosition,
-							this.zPosition));
+			setCommand(PacketRedstoneWirelessCommands.addTransmitter
+					.getCommand());
+			setState(((BlockRedstoneWireless) WRCore.blockWirelessT).getState(
+					world,
+					this.xPosition,
+					this.yPosition,
+					this.zPosition));
 		}
 		setFreq(entity.getFreq());
 	}
 
 	@Override
 	public String toString() {
-		return PacketRedstoneWirelessCommands.commandToString(this.getCommand()) + "(" + xPosition + "," + yPosition + ","
-				+ zPosition + ")[" + this.getFreq() + "]:" + this.getState();
+		return PacketRedstoneWirelessCommands
+				.commandToString(this.getCommand()) + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
+				.getFreq() + "]:" + this.getState();
 	}
 
 	@Override
@@ -65,6 +74,9 @@ public class PacketRedstoneEther extends PacketWireless {
 
 	@Override
 	public boolean targetExists(World world) {
-		return world.blockHasTileEntity(this.xPosition, this.yPosition, this.zPosition);
+		return world.blockHasTileEntity(
+				this.xPosition,
+				this.yPosition,
+				this.zPosition);
 	}
 }

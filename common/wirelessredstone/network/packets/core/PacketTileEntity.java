@@ -10,7 +10,9 @@ public abstract class PacketTileEntity extends PacketUpdate {
 	}
 
 	public TileEntity getTileEntity(World world) {
-		return world.getBlockTileEntity(this.xPosition, this.yPosition,
+		return world.getBlockTileEntity(
+				this.xPosition,
+				this.yPosition,
 				this.zPosition);
 	}
 

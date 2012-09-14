@@ -13,19 +13,17 @@ public class WRCommonProxy implements ICommonProxy {
 	@Override
 	public void registerRenderInformation() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -37,10 +35,9 @@ public class WRCommonProxy implements ICommonProxy {
 	}
 
 	@Override
-	public void registerTileEntitySpecialRenderer(
-			Class<? extends TileEntity> clazz) {
+	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -48,18 +45,18 @@ public class WRCommonProxy implements ICommonProxy {
 	}
 
 	@Override
-	public void openGUI(World world, EntityPlayer entityplayer,
-			TileEntity tileentity) {
+	public void openGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
 		if (!world.isRemote) {
 			if (tileentity instanceof TileEntityRedstoneWireless) {
-				ServerGuiPacketHandler.sendGuiPacketTo((EntityPlayerMP) entityplayer, (TileEntityRedstoneWireless)tileentity);
+				ServerGuiPacketHandler.sendGuiPacketTo(
+						(EntityPlayerMP) entityplayer,
+						(TileEntityRedstoneWireless) tileentity);
 			}
 		}
 	}
 
 	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer,
-			TileEntity tileentity) {
+	public void activateGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
 	}
 
 	@Override
@@ -75,6 +72,6 @@ public class WRCommonProxy implements ICommonProxy {
 	}
 
 	@Override
-	public void init() {		
+	public void init() {
 	}
 }

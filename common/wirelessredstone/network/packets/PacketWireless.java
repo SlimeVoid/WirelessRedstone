@@ -16,7 +16,7 @@ import wirelessredstone.network.packets.core.PacketUpdate;
  * 
  */
 public abstract class PacketWireless extends PacketUpdate {
-	
+
 	private int command;
 
 	@Override
@@ -30,13 +30,12 @@ public abstract class PacketWireless extends PacketUpdate {
 		super.readData(data);
 		this.command = data.readInt();
 	}
-	
+
 	/**
 	 * Constructor for Default Wireless Packets
 	 * 
-	 * @param packetId
-	 *            the packet ID used to identify the type of packet data being
-	 *            sent or received
+	 * @param packetId the packet ID used to identify the type of packet data
+	 *            being sent or received
 	 */
 	public PacketWireless(int packetId) {
 		super(packetId);
@@ -47,11 +46,9 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * Constructor for Default Wireless Packets Used to add payload data to the
 	 * packet
 	 * 
-	 * @param packetId
-	 *            the packet ID used to identify the type of packet data being
-	 *            sent or received
-	 * @param payload
-	 *            the new payload to be associated with the packet
+	 * @param packetId the packet ID used to identify the type of packet data
+	 *            being sent or received
+	 * @param payload the new payload to be associated with the packet
 	 */
 	public PacketWireless(int packetId, PacketPayload payload) {
 		super(packetId, payload);
@@ -60,8 +57,8 @@ public abstract class PacketWireless extends PacketUpdate {
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
-				+ zPosition + ")[" + this.getFreq() + "]";
+		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
+				.getFreq() + "]";
 	}
 
 	/**
@@ -77,8 +74,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	/**
 	 * Sets the command in the payload Override to change the index position
 	 * 
-	 * @param command
-	 *            The command to be added
+	 * @param command The command to be added
 	 */
 	public void setCommand(int command) {
 		this.command = command;
@@ -97,8 +93,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	/**
 	 * Sets the command in the payload Override to change the index position
 	 * 
-	 * @param freq
-	 *            The command to be added
+	 * @param freq The command to be added
 	 */
 	public void setFreq(Object freq) {
 		this.payload.setStringPayload(0, freq.toString());
@@ -117,8 +112,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	/**
 	 * Sets the command in the payload Override to change the index position
 	 * 
-	 * @param freq
-	 *            The command to be added
+	 * @param freq The command to be added
 	 */
 	public void setState(boolean state) {
 		this.payload.setBoolPayload(0, state);
@@ -126,7 +120,10 @@ public abstract class PacketWireless extends PacketUpdate {
 
 	public TileEntity getTarget(World world) {
 		if (this.targetExists(world))
-			return world.getBlockTileEntity(this.xPosition, this.yPosition, this.zPosition);
+			return world.getBlockTileEntity(
+					this.xPosition,
+					this.yPosition,
+					this.zPosition);
 		return null;
 	}
 }

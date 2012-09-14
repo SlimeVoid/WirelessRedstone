@@ -52,11 +52,11 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 		String freq = getFreq(world, i, j, k);
 		RedstoneEther.getInstance().setTransmitterState(
 				world,
-					i,
-					j,
-					k,
-					freq,
-					state);
+				i,
+				j,
+				k,
+				freq,
+				state);
 	}
 
 	/**
@@ -74,11 +74,11 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 		RedstoneEther.getInstance().addTransmitter(world, i, j, k, freq);
 		RedstoneEther.getInstance().setTransmitterState(
 				world,
-					i,
-					j,
-					k,
-					freq,
-					getState(world, i, j, k));
+				i,
+				j,
+				k,
+				freq,
+				getState(world, i, j, k));
 	}
 
 	/**
@@ -91,17 +91,17 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	protected void onBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
 		RedstoneEther.getInstance().addTransmitter(
 				world,
-					i,
-					j,
-					k,
-					getFreq(world, i, j, k));
+				i,
+				j,
+				k,
+				getFreq(world, i, j, k));
 
 		onBlockRedstoneWirelessNeighborChange(
 				world,
-					i,
-					j,
-					k,
-					Block.redstoneWire.blockID);
+				i,
+				j,
+				k,
+				Block.redstoneWire.blockID);
 	}
 
 	/**
@@ -113,10 +113,10 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	protected void onBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
 		RedstoneEther.getInstance().remTransmitter(
 				world,
-					i,
-					j,
-					k,
-					getFreq(world, i, j, k));
+				i,
+				j,
+				k,
+				getFreq(world, i, j, k));
 	}
 
 	/**
@@ -149,14 +149,14 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 		// powered.
 		if (l > 0 && !getState(world, i, j, k) && (world.isBlockGettingPowered(
 				i,
-					j,
-					k) || world.isBlockIndirectlyGettingPowered(i, j, k)))
+				j,
+				k) || world.isBlockIndirectlyGettingPowered(i, j, k)))
 			setState(world, i, j, k, true);
 		// There are no powering entities, state is deactivated.
 		else if (getState(world, i, j, k) && !(world.isBlockGettingPowered(
 				i,
-					j,
-					k) || world.isBlockIndirectlyGettingPowered(i, j, k)))
+				j,
+				k) || world.isBlockIndirectlyGettingPowered(i, j, k)))
 			setState(world, i, j, k, false);
 	}
 

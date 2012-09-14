@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.data;
 
@@ -54,8 +51,7 @@ public class ConfigStoreRedstoneWireless {
 	/**
 	 * Returns the configuration store singleton instance.
 	 * 
-	 * @param name
-	 *            Configuration domain name.
+	 * @param name Configuration domain name.
 	 * @return Configuration store instance.
 	 */
 	public static ConfigStoreRedstoneWireless getInstance(String name) {
@@ -65,12 +61,15 @@ public class ConfigStoreRedstoneWireless {
 		if (instance == null) {
 			instance = new ConfigStoreRedstoneWireless();
 			if (!LoggerRedstoneWireless.getInstance(name).setFilterLevel(
-					(String) instance.get("Log.Level", String.class,
+					(String) instance.get(
+							"Log.Level",
+							String.class,
 							LoggerRedstoneWireless.LogLevel.INFO.name()))) {
 				LoggerRedstoneWireless
 						.getInstance(name)
-						.write("Unable to parse Log.Level. Valid settings are ERROR,WARNING,INFO,DEBUG.",
-								LoggerRedstoneWireless.LogLevel.WARNING);
+							.write(
+									"Unable to parse Log.Level. Valid settings are ERROR,WARNING,INFO,DEBUG.",
+									LoggerRedstoneWireless.LogLevel.WARNING);
 			}
 		}
 
@@ -86,19 +85,14 @@ public class ConfigStoreRedstoneWireless {
 	 * Valid types are: Boolean, Integer, String, Double, Float, Character,
 	 * Long</i>
 	 * 
-	 * @param attr
-	 *            configuration attribute name
-	 * @param type
-	 *            configuration attribute type
-	 * @param defValue
-	 *            default attribute value
+	 * @param attr configuration attribute name
+	 * @param type configuration attribute type
+	 * @param defValue default attribute value
 	 * 
 	 * @return Configuration attribute value.
-	 * @throws IllegalArgumentException
-	 *             defValue was not a valid type.
+	 * @throws IllegalArgumentException defValue was not a valid type.
 	 */
-	public Object get(String attr, Class type, Object defValue)
-			throws IllegalArgumentException {
+	public Object get(String attr, Class type, Object defValue) throws IllegalArgumentException {
 		try {
 			if (conf.containsKey(name + "." + attr)) {
 				String value = conf.get(name + "." + attr);
@@ -123,20 +117,22 @@ public class ConfigStoreRedstoneWireless {
 				else
 					throw new IllegalArgumentException(type.toString());
 			} else {
-				LoggerRedstoneWireless.getInstance(name).write(
-						attr + " not found, restoring to default:"
-								+ defValue.toString(),
-						LoggerRedstoneWireless.LogLevel.WARNING);
+				LoggerRedstoneWireless
+						.getInstance(name)
+							.write(
+									attr + " not found, restoring to default:" + defValue.toString(),
+									LoggerRedstoneWireless.LogLevel.WARNING);
 				conf.put(name + "." + attr, defValue.toString());
 				saveProperties();
 				return defValue;
 			}
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(name).writeStackTrace(e);
-			LoggerRedstoneWireless.getInstance(name).write(
-					"Problem with " + attr + ", restoring to default:"
-							+ defValue.toString(),
-					LoggerRedstoneWireless.LogLevel.WARNING);
+			LoggerRedstoneWireless
+					.getInstance(name)
+						.write(
+								"Problem with " + attr + ", restoring to default:" + defValue.toString(),
+								LoggerRedstoneWireless.LogLevel.WARNING);
 			conf.put(name + "." + attr, defValue.toString());
 			saveProperties();
 			return defValue;
@@ -148,9 +144,10 @@ public class ConfigStoreRedstoneWireless {
 	 */
 	private void loadProperties() {
 		conf = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
-		LoggerRedstoneWireless.getInstance(name).write("Loading Properties.",
+		LoggerRedstoneWireless.getInstance(name).write(
+				"Loading Properties.",
 				LoggerRedstoneWireless.LogLevel.INFO);
-		File fullPath = new File("./"+file.getName());
+		File fullPath = new File("./" + file.getName());
 
 		try {
 			if (fullPath.canRead()) {
@@ -160,7 +157,8 @@ public class ConfigStoreRedstoneWireless {
 					Set<Entry<Object, Object>> propSet = prop.entrySet();
 					for (Entry<Object, Object> propEntry : propSet) {
 						conf.put(propEntry.getKey().toString(), propEntry
-								.getValue().toString());
+								.getValue()
+									.toString());
 					}
 				}
 			} else if (!fullPath.exists()) {
@@ -171,8 +169,8 @@ public class ConfigStoreRedstoneWireless {
 					;
 				loadProperties();
 			} else {
-				throw new IOException(name
-						+ ": Unable to handle Properties file!");
+				throw new IOException(
+						name + ": Unable to handle Properties file!");
 			}
 		} catch (FileNotFoundException e) {
 			LoggerRedstoneWireless.getInstance(name).writeStackTrace(e);
@@ -187,8 +185,9 @@ public class ConfigStoreRedstoneWireless {
 	 * @return Success state.
 	 */
 	private boolean saveProperties() {
-		File fullPath = new File(Minecraft.getMinecraftDir().getPath()
-				+ File.separator + file.getName());
+		File fullPath = new File(
+				Minecraft.getMinecraftDir().getPath() + File.separator + file
+						.getName());
 
 		try {
 			if (!fullPath.exists()) {
@@ -205,14 +204,15 @@ public class ConfigStoreRedstoneWireless {
 						prop.setProperty(c, conf.get(c));
 					}
 
-					prop.store(new FileOutputStream(fullPath),
+					prop.store(
+							new FileOutputStream(fullPath),
 							"WirelessRedstone Properties");
 
 					return true;
 				}
 			} else {
-				throw new IOException(name
-						+ ": Unable to handle Properties file!");
+				throw new IOException(
+						name + ": Unable to handle Properties file!");
 			}
 		} catch (FileNotFoundException e) {
 			LoggerRedstoneWireless.getInstance(name).writeStackTrace(e);

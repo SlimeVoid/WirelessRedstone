@@ -20,8 +20,11 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 
 	public PacketRedstoneWirelessOpenGui(TileEntityRedstoneWireless entity) {
 		this();
-		this.setPosition(entity.getBlockCoord(0), entity.getBlockCoord(1),
-				entity.getBlockCoord(2), 0);
+		this.setPosition(
+				entity.getBlockCoord(0),
+				entity.getBlockCoord(1),
+				entity.getBlockCoord(2),
+				0);
 		this.payload = new PacketPayload(1, 0, 1, 1);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
 			this.setType(0);
@@ -34,9 +37,8 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 
 	@Override
 	public String toString() {
-		return this.payload.getIntPayload(0) + ":(" + xPosition + ","
-				+ yPosition + "," + zPosition + ")["
-				+ this.payload.getStringPayload(0) + "]";
+		return this.payload.getIntPayload(0) + ":(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this.payload
+				.getStringPayload(0) + "]";
 	}
 
 	public int getType() {
@@ -57,6 +59,9 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 
 	@Override
 	public boolean targetExists(World world) {
-		return world.blockHasTileEntity(this.xPosition, this.yPosition, this.zPosition);
+		return world.blockHasTileEntity(
+				this.xPosition,
+				this.yPosition,
+				this.zPosition);
 	}
 }

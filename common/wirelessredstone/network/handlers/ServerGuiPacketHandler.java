@@ -13,19 +13,19 @@ import cpw.mods.fml.common.network.Player;
 public class ServerGuiPacketHandler implements IPacketHandler {
 
 	@Override
-	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {}
-	
+	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	}
+
 	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless entity) {
-		PacketRedstoneWirelessOpenGui packet = new PacketRedstoneWirelessOpenGui(entity);
+		PacketRedstoneWirelessOpenGui packet = new PacketRedstoneWirelessOpenGui(
+				entity);
 
 		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
 				"sendGuiPacketTo:" + player.username,
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		ServerPacketHandler.sendPacketTo(
-				player, 
-				(Packet250CustomPayload) packet.getPacket()
-		);
+				player,
+				(Packet250CustomPayload) packet.getPacket());
 	}
 }

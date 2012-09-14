@@ -58,8 +58,7 @@ public abstract class PacketUpdate extends EurysPacket {
 	/**
 	 * Writes a String to the DataOutputStream
 	 */
-	public static void writeString(String par0Str,
-			DataOutputStream par1DataOutputStream) throws IOException {
+	public static void writeString(String par0Str, DataOutputStream par1DataOutputStream) throws IOException {
 		if (par0Str.length() > 32767) {
 			throw new IOException("String too big");
 		} else {
@@ -71,14 +70,12 @@ public abstract class PacketUpdate extends EurysPacket {
 	/**
 	 * Reads a string from a packet
 	 */
-	public static String readString(DataInputStream par0DataInputStream,
-			int par1) throws IOException {
+	public static String readString(DataInputStream par0DataInputStream, int par1) throws IOException {
 		short var2 = par0DataInputStream.readShort();
 
 		if (var2 > par1) {
 			throw new IOException(
-					"Received string length longer than maximum allowed ("
-							+ var2 + " > " + par1 + ")");
+					"Received string length longer than maximum allowed (" + var2 + " > " + par1 + ")");
 		} else if (var2 < 0) {
 			throw new IOException(
 					"Received string length is less than zero! Weird string!");
@@ -135,7 +132,10 @@ public abstract class PacketUpdate extends EurysPacket {
 	@Override
 	public void readData(DataInputStream data) throws IOException {
 
-		this.setPosition(data.readInt(), data.readInt(), data.readInt(),
+		this.setPosition(
+				data.readInt(),
+				data.readInt(),
+				data.readInt(),
 				data.readInt());
 		this.setVecs(data.readFloat(), data.readFloat(), data.readFloat());
 
@@ -145,8 +145,12 @@ public abstract class PacketUpdate extends EurysPacket {
 		int boolSize = data.readInt();
 		int doubleSize = data.readInt();
 
-		this.payload = new PacketPayload(intSize, floatSize, stringSize,
-				boolSize, doubleSize);
+		this.payload = new PacketPayload(
+				intSize,
+					floatSize,
+					stringSize,
+					boolSize,
+					doubleSize);
 
 		for (int i = 0; i < this.payload.getIntSize(); i++)
 			this.payload.setIntPayload(i, data.readInt());

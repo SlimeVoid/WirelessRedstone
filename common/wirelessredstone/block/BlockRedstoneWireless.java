@@ -75,7 +75,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"setState(world," + i + "," + j + "," + k + "," + state + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 		int meta = 0;
 		if (state)
 			meta = 1;
@@ -108,7 +108,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"getState(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 		int meta = 0;
 		try {
 			meta = world.getBlockMetadata(i, j, k);
@@ -149,7 +149,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"getFreq(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 		try {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 			if (tileentity == null)
@@ -198,7 +198,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"onBlockAdded(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		// Run overrides.
 		boolean prematureExit = false;
@@ -254,7 +254,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"onBlockRemoval(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		// Run overrides.
 		boolean prematureExit = false;
@@ -327,17 +327,17 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"blockActivated(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		boolean prematureExit = false;
 		// Run overrides.
 		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeBlockRedstoneWirelessActivated(
 					world,
-						i,
-						j,
-						k,
-						entityplayer))
+					i,
+					j,
+					k,
+					entityplayer))
 				prematureExit = true;
 		}
 		if (prematureExit)
@@ -347,10 +347,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		try {
 			output = onBlockRedstoneWirelessActivated(
 					world,
-						i,
-						j,
-						k,
-						entityplayer);
+					i,
+					j,
+					k,
+					entityplayer);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless.filterClassName(this
@@ -363,10 +363,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		for (IBlockRedstoneWirelessOverride override : overrides) {
 			override.afterBlockRedstoneWirelessActivated(
 					world,
-						i,
-						j,
-						k,
-						entityplayer);
+					i,
+					j,
+					k,
+					entityplayer);
 		}
 		return output;
 	}
@@ -404,17 +404,17 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 									.toString()))
 					.write(
 							"onNeighborBlockChange(world," + i + "," + j + "," + k + "," + l + ")",
-								LoggerRedstoneWireless.LogLevel.DEBUG);
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		boolean prematureExit = false;
 		// Run overrides.
 		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeBlockRedstoneWirelessNeighborChange(
 					world,
-						i,
-						j,
-						k,
-						l))
+					i,
+					j,
+					k,
+					l))
 				prematureExit = true;
 		}
 		if (prematureExit)
@@ -568,7 +568,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		LoggerRedstoneWireless.getInstance(
 				"WirelessRedstone: BlockRedstoneWireless").write(
 				"notifyNeighbors(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 		world.notifyBlocksOfNeighborChange(i, j, k, 0);
 		world.notifyBlocksOfNeighborChange(i - 1, j, k, 0);
 		world.notifyBlocksOfNeighborChange(i + 1, j, k, 0);
@@ -603,16 +603,16 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 						.getClass()
 							.toString())).write(
 				"updateTick(world," + i + "," + j + "," + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		boolean prematureExit = false;
 		for (IBlockRedstoneWirelessOverride override : overrides) {
 			if (override.beforeUpdateRedstoneWirelessTick(
 					world,
-						i,
-						j,
-						k,
-						random))
+					i,
+					j,
+					k,
+					random))
 				prematureExit = true;
 		}
 
@@ -667,15 +667,15 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 									.toString()))
 					.write(
 							"isPoweringTo(iblockaccess," + i + "," + j + "," + k + "," + l + ")",
-								LoggerRedstoneWireless.LogLevel.DEBUG);
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 		try {
 			if (iblockaccess instanceof World) {
 				return isRedstoneWirelessPoweringTo(
 						(World) iblockaccess,
-							i,
-							j,
-							k,
-							l);
+						i,
+						j,
+						k,
+						l);
 			}
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -722,7 +722,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 									.toString()))
 					.write(
 							"isIndirectlyPoweringTo(world," + i + "," + j + "," + k + "," + l + ")",
-								LoggerRedstoneWireless.LogLevel.DEBUG);
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 		try {
 			return isRedstoneWirelessIndirectlyPoweringTo(world, i, j, k, l);
 		} catch (Exception e) {

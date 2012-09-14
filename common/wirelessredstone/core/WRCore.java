@@ -20,8 +20,6 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.block.BlockItemRedstoneWirelessR;
-import wirelessredstone.block.BlockItemRedstoneWirelessT;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
@@ -42,6 +40,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * WirelessRedstone class
@@ -158,23 +157,23 @@ public class WRCore {
 	public static void initPacketHandlers() {
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.ETHER,
-					new ServerRedstoneEtherPacketHandler());
+				new ServerRedstoneEtherPacketHandler());
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.GUI,
-					new ServerGuiPacketHandler());
+				new ServerGuiPacketHandler());
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.TILE,
-					new ServerTilePacketHandler());
+				new ServerTilePacketHandler());
 
 		ClientPacketHandler.registerPacketHandler(
 				PacketIds.ETHER,
-					new ClientRedstoneEtherPacketHandler());
+				new ClientRedstoneEtherPacketHandler());
 		ClientPacketHandler.registerPacketHandler(
 				PacketIds.GUI,
-					new ClientGuiPacketHandler());
+				new ClientGuiPacketHandler());
 		ClientPacketHandler.registerPacketHandler(
 				PacketIds.TILE,
-					new ClientTilePacketHandler());
+				new ClientTilePacketHandler());
 	}
 
 	/**
@@ -191,23 +190,19 @@ public class WRCore {
 	 * Registers the Blocks, block names and TileEntities
 	 */
 	public static void registerBlocks() {
-		GameRegistry.registerBlock(
-				blockWirelessR,
-					BlockItemRedstoneWirelessR.class);
-		ModLoader.addName(blockWirelessR, "Wireless Receiver");
+		GameRegistry.registerBlock(blockWirelessR);
+		LanguageRegistry.addName(blockWirelessR, "Wireless Receiver");
 		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfänger");
 		GameRegistry.registerTileEntity(
 				TileEntityRedstoneWirelessR.class,
-					"Wireless Receiver");
+				"Wireless Receiver");
 
-		ModLoader.registerBlock(
-				blockWirelessT,
-					BlockItemRedstoneWirelessT.class);
-		ModLoader.addName(blockWirelessT, "Wireless Transmitter");
+		GameRegistry.registerBlock(blockWirelessT);
+		LanguageRegistry.addName(blockWirelessT, "Wireless Transmitter");
 		ModLoader.addName(blockWirelessT, "de_DE", "Drahtloser Sender");
 		GameRegistry.registerTileEntity(
 				TileEntityRedstoneWirelessT.class,
-					"Wireless Transmitter");
+				"Wireless Transmitter");
 	}
 
 	/**
@@ -247,13 +242,13 @@ public class WRCore {
 		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance(
 				"WirelessRedstone").get(
 				"Receiver.ID",
-					Integer.class,
-					new Integer(rxID));
+				Integer.class,
+				new Integer(rxID));
 		txID = (Integer) ConfigStoreRedstoneWireless.getInstance(
 				"WirelessRedstone").get(
 				"Transmitter.ID",
-					Integer.class,
-					new Integer(txID));
+				Integer.class,
+				new Integer(txID));
 	}
 
 	/**
@@ -270,7 +265,7 @@ public class WRCore {
 										.toString() + ": " + override
 									.getClass()
 										.toString(),
-								LoggerRedstoneWireless.LogLevel.DEBUG);
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 		((BlockRedstoneWireless) WRCore.blockWirelessR).addOverride(override);
 	}
 
@@ -288,14 +283,14 @@ public class WRCore {
 										.toString() + ": " + override
 									.getClass()
 										.toString(),
-								LoggerRedstoneWireless.LogLevel.DEBUG);
+							LoggerRedstoneWireless.LogLevel.DEBUG);
 		((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
 	}
 
 	/**
 	 * Fetches an entity by ID.
 	 * 
-	 * @param world The world object 
+	 * @param world The world object
 	 * @param entityplayer The payer
 	 * @param entityId Entity ID
 	 * @return The Entity.

@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.data;
 
@@ -51,8 +48,7 @@ public class LoggerRedstoneWireless {
 	/**
 	 * Gets the logger singleton instance.
 	 * 
-	 * @param name
-	 *            Logger domain name.
+	 * @param name Logger domain name.
 	 * @return Logger instance.
 	 */
 	public static LoggerRedstoneWireless getInstance(String name) {
@@ -68,8 +64,7 @@ public class LoggerRedstoneWireless {
 	 * Sets the filtering level based on a string.<br>
 	 * "DEBUG","INFO","WARNING","ERROR" are valid strings.
 	 * 
-	 * @param f
-	 *            log level string
+	 * @param f log level string
 	 * @return true if string valid was valid. Defaults to INFO if not.
 	 */
 	public boolean setFilterLevel(String f) {
@@ -116,10 +111,8 @@ public class LoggerRedstoneWireless {
 	/**
 	 * Write a message to the logger.
 	 * 
-	 * @param msg
-	 *            message text
-	 * @param lvl
-	 *            message level
+	 * @param msg message text
+	 * @param lvl message level
 	 */
 	public void write(String msg, LogLevel lvl) {
 		if (filter(lvl)) {
@@ -133,8 +126,9 @@ public class LoggerRedstoneWireless {
 				StackTraceElement[] c = e.getStackTrace();
 				int min = Math.min(3, c.length - 1);
 				for (int i = min; i >= 1; i--) {
-					trace.append(filterClassName(c[i].getClassName()) + "."
-							+ c[i].getMethodName());
+					trace
+							.append(filterClassName(c[i].getClassName()) + "." + c[i]
+									.getMethodName());
 					if (i > 1)
 						trace.append("->");
 				}
@@ -147,8 +141,7 @@ public class LoggerRedstoneWireless {
 	/**
 	 * Write an exception stack trace to the logger.
 	 * 
-	 * @param e
-	 *            exception
+	 * @param e exception
 	 */
 	public void writeStackTrace(Exception e) {
 		if (writer == null)
@@ -206,8 +199,7 @@ public class LoggerRedstoneWireless {
 	 * Find the class name from a string.<br>
 	 * Returns the string beyond the last period ".".
 	 * 
-	 * @param name
-	 *            class name
+	 * @param name class name
 	 * @return Filtered class name.
 	 */
 
