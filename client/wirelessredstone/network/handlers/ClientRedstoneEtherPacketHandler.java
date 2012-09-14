@@ -27,7 +27,7 @@ import cpw.mods.fml.common.network.Player;
 public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 	private static Map<Integer, IEtherPacketExecutor> executors = new HashMap<Integer, IEtherPacketExecutor>();
 	/**
-	 * Register an executor with the server-side packet sub-handler.
+	 * Register an executor with the client-side packet sub-handler.
 	 * 
 	 * @param commandID Command ID for the executor to handle.
 	 * @param executor The executor
