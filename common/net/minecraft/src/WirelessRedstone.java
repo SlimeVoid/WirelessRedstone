@@ -32,11 +32,11 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  */
 @Mod(
 		modid = "WirelessRedstoneCore",
-		name = "A&E Wireless Redstone",
+		name = "Wireless Redstone",
 		version = "1.6")
 @NetworkMod(
 		clientSideRequired = true,
-		serverSideRequired = true,
+		serverSideRequired = false,
 		connectionHandler = RedstoneWirelessConnectionHandler.class,
 		clientPacketHandlerSpec = @SidedPacketHandler(
 				channels = { "WR" },
@@ -64,7 +64,6 @@ public class WirelessRedstone {
 	 */
 	@Init
 	public void WirelessRedstoneInit(FMLInitializationEvent event) {
-		WRCore.initialize();
 	}
 
 	/**
@@ -83,5 +82,6 @@ public class WirelessRedstone {
 	 */
 	@PostInit
 	public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
+		WRCore.initialize();
 	}
 }
