@@ -47,6 +47,7 @@ import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -137,7 +138,7 @@ public class WRCore {
 
 		PacketRedstoneWirelessCommands.registerCommands();
 
-		initPacketHandlers();
+		proxy.initPacketHandlers();
 
 		initBlocks();
 
@@ -147,83 +148,12 @@ public class WRCore {
 
 		proxy.registerRenderInformation();
 
-		proxy
-				.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
+		proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
 
 		addRecipes();
 
 		return true;
 
-	}
-
-	/**
-	 * Initializes packet handlers.<br>
-	 * - Ether<br>
-	 * - Gui<br>
-	 * - Tile<br>
-	 * For Server and Client.
-	 */
-	public static void initPacketHandlers() {
-		/////////////////////
-		// Server Handlers //
-		/////////////////////
-		// Ether Packets
-		ServerPacketHandler.registerPacketHandler(
-				PacketIds.ETHER,
-				new ServerRedstoneEtherPacketHandler());
-		// Executors
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.changeFreq.getCommand(),
-				new EtherPacketChangeFreqExecutor());
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.addTransmitter.getCommand(),
-				new EtherPacketTXAddExecutor());
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.setTransmitterState.getCommand(),
-				new EtherPacketTXSetStateExecutor());
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.remTransmitter.getCommand(),
-				new EtherPacketTXRemExecutor());
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.addReceiver.getCommand(),
-				new EtherPacketRXAddExecutor());
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.remReceiver.getCommand(),
-				new EtherPacketRXRemExecutor());
-		ServerRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.fetchEther.getCommand(),
-				new EtherPacketFetchEtherExecutor());
-		// GUI Packets
-		ServerPacketHandler.registerPacketHandler(
-				PacketIds.GUI,
-				new ServerGuiPacketHandler());
-		// Tile Packets
-		ServerPacketHandler.registerPacketHandler(
-				PacketIds.TILE,
-				new ServerTilePacketHandler());
-
-		/////////////////////
-		// Client Handlers //
-		/////////////////////
-		// Ether Packets
-		ClientPacketHandler.registerPacketHandler(
-				PacketIds.ETHER,
-				new ClientRedstoneEtherPacketHandler());
-		// Executors
-		ClientRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.addTransmitter.getCommand(),
-				new ClientEtherPacketTXAddExecutor());
-		ClientRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.addReceiver.getCommand(),
-				new ClientEtherPacketRXAddExecutor());
-		// GUI Packets
-		ClientPacketHandler.registerPacketHandler(
-				PacketIds.GUI,
-				new ClientGuiPacketHandler());
-		// Tile Packets
-		ClientPacketHandler.registerPacketHandler(
-				PacketIds.TILE,
-				new ClientTilePacketHandler());
 	}
 
 	/**

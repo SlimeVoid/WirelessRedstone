@@ -19,8 +19,14 @@ import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.handlers.ClientGuiPacketHandler;
+import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.ClientTilePacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.network.packets.executor.ClientEtherPacketRXAddExecutor;
+import wirelessredstone.network.packets.executor.ClientEtherPacketTXAddExecutor;
 import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
@@ -223,5 +229,36 @@ public class WRClientProxy extends WRCommonProxy {
 		if (world != null) {
 			ClientPacketHandler.sendPacket((Packet250CustomPayload)((new PacketRedstoneEther(PacketRedstoneWirelessCommands.fetchEther.getCommand())).getPacket()));
 		}
+	}
+	
+	@Override
+	public void initPacketHandlers() {
+		if (ModLoader.getMinecraftInstance().isSingleplayer()) {
+			System.out.println("TRUE");
+			super.initPacketHandlers();
+			return;
+		}
+		/////////////////////
+		// Client Handlers //
+		/////////////////////
+		// Ether Packets
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.ETHER,
+				new ClientRedstoneEtherPacketHandler());
+		// Executors
+		ClientRedstoneEtherPacketHandler.registerPacketHandler(
+				PacketRedstoneWirelessCommands.addTransmitter.getCommand(),
+				new ClientEtherPacketTXAddExecutor());
+		ClientRedstoneEtherPacketHandler.registerPacketHandler(
+				PacketRedstoneWirelessCommands.addReceiver.getCommand(),
+				new ClientEtherPacketRXAddExecutor());
+		// GUI Packets
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.GUI,
+				new ClientGuiPacketHandler());
+		// Tile Packets
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.TILE,
+				new ClientTilePacketHandler());
 	}
 }

@@ -99,5 +99,22 @@ public interface ICommonProxy extends IGuiHandler {
 	 */
 	public void init();
 
+
+	/**
+	 * Initializes packet handlers.<br>
+	 * - Ether<br>
+	 * - Gui<br>
+	 * - Tile<br>
+	 * For Server and Client.
+	 */
+	public void initPacketHandlers();
+
+	/**
+	 * Called on player/client login
+	 * 
+	 * @param handler
+	 * @param manager
+	 * @param login
+	 */
 	public void login(NetHandler handler, NetworkManager manager, Packet1Login login);
 }

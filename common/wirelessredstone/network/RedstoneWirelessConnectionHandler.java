@@ -33,10 +33,11 @@ public class RedstoneWirelessConnectionHandler implements IConnectionHandler {
 
 	/**
 	 * Called when a player logs into the server SERVER SIDE.<br>
-	 * Sends ether tiles to the player.
+	 * Initializes packetHandlers (for integrated Servers).
 	 */
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, NetworkManager manager) {
+		WRCore.proxy.initPacketHandlers();
 	}
 
 	@Override
