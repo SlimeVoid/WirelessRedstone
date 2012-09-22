@@ -46,7 +46,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 				packetHandler = ServerPacketHandler.class),
 		versionBounds = "[1.6]")
 /**
- * FML fascade class.¨
+ * FML fascade class.
  * This class uses FML annotations and sorts initialization.
  * 
  * ConnectionHandler: RedstoneWirelessConnectionHandler

@@ -172,7 +172,7 @@ public class WRCore {
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(blockWirelessR);
 		LanguageRegistry.addName(blockWirelessR, "Wireless Receiver");
-		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfänger");
+		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfanger");
 		GameRegistry.registerTileEntity(
 				TileEntityRedstoneWirelessR.class,
 				"Wireless Receiver");

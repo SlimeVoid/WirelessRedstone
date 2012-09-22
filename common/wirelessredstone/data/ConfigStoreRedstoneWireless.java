@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.WirelessRedstone;
 
 /**
  * Configuration store.<br>
@@ -147,7 +148,7 @@ public class ConfigStoreRedstoneWireless {
 		LoggerRedstoneWireless.getInstance(name).write(
 				"Loading Properties.",
 				LoggerRedstoneWireless.LogLevel.INFO);
-		File fullPath = new File("./" + file.getName());
+		File fullPath = new File("." +File.separator + file.getName());
 
 		try {
 			if (fullPath.canRead()) {
@@ -166,8 +167,7 @@ public class ConfigStoreRedstoneWireless {
 						"Properties file not found, creating.",
 						LoggerRedstoneWireless.LogLevel.INFO);
 				if (saveProperties())
-					;
-				loadProperties();
+					 loadProperties();
 			} else {
 				throw new IOException(
 						name + ": Unable to handle Properties file!");
@@ -186,7 +186,7 @@ public class ConfigStoreRedstoneWireless {
 	 */
 	private boolean saveProperties() {
 		File fullPath = new File(
-				Minecraft.getMinecraftDir().getPath() + File.separator + file
+				"." + File.separator + file
 						.getName());
 
 		try {

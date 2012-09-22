@@ -234,7 +234,6 @@ public class WRClientProxy extends WRCommonProxy {
 	@Override
 	public void initPacketHandlers() {
 		if (ModLoader.getMinecraftInstance().isSingleplayer()) {
-			System.out.println("TRUE");
 			super.initPacketHandlers();
 			return;
 		}
