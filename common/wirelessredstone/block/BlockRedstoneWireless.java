@@ -714,7 +714,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Powering state.
 	 */
 	@Override
-	public boolean isIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
+	public boolean isIndirectlyPoweringTo(IBlockAccess world, int i, int j, int k, int l) {
 		LoggerRedstoneWireless
 				.getInstance(
 						LoggerRedstoneWireless.filterClassName(this
@@ -723,13 +723,15 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 					.write(
 							"isIndirectlyPoweringTo(world," + i + "," + j + "," + k + "," + l + ")",
 							LoggerRedstoneWireless.LogLevel.DEBUG);
-		try {
-			return isRedstoneWirelessIndirectlyPoweringTo(world, i, j, k, l);
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+		if ( world instanceof World ) {
+			try {
+				return isRedstoneWirelessIndirectlyPoweringTo((World)world, i, j, k, l);
+			} catch (Exception e) {
+				LoggerRedstoneWireless.getInstance(
+						LoggerRedstoneWireless.filterClassName(this
+								.getClass()
+									.toString())).writeStackTrace(e);
+			}
 		}
 		return false;
 	}

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
@@ -47,7 +47,7 @@ public class ServerPacketHandler implements IPacketHandler {
 	 * Fetches the packet ID and routes it on to sub-handlers.
 	 */
 	@Override
-	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
 				packet.data));
 		try {
@@ -71,7 +71,7 @@ public class ServerPacketHandler implements IPacketHandler {
 	 * @param packet Packet to send.
 	 */
 	public static void sendPacketTo(EntityPlayerMP player, Packet250CustomPayload packet) {
-		((EntityPlayerMP) player).serverForThisPlayer.theNetworkManager
+		((EntityPlayerMP) player).playerNetServerHandler.netManager
 				.addToSendQueue(packet);
 	}
 

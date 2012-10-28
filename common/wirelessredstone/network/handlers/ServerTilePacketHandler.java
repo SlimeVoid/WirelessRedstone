@@ -11,7 +11,7 @@
  */
 package wirelessredstone.network.handlers;
 
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 import wirelessredstone.network.ServerPacketHandler;
@@ -33,7 +33,7 @@ public class ServerTilePacketHandler implements IPacketHandler {
 	 * Server-side Tile packet handler should never receive any packets, thus this does nothing.
 	 */
 	@Override
-	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 	}
 
 	/**

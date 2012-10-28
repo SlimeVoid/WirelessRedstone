@@ -13,7 +13,7 @@ package wirelessredstone.api;
 
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NetHandler;
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -116,5 +116,5 @@ public interface ICommonProxy extends IGuiHandler {
 	 * @param manager
 	 * @param login
 	 */
-	public void login(NetHandler handler, NetworkManager manager, Packet1Login login);
+	public void login(NetHandler handler, INetworkManager manager, Packet1Login login);
 }

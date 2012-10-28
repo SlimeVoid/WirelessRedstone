@@ -70,7 +70,7 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 	 * @param world The world object.
 	 */
 	public void setDimension(World world) {
-		this.dimension = (byte) world.provider.worldType;
+		this.dimension = (byte) world.provider.dimensionId;
 		this.markDirty();
 	}
 

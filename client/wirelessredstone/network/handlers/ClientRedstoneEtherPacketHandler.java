@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.NetworkManager;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
@@ -37,7 +37,7 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 	}
 	
 	@Override
-	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 		EntityPlayer entityplayer = (EntityPlayer)player;
 		World world = entityplayer.worldObj;
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));

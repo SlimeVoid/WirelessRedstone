@@ -15,9 +15,9 @@ import wirelessredstone.core.WRCore;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.INetworkManager;
 import net.minecraft.src.NetHandler;
 import net.minecraft.src.NetLoginHandler;
-import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.World;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -36,36 +36,36 @@ public class RedstoneWirelessConnectionHandler implements IConnectionHandler {
 	 * Initializes packetHandlers (for integrated Servers).
 	 */
 	@Override
-	public void playerLoggedIn(Player player, NetHandler netHandler, NetworkManager manager) {
+	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
 		WRCore.proxy.initPacketHandlers();
 	}
 
 	@Override
-	public String connectionReceived(NetLoginHandler netHandler, NetworkManager manager) {
+	public String connectionReceived(NetLoginHandler netHandler, INetworkManager manager) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void connectionOpened(NetHandler netClientHandler, String server, int port, NetworkManager manager) {
+	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, NetworkManager manager) {
+	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void connectionClosed(NetworkManager manager) {
+	public void connectionClosed(INetworkManager manager) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void clientLoggedIn(NetHandler clientHandler, NetworkManager manager, Packet1Login login) {
+	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
 		WRCore.proxy.login(clientHandler, manager, login);
 	}
 

@@ -340,7 +340,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 	}
 
 	@Override
-	public Packet getAuxillaryInfoPacket() {
+	public Packet getDescriptionPacket() {
 		return getUpdatePacket();
 	}
 
