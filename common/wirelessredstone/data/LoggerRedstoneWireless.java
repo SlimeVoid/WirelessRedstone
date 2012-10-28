@@ -16,6 +16,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import wirelessredstone.core.WRCore;
+
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.ModLoader;
 
 /**
@@ -163,7 +166,11 @@ public class LoggerRedstoneWireless {
 
 		public LoggerRedstoneWirelessWriter() {
 			try {
-				file = new File("./wirelessRedstone.log");
+				file = new File(
+						WRCore.proxy.getMinecraftDir()+
+						File.separator+
+						"wirelessRedstone.log"
+				);
 				fstream = new FileWriter(file);
 				out = new PrintWriter(fstream);
 			} catch (IOException e) {

@@ -22,6 +22,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
+import wirelessredstone.core.WRCore;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.WirelessRedstone;
 
@@ -44,7 +46,11 @@ public class ConfigStoreRedstoneWireless {
 	 */
 	private ConfigStoreRedstoneWireless() {
 		prop = new Properties();
-		file = new File("wirelessRedstone.properties");
+		file = new File(
+				WRCore.proxy.getMinecraftDir()+
+				File.separator+
+				"wirelessRedstone.properties"
+		);
 		name = "WirelessRedstone";
 		loadProperties();
 	}
@@ -148,7 +154,7 @@ public class ConfigStoreRedstoneWireless {
 		LoggerRedstoneWireless.getInstance(name).write(
 				"Loading Properties.",
 				LoggerRedstoneWireless.LogLevel.INFO);
-		File fullPath = new File("." +File.separator + file.getName());
+		File fullPath = file;
 
 		try {
 			if (fullPath.canRead()) {
@@ -185,9 +191,7 @@ public class ConfigStoreRedstoneWireless {
 	 * @return Success state.
 	 */
 	private boolean saveProperties() {
-		File fullPath = new File(
-				"." + File.separator + file
-						.getName());
+		File fullPath = file;
 
 		try {
 			if (!fullPath.exists()) {
