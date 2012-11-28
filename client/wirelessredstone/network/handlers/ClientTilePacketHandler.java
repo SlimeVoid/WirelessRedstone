@@ -37,8 +37,11 @@ public class ClientTilePacketHandler implements IPacketHandler {
 	}
 	
 	private void handlePacket(PacketWirelessTile packet, World world, EntityPlayer player ) {
-		LoggerRedstoneWireless.getInstance("ClientTilePacketHandler").write(
-				"handlePacket:" + packet.toString(),
+		LoggerRedstoneWireless.getInstance(
+				"ClientTilePacketHandler"
+		).write(
+				world.isRemote,
+				"handlePacket(" + packet.toString()+")",
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 		

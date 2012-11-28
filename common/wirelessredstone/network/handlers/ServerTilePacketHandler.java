@@ -14,6 +14,7 @@ package wirelessredstone.network.handlers;
 import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
+import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.PacketWirelessTile;
@@ -43,6 +44,14 @@ public class ServerTilePacketHandler implements IPacketHandler {
 	 * @param world The world object.
 	 */
 	public static void sendWirelessTileToAll(TileEntityRedstoneWireless tileentity, World world) {
+		LoggerRedstoneWireless.getInstance(
+				"ServerTilePacketHandler"
+		).write(
+				world.isRemote,
+				"sendWirelessTileToAll()",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		// Assemble packet.
 		PacketWirelessTile packet = new PacketWirelessTile(
 				PacketRedstoneWirelessCommands.fetchTile.getCommand(),

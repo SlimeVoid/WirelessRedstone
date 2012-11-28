@@ -21,12 +21,14 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 				entity.getBlockCoord(1),
 				entity.getBlockCoord(2),
 				0);
-		LoggerRedstoneWireless
-				.getInstance("WirelessRedstone: " + this.getClass().toString())
-					.write(
-							PacketRedstoneWirelessCommands.commandToString(this
-									.getCommand()) + this.xPosition + this.yPosition + this.zPosition,
-							LogLevel.INFO);
+		LoggerRedstoneWireless.getInstance(
+				"PacketWirelessTile"
+		).write(
+				entity.worldObj.isRemote,
+				PacketRedstoneWirelessCommands.commandToString(this.getCommand()) 
+						+ " - ("+this.xPosition + "," + this.yPosition + "," + this.zPosition+")",
+				LogLevel.INFO
+		);
 		this.setCommand(command);
 		this.setFreq(entity.getFreq());
 		this.setState(RedstoneEther.getInstance().getFreqState(

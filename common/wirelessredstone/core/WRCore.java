@@ -173,13 +173,19 @@ public class WRCore {
 		GameRegistry.registerBlock(blockWirelessR);
 		LanguageRegistry.addName(blockWirelessR, "Wireless Receiver");
 		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfanger");
+		ModLoader.addName(blockWirelessR, "nb_NO", "Trådløs Mottaker");
+		ModLoader.addName(blockWirelessR, "nn_NO", "Trådlaus Mottaker");
 		GameRegistry.registerTileEntity(
 				TileEntityRedstoneWirelessR.class,
 				"Wireless Receiver");
 
+		
+		
 		GameRegistry.registerBlock(blockWirelessT);
 		LanguageRegistry.addName(blockWirelessT, "Wireless Transmitter");
 		ModLoader.addName(blockWirelessT, "de_DE", "Drahtloser Sender");
+		ModLoader.addName(blockWirelessT, "nb_NO", "Trådløs Sender");
+		ModLoader.addName(blockWirelessT, "nn_NO", "Trådlaus Sender");
 		GameRegistry.registerTileEntity(
 				TileEntityRedstoneWirelessT.class,
 				"Wireless Transmitter");
@@ -237,15 +243,17 @@ public class WRCore {
 	 * @param override Block override
 	 */
 	public static void addOverrideToReceiver(IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless
-				.getInstance("Wireless Redstone")
-					.write(
-							"Override added to " + WRCore.blockWirelessR
-									.getClass()
-										.toString() + ": " + override
-									.getClass()
-										.toString(),
-							LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"Wireless Redstone"
+		).write(
+				true,
+				"Override added to " + 
+					LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessR.getClass().toString())
+					+ " - " + 
+					LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		((BlockRedstoneWireless) WRCore.blockWirelessR).addOverride(override);
 	}
 
@@ -255,15 +263,17 @@ public class WRCore {
 	 * @param override Block override
 	 */
 	public static void addOverrideToTransmitter(IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless
-				.getInstance("Wireless Redstone")
-					.write(
-							"Override added to " + WRCore.blockWirelessT
-									.getClass()
-										.toString() + ": " + override
-									.getClass()
-										.toString(),
-							LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"Wireless Redstone"
+		).write(
+				true,
+				"Override added to " + 
+					LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessT.getClass().toString())
+					+ " - " + 
+					LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
 	}
 

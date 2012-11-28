@@ -182,10 +182,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		try {
 			powerRoute = dir;
 		} catch (Exception e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"TileEntityRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -198,10 +197,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		try {
 			indirPower = indir;
 		} catch (Exception e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"TileEntityRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -260,10 +258,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 			}
 
 		} catch (Exception e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"TileEntityRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -295,10 +292,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 			nbttagcompound.setTag("IndirPower", nbttaglist4);
 
 		} catch (Exception e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"TileEntityRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -318,10 +314,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 					yCoord + 0.5D,
 					zCoord + 0.5D) <= 64D;
 		} catch (Exception e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"TileEntityRedstoneWireless"
+			).writeStackTrace(e);
 			return false;
 		}
 	}

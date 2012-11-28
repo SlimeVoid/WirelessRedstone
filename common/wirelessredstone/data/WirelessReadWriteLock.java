@@ -11,6 +11,8 @@
  */
 package wirelessredstone.data;
 
+import net.minecraft.src.World;
+
 /**
  * A standard Multiple Readers / Single Writer lock.
  * 
@@ -31,11 +33,15 @@ public class WirelessReadWriteLock {
 	 *             notification. The interrupted status of the current thread is
 	 *             cleared when this exception is thrown.
 	 */
-	public synchronized void readLock() throws InterruptedException {
+	public synchronized void readLock(World world) throws InterruptedException {
 		while (writers > 0 || writeReq > 0) {
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
-					"readLock",
-					LoggerRedstoneWireless.LogLevel.INFO);
+			LoggerRedstoneWireless.getInstance(
+					"WirelessReadWriteLock"
+			).write(
+					world.isRemote,
+					"readLock() - waiting",
+					LoggerRedstoneWireless.LogLevel.INFO
+			);
 			wait();
 		}
 		readers++;
@@ -58,12 +64,16 @@ public class WirelessReadWriteLock {
 	 *             notification. The interrupted status of the current thread is
 	 *             cleared when this exception is thrown.
 	 */
-	public synchronized void writeLock() throws InterruptedException {
+	public synchronized void writeLock(World world) throws InterruptedException {
 		writeReq++;
 		while (readers > 0 || writers > 0) {
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
-					"writeLock",
-					LoggerRedstoneWireless.LogLevel.INFO);
+			LoggerRedstoneWireless.getInstance(
+					"WirelessReadWriteLock"
+			).write(
+					world.isRemote,
+					"writeLock() - waiting",
+					LoggerRedstoneWireless.LogLevel.INFO
+			);
 			wait();
 		}
 		writers++;

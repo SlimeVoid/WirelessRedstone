@@ -71,11 +71,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	public synchronized void setState(World world, int i, int j, int k, boolean state) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"setState(world," + i + "," + j + "," + k + "," + state + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		int meta = 0;
 		if (state)
 			meta = 1;
@@ -86,9 +88,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			world.markBlockNeedsUpdate(i, j, k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 	}
 
@@ -104,11 +105,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	public synchronized boolean getState(World world, int i, int j, int k) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"getState(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		int meta = 0;
 		try {
 			meta = world.getBlockMetadata(i, j, k);
@@ -145,11 +148,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	public String getFreq(World world, int i, int j, int k) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"getFreq(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		try {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 			if (tileentity == null)
@@ -161,9 +166,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 							.toString();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 		return null;
 	}
@@ -194,11 +198,12 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	@Override
 	public void onBlockAdded(World world, int i, int j, int k) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"onBlockAdded(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Run overrides.
 		boolean prematureExit = false;
@@ -216,9 +221,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			onBlockRedstoneWirelessAdded(world, i, j, k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 
 		// Run overrides.
@@ -250,11 +254,12 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	@Override
 	public void breakBlock(World world, int i, int j, int k, int l, int m) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"onBlockRemoval(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Run overrides.
 		boolean prematureExit = false;
@@ -271,9 +276,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			world.removeBlockTileEntity(i, j, k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 
 		// Run overrides.
@@ -323,11 +327,12 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int q, float a, float b, float c) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"blockActivated(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		boolean prematureExit = false;
 		// Run overrides.
@@ -353,9 +358,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 					entityplayer);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 			return false;
 		}
 
@@ -397,14 +401,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	@Override
 	public void onNeighborBlockChange(World world, int i, int j, int k, int l) {
-		LoggerRedstoneWireless
-				.getInstance(
-						LoggerRedstoneWireless.filterClassName(this
-								.getClass()
-									.toString()))
-					.write(
-							"onNeighborBlockChange(world," + i + "," + j + "," + k + "," + l + ")",
-							LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
+				"onNeighborBlockChange(world," + i + "," + j + "," + k + "," + l + ")",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		boolean prematureExit = false;
 		// Run overrides.
@@ -425,9 +428,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 
 		// Run overrides.
@@ -487,9 +489,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			return getBlockRedstoneWirelessTexture(iblockaccess, i, j, k, l);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 			return 0;
 		}
 	}
@@ -522,9 +523,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			return getBlockRedstoneWirelessTextureFromSide(i);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 			return 0;
 		}
 	}
@@ -566,9 +566,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	public static void notifyNeighbors(World world, int i, int j, int k) {
 		LoggerRedstoneWireless.getInstance(
-				"WirelessRedstone: BlockRedstoneWireless").write(
+				"BlockRedstoneWireless"
+		).write(
+				world.isRemote,
 				"notifyNeighbors(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
 		world.notifyBlocksOfNeighborChange(i, j, k, 0);
 		world.notifyBlocksOfNeighborChange(i - 1, j, k, 0);
 		world.notifyBlocksOfNeighborChange(i + 1, j, k, 0);
@@ -599,11 +603,12 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	@Override
 	public void updateTick(World world, int i, int j, int k, Random random) {
 		LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(this
-						.getClass()
-							.toString())).write(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				world.isRemote,
 				"updateTick(world," + i + "," + j + "," + k + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		boolean prematureExit = false;
 		for (IBlockRedstoneWirelessOverride override : overrides) {
@@ -623,9 +628,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			updateRedstoneWirelessTick(world, i, j, k, random);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 
 		// Run overrides.
@@ -660,16 +664,16 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	@Override
 	public boolean isPoweringTo(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-		LoggerRedstoneWireless
-				.getInstance(
-						LoggerRedstoneWireless.filterClassName(this
-								.getClass()
-									.toString()))
-					.write(
-							"isPoweringTo(iblockaccess," + i + "," + j + "," + k + "," + l + ")",
-							LoggerRedstoneWireless.LogLevel.DEBUG);
+
 		try {
 			if (iblockaccess instanceof World) {
+				LoggerRedstoneWireless.getInstance(
+						LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+				).write(
+						((World) iblockaccess).isRemote,
+						"isPoweringTo(iblockaccess," + i + "," + j + "," + k + "," + l + ")",
+						LoggerRedstoneWireless.LogLevel.DEBUG
+				);
 				return isRedstoneWirelessPoweringTo(
 						(World) iblockaccess,
 						i,
@@ -679,9 +683,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			}
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					LoggerRedstoneWireless.filterClassName(this
-							.getClass()
-								.toString())).writeStackTrace(e);
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).writeStackTrace(e);
 		}
 		return false;
 	}
@@ -715,22 +718,21 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	@Override
 	public boolean isIndirectlyPoweringTo(IBlockAccess world, int i, int j, int k, int l) {
-		LoggerRedstoneWireless
-				.getInstance(
-						LoggerRedstoneWireless.filterClassName(this
-								.getClass()
-									.toString()))
-					.write(
-							"isIndirectlyPoweringTo(world," + i + "," + j + "," + k + "," + l + ")",
-							LoggerRedstoneWireless.LogLevel.DEBUG);
 		if ( world instanceof World ) {
+			LoggerRedstoneWireless
+			.getInstance(
+					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+			).write(
+						((World)world).isRemote,
+						"isIndirectlyPoweringTo(world," + i + "," + j + "," + k + "," + l + ")",
+						LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 			try {
 				return isRedstoneWirelessIndirectlyPoweringTo((World)world, i, j, k, l);
 			} catch (Exception e) {
 				LoggerRedstoneWireless.getInstance(
-						LoggerRedstoneWireless.filterClassName(this
-								.getClass()
-									.toString())).writeStackTrace(e);
+						LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+				).writeStackTrace(e);
 			}
 		}
 		return false;

@@ -95,6 +95,6 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 
 	@Override
 	public String toString() {
-		return time + ":[" + freq + "]:(" + i + "," + j + "," + k + "):" + state;
+		return "[" + freq + "] - (" + i + "," + j + "," + k + ") - " + state;
 	}
 }

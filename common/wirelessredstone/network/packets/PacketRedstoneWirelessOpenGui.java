@@ -37,7 +37,7 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 
 	@Override
 	public String toString() {
-		return this.payload.getIntPayload(0) + ":(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this.payload
+		return this.payload.getIntPayload(0) + " - (" + xPosition + "," + yPosition + "," + zPosition + ")[" + this.payload
 				.getStringPayload(0) + "]";
 	}
 

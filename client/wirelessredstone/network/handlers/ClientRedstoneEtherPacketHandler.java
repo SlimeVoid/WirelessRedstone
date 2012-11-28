@@ -52,9 +52,11 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 	}
 	
 	private static void handlePacket(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
-		LoggerRedstoneWireless.getInstance("ClientRedstoneEtherPacketHandler").write(
-				"handlePacket:" + 
-				packet.toString(),
+		LoggerRedstoneWireless.getInstance(
+				"ClientRedstoneEtherPacketHandler"
+		).write(
+				world.isRemote,
+				"handlePacket("+packet.toString()+")",
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 		
@@ -65,11 +67,13 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 		if ( executors.containsKey(command)) {
 			executors.get(command).execute(packet, world, entityplayer);
 		} else {
-			LoggerRedstoneWireless
-					.getInstance("ClientRedstoneEtherPacketHandler")
-						.write(
-								"handlePacket:" + ((EntityPlayer) entityplayer).username + ":" + packet.toString() + "UNKNOWN COMMAND",
-								LoggerRedstoneWireless.LogLevel.WARNING);
+			LoggerRedstoneWireless.getInstance(
+					"ClientRedstoneEtherPacketHandler"
+			).write(
+					world.isRemote,
+					"handlePacket(" + ((EntityPlayer) entityplayer).username + "," + packet.toString()+") - UNKNOWN COMMAND",
+					LoggerRedstoneWireless.LogLevel.WARNING
+			);
 		}
 	}
 
@@ -78,8 +82,11 @@ public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
 		packet.setPosition(i, j, k, 0);
 		packet.setFreq(freq);
 		packet.setState(state);
-		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-				"sendRedstoneEtherPacket:" + packet.toString(),
+		LoggerRedstoneWireless.getInstance(
+				"ClientRedstoneEtherPacketHandler"
+		).write(
+				true,
+				"sendRedstoneEtherPacket(" + packet.toString()+")",
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 		ClientPacketHandler.sendPacket((Packet250CustomPayload) packet.getPacket());

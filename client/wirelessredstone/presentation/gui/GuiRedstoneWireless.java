@@ -184,8 +184,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			GL11.glEnable(2929 /* GL_DEPTH_TEST */);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"GuiRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -344,8 +344,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			}
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"GuiRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -361,8 +361,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 				close();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"GuiRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -375,8 +375,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			mc.setIngameFocus();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"GuiRedstoneWireless"
+			).writeStackTrace(e);
 		}
 	}
 

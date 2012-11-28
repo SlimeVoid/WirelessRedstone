@@ -84,11 +84,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 	 * @param entityplayer The sending player.
 	 */
 	private void handlePacket(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
-		LoggerRedstoneWireless
-				.getInstance("RedstoneEtherPacketHandler")
-					.write(
-							"handlePacket:" + ((EntityPlayer) entityplayer).username + ":" + packet.toString(),
-							LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerRedstoneEtherPacketHandler"
+		).write(
+				world.isRemote,
+				"handlePacket(" + packet.toString()+ ", world," + ((EntityPlayer) entityplayer).username + ")",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 		// Fetch the command.
 		int command = packet.getCommand();
 		
@@ -96,11 +98,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 		if ( executors.containsKey(command)) {
 			executors.get(command).execute(packet, world, entityplayer);
 		} else {
-			LoggerRedstoneWireless
-					.getInstance("RedstoneEtherPacketHandler")
-						.write(
-								"handlePacket:" + ((EntityPlayer) entityplayer).username + ":" + packet.toString() + "UNKNOWN COMMAND",
-								LoggerRedstoneWireless.LogLevel.WARNING);
+			LoggerRedstoneWireless.getInstance(
+					"ServerRedstoneEtherPacketHandler"
+			).write(
+					world.isRemote,
+					"handlePacket(" + packet.toString()+ ", world," + ((EntityPlayer) entityplayer).username + ") - UNKNOWN COMMAND",
+					LoggerRedstoneWireless.LogLevel.WARNING
+			);
 		}
 	}
 	
@@ -115,9 +119,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 		// Assemble packet.
 		PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
 
-		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-				"sendEtherTileToAll:" + packet.toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerRedstoneEtherPacketHandler"
+		).write(
+				world.isRemote,
+				"sendEtherTileToAll(" + packet.toString()+")",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 		
 		// Broadcast packet.
 		ServerPacketHandler.broadcastPacket((Packet250CustomPayload) packet
@@ -135,11 +143,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 		// Assemble packet.
 		PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
 
-		LoggerRedstoneWireless
-				.getInstance("PacketHandlerOutput")
-					.write(
-							"sendEtherTileTo:" + entityplayermp.username + ":" + packet.toString(),
-							LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerRedstoneEtherPacketHandler"
+		).write(
+				world.isRemote,
+				"sendEtherTileTo(" + entityplayermp.username + "," + packet.toString()+")",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Send packet.
 		ServerPacketHandler.sendPacketTo(
@@ -172,9 +182,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 	 * @param entityplayermp Receiving player.
 	 */
 	public static void sendEtherTilesTo(EntityPlayerMP entityplayermp) {
-		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-				"sendEtherTilesTo" + entityplayermp.username,
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerRedstoneEtherPacketHandler"
+		).write(
+				false,
+				"sendEtherTilesTo(" + entityplayermp.username+")",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Prepare required data.
 		PacketRedstoneEther packet;
@@ -217,9 +231,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 	 * Broadcast all ether nodes
 	 */
 	public static void sendEtherTilesToAll() {
-		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-				"sendEtherTilesToAll",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerRedstoneEtherPacketHandler"
+		).write(
+				false,
+				"sendEtherTilesToAll()",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Prepare required data.
 		PacketRedstoneEther packet;
@@ -259,9 +277,13 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 	 * @param rxs
 	 */
 	public static void sendEtherFrequencyTilesToAll(List<RedstoneEtherNode> txs, List<RedstoneEtherNode> rxs) {
-		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-				"sendEtherFrequencyTilesToAll",
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerRedstoneEtherPacketHandler"
+		).write(
+				false,
+				"sendEtherFrequencyTilesToAll()",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Assemble required data.
 		World world = ModLoader

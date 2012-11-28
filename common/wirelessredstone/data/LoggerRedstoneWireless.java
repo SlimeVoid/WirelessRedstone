@@ -16,10 +16,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Side;
+
 import wirelessredstone.core.WRCore;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.World;
 
 /**
  * Wireless Redstone logging engine.<br>
@@ -117,7 +121,8 @@ public class LoggerRedstoneWireless {
 	 * @param msg message text
 	 * @param lvl message level
 	 */
-	public void write(String msg, LogLevel lvl) {
+	public void write(boolean isRemote, String msg, LogLevel lvl) {
+		String name = this.name;
 		if (filter(lvl)) {
 			if (writer == null)
 				writer = new LoggerRedstoneWirelessWriter();
@@ -137,8 +142,19 @@ public class LoggerRedstoneWireless {
 				}
 			}
 
-			writer.write(lvl.name() + ": " + name + ": " + msg + ": " + trace);
+			writer.write(lvl.name() + ":" + getSide(isRemote) + ":" + name + ":" + msg + ":" + trace);
 		}
+	}
+	
+	private String getSide(boolean isRemote) {
+		if ( !isRemote && FMLCommonHandler.instance().getSide() ==  Side.CLIENT ) 
+			return "ISERVER";
+		if (FMLCommonHandler.instance().getSide() ==  Side.CLIENT ) 
+			return "CLIENT";
+		if (FMLCommonHandler.instance().getSide() ==  Side.SERVER ) 
+			return "SERVER";
+		
+		return "UNKNOWN";
 	}
 
 	/**

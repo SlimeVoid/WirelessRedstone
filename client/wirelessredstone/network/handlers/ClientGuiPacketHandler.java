@@ -32,8 +32,11 @@ public class ClientGuiPacketHandler implements IPacketHandler {
 	}
 	
 	private void handlePacket(PacketRedstoneWirelessOpenGui packet, World world, EntityPlayer player ) {
-		LoggerRedstoneWireless.getInstance("ClientGuiPacketHandler").write(
-				"openGUI:" + packet.toString(),
+		LoggerRedstoneWireless.getInstance(
+				"ClientGuiPacketHandler"
+		).write(
+				world.isRemote,
+				"handlePacket(" + packet.toString()+")",
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 

@@ -72,8 +72,8 @@ public class TileEntityRedstoneWirelessRenderer extends
 			GL11.glPopMatrix();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"TileEntityRedstoneWirelessRenderer"
+			).writeStackTrace(e);
 		}
 	}
 

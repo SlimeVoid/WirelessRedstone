@@ -47,9 +47,13 @@ public class ServerGuiPacketHandler implements IPacketHandler {
 		PacketRedstoneWirelessOpenGui packet = new PacketRedstoneWirelessOpenGui(
 				entity);
 
-		LoggerRedstoneWireless.getInstance("PacketHandlerOutput").write(
-				"sendGuiPacketTo:" + player.username,
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+		LoggerRedstoneWireless.getInstance(
+				"ServerGuiPacketHandler"
+		).write(
+				false,
+				"sendGuiPacketTo(" + player.username+", entity)",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 
 		// Send the packet.
 		ServerPacketHandler.sendPacketTo(

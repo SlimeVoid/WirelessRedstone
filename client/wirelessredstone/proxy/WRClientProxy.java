@@ -79,13 +79,17 @@ public class WRClientProxy extends WRCommonProxy {
 	 * @param override
 	 *            GUI override
 	 */
-	public static void addGuiOverrideToReceiver(
-			IGuiRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+	public static void addGuiOverrideToReceiver(IGuiRedstoneWirelessOverride override) {
+		LoggerRedstoneWireless.getInstance(
+				"WRClientProxy"
+		).write(
+				true,
 				"Override added to "
-						+ guiWirelessR.getClass().toString()
-						+ ": " + override.getClass().toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+						+ LoggerRedstoneWireless.filterClassName(guiWirelessR.getClass().toString())
+						+ " - " + 
+						LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 		guiWirelessR.addOverride(override);
 	}
 
@@ -97,11 +101,16 @@ public class WRClientProxy extends WRCommonProxy {
 	 */
 	public static void addGuiOverrideToTransmitter(
 			IGuiRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(
+		LoggerRedstoneWireless.getInstance(
+				"WRClientProxy"
+		).write(
+				true,
 				"Override added to "
-						+ guiWirelessT.getClass().toString()
-						+ ": " + override.getClass().toString(),
-				LoggerRedstoneWireless.LogLevel.DEBUG);
+						+ LoggerRedstoneWireless.filterClassName(guiWirelessT.getClass().toString())
+						+ " - " + 
+						LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
 		guiWirelessT.addOverride(override);
 	}
 	

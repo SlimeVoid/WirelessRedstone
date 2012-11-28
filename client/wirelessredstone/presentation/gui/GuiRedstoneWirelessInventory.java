@@ -166,8 +166,8 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"GuiRedstoneWirelessInventory"
+			).writeStackTrace(e);
 		}
 	}
 

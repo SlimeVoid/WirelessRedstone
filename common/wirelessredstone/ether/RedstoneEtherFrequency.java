@@ -65,12 +65,16 @@ public class RedstoneEtherFrequency {
 		try {
 			List<RedstoneEtherNode> rem = new LinkedList<RedstoneEtherNode>();
 
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
 					"getState(world)",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 
 			// Iterate through Transmitters.
-			txLock.readLock();
+			txLock.readLock(world);
 			for (RedstoneEtherNode tx : txs.values()) {
 				// Add to remove list if block is not loaded.
 				if (!RedstoneEther.getInstance().isLoaded(
@@ -78,11 +82,13 @@ public class RedstoneEtherFrequency {
 						tx.i,
 						tx.j,
 						tx.k)) {
-					LoggerRedstoneWireless
-							.getInstance("RedstoneEtherFrequency")
-								.write(
-										"getState(world): " + tx + " not loaded. Removing",
-										LoggerRedstoneWireless.LogLevel.WARNING);
+					LoggerRedstoneWireless.getInstance(
+							"RedstoneEtherFrequency"
+					).write(
+							world.isRemote,
+							"getState(world) - " + tx.toString() + " not loaded. Removing",
+							LoggerRedstoneWireless.LogLevel.WARNING
+					);
 					rem.add(tx);
 					continue;
 				}
@@ -99,10 +105,9 @@ public class RedstoneEtherFrequency {
 				remTransmitter(world, tx.i, tx.j, tx.k);
 
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 
 		return state;
@@ -123,21 +128,22 @@ public class RedstoneEtherFrequency {
 			if (!txs.containsKey(new RedstoneEtherNode(i, j, k)))
 				return;
 
-			txLock.readLock();
-			LoggerRedstoneWireless
-					.getInstance("RedstoneEtherFrequency")
-						.write(
-								"setTransmitterState(world, " + i + ", " + j + ", " + k + ", " + state + ")",
-								LoggerRedstoneWireless.LogLevel.DEBUG);
+			txLock.readLock(world);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
+					"setTransmitterState(world, " + i + ", " + j + ", " + k + ", " + state + ")",
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 			txs.get(new RedstoneEtherNode(i, j, k)).state = state;
 			txLock.readUnlock();
 
 			updateReceivers(world);
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -146,19 +152,22 @@ public class RedstoneEtherFrequency {
 	 * 
 	 * @param tx transmitter node
 	 */
-	public void addTransmitter(RedstoneEtherNode tx) {
+	public void addTransmitter(World world, RedstoneEtherNode tx) {
 		try {
-			txLock.writeLock();
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
+			txLock.writeLock(world);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
 					"addTransmitter(" + tx.toString() + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 			txs.put(tx, tx);
 			txLock.writeUnlock();
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -167,19 +176,22 @@ public class RedstoneEtherFrequency {
 	 * 
 	 * @param rx receiver node
 	 */
-	public void addReceiver(RedstoneEtherNode rx) {
+	public void addReceiver(World world, RedstoneEtherNode rx) {
 		try {
-			rxLock.writeLock();
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
+			rxLock.writeLock(world);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
 					"addTransmitter(" + rx.toString() + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 			rxs.put(rx, rx);
 			rxLock.writeUnlock();
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -197,19 +209,22 @@ public class RedstoneEtherFrequency {
 			if (!txs.containsKey(new RedstoneEtherNode(i, j, k)))
 				return;
 
-			txLock.writeLock();
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
+			txLock.writeLock(world);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
 					"remTransmitter(world, " + i + ", " + j + ", " + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 			txs.remove(new RedstoneEtherNode(i, j, k));
 			txLock.writeUnlock();
 
 			updateReceivers(world);
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -220,22 +235,25 @@ public class RedstoneEtherFrequency {
 	 * @param j world Y coordinate of receiver
 	 * @param k world Z coordinate of receiver
 	 */
-	public void remReceiver(int i, int j, int k) {
+	public void remReceiver(World world, int i, int j, int k) {
 		try {
 			if (!rxs.containsKey(new RedstoneEtherNode(i, j, k)))
 				return;
 
-			rxLock.writeLock();
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
+			rxLock.writeLock(world);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
 					"remReceiver(" + i + ", " + j + ", " + k + ")",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 			rxs.remove(new RedstoneEtherNode(i, j, k));
 			rxLock.writeUnlock();
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+							"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -250,11 +268,15 @@ public class RedstoneEtherFrequency {
 			List<RedstoneEtherNode> rem = new LinkedList<RedstoneEtherNode>();
 			List<RedstoneEtherNode> update = new LinkedList<RedstoneEtherNode>();
 
-			LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).write(
+					world.isRemote,
 					"updateReceivers(world)",
-					LoggerRedstoneWireless.LogLevel.DEBUG);
+					LoggerRedstoneWireless.LogLevel.DEBUG
+			);
 
-			rxLock.readLock();
+			rxLock.readLock(world);
 			// Iterate through Receivers.
 			for (RedstoneEtherNode rx : rxs.values()) {
 				// Add to remove list if block is not loaded.
@@ -263,11 +285,13 @@ public class RedstoneEtherFrequency {
 						rx.i,
 						rx.j,
 						rx.k)) {
-					LoggerRedstoneWireless
-							.getInstance("RedstoneEtherFrequency")
-								.write(
-										"updateReceivers(world): " + rx + " not loaded. Removing",
-										LoggerRedstoneWireless.LogLevel.WARNING);
+					LoggerRedstoneWireless.getInstance(
+							"RedstoneEtherFrequency"
+					).write(
+							world.isRemote,
+							"updateReceivers(world) " + rx.toString() + " not loaded. Removing",
+							LoggerRedstoneWireless.LogLevel.WARNING
+					);
 					rem.add(rx);
 					continue;
 				}
@@ -279,12 +303,11 @@ public class RedstoneEtherFrequency {
 
 			// Remove unloaded receivers.
 			for (RedstoneEtherNode rx : rem)
-				remReceiver(rx.i, rx.j, rx.k);
+				remReceiver(world, rx.i, rx.j, rx.k);
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 	}
 
@@ -307,7 +330,7 @@ public class RedstoneEtherFrequency {
 	 * @return Closest transmitter coordinate: {X,Y,Z}
 	 */
 	@SuppressWarnings("unchecked")
-	public int[] getClosestActiveTransmitter(int i, int j, int k) {
+	public int[] getClosestActiveTransmitter(World world, int i, int j, int k) {
 		try {
 			int[] pos = new int[3];
 			int[] myPos = { i, j, k };
@@ -315,7 +338,7 @@ public class RedstoneEtherFrequency {
 			boolean first = true;
 			float h = 0.0f;
 
-			txLock.readLock();
+			txLock.readLock(world);
 			for (RedstoneEtherNode node : txs.values()) {
 				if (node.state) {
 					if (first) {
@@ -344,10 +367,9 @@ public class RedstoneEtherFrequency {
 			else
 				return pos;
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 
 		return null;
@@ -363,7 +385,7 @@ public class RedstoneEtherFrequency {
 	 * @param freq frequency
 	 * @return Closest transmitter coordinate: {X,Y,Z}
 	 */
-	public int[] getClosestTransmitter(int i, int j, int k) {
+	public int[] getClosestTransmitter(World world, int i, int j, int k) {
 		try {
 			int[] pos = new int[3];
 			int[] myPos = { i, j, k };
@@ -371,7 +393,7 @@ public class RedstoneEtherFrequency {
 			boolean first = true;
 			float h = 0.0f;
 
-			txLock.readLock();
+			txLock.readLock(world);
 			for (RedstoneEtherNode node : txs.values()) {
 				if (first) {
 					pos = new int[3];
@@ -398,10 +420,9 @@ public class RedstoneEtherFrequency {
 			else
 				return pos;
 		} catch (InterruptedException e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							"WirelessRedstone: " + this.getClass().toString())
-						.writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEtherFrequency"
+			).writeStackTrace(e);
 		}
 		return null;
 	}

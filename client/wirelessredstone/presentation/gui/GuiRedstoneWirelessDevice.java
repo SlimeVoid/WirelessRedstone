@@ -140,8 +140,8 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 				setFreq(Integer.toString(freq));
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
-					"WirelessRedstone: " + this.getClass().toString())
-					.writeStackTrace(e);
+					"GuiRedstoneWirelessDevice"
+			).writeStackTrace(e);
 		}
 	}
 
