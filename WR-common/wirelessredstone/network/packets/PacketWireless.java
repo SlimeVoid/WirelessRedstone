@@ -62,17 +62,16 @@ public abstract class PacketWireless extends PacketUpdate {
 	}
 
 	/**
-	 * Retrieves the command from the payload Override to change the index
-	 * position
+	 * Retrieves the command ID corresponding to the executor
 	 * 
-	 * @return Returns getStringPayload(0) by default
+	 * @return Returns command
 	 */
 	public int getCommand() {
 		return this.command;
 	}
 
 	/**
-	 * Sets the command in the payload Override to change the index position
+	 * Sets the command in the packet
 	 * 
 	 * @param command The command to be added
 	 */
@@ -84,7 +83,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * Retrieves the frequency from the payload Override to change the index
 	 * position
 	 * 
-	 * @return Returns getStringPayload(1) by default
+	 * @return Returns getStringPayload(0) by default
 	 */
 	public String getFreq() {
 		return this.payload.getStringPayload(0);

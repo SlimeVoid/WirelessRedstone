@@ -1,31 +1,42 @@
 package wirelessredstone.addon.remote.core;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.asm.SideOnly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
+import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;
+import wirelessredstone.data.WirelessDeviceData;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import net.minecraft.src.World;
 
 public class WRemoteCore {
 	public static boolean isLoaded = false;
 	public static Item itemRemote;
 	public static int remoteID = 6245;
 
-	public static HashMap<EntityPlayer, WirelessRemoteDevice> remoteTransmitters;
-	public static TreeMap<WirelessCoordinates, WirelessRemoteDevice> remoteWirelessCoords;
+	@SideOnly(Side.CLIENT)
+	public static WirelessRemoteDevice remoteTransmitter;
+	@SideOnly(Side.CLIENT)
+	public static GuiRedstoneWirelessRemote guiRemote;
+	@SideOnly(Side.CLIENT)
+	public static boolean mouseDown, wasMouseDown, remotePulsing;
 
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
@@ -68,9 +79,6 @@ public class WRemoteCore {
 	 * - Remote item ID: (Remote.ID)<br>
 	 */
 	private static void loadConfig() {
-		remoteTransmitters = new HashMap<EntityPlayer, WirelessRemoteDevice>();
-		remoteWirelessCoords = new TreeMap<WirelessCoordinates, WirelessRemoteDevice>();
-
 		remoteID = (Integer) ConfigStoreRedstoneWireless
 				.getInstance("Remote")
 					.get("ID", Integer.class, new Integer(remoteID));
@@ -85,7 +93,6 @@ public class WRemoteCore {
 				"MaxPulseThreads",
 				Integer.class,
 				new Integer(maxPulseThreads));
-
 	}
 
 	/**

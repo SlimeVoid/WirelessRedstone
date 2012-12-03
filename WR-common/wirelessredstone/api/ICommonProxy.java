@@ -11,6 +11,7 @@
  */
 package wirelessredstone.api;
 
+import wirelessredstone.data.WirelessDevice;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NetHandler;
 import net.minecraft.src.INetworkManager;
@@ -70,6 +71,15 @@ public interface ICommonProxy extends IGuiHandler {
 	 * @param tileentity Tile entity related to the GUI
 	 */
 	public void activateGUI(World world, EntityPlayer entityplayer, TileEntity tileentity);
+	
+	/**
+	 * Called on activity in the GUI.
+	 * 
+	 * @param world Minecraft world object.
+	 * @param entityplayer The player that is opening the GUI
+	 * @param device Wireless Device related to the GUI
+	 */
+	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device);
 
 	/**
 	 * Fetches the current minecraft world object.

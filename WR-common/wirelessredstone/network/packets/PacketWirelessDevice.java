@@ -2,6 +2,7 @@ package wirelessredstone.network.packets;
 
 import net.minecraft.src.World;
 import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.core.PacketPayload;
 
 /**
@@ -11,18 +12,18 @@ import wirelessredstone.network.packets.core.PacketPayload;
  * 
  */
 public class PacketWirelessDevice extends PacketWireless {
-	public PacketWirelessDevice(int packetId) {
-		super(packetId);
+	public PacketWirelessDevice() {
+		super(PacketIds.DEVICE);
 
 	}
 
-	public PacketWirelessDevice(int packetId, String name) {
-		super(packetId, new PacketPayload(1, 0, 2, 1));
+	public PacketWirelessDevice(String name) {
+		super(PacketIds.DEVICE, new PacketPayload(1, 0, 2, 1));
 		this.setName(name);
 	}
 
-	public PacketWirelessDevice(int packetId, WirelessDeviceData data) {
-		this(packetId, data.getName());
+	public PacketWirelessDevice(WirelessDeviceData data) {
+		this(data.getName());
 		this.setID(data.getID());
 		this.setFreq(data.getFreq());
 		this.setState(data.getState());

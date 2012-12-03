@@ -11,6 +11,11 @@
  */
 package wirelessredstone.data;
 
+import java.lang.reflect.Constructor;
+
+import wirelessredstone.core.objectfactory.WirelessDeviceDataFactory;
+
+import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
@@ -156,6 +161,50 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		nbttagcompound.setByte("dimension", this.dimension);
 		nbttagcompound.setString("freq", this.freq);
 		nbttagcompound.setBoolean("state", this.state);
+	}
+
+	public static WirelessDeviceData getDeviceData(Class<? extends WirelessDeviceData> wirelessData, String index, int id, String name, World world, EntityPlayer entityplayer) {
+		index = index + "[" + id + "]";
+		WirelessDeviceData data = WirelessDeviceDataFactory
+				.getDeviceDataFromFactory(
+						world,
+						wirelessData,
+						index,
+						true
+				);
+		if (data == null) {
+			data = WirelessDeviceDataFactory
+					.getDeviceDataFromFactory(
+							world,
+							wirelessData,
+							index,
+							false
+					);
+			if (data != null) {
+				world.setItemData(index, data);
+				data.setID(id);
+				data.setName(name);
+				data.setDimension(world);
+				data.setFreq("0");
+				data.setState(false);
+			} else {
+				LoggerRedstoneWireless.getInstance(
+						"WirelessDeviceData"
+				).write(
+						world.isRemote,
+						"Index: " + index + ", not Found",
+						LoggerRedstoneWireless.LogLevel.DEBUG
+				);
+			}
+		}
+		return data;
+	}
+
+	public static WirelessDeviceData getDeviceData(Class wirelessData, String defaultName, ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		String index = itemstack.getItem().getItemName();
+		int id = itemstack.getItemDamage();
+		String name = defaultName;
+		return getDeviceData(wirelessData, index, id, name, world, entityplayer);
 	}
 
 }

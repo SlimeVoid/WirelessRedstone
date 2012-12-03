@@ -8,10 +8,12 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.data.WirelessDevice;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.handlers.ServerTilePacketHandler;
+import wirelessredstone.network.handlers.ServerWirelessDevicePacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.executor.EtherPacketChangeFreqExecutor;
@@ -102,6 +104,10 @@ public class WRCommonProxy implements ICommonProxy {
 	}
 
 	@Override
+	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device) {
+	}
+
+	@Override
 	public void initPacketHandlers() {
 		/////////////////////
 		// Server Handlers //
@@ -110,6 +116,10 @@ public class WRCommonProxy implements ICommonProxy {
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.ETHER,
 				new ServerRedstoneEtherPacketHandler());
+		// Wireless Device Packets
+		ServerPacketHandler.registerPacketHandler(
+				PacketIds.DEVICE,
+				new ServerWirelessDevicePacketHandler());
 		// Executors
 		ServerRedstoneEtherPacketHandler.registerPacketHandler(
 				PacketRedstoneWirelessCommands.changeFreq.getCommand(),

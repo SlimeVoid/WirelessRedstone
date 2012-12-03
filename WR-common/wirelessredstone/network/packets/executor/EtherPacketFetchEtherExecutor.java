@@ -3,6 +3,7 @@ package wirelessredstone.network.packets.executor;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
+import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 
