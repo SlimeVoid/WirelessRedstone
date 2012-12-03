@@ -30,7 +30,6 @@ import wirelessredstone.ether.RedstoneEtherNode;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.executor.IEtherPacketExecutor;
 import wirelessredstone.network.packets.PacketRedstoneEther;
-import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -88,7 +87,7 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 				"ServerRedstoneEtherPacketHandler"
 		).write(
 				world.isRemote,
-				"handlePacket(" + packet.toString()+ ", world," + ((EntityPlayer) entityplayer).username + ")",
+				"handlePacket(" + packet.toString()+ ", world," + entityplayer.username + ")",
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 		// Fetch the command.
@@ -102,7 +101,7 @@ public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
 					"ServerRedstoneEtherPacketHandler"
 			).write(
 					world.isRemote,
-					"handlePacket(" + packet.toString()+ ", world," + ((EntityPlayer) entityplayer).username + ") - UNKNOWN COMMAND",
+					"handlePacket(" + packet.toString()+ ", world," + entityplayer.username + ") - UNKNOWN COMMAND",
 					LoggerRedstoneWireless.LogLevel.WARNING
 			);
 		}

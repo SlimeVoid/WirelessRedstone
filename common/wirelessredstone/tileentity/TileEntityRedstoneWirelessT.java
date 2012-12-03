@@ -12,7 +12,6 @@
 package wirelessredstone.tileentity;
 
 import wirelessredstone.block.BlockRedstoneWireless;
-import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.core.WRCore;
 
 public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {

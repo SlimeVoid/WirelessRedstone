@@ -12,15 +12,11 @@
 package wirelessredstone.network;
 
 import wirelessredstone.core.WRCore;
-import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.INetworkManager;
 import net.minecraft.src.NetHandler;
 import net.minecraft.src.NetLoginHandler;
 import net.minecraft.src.Packet1Login;
-import net.minecraft.src.World;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.Player;
 

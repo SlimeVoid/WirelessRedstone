@@ -71,7 +71,7 @@ public class ServerPacketHandler implements IPacketHandler {
 	 * @param packet Packet to send.
 	 */
 	public static void sendPacketTo(EntityPlayerMP player, Packet250CustomPayload packet) {
-		((EntityPlayerMP) player).playerNetServerHandler.netManager
+		player.playerNetServerHandler.netManager
 				.addToSendQueue(packet);
 	}
 

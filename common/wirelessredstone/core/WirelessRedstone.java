@@ -9,9 +9,8 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package net.minecraft.src;
+package wirelessredstone.core;
 
-import wirelessredstone.core.WRCore;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.RedstoneWirelessConnectionHandler;
 import wirelessredstone.network.ServerPacketHandler;

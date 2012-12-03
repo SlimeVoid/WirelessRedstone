@@ -9,7 +9,6 @@ import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class ClientEtherPacketRXAddExecutor implements IEtherPacketExecutor {
 

@@ -21,9 +21,7 @@ import cpw.mods.fml.common.Side;
 
 import wirelessredstone.core.WRCore;
 
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
 
 /**
  * Wireless Redstone logging engine.<br>

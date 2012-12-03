@@ -24,9 +24,6 @@ import java.util.TreeMap;
 
 import wirelessredstone.core.WRCore;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.WirelessRedstone;
-
 /**
  * Configuration store.<br>
  * Singleton pattern class.
