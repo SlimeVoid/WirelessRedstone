@@ -140,7 +140,7 @@ public class WRCore {
 	/**
 	 * Initializes Block objects.
 	 */
-	public static void initBlocks() {
+	private static void initBlocks() {
 		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F))
 				.setBlockName("wirelessredstone.receiver");
 		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F))
@@ -150,7 +150,7 @@ public class WRCore {
 	/**
 	 * Registers the Blocks, block names and TileEntities
 	 */
-	public static void registerBlocks() {
+	private static void registerBlocks() {
 		GameRegistry.registerBlock(blockWirelessR);
 		LanguageRegistry.addName(blockWirelessR, "Wireless Receiver");
 		ModLoader.addName(blockWirelessR, "de_DE", "Drahtloser Empfanger");
@@ -177,7 +177,7 @@ public class WRCore {
 	 * - Receipt for Receiver.<br>
 	 * - Receipt for Transmitter.
 	 */
-	public static void addRecipes() {
+	private static void addRecipes() {
 		GameRegistry.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
 				"IRI",
 				"RLR",
