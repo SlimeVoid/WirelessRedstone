@@ -152,5 +152,7 @@ public class WRCommonProxy implements ICommonProxy {
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.TILE,
 				new ServerTilePacketHandler());
+		
+		// TODO Unregister all commands on logout/disconnect
 	}
 }
