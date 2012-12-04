@@ -17,6 +17,7 @@ import net.minecraft.src.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
@@ -30,7 +31,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
 
 	@Override
-	public void execute(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
+	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
 		// Fetch the tile from the packet
 		TileEntity entity = packet.getTarget(world);
 

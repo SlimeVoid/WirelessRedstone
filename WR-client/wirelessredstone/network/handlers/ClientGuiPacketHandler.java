@@ -11,27 +11,18 @@ import net.minecraft.src.World;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGui;
+import wirelessredstone.network.packets.PacketWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public class ClientGuiPacketHandler implements IPacketHandler {
+public class ClientGuiPacketHandler extends ClientSubPacketHandler {
 
 	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-		EntityPlayer entityplayer = (EntityPlayer)player;
-		World world = entityplayer.worldObj;
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
-		try {
-			int packetID = data.read();
-			PacketRedstoneWirelessOpenGui pORW = new PacketRedstoneWirelessOpenGui();
-			pORW.readData(data);
-			handlePacket(pORW, world, entityplayer);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	protected PacketWireless createNewPacketWireless() {
+		return new PacketRedstoneWirelessOpenGui();
 	}
-	
-	private void handlePacket(PacketRedstoneWirelessOpenGui packet, World world, EntityPlayer player ) {
+	@Override
+	protected void handlePacket(PacketWireless packet, World world, EntityPlayer player ) {
 		LoggerRedstoneWireless.getInstance(
 				"ClientGuiPacketHandler"
 		).write(

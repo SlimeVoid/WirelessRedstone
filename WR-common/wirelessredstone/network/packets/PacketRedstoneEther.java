@@ -34,14 +34,14 @@ public class PacketRedstoneEther extends PacketWireless {
 				entity.getBlockCoord(2),
 				0);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
-			setCommand(PacketRedstoneWirelessCommands.addReceiver.getCommand());
+			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.getCommand());
 			setState(((BlockRedstoneWireless) WRCore.blockWirelessR).getState(
 					world,
 					this.xPosition,
 					this.yPosition,
 					this.zPosition));
 		} else if (entity instanceof TileEntityRedstoneWirelessT) {
-			setCommand(PacketRedstoneWirelessCommands.addTransmitter
+			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter
 					.getCommand());
 			setState(((BlockRedstoneWireless) WRCore.blockWirelessT).getState(
 					world,

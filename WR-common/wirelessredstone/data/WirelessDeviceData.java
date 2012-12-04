@@ -200,7 +200,7 @@ public abstract class WirelessDeviceData extends WorldSavedData {
 		return data;
 	}
 
-	public static WirelessDeviceData getDeviceData(Class wirelessData, String defaultName, ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public static WirelessDeviceData getDeviceData(Class <? extends WirelessDeviceData> wirelessData, String defaultName, ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		String index = itemstack.getItem().getItemName();
 		int id = itemstack.getItemDamage();
 		String name = defaultName;

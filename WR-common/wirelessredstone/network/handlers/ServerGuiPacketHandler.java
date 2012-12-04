@@ -17,6 +17,7 @@ import net.minecraft.src.Packet250CustomPayload;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGui;
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
@@ -26,14 +27,11 @@ import cpw.mods.fml.common.network.Player;
  * 
  * @author ali4z
  */
-public class ServerGuiPacketHandler implements IPacketHandler {
+public class ServerGuiPacketHandler extends ServerSubPacketHandler {
 
-	/**
-	 * Receive a packet from the handler.<br>
-	 * Server-side GUI packet handler should never receive any packets, thus this does nothing.
-	 */
 	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+	protected PacketWireless createNewPacketWireless() {
+		return null;
 	}
 
 	/**

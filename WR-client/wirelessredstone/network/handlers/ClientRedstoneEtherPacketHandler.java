@@ -13,60 +13,15 @@ import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public class ClientRedstoneEtherPacketHandler implements IPacketHandler {
-	private static Map<Integer, IEtherPacketExecutor> executors = new HashMap<Integer, IEtherPacketExecutor>();
-	/**
-	 * Register an executor with the client-side packet sub-handler.
-	 * 
-	 * @param commandID Command ID for the executor to handle.
-	 * @param executor The executor
-	 */
-	public static void registerPacketHandler(int commandID, IEtherPacketExecutor executor) {
-		executors.put(commandID, executor);
-	}
-	
+public class ClientRedstoneEtherPacketHandler extends ClientSubPacketHandler {
+
 	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-		EntityPlayer entityplayer = (EntityPlayer)player;
-		World world = entityplayer.worldObj;
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
-		try {
-			int packetID = data.read();
-			PacketRedstoneEther pRE = new PacketRedstoneEther();
-			pRE.readData(data);
-			handlePacket(pRE, world, entityplayer);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	private static void handlePacket(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
-		LoggerRedstoneWireless.getInstance(
-				"ClientRedstoneEtherPacketHandler"
-		).write(
-				world.isRemote,
-				"handlePacket("+packet.toString()+")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		
-		// Fetch the command.
-		int command = packet.getCommand();
-		
-		// Execute the command.
-		if ( executors.containsKey(command)) {
-			executors.get(command).execute(packet, world, entityplayer);
-		} else {
-			LoggerRedstoneWireless.getInstance(
-					"ClientRedstoneEtherPacketHandler"
-			).write(
-					world.isRemote,
-					"handlePacket(" + entityplayer.username + "," + packet.toString()+") - UNKNOWN COMMAND",
-					LoggerRedstoneWireless.LogLevel.WARNING
-			);
-		}
+	protected PacketWireless createNewPacketWireless() {
+		return new PacketRedstoneEther();
 	}
 
 	public static void sendRedstoneEtherPacket(int command, int i, int j, int k, Object freq, boolean state) {

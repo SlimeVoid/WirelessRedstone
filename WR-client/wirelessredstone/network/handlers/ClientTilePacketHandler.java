@@ -12,6 +12,7 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.presentation.gui.GuiRedstoneWireless;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
@@ -19,24 +20,15 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public class ClientTilePacketHandler implements IPacketHandler {
-
+public class ClientTilePacketHandler extends ClientSubPacketHandler {
+	
 	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-		EntityPlayer entityplayer = (EntityPlayer)player;
-		World world = entityplayer.worldObj;
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
-		try {
-			int packetID = data.read();
-			PacketWirelessTile pORW = new PacketWirelessTile();
-			pORW.readData(data);
-			handlePacket(pORW, world, entityplayer);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	protected PacketWireless createNewPacketWireless() {
+		return new PacketWirelessTile();
 	}
 	
-	private void handlePacket(PacketWirelessTile packet, World world, EntityPlayer player ) {
+	@Override
+	protected void handlePacket(PacketWireless packet, World world, EntityPlayer player ) {
 		LoggerRedstoneWireless.getInstance(
 				"ClientTilePacketHandler"
 		).write(
@@ -46,17 +38,18 @@ public class ClientTilePacketHandler implements IPacketHandler {
 		);
 		
 		TileEntity tileentity = packet.getTarget(world);
-		if (packet.getCommand() == PacketRedstoneWirelessCommands.fetchTile.getCommand()) {
+		if (packet.getCommand() == PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.getCommand()) {
 			handleFetchTile(packet,tileentity);
 		}
 	}
-	private void handleFetchTile(PacketWirelessTile packet, TileEntity tileentity) {
+	
+	private void handleFetchTile(PacketWireless packet, TileEntity tileentity) {
 		if (
 				tileentity != null && 
 				tileentity instanceof TileEntityRedstoneWireless
 		) {
 			TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
-			tileentityredstonewireless.handleData(packet);
+			tileentityredstonewireless.handleData((PacketWirelessTile)packet);
 
 			GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
 			if (

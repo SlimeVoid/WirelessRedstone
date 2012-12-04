@@ -236,7 +236,7 @@ public class WRClientProxy extends WRCommonProxy {
 	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
 		World world = getWorld(handler);
 		if (world != null) {
-			ClientPacketHandler.sendPacket((Packet250CustomPayload)((new PacketRedstoneEther(PacketRedstoneWirelessCommands.fetchEther.getCommand())).getPacket()));
+			ClientPacketHandler.sendPacket((Packet250CustomPayload)((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.getCommand())).getPacket()));
 		}
 	}
 	
@@ -254,11 +254,11 @@ public class WRClientProxy extends WRCommonProxy {
 				PacketIds.ETHER,
 				new ClientRedstoneEtherPacketHandler());
 		// Executors
-		ClientRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.addTransmitter.getCommand(),
+		ClientPacketHandler.getPacketHandler(PacketIds.ETHER).registerPacketHandler(
+				PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
 				new ClientEtherPacketTXAddExecutor());
-		ClientRedstoneEtherPacketHandler.registerPacketHandler(
-				PacketRedstoneWirelessCommands.addReceiver.getCommand(),
+		ClientPacketHandler.getPacketHandler(PacketIds.ETHER).registerPacketHandler(
+				PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
 				new ClientEtherPacketRXAddExecutor());
 		// GUI Packets
 		ClientPacketHandler.registerPacketHandler(

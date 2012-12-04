@@ -18,7 +18,6 @@ import wirelessredstone.core.WRCore;
 import wirelessredstone.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessDevice;
 import net.minecraft.src.GuiButton;
-import net.minecraft.src.wirelessredstone.addon.remote.ThreadWirelessRemote;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
@@ -43,7 +42,8 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 		super.actionPerformed(guibutton);
 
 		if (guibutton.id == 20) {
-			ThreadWirelessRemote.pulse(WRCore.proxy.getPlayer(), "pulse");
+			// TODO Thread to Pulse
+			//ThreadWirelessRemote.pulse(WRCore.proxy.getPlayer(), "pulse");
 			close();
 			
 		}

@@ -1,4 +1,4 @@
-package net.minecraft.src.wirelessredstone.addon.remote.overrides;
+package wirelessredstone.addon.remote.overrides;
 
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.World;

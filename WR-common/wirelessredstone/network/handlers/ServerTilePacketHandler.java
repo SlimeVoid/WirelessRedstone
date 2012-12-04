@@ -17,6 +17,7 @@ import net.minecraft.src.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -27,14 +28,11 @@ import cpw.mods.fml.common.network.Player;
  * 
  * @author ali4z
  */
-public class ServerTilePacketHandler implements IPacketHandler {
+public class ServerTilePacketHandler extends ServerSubPacketHandler {
 
-	/**
-	 * Receive a packet from the handler.<br>
-	 * Server-side Tile packet handler should never receive any packets, thus this does nothing.
-	 */
 	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+	protected PacketWireless createNewPacketWireless() {
+		return null;
 	}
 
 	/**
@@ -54,7 +52,7 @@ public class ServerTilePacketHandler implements IPacketHandler {
 		
 		// Assemble packet.
 		PacketWirelessTile packet = new PacketWirelessTile(
-				PacketRedstoneWirelessCommands.fetchTile.getCommand(),
+				PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.getCommand(),
 					tileentity);
 		
 		// Broadcast packet.

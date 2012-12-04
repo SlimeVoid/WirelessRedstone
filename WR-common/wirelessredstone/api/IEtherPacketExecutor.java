@@ -20,12 +20,5 @@ import wirelessredstone.network.packets.PacketRedstoneEther;
  * 
  * @author ali4z
  */
-public interface IEtherPacketExecutor {
-	/**
-	 * Execute the packet.
-	 * 
-	 * @param packet The redstone ether packet.
-	 * @param world The world object.
-	 */
-	public void execute(PacketRedstoneEther packet, World world, EntityPlayer entityplayer);
+public interface IEtherPacketExecutor extends IPacketExecutor {
 }

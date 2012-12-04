@@ -3,48 +3,61 @@ package wirelessredstone.addon.remote.network.packets;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum PacketWirelessRemoteCommands {
-	activate,
-	deactivate,
-	changeFreq;
-
-	private int value;
-	private String name;
-
-	public int getCommand() {
-		if (this != null) {
-			return this.value;
+public class PacketWirelessRemoteCommands {
+	private enum remoteCommands {
+		activate,
+		deactivate,
+		changeFreq;
+	
+		private int value;
+		private String name;
+	
+		public int getCommand() {
+			if (this != null) {
+				return this.value;
+			}
+			return -1;
 		}
-		return -1;
+	
+		public String toString() {
+			if (this != null && this.name != null && !this.name.isEmpty()) {
+				return this.name;
+			}
+			return "Command not initialzed";
+		}
 	}
 
-	public String toString() {
-		if (this != null && this.name != null && !this.name.isEmpty()) {
-			return this.name;
-		}
-		return "Command not initialzed";
+	public static void registerCommands() {
+		remoteCommands.activate.value = 0;
+		remoteCommands.activate.name = "activateDevice";
+		registerCommand(remoteCommands.activate.name);
+		remoteCommands.deactivate.value = 1;
+		remoteCommands.deactivate.name = "deactivateDevice";
+		registerCommand(remoteCommands.deactivate.name);
+		remoteCommands.changeFreq.value = 2;
+		remoteCommands.changeFreq.name = "changeDeviceFreq";
+		registerCommand(remoteCommands.changeFreq.name);
 	}
 
 	public static String commandToString(int command) {
-		for (PacketWirelessRemoteCommands value : PacketWirelessRemoteCommands
+		for (remoteCommands value : remoteCommands
 				.values()) {
 			if (value != null & value.getCommand() == command) {
 				return value.toString();
 			}
 		}
+		String commandString = getRegisteredCommandString(command);
+		if (!commandString.equals("")) {
+			return commandString;
+		}
 		return "No Command Exists with value " + command;
 	}
 
-	public static void registerCommands() {
-		activate.value = 0;
-		activate.name = "activateDevice";
-		registerCommand(activate.name);
-		deactivate.value = 1;
-		deactivate.name = "deactivateDevice";
-		registerCommand(deactivate.name);
-		changeFreq.value = 2;
-		changeFreq.name = "changeDeviceFreq";
-		registerCommand(changeFreq.name);
+	private static String getRegisteredCommandString(int command) {
+		if (commandList.containsKey(command)) {
+			return commandList.get(command);
+		}
+		return "";
 	}
 	
 	private static Map<Integer, String> commandList = new HashMap<Integer, String>();

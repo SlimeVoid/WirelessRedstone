@@ -6,13 +6,14 @@ import net.minecraft.src.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class ClientEtherPacketTXAddExecutor implements IEtherPacketExecutor {
 
 	@Override
-	public void execute(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
+	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
 		TileEntity tileentity = packet.getTarget(world);
 		if (
 				tileentity != null && 

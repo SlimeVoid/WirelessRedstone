@@ -153,7 +153,7 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 				return;
 			
 			ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(
-					PacketRedstoneWirelessCommands.changeFreq.getCommand(),
+					PacketRedstoneWirelessCommands.wirelessCommands.changeFreq.getCommand(),
 					inventory.getBlockCoord(0), 
 					inventory.getBlockCoord(1),
 					inventory.getBlockCoord(2), 

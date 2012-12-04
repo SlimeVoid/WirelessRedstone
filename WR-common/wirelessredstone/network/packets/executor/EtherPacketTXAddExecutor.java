@@ -5,6 +5,7 @@ import net.minecraft.src.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketWireless;
 
 /**
  * Execute a add transmitter command.<br>
@@ -16,7 +17,7 @@ import wirelessredstone.network.packets.PacketRedstoneEther;
 public class EtherPacketTXAddExecutor implements IEtherPacketExecutor {
 
 	@Override
-	public void execute(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
+	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
 		RedstoneEther.getInstance().addTransmitter(
 				world,
 				packet.xPosition,

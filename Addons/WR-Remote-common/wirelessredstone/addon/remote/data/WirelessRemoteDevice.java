@@ -3,6 +3,8 @@ package wirelessredstone.addon.remote.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import wirelessredstone.addon.remote.core.WRemoteCore;
+import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.data.WirelessDevice;
 import wirelessredstone.data.WirelessDeviceData;
@@ -12,8 +14,6 @@ import wirelessredstone.ether.RedstoneEther;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.addon.remote.WirelessRemote;
-import net.minecraft.src.wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 
 /**
  * 
@@ -39,7 +39,7 @@ public class WirelessRemoteDevice extends WirelessDevice {
 		ItemStack itemstack = this.owner.inventory.getCurrentItem();
 		return this.owner.inventory.currentItem == this.slot
 				&& itemstack != null
-				&& itemstack.getItem() == WirelessRemote.itemRemote
+				&& itemstack.getItem() == WRemoteCore.itemRemote
 				&& ((WirelessRemoteData)WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack, this.world,
 						this.owner)).getFreq() == this.getFreq();
 	}

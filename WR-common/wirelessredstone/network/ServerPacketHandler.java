@@ -16,6 +16,9 @@ import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.handlers.ServerSubPacketHandler;
+
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
@@ -30,7 +33,7 @@ import cpw.mods.fml.common.network.Player;
  * @author ali4z
  */
 public class ServerPacketHandler implements IPacketHandler {
-	private static Map<Integer, IPacketHandler> commonHandlers = new HashMap<Integer, IPacketHandler>();
+	private static Map<Integer, ServerSubPacketHandler> commonHandlers = new HashMap<Integer, ServerSubPacketHandler>();
 
 	/**
 	 * Register a sub-handler with the server-side packet handler.
@@ -38,8 +41,31 @@ public class ServerPacketHandler implements IPacketHandler {
 	 * @param packetID Packet ID for the sub-handler to handle.
 	 * @param handler The sub-handler.
 	 */
-	public static void registerPacketHandler(int packetID, IPacketHandler handler) {
-		commonHandlers.put(packetID, handler);
+	public static void registerPacketHandler(int packetID, ServerSubPacketHandler handler) {
+		if (!commonHandlers.containsKey(packetID)) {
+			commonHandlers.put(packetID, handler);	
+		}
+	}
+
+	/**
+	 * Retrieves the registered sub-handler from the server side list
+	 * 
+	 * @param packetID
+	 * @return the sub-handler
+	 */
+	public static ServerSubPacketHandler getPacketHandler(int packetID) {
+		try {
+			return commonHandlers.get(packetID);
+		} catch(Exception e) {
+			LoggerRedstoneWireless
+			.getInstance(LoggerRedstoneWireless.filterClassName(ServerPacketHandler.class.toString())
+			).write(
+					false,
+					"Tried to get a Packet Handler for ID: " + packetID + " that has not been registered.",
+					LoggerRedstoneWireless.LogLevel.WARNING
+			);
+			return null;
+		}
 	}
 
 	/**

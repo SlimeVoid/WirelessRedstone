@@ -1,65 +1,102 @@
 package wirelessredstone.network.packets;
 
-public enum PacketRedstoneWirelessCommands {
-	addTransmitter,
-	remTransmitter,
-	addReceiver,
-	remReceiver,
-	setTransmitterState,
-	changeFreq,
-	fetchTile,
-	fetchEther;
+import java.util.HashMap;
+import java.util.Map;
 
-	private int value;
-	private String name;
-
-	public int getCommand() {
-		if (this != null) {
-			return this.value;
+public class PacketRedstoneWirelessCommands {
+	public enum wirelessCommands {
+		addTransmitter,
+		remTransmitter,
+		addReceiver,
+		remReceiver,
+		setTransmitterState,
+		changeFreq,
+		fetchTile,
+		fetchEther;
+	
+		private int value;
+		private String name;
+	
+		public int getCommand() {
+			if (this != null) {
+				return this.value;
+			}
+			return -1;
 		}
-		return -1;
-	}
-
-	public String toString() {
-		if (this != null && this.name != null && !this.name.isEmpty()) {
-			return this.name;
+	
+		public String toString() {
+			if (this != null && this.name != null && !this.name.isEmpty()) {
+				return this.name;
+			}
+			return "Command not initialzed";
 		}
-		return "Command not initialzed";
 	}
 
 	public static String commandToString(int command) {
-		for (PacketRedstoneWirelessCommands value : PacketRedstoneWirelessCommands
+		for (wirelessCommands value : wirelessCommands
 				.values()) {
 			if (value != null & value.getCommand() == command) {
 				return value.toString();
 			}
 		}
+		String commandString = getRegisteredCommandString(command);
+		if (!commandString.equals("")) {
+			return commandString;
+		}
 		return "No Command Exists with value " + command;
 	}
 
+	private static String getRegisteredCommandString(int command) {
+		if (commandList.containsKey(command)) {
+			return commandList.get(command);
+		}
+		return "";
+	}
+
 	public static void registerCommands() {
-		addTransmitter.value = 0;
-		addTransmitter.name = "addTransmitter";
+		wirelessCommands.addTransmitter.value = 0;
+		wirelessCommands.addTransmitter.name = "addTransmitter";
+		registerCommand(wirelessCommands.addTransmitter.name);
 
-		remTransmitter.value = 1;
-		remTransmitter.name = "remTransmitter";
+		wirelessCommands.remTransmitter.value = 1;
+		wirelessCommands.remTransmitter.name = "remTransmitter";
+		registerCommand(wirelessCommands.remTransmitter.name);
 
-		addReceiver.value = 2;
-		addReceiver.name = "addReceiver";
+		wirelessCommands.addReceiver.value = 2;
+		wirelessCommands.addReceiver.name = "addReceiver";
+		registerCommand(wirelessCommands.addReceiver.name);
 
-		remReceiver.value = 3;
-		remReceiver.name = "remReceiver";
+		wirelessCommands.remReceiver.value = 3;
+		wirelessCommands.remReceiver.name = "remReceiver";
+		registerCommand(wirelessCommands.remReceiver.name);
 
-		setTransmitterState.value = 4;
-		setTransmitterState.name = "setTransmitterState";
+		wirelessCommands.setTransmitterState.value = 4;
+		wirelessCommands.setTransmitterState.name = "setTransmitterState";
+		registerCommand(wirelessCommands.setTransmitterState.name);
 
-		changeFreq.value = 5;
-		changeFreq.name = "changeFreq";
+		wirelessCommands.changeFreq.value = 5;
+		wirelessCommands.changeFreq.name = "changeFreq";
+		registerCommand(wirelessCommands.changeFreq.name);
 
-		fetchTile.value = 6;
-		fetchTile.name = "fetchTile";
+		wirelessCommands.fetchTile.value = 6;
+		wirelessCommands.fetchTile.name = "fetchTile";
+		registerCommand(wirelessCommands.fetchTile.name);
 		
-		fetchEther.value = 7;
-		fetchEther.name = "fetchEther";
+		wirelessCommands.fetchEther.value = 7;
+		wirelessCommands.fetchEther.name = "fetchEther";
+		registerCommand(wirelessCommands.fetchEther.name);
+	}
+	
+	private static Map<Integer, String> commandList = new HashMap<Integer, String>();
+	
+	private static int getNextAvailableCommand() {
+		return commandList.size() - 1;
+	}
+	
+	public static void registerCommand(String name) {
+		int nextID = getNextAvailableCommand();
+		if (!commandList.containsKey(nextID)) {
+			commandList.put(nextID, name);
+		}
 	}
 }

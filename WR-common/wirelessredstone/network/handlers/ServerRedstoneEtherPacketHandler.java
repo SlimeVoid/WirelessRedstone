@@ -30,6 +30,7 @@ import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.ether.RedstoneEtherNode;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -41,72 +42,12 @@ import cpw.mods.fml.common.network.Player;
  * 
  * @author ali4z
  */
-public class ServerRedstoneEtherPacketHandler implements IPacketHandler {
-	private static Map<Integer, IEtherPacketExecutor> executors = new HashMap<Integer, IEtherPacketExecutor>();
-	/**
-	 * Register an executor with the server-side packet sub-handler.
-	 * 
-	 * @param commandID Command ID for the executor to handle.
-	 * @param executor The executor
-	 */
-	public static void registerPacketHandler(int commandID, IEtherPacketExecutor executor) {
-		executors.put(commandID, executor);
-	}
-	
-	/**
-	 * Receive a packet from the handler.<br>
-	 * Assembles the packet into an ether packet and routes to handlePacket().
-	 */
-	@Override
-	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-		EntityPlayer entityplayer = (EntityPlayer) player;
-		World world = entityplayer.worldObj;
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				packet.data));
-		try {
-			// Assemble packet
-			int packetID = data.read();
-			PacketRedstoneEther pRE = new PacketRedstoneEther();
-			pRE.readData(data);
-			// Route to handlePacket()
-			handlePacket(pRE, world, entityplayer);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+public class ServerRedstoneEtherPacketHandler extends ServerSubPacketHandler {
 
-	/**
-	 * Handles a received packet.
-	 * 
-	 * @param packet The received packet
-	 * @param world The world object
-	 * @param entityplayer The sending player.
-	 */
-	private void handlePacket(PacketRedstoneEther packet, World world, EntityPlayer entityplayer) {
-		LoggerRedstoneWireless.getInstance(
-				"ServerRedstoneEtherPacketHandler"
-		).write(
-				world.isRemote,
-				"handlePacket(" + packet.toString()+ ", world," + entityplayer.username + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		// Fetch the command.
-		int command = packet.getCommand();
-		
-		// Execute the command.
-		if ( executors.containsKey(command)) {
-			executors.get(command).execute(packet, world, entityplayer);
-		} else {
-			LoggerRedstoneWireless.getInstance(
-					"ServerRedstoneEtherPacketHandler"
-			).write(
-					world.isRemote,
-					"handlePacket(" + packet.toString()+ ", world," + entityplayer.username + ") - UNKNOWN COMMAND",
-					LoggerRedstoneWireless.LogLevel.WARNING
-			);
-		}
+	@Override
+	protected PacketWireless createNewPacketWireless() {
+		return new PacketRedstoneEther();
 	}
-	
 	
 	/**
 	 * Broadcasts an ether tile to all clients.
