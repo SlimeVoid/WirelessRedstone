@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.handlers.ClientSubPacketHandler;
+import wirelessredstone.network.handlers.SubPacketHandler;
 
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.INetworkManager;
@@ -30,9 +30,19 @@ import cpw.mods.fml.common.network.Player;
 
 public class ClientPacketHandler implements IPacketHandler {
 	
-	private static Map<Integer, ClientSubPacketHandler> clientHandlers = new HashMap<Integer, ClientSubPacketHandler>();
+	private static Map<Integer, SubPacketHandler> clientHandlers = new HashMap<Integer, SubPacketHandler>();
 		
-	public static void registerPacketHandler(int packetID, ClientSubPacketHandler handler) {
+	public static void registerPacketHandler(int packetID, SubPacketHandler handler) {
+		if (clientHandlers.containsKey(packetID)) {
+			LoggerRedstoneWireless.getInstance(
+					LoggerRedstoneWireless.filterClassName(ServerPacketHandler.class.toString())
+			).write(
+					false,
+					"PacketID [" + packetID + "] already registered.",
+					LoggerRedstoneWireless.LogLevel.ERROR
+			);
+			throw new RuntimeException("PacketID [" + packetID + "] already registered.");
+		}
 		clientHandlers.put(packetID, handler);
 	}
 
@@ -42,7 +52,7 @@ public class ClientPacketHandler implements IPacketHandler {
 	 * @param packetID
 	 * @return the sub-handler
 	 */
-	public static ClientSubPacketHandler getPacketHandler(int packetID) {
+	public static SubPacketHandler getPacketHandler(int packetID) {
 		if (!clientHandlers.containsKey(packetID)) {
 			LoggerRedstoneWireless
 			.getInstance(LoggerRedstoneWireless.filterClassName(ClientPacketHandler.class.toString())
@@ -61,9 +71,10 @@ public class ClientPacketHandler implements IPacketHandler {
 		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
 		try {
 			int packetID = data.read();
-			
-			if ( clientHandlers.containsKey(packetID) )
-				clientHandlers.get(packetID).onPacketData(manager, packet, player);
+			getPacketHandler(packetID).onPacketData(
+					manager,
+					packet,
+					player);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

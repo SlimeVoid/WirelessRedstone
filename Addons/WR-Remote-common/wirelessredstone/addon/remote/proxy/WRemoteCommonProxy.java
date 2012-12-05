@@ -90,4 +90,10 @@ public class WRemoteCommonProxy implements ICommonProxy {
 		// Server Executor //
 		/////////////////////
 	}
+
+	@Override
+	public void connectionClosed(INetworkManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
 }

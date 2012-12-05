@@ -15,12 +15,13 @@ import wirelessredstone.network.packets.PacketWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public class ClientGuiPacketHandler extends ClientSubPacketHandler {
+public class ClientGuiPacketHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketWireless createNewPacketWireless() {
 		return new PacketRedstoneWirelessOpenGui();
 	}
+	
 	@Override
 	protected void handlePacket(PacketWireless packet, World world, EntityPlayer player ) {
 		LoggerRedstoneWireless.getInstance(

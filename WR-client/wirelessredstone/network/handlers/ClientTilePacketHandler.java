@@ -20,7 +20,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public class ClientTilePacketHandler extends ClientSubPacketHandler {
+public class ClientTilePacketHandler extends SubPacketHandler {
 	
 	@Override
 	protected PacketWireless createNewPacketWireless() {

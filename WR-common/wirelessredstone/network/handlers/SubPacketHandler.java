@@ -17,7 +17,7 @@ import net.minecraft.src.World;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public abstract class ServerSubPacketHandler implements IPacketHandler {
+public abstract class SubPacketHandler implements IPacketHandler {
 
 	private Map<String, IPacketExecutor> executors = new HashMap<String, IPacketExecutor>();	
 	/**

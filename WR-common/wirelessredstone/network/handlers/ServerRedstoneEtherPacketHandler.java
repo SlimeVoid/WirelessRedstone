@@ -42,7 +42,7 @@ import cpw.mods.fml.common.network.Player;
  * 
  * @author ali4z
  */
-public class ServerRedstoneEtherPacketHandler extends ServerSubPacketHandler {
+public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketWireless createNewPacketWireless() {

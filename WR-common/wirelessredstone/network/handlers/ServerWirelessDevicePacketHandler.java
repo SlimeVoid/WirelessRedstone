@@ -19,7 +19,7 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
  * 
  * @author Eurymachus
  */
-public class ServerWirelessDevicePacketHandler extends ServerSubPacketHandler {
+public class ServerWirelessDevicePacketHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketWireless createNewPacketWireless() {

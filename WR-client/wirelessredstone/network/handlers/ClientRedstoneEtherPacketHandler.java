@@ -17,7 +17,7 @@ import wirelessredstone.network.packets.PacketWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
-public class ClientRedstoneEtherPacketHandler extends ClientSubPacketHandler {
+public class ClientRedstoneEtherPacketHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketWireless createNewPacketWireless() {

@@ -27,7 +27,7 @@ import cpw.mods.fml.common.network.Player;
  * 
  * @author ali4z
  */
-public class ServerGuiPacketHandler extends ServerSubPacketHandler {
+public class ServerGuiPacketHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketWireless createNewPacketWireless() {

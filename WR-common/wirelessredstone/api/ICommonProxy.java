@@ -127,4 +127,10 @@ public interface ICommonProxy extends IGuiHandler {
 	 * @param login
 	 */
 	public void login(NetHandler handler, INetworkManager manager, Packet1Login login);
+
+	/**
+	 * Called when a connection to a server is closed
+	 * @param manager
+	 */
+	public void connectionClosed(INetworkManager manager);
 }
