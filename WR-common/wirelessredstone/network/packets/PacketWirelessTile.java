@@ -14,7 +14,7 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 		super(PacketIds.TILE);
 	}
 
-	public PacketWirelessTile(int command, TileEntityRedstoneWireless entity) {
+	public PacketWirelessTile(String command, TileEntityRedstoneWireless entity) {
 		super(PacketIds.TILE, new PacketPayload(0, 0, 1, 13));
 		this.setPosition(
 				entity.getBlockCoord(0),
@@ -25,8 +25,7 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 				"PacketWirelessTile"
 		).write(
 				entity.worldObj.isRemote,
-				PacketRedstoneWirelessCommands.commandToString(this.getCommand()) 
-						+ " - ("+this.xPosition + "," + this.yPosition + "," + this.zPosition+")",
+				this.getCommand() + " - ("+this.xPosition + "," + this.yPosition + "," + this.zPosition+")",
 				LogLevel.INFO
 		);
 		this.setCommand(command);
@@ -40,8 +39,7 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 
 	@Override
 	public String toString() {
-		return PacketRedstoneWirelessCommands
-				.commandToString(this.getCommand()) + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
+		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
 				.getFreq() + "]";
 	}
 

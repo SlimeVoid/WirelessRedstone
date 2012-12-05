@@ -38,7 +38,7 @@ public class ClientTilePacketHandler extends SubPacketHandler {
 		);
 		
 		TileEntity tileentity = packet.getTarget(world);
-		if (packet.getCommand() == PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.getCommand()) {
+		if (packet.getCommand().equals(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString())) {
 			handleFetchTile(packet,tileentity);
 		}
 	}

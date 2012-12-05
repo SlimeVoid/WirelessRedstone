@@ -52,7 +52,7 @@ public class ServerTilePacketHandler extends SubPacketHandler {
 		
 		// Assemble packet.
 		PacketWirelessTile packet = new PacketWirelessTile(
-				PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.getCommand(),
+				PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(),
 					tileentity);
 		
 		// Broadcast packet.

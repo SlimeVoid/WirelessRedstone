@@ -17,18 +17,18 @@ import wirelessredstone.network.packets.core.PacketUpdate;
  */
 public abstract class PacketWireless extends PacketUpdate {
 
-	private int command;
+	private String command;
 
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		super.writeData(data);
-		data.writeInt(this.command);
+		data.writeUTF(this.command);
 	}
 
 	@Override
 	public void readData(DataInputStream data) throws IOException {
 		super.readData(data);
-		this.command = data.readInt();
+		this.command = data.readUTF();
 	}
 
 	/**
@@ -62,11 +62,11 @@ public abstract class PacketWireless extends PacketUpdate {
 	}
 
 	/**
-	 * Retrieves the command ID corresponding to the executor
+	 * Retrieves the command String corresponding to the executor
 	 * 
 	 * @return Returns command
 	 */
-	public int getCommand() {
+	public String getCommand() {
 		return this.command;
 	}
 
@@ -75,7 +75,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * 
 	 * @param command The command to be added
 	 */
-	public void setCommand(int command) {
+	public void setCommand(String command) {
 		this.command = command;
 	}
 

@@ -341,7 +341,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 
 	private Packet getUpdatePacket() {
 		return new PacketWirelessTile(
-				PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.getCommand(),
+				PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(),
 					this).getPacket();
 	}
 

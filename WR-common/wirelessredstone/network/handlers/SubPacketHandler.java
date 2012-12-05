@@ -85,7 +85,7 @@ public abstract class SubPacketHandler implements IPacketHandler {
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 		// Fetch the command.
-		int command = packet.getCommand();
+		String command = packet.getCommand();
 		
 		// Execute the command.
 		if ( executors.containsKey(command)) {

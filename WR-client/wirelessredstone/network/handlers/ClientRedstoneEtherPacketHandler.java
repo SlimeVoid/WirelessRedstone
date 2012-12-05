@@ -24,7 +24,7 @@ public class ClientRedstoneEtherPacketHandler extends SubPacketHandler {
 		return new PacketRedstoneEther();
 	}
 
-	public static void sendRedstoneEtherPacket(int command, int i, int j, int k, Object freq, boolean state) {
+	public static void sendRedstoneEtherPacket(String command, int i, int j, int k, Object freq, boolean state) {
 		PacketRedstoneEther packet = new PacketRedstoneEther(command);
 		packet.setPosition(i, j, k, 0);
 		packet.setFreq(freq);

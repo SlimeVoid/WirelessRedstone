@@ -21,7 +21,7 @@ public class PacketRedstoneEther extends PacketWireless {
 		super(PacketIds.ETHER);
 	}
 
-	public PacketRedstoneEther(int command) {
+	public PacketRedstoneEther(String command) {
 		super(PacketIds.ETHER, new PacketPayload(0, 0, 1, 1));
 		setCommand(command);
 	}
@@ -34,7 +34,7 @@ public class PacketRedstoneEther extends PacketWireless {
 				entity.getBlockCoord(2),
 				0);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
-			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.getCommand());
+			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString());
 			setState(((BlockRedstoneWireless) WRCore.blockWirelessR).getState(
 					world,
 					this.xPosition,
@@ -42,7 +42,7 @@ public class PacketRedstoneEther extends PacketWireless {
 					this.zPosition));
 		} else if (entity instanceof TileEntityRedstoneWirelessT) {
 			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter
-					.getCommand());
+					.toString());
 			setState(((BlockRedstoneWireless) WRCore.blockWirelessT).getState(
 					world,
 					this.xPosition,
@@ -54,8 +54,7 @@ public class PacketRedstoneEther extends PacketWireless {
 
 	@Override
 	public String toString() {
-		return PacketRedstoneWirelessCommands
-				.commandToString(this.getCommand()) + "(" + xPosition + "," + yPosition + "," + zPosition + ") [" + this
+		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ") [" + this
 				.getFreq() + "] - " + this.getState();
 	}
 

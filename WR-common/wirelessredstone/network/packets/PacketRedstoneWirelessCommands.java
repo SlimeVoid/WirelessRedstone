@@ -12,7 +12,8 @@ public class PacketRedstoneWirelessCommands {
 		setTransmitterState,
 		changeFreq,
 		fetchTile,
-		fetchEther;
+		fetchEther,
+		sendGui;
 	
 		private int value;
 		private String name;
@@ -85,6 +86,10 @@ public class PacketRedstoneWirelessCommands {
 		wirelessCommands.fetchEther.value = 7;
 		wirelessCommands.fetchEther.name = "fetchEther";
 		registerCommand(wirelessCommands.fetchEther.name);
+		
+		wirelessCommands.sendGui.value = 8;
+		wirelessCommands.sendGui.name = "sendGui";
+		registerCommand(wirelessCommands.sendGui.name);
 	}
 	
 	private static Map<Integer, String> commandList = new HashMap<Integer, String>();
