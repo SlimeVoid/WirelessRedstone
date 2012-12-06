@@ -26,10 +26,10 @@ public interface IGuiRedstoneWirelessDeviceOverride extends IGuiRedstoneWireless
 	/**
 	 * Triggers before the frequency is changed.
 	 * 
-	 * @param data WirelessDeviceData
+	 * @param wirelessDevice WirelessDeviceData
 	 * @param oldFreq Old frequency
 	 * @param newFreq New frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeFrequencyChange(WirelessDeviceData data, Object oldFreq, Object newFreq);
+	public boolean beforeFrequencyChange(IWirelessDevice wirelessDevice, Object oldFreq, Object newFreq);
 }

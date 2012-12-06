@@ -1,10 +1,11 @@
 package wirelessredstone.api;
 
+import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 
-public interface IDevicePacketExecutor {
+public interface IDevicePacketExecutor extends IPacketExecutor{
 	/**
 	 * Execute the packet.
 	 * 
@@ -12,5 +13,5 @@ public interface IDevicePacketExecutor {
 	 * @param world The world object.
 	 * @param entityplayer The player object
 	 */
-	public void execute(PacketWirelessDevice packet, World world, EntityPlayer entityplayer);
+	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer);
 }

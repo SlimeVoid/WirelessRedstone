@@ -1,12 +1,14 @@
-package wirelessredstone.addon.remote.network.packets;
+package wirelessredstone.network.packets;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PacketWirelessRemoteCommands {
-	private enum remoteCommands {
-		activate,
-		deactivate,
+public class PacketWirelessDeviceCommands {
+	public enum deviceCommands {
+		activateTX,
+		deactivateTX,
+		activateRX,
+		deactivateRX,
 		changeFreq;
 	
 		private int value;
@@ -28,19 +30,25 @@ public class PacketWirelessRemoteCommands {
 	}
 
 	public static void registerCommands() {
-		remoteCommands.activate.value = 0;
-		remoteCommands.activate.name = "activateDevice";
-		registerCommand(remoteCommands.activate.name);
-		remoteCommands.deactivate.value = 1;
-		remoteCommands.deactivate.name = "deactivateDevice";
-		registerCommand(remoteCommands.deactivate.name);
-		remoteCommands.changeFreq.value = 2;
-		remoteCommands.changeFreq.name = "changeDeviceFreq";
-		registerCommand(remoteCommands.changeFreq.name);
+		deviceCommands.activateTX.value = 0;
+		deviceCommands.activateTX.name = "activateTX";
+		registerCommand(deviceCommands.activateTX.name);
+		deviceCommands.deactivateTX.value = 1;
+		deviceCommands.deactivateTX.name = "deactivateTX";
+		registerCommand(deviceCommands.deactivateTX.name);
+		deviceCommands.activateRX.value = 2;
+		deviceCommands.activateRX.name = "activateRX";
+		registerCommand(deviceCommands.activateRX.name);
+		deviceCommands.deactivateRX.value = 3;
+		deviceCommands.deactivateRX.name = "deactivateRX";
+		registerCommand(deviceCommands.deactivateRX.name);
+		deviceCommands.changeFreq.value = 4;
+		deviceCommands.changeFreq.name = "changeDeviceFreq";
+		registerCommand(deviceCommands.changeFreq.name);
 	}
 
 	public static String commandToString(int command) {
-		for (remoteCommands value : remoteCommands
+		for (deviceCommands value : deviceCommands
 				.values()) {
 			if (value != null & value.getCommand() == command) {
 				return value.toString();

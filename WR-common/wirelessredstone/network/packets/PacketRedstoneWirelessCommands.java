@@ -14,17 +14,17 @@ public class PacketRedstoneWirelessCommands {
 		fetchTile,
 		fetchEther,
 		sendGui;
-	
+
 		private int value;
 		private String name;
-	
+
 		public int getCommand() {
 			if (this != null) {
 				return this.value;
 			}
 			return -1;
 		}
-	
+
 		public String toString() {
 			if (this != null && this.name != null && !this.name.isEmpty()) {
 				return this.name;
@@ -34,8 +34,7 @@ public class PacketRedstoneWirelessCommands {
 	}
 
 	public static String commandToString(int command) {
-		for (wirelessCommands value : wirelessCommands
-				.values()) {
+		for (wirelessCommands value : wirelessCommands.values()) {
 			if (value != null & value.getCommand() == command) {
 				return value.toString();
 			}
@@ -82,22 +81,22 @@ public class PacketRedstoneWirelessCommands {
 		wirelessCommands.fetchTile.value = 6;
 		wirelessCommands.fetchTile.name = "fetchTile";
 		registerCommand(wirelessCommands.fetchTile.name);
-		
+
 		wirelessCommands.fetchEther.value = 7;
 		wirelessCommands.fetchEther.name = "fetchEther";
 		registerCommand(wirelessCommands.fetchEther.name);
-		
+
 		wirelessCommands.sendGui.value = 8;
 		wirelessCommands.sendGui.name = "sendGui";
 		registerCommand(wirelessCommands.sendGui.name);
 	}
-	
+
 	private static Map<Integer, String> commandList = new HashMap<Integer, String>();
-	
+
 	private static int getNextAvailableCommand() {
 		return commandList.size() - 1;
 	}
-	
+
 	public static void registerCommand(String name) {
 		int nextID = getNextAvailableCommand();
 		if (!commandList.containsKey(nextID)) {

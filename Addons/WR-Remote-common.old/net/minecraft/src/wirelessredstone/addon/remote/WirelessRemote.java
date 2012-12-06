@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
+import cpw.mods.fml.common.Side;
+
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
@@ -27,17 +29,18 @@ public class WirelessRemote {
 	public static Item itemRemote;
 	public static int remoteID = 6245;
 
-	public static HashMap<EntityPlayer, WirelessRemoteDevice> remoteTransmitters;
-	public static TreeMap<WirelessCoordinates, WirelessRemoteDevice> remoteWirelessCoords;
 
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
 	public static int maxPulseThreads = 2;
 	public static int remoteon, remoteoff;
 
+	@SideOnly(Side.CLIENT)
 	public static WirelessRemoteDevice remoteTransmitter;
+	@SideOnly(Side.CLIENT)
 	public static GuiRedstoneWirelessRemote guiRemote;
 
+	@SideOnly(Side.CLIENT)
 	public static boolean mouseDown, wasMouseDown, remotePulsing;
 	private static List<BaseModOverride> overrides;
 	

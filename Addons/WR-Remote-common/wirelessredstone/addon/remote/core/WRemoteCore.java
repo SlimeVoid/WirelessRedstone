@@ -10,8 +10,10 @@ import cpw.mods.fml.common.asm.SideOnly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
+import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
@@ -32,8 +34,6 @@ public class WRemoteCore {
 	public static int remoteID = 6245;
 
 	@SideOnly(Side.CLIENT)
-	public static WirelessRemoteDevice remoteTransmitter;
-	@SideOnly(Side.CLIENT)
 	public static GuiRedstoneWirelessRemote guiRemote;
 	@SideOnly(Side.CLIENT)
 	public static boolean mouseDown, wasMouseDown, remotePulsing;
@@ -41,12 +41,13 @@ public class WRemoteCore {
 	public static long pulseTime = 2500;
 	public static boolean duraTogg = true;
 	public static int maxPulseThreads = 2;
-	public static int remoteon, remoteoff;
+	public static int remoteoff = 0;
+	public static int remoteon = 1;
 
 	@SidedProxy(
 			clientSide = "wirelessredstone.addon.remote.proxy.WRemoteClientProxy",
 			serverSide = "wirelessredstone.addon.remote.proxy.WRemoteCommonProxy")
-	public static ICommonProxy proxy;
+	public static IRemoteCommonProxy proxy;
 
 	/**
 	 * Fires off all the canons.<br>
@@ -99,7 +100,8 @@ public class WRemoteCore {
 	 * Initializes Item objects.
 	 */
 	private static void initItems() {
-
+		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
+				.setItemName("wirelessredstone.remote");
 	}
 
 	/**
@@ -116,11 +118,20 @@ public class WRemoteCore {
 	 */
 	private static void addRecipes() {
 		GameRegistry.addRecipe(new ItemStack(itemRemote, 1), new Object[] {
-				"i",
-				"#",
-				Character.valueOf('i'),
+				"I",
+				"T",
+				Character.valueOf('I'),
 				Block.torchRedstoneActive,
-				Character.valueOf('#'),
+				Character.valueOf('T'),
 				WRCore.blockWirelessT });
+	}
+
+	public static int getIconFromDamage(String name, int i) {
+		String index = name + "[" + i + "]";
+		WirelessRemoteData data = (WirelessRemoteData) WRCore.proxy
+				.getWorld().loadItemData(WirelessRemoteData.class, index);
+		if (data == null || !data.getState())
+			return remoteoff;
+		return remoteon;
 	}
 }

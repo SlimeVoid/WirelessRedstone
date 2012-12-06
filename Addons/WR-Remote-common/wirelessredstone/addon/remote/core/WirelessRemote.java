@@ -17,7 +17,8 @@ import cpw.mods.fml.common.network.NetworkMod;
 @Mod(
 		modid = "WirelessRemote",
 		name = "Wireless Redstone - Wireless Remote",
-		version = "2.0")
+		version = "2.0",
+		dependencies = "after:WirelessRedstoneCore")
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false)
@@ -60,6 +61,6 @@ public class WirelessRemote {
 	 */
 	@PostInit
 	public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
-		// WRemoteCore.initialize();
+		WRemoteCore.initialize();
 	}
 }

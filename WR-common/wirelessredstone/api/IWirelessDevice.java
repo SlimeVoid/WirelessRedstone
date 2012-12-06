@@ -11,6 +11,8 @@
  */
 package wirelessredstone.api;
 
+import net.minecraft.src.Entity;
+import net.minecraft.src.World;
 import wirelessredstone.data.WirelessCoordinates;
 
 /**
@@ -45,10 +47,59 @@ public interface IWirelessDevice {
 	/**
 	 * Activate the wireless device.
 	 */
-	void activate();
+	void activate(World world, Entity entity);
 
 	/**
 	 * Deactivate the wireless device.
 	 */
-	void deactivate();
+	void deactivate(World world, Entity entity);
+
+	/**
+	 * Perform the activate command
+	 * 
+	 */
+	void doActivateCommand();
+
+	/**
+	 * Perform the deactivate command
+	 * 
+	 */
+	void doDeactivateCommand();
+
+	/**
+	 * Return the associated data class
+	 * 
+	 * @return an extension class of IWirelessDeviceData
+	 */
+	Class<? extends IWirelessDeviceData> getDeviceDataClass();
+
+	/**
+	 * Set the Device coordinates
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	void setCoords(int x, int y, int z);
+
+	/**
+	 * Return the world to which the device belongs
+	 * 
+	 * @return the world
+	 */
+	World getWorld();
+
+	/**
+	 * Used to check if the device is being held
+	 * 
+	 * @return true if the device is being held
+	 */
+	boolean isBeingHeld();
+
+	/**
+	 * Return the name of the device
+	 * 
+	 * @return device name
+	 */
+	String getName();
 }

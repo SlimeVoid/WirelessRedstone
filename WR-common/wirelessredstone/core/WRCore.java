@@ -13,6 +13,7 @@ package wirelessredstone.core;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.Entity;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
@@ -26,6 +27,7 @@ import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -118,6 +120,8 @@ public class WRCore {
 		proxy.init();
 
 		PacketRedstoneWirelessCommands.registerCommands();
+
+		PacketWirelessDeviceCommands.registerCommands();
 
 		proxy.initPacketHandlers();
 
@@ -266,9 +270,9 @@ public class WRCore {
 	 * @param entityId Entity ID
 	 * @return The Entity.
 	 */
-	public static Entity getEntityByID(World world, EntityPlayer entityplayer, int entityId) {
-		if (entityId == entityplayer.entityId) {
-			return entityplayer;
+	public static Entity getEntityByID(World world, EntityLiving entityliving, int entityId) {
+		if (entityliving != null && entityId == entityliving.entityId) {
+			return entityliving;
 		} else {
 			for (int i = 0; i < world.loadedEntityList.size(); ++i) {
 				Entity entity = (Entity) world.loadedEntityList.get(i);

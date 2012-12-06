@@ -15,7 +15,13 @@ import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.handlers.ServerTilePacketHandler;
 import wirelessredstone.network.handlers.ServerWirelessDevicePacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.network.packets.executor.DevicePacketActivateRXExecutor;
+import wirelessredstone.network.packets.executor.DevicePacketActivateTXExecutor;
+import wirelessredstone.network.packets.executor.DevicePacketChangeFreqExecutor;
+import wirelessredstone.network.packets.executor.DevicePacketDeactivateRXExecutor;
+import wirelessredstone.network.packets.executor.DevicePacketDeactivateTXExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketChangeFreqExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketFetchEtherExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketRXAddExecutor;
@@ -143,6 +149,21 @@ public class WRCommonProxy implements ICommonProxy {
 				etherPacketHandler);
 		// Wireless Device Packets
 		ServerWirelessDevicePacketHandler devicePacketHandler = new ServerWirelessDevicePacketHandler();
+		devicePacketHandler.registerPacketHandler(
+				PacketWirelessDeviceCommands.deviceCommands.activateTX.toString(),
+				new DevicePacketActivateTXExecutor());
+		devicePacketHandler.registerPacketHandler(
+				PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString(),
+				new DevicePacketDeactivateTXExecutor());
+		devicePacketHandler.registerPacketHandler(
+				PacketWirelessDeviceCommands.deviceCommands.activateRX.toString(),
+				new DevicePacketActivateRXExecutor());
+		devicePacketHandler.registerPacketHandler(
+				PacketWirelessDeviceCommands.deviceCommands.deactivateRX.toString(),
+				new DevicePacketDeactivateRXExecutor());
+		devicePacketHandler.registerPacketHandler(
+				PacketWirelessDeviceCommands.deviceCommands.changeFreq.toString(),
+				new DevicePacketChangeFreqExecutor());
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.DEVICE,
 				devicePacketHandler);

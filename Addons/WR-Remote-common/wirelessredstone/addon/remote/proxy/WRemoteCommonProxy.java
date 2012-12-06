@@ -1,18 +1,22 @@
 package wirelessredstone.addon.remote.proxy;
 
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.NetHandler;
 import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
+import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.data.WirelessDevice;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class WRemoteCommonProxy implements ICommonProxy {
+public class WRemoteCommonProxy implements IRemoteCommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
@@ -95,5 +99,15 @@ public class WRemoteCommonProxy implements ICommonProxy {
 	public void connectionClosed(INetworkManager manager) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void activateRemote(World world, EntityLiving entityliving) {
+		WirelessRemoteDevice.activateWirelessRemote(world, entityliving);
+	}
+
+	@Override
+	public void deactivateRemote(World world, EntityLiving entityliving) {
+		WirelessRemoteDevice.deactivateWirelessRemote(world, entityliving);
 	}
 }

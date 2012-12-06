@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.remote.items;
 
+import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.data.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
@@ -25,7 +26,8 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 
 public class ItemRedstoneWirelessRemote extends Item {
-	protected ItemRedstoneWirelessRemote(int i) {
+	
+	public ItemRedstoneWirelessRemote(int i) {
 		super(i);
 		maxStackSize = 1;
 	}
@@ -69,7 +71,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 	}
 
 	public int getIconFromDamage(int i) {
-		return 0;//WirelessRemote.getIconFromDamage(this.getItemName(), i);
+		return WRemoteCore.getIconFromDamage(this.getItemName(), i);
 	}
 
 	@Override
@@ -91,5 +93,10 @@ public class ItemRedstoneWirelessRemote extends Item {
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
 		WirelessRemoteData data = (WirelessRemoteData)WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack, world, entityplayer);
+	}
+	
+	@Override
+	public String getTextureFile() {
+		return "/WirelessSprites/Remote/items.png";
 	}
 }

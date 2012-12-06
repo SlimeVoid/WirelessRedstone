@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetClientHandler;
 import net.minecraft.src.NetHandler;
@@ -124,7 +126,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	@Override
 	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device) {
 		if (device instanceof WirelessRemoteDevice) {
-			guiWirelessRemote.assWirelessDevice(device.getDeviceData(), entityplayer);
+			guiWirelessRemote.assWirelessDevice(device, entityplayer);
 			ModLoader.openGUI(entityplayer, guiWirelessRemote);
 		}
 	}
@@ -178,5 +180,23 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 		/////////////////////
 		// Client Handlers //
 		/////////////////////
+	}
+
+	@Override
+	public void activateRemote(World world, EntityLiving entityliving) {
+		if (!world.isRemote) {
+			super.activateRemote(world, entityliving);
+		} else {
+			WirelessRemoteDevice.activatePlayerWirelessRemote(world, entityliving);
+		}
+	}
+
+	@Override
+	public void deactivateRemote(World world, EntityLiving entityplayer) {
+		if (!world.isRemote) {
+			super.deactivateRemote(world, entityplayer);
+		} else {
+			WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityplayer);
+		}
 	}
 }

@@ -20,7 +20,8 @@ public class PacketRedstoneWirelessOpenGui extends PacketWireless {
 
 	public PacketRedstoneWirelessOpenGui(TileEntityRedstoneWireless entity) {
 		this();
-		this.setCommand(PacketRedstoneWirelessCommands.wirelessCommands.sendGui.toString());
+		this.setCommand(PacketRedstoneWirelessCommands.wirelessCommands.sendGui
+				.toString());
 		this.setPosition(
 				entity.getBlockCoord(0),
 				entity.getBlockCoord(1),

@@ -18,6 +18,7 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiButton;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
+import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessDeviceData;
 
@@ -30,7 +31,7 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	/**
 	 * Associated Wireless Device
 	 */
-	protected WirelessDeviceData wirelessDeviceData;
+	protected IWirelessDevice wirelessDevice;
 
 	/**
 	 * Constructor.<br>
@@ -50,8 +51,8 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	 * @param device
 	 *            WirelessDeviceData to be associated
 	 */
-	public void assWirelessDevice(WirelessDeviceData device, EntityPlayer owner) {
-		wirelessDeviceData = device;
+	public void assWirelessDevice(IWirelessDevice device, EntityPlayer owner) {
+		wirelessDevice = device;
 		entityplayer = owner;
 		world = owner.worldObj;
 	}
@@ -129,7 +130,7 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 			boolean prematureExit = false;
 			for (IGuiRedstoneWirelessOverride override : overrides) {
 				if (((IGuiRedstoneWirelessDeviceOverride) override)
-						.beforeFrequencyChange(wirelessDeviceData, oldFreq,
+						.beforeFrequencyChange(wirelessDevice, oldFreq,
 								freq))
 					prematureExit = true;
 			}
@@ -152,16 +153,16 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	 */
 	@Override
 	protected String getGuiName() {
-		return this.wirelessDeviceData.getName();
+		return this.wirelessDevice.getName();
 	}
 
 	@Override
 	protected Object getFreq() {
-		return this.wirelessDeviceData.getFreq();
+		return this.wirelessDevice.getFreq();
 	}
 
 	@Override
 	protected void setFreq(String freq) {
-		this.wirelessDeviceData.setFreq(freq);
+		this.wirelessDevice.setFreq(freq);
 	}
 }
