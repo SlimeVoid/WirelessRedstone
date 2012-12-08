@@ -11,8 +11,6 @@
  */
 package wirelessredstone.api;
 
-import wirelessredstone.data.WirelessDeviceData;
-
 /**
  * GUI override.<br>
  * Used for injecting code into existing Wireless Device GUI screens.<br>

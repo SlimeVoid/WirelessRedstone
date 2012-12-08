@@ -16,7 +16,7 @@ package wirelessredstone.addon.remote.items;
 
 import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
-import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;

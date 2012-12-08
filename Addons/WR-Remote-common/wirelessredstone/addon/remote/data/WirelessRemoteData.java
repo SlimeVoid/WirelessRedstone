@@ -5,7 +5,7 @@ import java.util.TreeMap;
 
 import net.minecraft.src.EntityPlayer;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.device.WirelessDeviceData;
 
 public class WirelessRemoteData extends WirelessDeviceData {
 

@@ -11,7 +11,7 @@
  */
 package wirelessredstone.api;
 
-import wirelessredstone.data.WirelessDevice;
+import wirelessredstone.device.WirelessDevice;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.NetHandler;
 import net.minecraft.src.INetworkManager;

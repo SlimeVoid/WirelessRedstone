@@ -5,7 +5,6 @@ import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
-import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketWireless;
 
 public class EtherPacketFetchEtherExecutor implements IEtherPacketExecutor {

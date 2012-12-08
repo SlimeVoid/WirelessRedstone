@@ -12,9 +12,9 @@ import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.data.WirelessDevice;
-import wirelessredstone.data.WirelessDeviceData;
-import wirelessredstone.data.WirelessTransmitterDevice;
+import wirelessredstone.device.WirelessDevice;
+import wirelessredstone.device.WirelessDeviceData;
+import wirelessredstone.device.WirelessTransmitterDevice;
 import wirelessredstone.ether.RedstoneEther;
 
 

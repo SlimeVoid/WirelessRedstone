@@ -3,11 +3,9 @@ package wirelessredstone.network.packets;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
-import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.WRCore;
-import wirelessredstone.data.WirelessDevice;
-import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.core.PacketPayload;
 

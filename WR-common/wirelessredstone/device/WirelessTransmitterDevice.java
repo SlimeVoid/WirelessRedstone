@@ -1,15 +1,10 @@
-package wirelessredstone.data;
-
-import java.util.ArrayList;
-import java.util.List;
+package wirelessredstone.device;
 
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.World;
 
-import wirelessredstone.api.IRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 
 public class WirelessTransmitterDevice extends WirelessDevice {
 	

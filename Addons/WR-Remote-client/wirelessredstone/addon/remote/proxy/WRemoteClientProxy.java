@@ -21,7 +21,7 @@ import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.api.IBaseModOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.data.WirelessDevice;
+import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.handlers.ClientGuiPacketHandler;

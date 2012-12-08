@@ -1,13 +1,9 @@
 package wirelessredstone.api;
 
 import net.minecraft.src.Entity;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
-import net.minecraftforge.common.DimensionManager;
-import wirelessredstone.core.WRCore;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.data.WirelessDeviceData;
 
 public interface IWirelessDeviceData {
 

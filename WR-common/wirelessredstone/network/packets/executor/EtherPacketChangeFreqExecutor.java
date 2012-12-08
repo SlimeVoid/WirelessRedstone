@@ -16,7 +16,6 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
-import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 

@@ -9,17 +9,17 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.data;
+package wirelessredstone.device;
 
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.data.WirelessCoordinates;
 
 /**
  * A wireless device.<br>

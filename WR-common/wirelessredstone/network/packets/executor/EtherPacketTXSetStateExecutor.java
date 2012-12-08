@@ -4,7 +4,6 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketWireless;
 
 /**

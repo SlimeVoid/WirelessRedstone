@@ -8,7 +8,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.data.WirelessDevice;
+import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;

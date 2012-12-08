@@ -4,11 +4,8 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IDevicePacketExecutor;
-import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.data.WirelessDevice;
-import wirelessredstone.data.WirelessDeviceData;
-import wirelessredstone.data.WirelessTransmitterDevice;
+import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 

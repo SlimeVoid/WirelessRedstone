@@ -12,7 +12,7 @@ import net.minecraft.src.World;
 import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.data.WirelessDevice;
+import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 

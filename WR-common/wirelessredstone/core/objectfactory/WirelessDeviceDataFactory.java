@@ -7,7 +7,7 @@ import net.minecraft.src.WorldSavedData;
 
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.device.WirelessDeviceData;
 
 public class WirelessDeviceDataFactory {
 

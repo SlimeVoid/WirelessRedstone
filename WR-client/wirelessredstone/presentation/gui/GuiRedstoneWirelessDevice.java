@@ -20,7 +20,7 @@ import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.device.WirelessDeviceData;
 
 /**
  * Wireless Redstone GUI screen.

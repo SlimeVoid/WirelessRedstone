@@ -7,7 +7,6 @@ import java.util.Map;
 
 import wirelessredstone.api.IPacketExecutor;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketWireless;
 
 import net.minecraft.src.EntityPlayer;

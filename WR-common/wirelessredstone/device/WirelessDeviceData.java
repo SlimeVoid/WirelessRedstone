@@ -9,17 +9,14 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.data;
-
-import java.lang.reflect.Constructor;
+package wirelessredstone.device;
 
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.objectfactory.WirelessDeviceDataFactory;
-
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.data.WirelessCoordinates;
 import net.minecraft.src.Entity;
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
@@ -325,6 +322,7 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 				throw new RuntimeException("Index: " + worldIndex + ", not found for " + name);
 			}
 		}
+		System.out.println(data.getName());
 		return data;
 	}
 

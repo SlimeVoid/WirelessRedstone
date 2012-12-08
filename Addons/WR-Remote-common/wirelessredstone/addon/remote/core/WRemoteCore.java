@@ -19,7 +19,7 @@ import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.data.WirelessDeviceData;
+import wirelessredstone.device.WirelessDeviceData;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
