@@ -18,7 +18,7 @@ public class DevicePacketChangeFreqExecutor implements IDevicePacketExecutor {
 			IWirelessDeviceData data = WirelessDeviceData.getDeviceData(
 					WirelessDeviceData.class,
 					packet.getType(),
-					packet.getID(),
+					packet.getDeviceID(),
 					packet.getName(),
 					DimensionManager.getWorld(
 							packet.getDimension()

@@ -79,7 +79,7 @@ public interface ICommonProxy extends IGuiHandler {
 	 * @param entityplayer The player that is opening the GUI
 	 * @param device Wireless Device related to the GUI
 	 */
-	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device);
+	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata);
 
 	/**
 	 * Fetches the current minecraft world object.

@@ -32,7 +32,7 @@ public abstract class EurysPacket {
 
 	public abstract void readData(DataInputStream data) throws IOException;
 
-	public abstract int getID();
+	protected abstract int getPacketID();
 
 	public String toString(boolean full) {
 		return toString();
@@ -40,7 +40,7 @@ public abstract class EurysPacket {
 
 	@Override
 	public String toString() {
-		return getID() + " " + getClass().getSimpleName();
+		return getPacketID() + " " + getClass().getSimpleName();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public abstract class EurysPacket {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		DataOutputStream data = new DataOutputStream(bytes);
 		try {
-			data.writeByte(getID());
+			data.writeByte(getPacketID());
 			writeData(data);
 		} catch (IOException e) {
 			e.printStackTrace();

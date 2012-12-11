@@ -29,7 +29,7 @@ import wirelessredstone.data.WirelessCoordinates;
  */
 public abstract class WirelessDevice implements IWirelessDevice {
 	
-	private IWirelessDeviceData data;
+	protected IWirelessDeviceData data;
 	
 	protected WirelessDevice(World world, IWirelessDeviceData data) {
 		if (data != null) {

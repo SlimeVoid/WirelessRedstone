@@ -167,7 +167,7 @@ public abstract class PacketUpdate extends EurysPacket {
 	public abstract boolean targetExists(World world);
 
 	@Override
-	public int getID() {
+	protected int getPacketID() {
 		return this.packetId;
 	}
 }

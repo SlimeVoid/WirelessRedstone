@@ -11,8 +11,11 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.device.WirelessDevice;
+import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -44,6 +47,7 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 
 	@Override
 	public void addOverrides() {
+		RedstoneEther.getInstance().addOverride(new RedstoneEtherOverrideRemote());
 	}
 
 	@Override
@@ -62,7 +66,7 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device) {
+	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
 	}
 
 	@Override

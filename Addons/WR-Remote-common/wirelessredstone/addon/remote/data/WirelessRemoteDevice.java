@@ -16,6 +16,9 @@ import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.device.WirelessTransmitterDevice;
 import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.packets.PacketWirelessDevice;
+import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 
 
 import net.minecraft.src.Entity;
@@ -23,6 +26,7 @@ import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 
 /**
@@ -34,8 +38,8 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	
 	@SideOnly(Side.CLIENT)
 	public static WirelessRemoteDevice remoteTransmitter;
-	public static HashMap<EntityLiving, WirelessRemoteDevice> remoteTransmitters;
-	public static TreeMap<WirelessCoordinates, WirelessRemoteDevice> remoteWirelessCoords;
+	public static HashMap<EntityLiving, WirelessRemoteDevice> remoteTransmitters = new HashMap();
+	public static TreeMap<WirelessCoordinates, WirelessRemoteDevice> remoteWirelessCoords = new TreeMap();
 	
 	protected int slot;
 	protected static List<RedstoneWirelessRemoteOverride> overrides = new ArrayList();
@@ -83,10 +87,32 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	}
 	
 	@Override
+	public void doActivateCommand() {
+		PacketWirelessDevice packet = new PacketWirelessDevice(
+				this.getCoords().getX(),
+				this.getCoords().getY(),
+				this.getCoords().getZ(),
+				this.data);
+		packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.activateTX.toString());
+		ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
+	}
+	
+	@Override
+	public void doDeactivateCommand() {
+		PacketWirelessDevice packet = new PacketWirelessDevice(
+				this.getCoords().getX(),
+				this.getCoords().getY(),
+				this.getCoords().getZ(),
+				this.data);
+		packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString());
+		ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
+		
+	}
+	
+	@Override
 	public void activate(World world, Entity entity) {
 		if (entity instanceof EntityLiving) {
 			super.activate(world, entity);
-			WRemoteCore.proxy.activateRemote(world, (EntityLiving)entity);
 		}
 	}
 	
@@ -94,7 +120,6 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	public void deactivate(World world, Entity entity) {
 		if (entity instanceof EntityLiving) {
 			super.deactivate(world, entity);
-			WRemoteCore.proxy.deactivateRemote(world, (EntityLiving)entity);
 		}
 	}
 

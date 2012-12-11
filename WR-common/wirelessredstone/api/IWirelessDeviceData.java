@@ -145,4 +145,11 @@ public interface IWirelessDeviceData {
 	 * @return Device state.
 	 */
 	public boolean getState();
+
+	/**
+	 * Get the device's owner ID
+	 * 
+	 * @return owner ID
+	 */
+	public int getOwnerID();
 }

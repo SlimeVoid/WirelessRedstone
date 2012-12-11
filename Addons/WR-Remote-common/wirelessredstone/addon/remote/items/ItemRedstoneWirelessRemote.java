@@ -18,6 +18,7 @@ import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
@@ -29,6 +30,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 	
 	public ItemRedstoneWirelessRemote(int i) {
 		super(i);
+		this.setCreativeTab(CreativeTabs.tabRedstone);
 		maxStackSize = 1;
 	}
 
@@ -38,7 +40,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 		WirelessRemoteData remote = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack,
 				world, entityplayer);
 		if (entityplayer.isSneaking()) {
-			//WirelessRemote.openGUI(world, entityplayer, remote);
+			WRemoteCore.proxy.activateGUI(world, entityplayer, remote);
 			return true;
 		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
@@ -56,7 +58,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		if (!entityplayer.isSneaking()) {
-			//WirelessRemote.activateRemote(world, entityplayer);
+			WRemoteCore.proxy.activateRemote(world, entityplayer);
 		} else {
 			onItemUse(itemstack, entityplayer, world,
 					(int) Math.round(entityplayer.posX),

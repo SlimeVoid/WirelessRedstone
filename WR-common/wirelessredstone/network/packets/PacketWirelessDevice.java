@@ -27,7 +27,7 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.setName(name);
 	}
 
-	public PacketWirelessDevice(int x, int y, int z, WirelessDeviceData data) {
+	public PacketWirelessDevice(int x, int y, int z, IWirelessDeviceData data) {
 		this(data.getName());
 		this.setPosition(x, y, z, 0);
 		this.setID(data.getID());
@@ -58,7 +58,7 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.payload.setStringPayload(2, itemData);
 	}
 
-	public int getID() {
+	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
 	}
 
@@ -87,7 +87,7 @@ public class PacketWirelessDevice extends PacketWireless {
 		IWirelessDeviceData data = WirelessDeviceData.getDeviceData(
 				WirelessDeviceData.class,
 				this.getType(),
-				this.getID(),
+				this.getDeviceID(),
 				this.getName(),
 				DimensionManager.getWorld(this.getDimension()),
 				WRCore.getEntityByID(world, entityliving, this.getOwnerID()));

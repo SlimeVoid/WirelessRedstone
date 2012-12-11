@@ -8,6 +8,7 @@ import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
@@ -110,7 +111,7 @@ public class WRCommonProxy implements ICommonProxy {
 	}
 
 	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device) {
+	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
 	}
 
 	@Override

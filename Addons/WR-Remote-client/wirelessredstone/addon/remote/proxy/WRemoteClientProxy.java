@@ -18,8 +18,10 @@ import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
+import wirelessredstone.addon.remote.tickhandler.ClientTickHandler;
 import wirelessredstone.api.IBaseModOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
+import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.ether.RedstoneEther;
@@ -43,6 +45,8 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.registry.TickRegistry;
 /**
  * WRClientProxy class
  * 
@@ -63,6 +67,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	
 	@Override
 	public void init() {
+		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
 		initGUIs();
 	}
 
@@ -124,11 +129,9 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	}
 
 	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, WirelessDevice device) {
-		if (device instanceof WirelessRemoteDevice) {
-			guiWirelessRemote.assWirelessDevice(device, entityplayer);
-			ModLoader.openGUI(entityplayer, guiWirelessRemote);
-		}
+	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
+		guiWirelessRemote.assWirelessDevice(devicedata, entityplayer);
+		ModLoader.openGUI(entityplayer, guiWirelessRemote);
 	}
 	
 	/**
