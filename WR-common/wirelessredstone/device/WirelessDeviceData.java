@@ -322,7 +322,6 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 				throw new RuntimeException("Index: " + worldIndex + ", not found for " + name);
 			}
 		}
-		System.out.println(data.getName());
 		return data;
 	}
 
