@@ -175,7 +175,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 
 		if (newState != oldState) {
 			setState(world, i, j, k, newState);
-			world.markBlockNeedsUpdate(i, j, k);
+			world.markBlockForRenderUpdate(i, j, k);
 			notifyNeighbors(world, i, j, k);
 
 			if (!world.isRemote) {
@@ -217,7 +217,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 			if (!((TileEntityRedstoneWireless) entity).isPoweringIndirectly(l))
 				return false;
 			else
-				return isPoweringTo(world, i, j, k, l);
+				return isProvidingStrongPower(world, i, j, k, l);
 		}
 		return false;
 	}

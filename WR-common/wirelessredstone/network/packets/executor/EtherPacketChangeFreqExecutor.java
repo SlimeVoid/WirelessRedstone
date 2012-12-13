@@ -48,7 +48,7 @@ public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
 			entity.onInventoryChanged();
 
 			// Makr the block for update with the world.
-			world.markBlockNeedsUpdate(
+			world.markBlockForRenderUpdate(
 					packet.xPosition,
 					packet.yPosition,
 					packet.zPosition);

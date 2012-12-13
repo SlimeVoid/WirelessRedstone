@@ -29,7 +29,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 					TileEntityRedstoneWirelessT teRWT = (TileEntityRedstoneWirelessT) tileentityredstonewireless;
 					teRWT.setFreq(packetData.getFreq().toString());
 					teRWT.onInventoryChanged();
-					teRWT.worldObj.markBlockNeedsUpdate(packetData.xPosition,
+					teRWT.worldObj.markBlockForRenderUpdate(packetData.xPosition,
 							packetData.yPosition, packetData.zPosition);
 				}
 
@@ -40,7 +40,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 							.getInDirectlyPowering());
 					teRWR.setPowerDirections(packetData.getPowerDirections());
 					teRWR.onInventoryChanged();
-					teRWR.worldObj.markBlockNeedsUpdate(packetData.xPosition,
+					teRWR.worldObj.markBlockForRenderUpdate(packetData.xPosition,
 							packetData.yPosition, packetData.zPosition);
 				}
 			}

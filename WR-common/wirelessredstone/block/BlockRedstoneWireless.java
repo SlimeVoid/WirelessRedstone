@@ -85,7 +85,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		// Store meta.
 		try {
 			world.setBlockMetadataWithNotify(i, j, k, meta);
-			world.markBlockNeedsUpdate(i, j, k);
+			world.markBlockForRenderUpdate(i, j, k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
@@ -663,7 +663,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Powering state.
 	 */
 	@Override
-	public boolean isPoweringTo(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	public boolean isProvidingStrongPower(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 
 		try {
 			if (iblockaccess instanceof World) {
@@ -717,7 +717,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Powering state.
 	 */
 	@Override
-	public boolean isIndirectlyPoweringTo(IBlockAccess world, int i, int j, int k, int l) {
+	public boolean isProvidingWeakPower(IBlockAccess world, int i, int j, int k, int l) {
 		if ( world instanceof World ) {
 			LoggerRedstoneWireless
 			.getInstance(
