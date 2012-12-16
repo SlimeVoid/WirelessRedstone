@@ -90,13 +90,10 @@ public class RedstoneEtherOverrideRemote implements IRedstoneEtherOverride {
 		int[] a = { i, j, k };
 		WirelessCoordinates deviceCoords = new WirelessCoordinates(a);
 		if (WirelessRemoteDevice.remoteWirelessCoords.containsKey(deviceCoords)) {
-			WirelessRemoteDevice remote = WirelessRemoteDevice.remoteWirelessCoords
-					.get(deviceCoords);
-			int[] b = { remote.getCoords().getX(), remote.getCoords().getY(),
-					remote.getCoords().getZ() };
-			if (RedstoneEther.pythagoras(a, b) < 1)
-				return true;
+			return true;
 		}
+		System.out.println("isLoaded(" + world.isRemote + ", " + i + ", " + j + ", " + k + ")");
+		System.out.println("" + returnState);
 		return returnState;
 	}
 

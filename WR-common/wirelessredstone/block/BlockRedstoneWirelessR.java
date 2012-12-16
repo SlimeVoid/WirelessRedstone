@@ -175,7 +175,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 
 		if (newState != oldState) {
 			setState(world, i, j, k, newState);
-			world.markBlockForRenderUpdate(i, j, k);
+			world.markBlockForUpdate(i, j, k);
 			notifyNeighbors(world, i, j, k);
 
 			if (!world.isRemote) {

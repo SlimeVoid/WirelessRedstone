@@ -16,6 +16,7 @@ package wirelessredstone.addon.remote.items;
 
 import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.CreativeTabs;
@@ -81,15 +82,20 @@ public class ItemRedstoneWirelessRemote extends Item {
 			int i, boolean isHeld) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
-			//if (!world.isRemote) {
-				WirelessRemoteData data = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack,
-						world, entityplayer);
-				String freq = data.getFreq();
-			//}
-			if (!isHeld) {
-				WRemoteCore.proxy.deactivateRemote(world, entityplayer);
+		
+			WirelessRemoteData data = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack,
+					world, entityplayer);
+			String freq = data.getFreq();
+			if (world.isRemote) { 
+				if (!isHeld || !isRemoteOn(entityplayer, freq) && !WRemoteCore.proxy.deactivateRemote(world, entityplayer)) {
+				}
 			}
 		}
+	}
+	
+	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
+		return WirelessRemoteDevice.remoteTransmitter == null ? false
+				: WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
 	}
 
 	@Override

@@ -9,5 +9,5 @@ import wirelessredstone.api.ICommonProxy;
 public interface IRemoteCommonProxy extends ICommonProxy {
 	public void activateRemote(World world, EntityLiving entityliving);
 
-	public void deactivateRemote(World world, EntityLiving entityliving);
+	public boolean deactivateRemote(World world, EntityLiving entityliving);
 }

@@ -33,8 +33,9 @@ public class ClientTickHandler implements ITickHandler {
 				&& WirelessRemoteDevice.remoteTransmitter == null
 				&& entityplayer.inventory.getCurrentItem() != null
 				&& entityplayer.inventory.getCurrentItem().getItem() == WRemoteCore.itemRemote
-				&& !entityplayer.isSneaking())
+				&& !entityplayer.isSneaking()) {
 			WirelessRemoteDevice.activatePlayerWirelessRemote(world, entityplayer);
+		}
 	}
 
 	public static boolean mouseClicked() {

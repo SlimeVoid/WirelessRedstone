@@ -32,7 +32,6 @@ public class WirelessDeviceDataFactory {
 	public WirelessDeviceData getDeviceDataFromClass() {
 		try {
 			if (this.wirelessDeviceDataClass != null && this.wirelessDeviceDataConstructor != null && !this.wirelessDeviceDataIndex.isEmpty()) {
-				System.out.println("Index: " + wirelessDeviceDataIndex);
 				Object data = this.wirelessDeviceDataConstructor.newInstance(wirelessDeviceDataIndex);
 				return this.getDeviceDataFromInstance(data);	
 			}

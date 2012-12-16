@@ -85,7 +85,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 		// Store meta.
 		try {
 			world.setBlockMetadataWithNotify(i, j, k, meta);
-			world.markBlockForRenderUpdate(i, j, k);
+			world.markBlockForUpdate(i, j, k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless.filterClassName(this.getClass().toString())

@@ -23,7 +23,7 @@ public class PacketWirelessDevice extends PacketWireless {
 	}
 
 	public PacketWirelessDevice(String name) {
-		super(PacketIds.DEVICE, new PacketPayload(3, 0, 3, 1));
+		super(PacketIds.DEVICE, new PacketPayload(2, 0, 3, 1));
 		this.setName(name);
 	}
 
@@ -40,24 +40,16 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.payload.setIntPayload(0, id);
 	}
 
-	public void setOwnerID(int ownerID) {
-		this.payload.setIntPayload(1, ownerID);
-	}
-
 	public void setDimensionID(int dimensionID) {
-		this.payload.setIntPayload(2, dimensionID);
+		this.payload.setIntPayload(1, dimensionID);
 	}
 
 	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
 	}
 
-	public int getOwnerID() {
-		return this.payload.getIntPayload(1);
-	}
-
 	public int getDimension() {
-		return this.payload.getIntPayload(2);
+		return this.payload.getIntPayload(1);
 	}
 
 	public void setName(String name) {
@@ -88,7 +80,7 @@ public class PacketWirelessDevice extends PacketWireless {
 				this.getDeviceID(),
 				this.getName(),
 				world,
-				WRCore.getEntityByID(DimensionManager.getWorld(this.getDimension()), this.getOwnerID()));
+				entityliving);
 		data.setFreq(this.getFreq());
 		data.setState(this.getState());
 		return data;

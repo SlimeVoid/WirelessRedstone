@@ -44,7 +44,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 			this.data = WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), entity.getHeldItem(), world, entity);
 		}
 		this.owner = entity;
-		this.setCoords((int)owner.posX, (int)owner.posY, (int)owner.posZ);
+		this.setCoords((int)entity.posX, (int)entity.posY, (int)entity.posZ);
 	}
 	
 	@Override
@@ -104,16 +104,16 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void activate(World world, Entity entity) {
+		this.data.setState(true);
 		if (!world.isRemote) {
-			this.data.setState(true);
 			this.doActivateCommand();
 		}
 	}
 
 	@Override
 	public void deactivate(World world, Entity entity) {
+		this.data.setState(false);
 		if (!world.isRemote) {
-			this.data.setState(false);
 			this.doDeactivateCommand();
 		}
 	}
@@ -126,13 +126,16 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	
 	@Override
 	public boolean isBeingHeld() {
-		Entity entity = this.getOwner();
-		if (entity != null && entity instanceof EntityLiving) {
-			EntityLiving entityliving = (EntityLiving)entity;
+		EntityLiving entityliving = this.getOwner();
+		if (entityliving != null) {
 			ItemStack itemstack = entityliving.getHeldItem();
-			return itemstack != null
-					&& WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), itemstack, this.getWorld(),
-							this.getOwner()).getFreq() == this.getFreq();
+			if (itemstack != null) {
+				System.out.println("World: " + this.getWorld());
+				System.out.println("Owner: " + entityliving.getEntityName());
+				System.out.println("Holding: " + itemstack.getItemName());
+				return WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), itemstack, this.getWorld(),
+						entityliving).getFreq() == this.getFreq();
+			}
 		}
 		return false;
 	}

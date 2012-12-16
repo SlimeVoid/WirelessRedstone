@@ -1,5 +1,8 @@
 package wirelessredstone.addon.remote.proxy;
 
+import java.util.HashMap;
+import java.util.TreeMap;
+
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
@@ -46,11 +49,6 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
-	public void addOverrides() {
-		RedstoneEther.getInstance().addOverride(new RedstoneEtherOverrideRemote());
-	}
-
-	@Override
 	public void openGUI(World world, EntityPlayer entityplayer, TileEntity tileentity) {
 		if (!world.isRemote) {
 			if (tileentity instanceof TileEntityRedstoneWireless) {
@@ -81,6 +79,8 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 
 	@Override
 	public void init() {
+		WirelessRemoteDevice.remoteTransmitters = new HashMap();
+		WirelessRemoteDevice.remoteWirelessCoords = new TreeMap();
 	}
 
 	@Override
@@ -111,7 +111,12 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
-	public void deactivateRemote(World world, EntityLiving entityliving) {
-		WirelessRemoteDevice.deactivateWirelessRemote(world, entityliving);
+	public boolean deactivateRemote(World world, EntityLiving entityliving) {
+		return WirelessRemoteDevice.deactivateWirelessRemote(world, entityliving);
+	}
+
+	@Override
+	public void addOverrides() {
+		RedstoneEther.getInstance().addOverride(new RedstoneEtherOverrideRemote());
 	}
 }

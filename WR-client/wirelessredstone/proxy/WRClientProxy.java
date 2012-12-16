@@ -271,15 +271,15 @@ public class WRClientProxy extends WRCommonProxy {
 		devicePacketHandler.registerPacketHandler(
 				PacketWirelessDeviceCommands.deviceCommands.activateTX.toString(),
 				new DevicePacketActivateTXExecutor());
-		devicePacketHandler.registerPacketHandler(
-				PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString(),
-				new DevicePacketDeactivateTXExecutor());
+//		devicePacketHandler.registerPacketHandler(
+//				PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString(),
+//				new DevicePacketDeactivateTXExecutor());
 		devicePacketHandler.registerPacketHandler(
 				PacketWirelessDeviceCommands.deviceCommands.activateRX.toString(),
 				new DevicePacketActivateRXExecutor());
-		devicePacketHandler.registerPacketHandler(
-				PacketWirelessDeviceCommands.deviceCommands.deactivateRX.toString(),
-				new DevicePacketDeactivateRXExecutor());
+//		devicePacketHandler.registerPacketHandler(
+//				PacketWirelessDeviceCommands.deviceCommands.deactivateRX.toString(),
+//				new DevicePacketDeactivateRXExecutor());
 		ClientPacketHandler.registerPacketHandler(
 				PacketIds.DEVICE,
 				devicePacketHandler);

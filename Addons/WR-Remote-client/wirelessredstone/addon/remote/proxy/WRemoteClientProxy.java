@@ -41,14 +41,12 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	 * Wireless Remote GUI
 	 */
 	public static GuiRedstoneWirelessRemote guiWirelessRemote;
-
-
-	private static List<IBaseModOverride> overrides;
 	
 	@Override
 	public void init() {
 		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
 		initGUIs();
+		super.init();
 	}
 
 	/**
@@ -93,21 +91,6 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	@Override
 	public void registerTileEntitySpecialRenderer(
 			Class<? extends TileEntity> clazz) {
-	}
-
-	@Override
-	public void addOverrides() {
-		overrides = new ArrayList();
-	}
-
-	/**
-	 * Adds a Base override to the The Mod.
-	 * 
-	 * @param override
-	 *            Mod override
-	 */
-	public static void addOverride(IBaseModOverride override) {
-		overrides.add(override);
 	}
 
 	@Override
@@ -175,9 +158,11 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	}
 
 	@Override
-	public void deactivateRemote(World world, EntityLiving entityplayer) {
+	public boolean deactivateRemote(World world, EntityLiving entityplayer) {
 		if (!world.isRemote) {
-			super.deactivateRemote(world, entityplayer);
+			return super.deactivateRemote(world, entityplayer);
+		} else {
+			return WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityplayer);
 		}
 	}
 }

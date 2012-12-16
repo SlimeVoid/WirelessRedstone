@@ -23,17 +23,24 @@ public class WirelessTransmitterDevice extends WirelessDevice {
 
 	@Override
 	public void doActivateCommand() {
-		RedstoneEther.getInstance().addTransmitter(this.getWorld(),
-				this.getCoords().getX(), this.getCoords().getY(),
-				this.getCoords().getZ(), this.getFreq());
-		RedstoneEther.getInstance().setTransmitterState(this.getWorld(),
-				this.getCoords().getX(), this.getCoords().getY(),
-				this.getCoords().getZ(), this.getFreq(), true);
+		RedstoneEther.getInstance().addTransmitter(
+				this.getWorld(),
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
+				this.getFreq());
+		RedstoneEther.getInstance().setTransmitterState(
+				this.getWorld(),
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
+				this.getFreq(),
+				true);
 		PacketWirelessDevice packet = new PacketWirelessDevice(this.data);
 		packet.setPosition(
-				this.getCoords().getX(),
-				this.getCoords().getY(),
-				this.getCoords().getZ(),
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
 				0);
 		packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.activateTX.toString());
 		ServerPacketHandler.broadcastPacket((Packet250CustomPayload)packet.getPacket());
@@ -41,14 +48,18 @@ public class WirelessTransmitterDevice extends WirelessDevice {
 	
 	@Override
 	public void doDeactivateCommand() {
-		RedstoneEther.getInstance().remTransmitter(this.getWorld(),
-				this.getCoords().getX(), this.getCoords().getY(),
-				this.getCoords().getZ(), this.getFreq());
+		System.out.println("doDeactivate");
+		RedstoneEther.getInstance().remTransmitter(
+				this.getWorld(),
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
+				this.getFreq());
 		PacketWirelessDevice packet = new PacketWirelessDevice(this.data);
 		packet.setPosition(
-				this.getCoords().getX(),
-				this.getCoords().getY(),
-				this.getCoords().getZ(),
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
 				0);
 		packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString());
 		ServerPacketHandler.broadcastPacket((Packet250CustomPayload)packet.getPacket());
