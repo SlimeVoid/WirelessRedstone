@@ -107,7 +107,6 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	
 	@Override
 	public void deactivate(World world, Entity entity) {
-		System.out.println(world.isRemote + " | deactivate");
 		if (entity instanceof EntityLiving) {
 			super.deactivate(world, entity);
 		}
@@ -136,11 +135,11 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 			if (remoteTransmitter == null) {
 				return false;
 			} else {
-				remoteTransmitter.deactivate(world, entityplayer);
 				PacketWirelessDevice packet = new PacketWirelessDevice(remoteTransmitter.data);
 				packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString());
 				packet.setPosition(remoteTransmitter.xCoord, remoteTransmitter.yCoord, remoteTransmitter.zCoord, 0);
 				ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
+				remoteTransmitter.deactivate(world, entityplayer);
 				remoteTransmitter = null;
 				return true;
 			}
@@ -149,20 +148,18 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	}
 
 	public static void activateWirelessRemote(World world, EntityLiving entityliving) {
-		System.out.println("Name: " + entityliving.getEntityName());
-		System.out.println("No.Tx: " + remoteTransmitters.size());
 		if (remoteTransmitters.containsKey(entityliving)) {
-			if (((WirelessRemoteDevice)remoteTransmitters.get(entityliving)).isBeingHeld()) {
+			IWirelessDevice remote = remoteTransmitters.get(entityliving);
+			if (((WirelessRemoteDevice)remote).isBeingHeld()) {
 				return;
 			}
-
 			deactivateWirelessRemote(world, entityliving);
 		}
 		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world,
 				entityliving);
 		remoteTransmitters.put(entityliving, remoteTransmitter);
 		if (remoteTransmitters.containsKey(entityliving)) {
-			System.out.println("No.Tx: " + remoteTransmitters.size());
+			System.out.println("Remote Added");
 			remoteWirelessCoords.put(remoteTransmitter.getCoords(), remoteTransmitter);
 			remoteTransmitter.activate(world, entityliving);
 		}
@@ -170,11 +167,17 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
 	public static boolean deactivateWirelessRemote(World world,
 			EntityLiving entityliving) {
+		System.out.println("Deactivate Called");
 		if (remoteTransmitters.containsKey(entityliving)) {
-			WirelessRemoteDevice remote = (WirelessRemoteDevice) remoteTransmitters.get(entityliving);
+			IWirelessDevice remote = remoteTransmitters.get(entityliving);
+			System.out.println("Deactivating");
 			remote.deactivate(world, entityliving);
-			remoteWirelessCoords.remove(remote.getCoords());
-			remoteTransmitters.remove(entityliving);
+			if (remoteWirelessCoords.containsKey(remote.getCoords())) {
+				System.out.println("RemoveCoords");
+				remoteWirelessCoords.remove(remote.getCoords());
+			}
+			System.out.println("RemoteRemote");
+			remoteTransmitters.remove(remote);
 			return true;
 		} else {
 			return false;

@@ -130,9 +130,6 @@ public abstract class WirelessDevice implements IWirelessDevice {
 		if (entityliving != null) {
 			ItemStack itemstack = entityliving.getHeldItem();
 			if (itemstack != null) {
-				System.out.println("World: " + this.getWorld());
-				System.out.println("Owner: " + entityliving.getEntityName());
-				System.out.println("Holding: " + itemstack.getItemName());
 				return WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), itemstack, this.getWorld(),
 						entityliving).getFreq() == this.getFreq();
 			}

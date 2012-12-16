@@ -81,8 +81,6 @@ public class PacketWirelessDevice extends PacketWireless {
 				this.getName(),
 				world,
 				entityliving);
-		data.setFreq(this.getFreq());
-		data.setState(this.getState());
 		return data;
 	}
 }

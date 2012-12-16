@@ -16,6 +16,7 @@ import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.device.WirelessDevice;
 import wirelessredstone.ether.RedstoneEther;
@@ -118,5 +119,14 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	@Override
 	public void addOverrides() {
 		RedstoneEther.getInstance().addOverride(new RedstoneEtherOverrideRemote());
+	}
+
+	@Override
+	public boolean isRemoteOn(World world, EntityPlayer entityplayer, String freq) {
+		if (WirelessRemoteDevice.remoteTransmitters.containsKey(entityplayer)) {
+			IWirelessDevice remote = WirelessRemoteDevice.remoteTransmitters.get(entityplayer);
+			return remote.getFreq() == freq;
+		}
+		return false;
 	}
 }

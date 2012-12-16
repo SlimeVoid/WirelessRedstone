@@ -92,8 +92,6 @@ public class RedstoneEtherOverrideRemote implements IRedstoneEtherOverride {
 		if (WirelessRemoteDevice.remoteWirelessCoords.containsKey(deviceCoords)) {
 			return true;
 		}
-		System.out.println("isLoaded(" + world.isRemote + ", " + i + ", " + j + ", " + k + ")");
-		System.out.println("" + returnState);
 		return returnState;
 	}
 

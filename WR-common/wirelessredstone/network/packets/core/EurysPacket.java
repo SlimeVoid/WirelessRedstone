@@ -47,7 +47,7 @@ public abstract class EurysPacket {
 	 * Retrieves the Custom Packet and Payload data as a Forge
 	 * Packet250CustomPayload
 	 */
-	public Packet getPacket() {
+	public Packet250CustomPayload getPacket() {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		DataOutputStream data = new DataOutputStream(bytes);
 		try {

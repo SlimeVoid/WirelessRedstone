@@ -86,16 +86,9 @@ public class ItemRedstoneWirelessRemote extends Item {
 			WirelessRemoteData data = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack,
 					world, entityplayer);
 			String freq = data.getFreq();
-			if (world.isRemote) { 
-				if (!isHeld || !isRemoteOn(entityplayer, freq) && !WRemoteCore.proxy.deactivateRemote(world, entityplayer)) {
-				}
+			if (!isHeld || (!WRemoteCore.proxy.isRemoteOn(world, entityplayer, freq) && !WRemoteCore.proxy.deactivateRemote(world, entityplayer))) {
 			}
 		}
-	}
-	
-	public static boolean isRemoteOn(EntityPlayer entityplayer, String freq) {
-		return WirelessRemoteDevice.remoteTransmitter == null ? false
-				: WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
 	}
 
 	@Override

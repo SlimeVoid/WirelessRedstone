@@ -27,6 +27,7 @@ import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.network.packets.executor.ClientDevicePacketChangeFreqExecutor;
 import wirelessredstone.network.packets.executor.ClientEtherPacketRXAddExecutor;
 import wirelessredstone.network.packets.executor.ClientEtherPacketTXAddExecutor;
 import wirelessredstone.network.packets.executor.DevicePacketActivateRXExecutor;
@@ -248,13 +249,11 @@ public class WRClientProxy extends WRCommonProxy {
 	
 	@Override
 	public void initPacketHandlers() {
-		if (ModLoader.getMinecraftInstance().isSingleplayer()) {
-			super.initPacketHandlers();
-			return;
-		}
+		super.initPacketHandlers();
 		/////////////////////
 		// Client Handlers //
 		/////////////////////
+		ClientPacketHandler.init();
 		// Ether Packets
 		ClientRedstoneEtherPacketHandler etherPacketHandler = new ClientRedstoneEtherPacketHandler();
 		etherPacketHandler.registerPacketHandler(
@@ -269,17 +268,14 @@ public class WRClientProxy extends WRCommonProxy {
 		// Device Packets
 		ClientWirelessDevicePacketHandler devicePacketHandler = new ClientWirelessDevicePacketHandler();
 		devicePacketHandler.registerPacketHandler(
+				PacketWirelessDeviceCommands.deviceCommands.changeFreq.toString(),
+				new ClientDevicePacketChangeFreqExecutor());
+		devicePacketHandler.registerPacketHandler(
 				PacketWirelessDeviceCommands.deviceCommands.activateTX.toString(),
 				new DevicePacketActivateTXExecutor());
-//		devicePacketHandler.registerPacketHandler(
-//				PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString(),
-//				new DevicePacketDeactivateTXExecutor());
 		devicePacketHandler.registerPacketHandler(
 				PacketWirelessDeviceCommands.deviceCommands.activateRX.toString(),
 				new DevicePacketActivateRXExecutor());
-//		devicePacketHandler.registerPacketHandler(
-//				PacketWirelessDeviceCommands.deviceCommands.deactivateRX.toString(),
-//				new DevicePacketDeactivateRXExecutor());
 		ClientPacketHandler.registerPacketHandler(
 				PacketIds.DEVICE,
 				devicePacketHandler);

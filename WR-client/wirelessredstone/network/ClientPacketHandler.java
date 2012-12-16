@@ -30,7 +30,7 @@ import cpw.mods.fml.common.network.Player;
 
 public class ClientPacketHandler implements IPacketHandler {
 	
-	private static Map<Integer, SubPacketHandler> clientHandlers = new HashMap<Integer, SubPacketHandler>();
+	private static Map<Integer, SubPacketHandler> clientHandlers;
 		
 	public static void registerPacketHandler(int packetID, SubPacketHandler handler) {
 		if (clientHandlers.containsKey(packetID)) {
@@ -79,6 +79,10 @@ public class ClientPacketHandler implements IPacketHandler {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	public static void init() {
+		clientHandlers = new HashMap<Integer, SubPacketHandler>();
 	}
 
 	public static void sendPacket(Packet250CustomPayload packet) {

@@ -48,7 +48,6 @@ public class WirelessTransmitterDevice extends WirelessDevice {
 	
 	@Override
 	public void doDeactivateCommand() {
-		System.out.println("doDeactivate");
 		RedstoneEther.getInstance().remTransmitter(
 				this.getWorld(),
 				this.xCoord,

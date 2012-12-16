@@ -22,6 +22,9 @@ import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.device.WirelessDeviceData;
+import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.packets.PacketWirelessDevice;
+import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 
 /**
  * Wireless Redstone GUI screen.
@@ -127,8 +130,14 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 				freq -= 10000;
 			if (freq < 0)
 				freq += 10000;
-
-			boolean prematureExit = false;
+			
+			if (oldFreq != freq) {
+				PacketWirelessDevice packet = new PacketWirelessDevice(this.wirelessDeviceData);
+				packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.changeFreq.toString());
+				packet.setFreq(freq - oldFreq);
+				ClientPacketHandler.sendPacket(packet.getPacket());
+			}
+			/*boolean prematureExit = false;
 			for (IGuiRedstoneWirelessOverride override : overrides) {
 				if (((IGuiRedstoneWirelessDeviceOverride) override)
 						.beforeFrequencyChange(wirelessDeviceData, oldFreq,
@@ -136,10 +145,10 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 					prematureExit = true;
 			}
 			if (prematureExit)
-				return;
+				return;*/
 
-			if (oldFreq != freq)
-				setFreq(Integer.toString(freq));
+			//if (oldFreq != freq)
+			//	setFreq(Integer.toString(freq));
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"GuiRedstoneWirelessDevice"

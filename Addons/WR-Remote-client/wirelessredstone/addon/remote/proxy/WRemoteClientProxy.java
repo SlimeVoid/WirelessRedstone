@@ -158,11 +158,19 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	}
 
 	@Override
-	public boolean deactivateRemote(World world, EntityLiving entityplayer) {
+	public boolean deactivateRemote(World world, EntityLiving entityliving) {
 		if (!world.isRemote) {
-			return super.deactivateRemote(world, entityplayer);
-		} else {
-			return WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityplayer);
+			return super.deactivateRemote(world, entityliving);
 		}
+		return true;
+	}	
+	
+	public boolean isRemoteOn(World world, EntityPlayer entityplayer, String freq) {
+		if (!world.isRemote) {
+			return super.isRemoteOn(world, entityplayer, freq);
+		}
+		boolean flag = WirelessRemoteDevice.remoteTransmitter == null ? false
+				: WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
+		return flag;
 	}
 }
