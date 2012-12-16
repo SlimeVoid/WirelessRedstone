@@ -1,0 +1,37 @@
+package wirelessredstone.addon.remote.overrides;
+
+import net.minecraft.src.ModLoader;
+import net.minecraft.src.Packet250CustomPayload;
+import net.minecraft.src.World;
+import net.minecraft.src.WorldClient;
+import net.minecraftforge.common.DimensionManager;
+import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
+import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.packets.PacketWirelessDevice;
+import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
+
+public class GuiRedstoneWirelessRemoteOverride implements
+		IGuiRedstoneWirelessDeviceOverride {
+
+	@Override
+	public boolean beforeFrequencyChange(IWirelessDeviceData data,
+			Object oldFreq, Object newFreq) {
+		if (data instanceof WirelessRemoteData) {
+			World world = ModLoader.getMinecraftInstance().theWorld;
+			if (world.isRemote) {
+				int OLD = Integer.parseInt(oldFreq.toString());
+				int NEW = Integer.parseInt(newFreq.toString());
+				Object PacketWirelessDevice;
+				if (OLD != NEW) {
+					PacketWirelessDevice packet = new PacketWirelessDevice(data);
+					packet.setFreq(Integer.toString(NEW - OLD));
+					packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.changeFreq.toString());
+					ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
+				}
+			}
+		}
+		return true;
+	}
+}

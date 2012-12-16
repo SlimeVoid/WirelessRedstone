@@ -21,7 +21,6 @@ import cpw.mods.fml.common.TickType;
 public class ClientTickHandler implements ITickHandler {
 	
 	public static boolean mouseDown, wasMouseDown, remotePulsing;
-	private static int ticksInGui;
 	
 	public static void processRemote(World world, EntityPlayer entityplayer,
 			GuiScreen gui, MovingObjectPosition mop) {
@@ -34,8 +33,7 @@ public class ClientTickHandler implements ITickHandler {
 				&& WirelessRemoteDevice.remoteTransmitter == null
 				&& entityplayer.inventory.getCurrentItem() != null
 				&& entityplayer.inventory.getCurrentItem().getItem() == WRemoteCore.itemRemote
-				&& gui != null && gui instanceof GuiRedstoneWirelessRemote
-				&& !entityplayer.isSneaking() && ticksInGui > 0)
+				&& !entityplayer.isSneaking())
 			WirelessRemoteDevice.activatePlayerWirelessRemote(world, entityplayer);
 	}
 
@@ -54,10 +52,6 @@ public class ClientTickHandler implements ITickHandler {
 		checkMouseClicks();
 		processRemote(mc.theWorld, mc.thePlayer, mc.currentScreen,
 				mc.objectMouseOver);
-		if (mc.currentScreen == null)
-			ticksInGui = 0;
-		else
-			++ticksInGui;
 	}
 
 	@Override

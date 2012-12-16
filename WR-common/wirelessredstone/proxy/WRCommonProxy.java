@@ -151,20 +151,14 @@ public class WRCommonProxy implements ICommonProxy {
 		// Wireless Device Packets
 		ServerWirelessDevicePacketHandler devicePacketHandler = new ServerWirelessDevicePacketHandler();
 		devicePacketHandler.registerPacketHandler(
-				PacketWirelessDeviceCommands.deviceCommands.activateTX.toString(),
-				new DevicePacketActivateTXExecutor());
+				PacketWirelessDeviceCommands.deviceCommands.changeFreq.toString(),
+				new DevicePacketChangeFreqExecutor());
 		devicePacketHandler.registerPacketHandler(
 				PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString(),
 				new DevicePacketDeactivateTXExecutor());
 		devicePacketHandler.registerPacketHandler(
-				PacketWirelessDeviceCommands.deviceCommands.activateRX.toString(),
-				new DevicePacketActivateRXExecutor());
-		devicePacketHandler.registerPacketHandler(
 				PacketWirelessDeviceCommands.deviceCommands.deactivateRX.toString(),
 				new DevicePacketDeactivateRXExecutor());
-		devicePacketHandler.registerPacketHandler(
-				PacketWirelessDeviceCommands.deviceCommands.changeFreq.toString(),
-				new DevicePacketChangeFreqExecutor());
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.DEVICE,
 				devicePacketHandler);

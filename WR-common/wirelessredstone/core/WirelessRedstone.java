@@ -32,7 +32,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 @Mod(
 		modid = "WirelessRedstoneCore",
 		name = "Wireless Redstone",
-		version = "1.6")
+		version = "1.6.0.1")
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,
@@ -42,8 +42,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 				packetHandler = ClientPacketHandler.class),
 		serverPacketHandlerSpec = @SidedPacketHandler(
 				channels = { "WR" },
-				packetHandler = ServerPacketHandler.class),
-		versionBounds = "[1.6]")
+				packetHandler = ServerPacketHandler.class))
 /**
  * FML fascade class.
  * This class uses FML annotations and sorts initialization.

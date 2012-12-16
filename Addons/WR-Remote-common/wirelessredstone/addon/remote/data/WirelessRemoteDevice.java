@@ -38,6 +38,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	
 	@SideOnly(Side.CLIENT)
 	public static WirelessRemoteDevice remoteTransmitter;
+	
 	public static HashMap<EntityLiving, WirelessRemoteDevice> remoteTransmitters = new HashMap();
 	public static TreeMap<WirelessCoordinates, WirelessRemoteDevice> remoteWirelessCoords = new TreeMap();
 	
@@ -45,14 +46,15 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	protected static List<RedstoneWirelessRemoteOverride> overrides = new ArrayList();
 
 	protected WirelessRemoteDevice(World world, EntityLiving entity) {
-		super(world, entity);
+		super(world, entity, null);
 		if (entity instanceof EntityPlayer) {
 			this.slot = ((EntityPlayer)entity).inventory.currentItem;
 			ItemStack itemstack = ((EntityPlayer)entity).inventory.getStackInSlot(this.slot);
+			this.setCoords((int)entity.posX, (int)entity.posY, (int)entity.posZ);
 		}
 	}
 
-	@Override
+/*	@Override
 	public boolean isBeingHeld() {
 		boolean flag = super.isBeingHeld();
 		if (flag) {
@@ -64,7 +66,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 			}
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * Adds a Remote override to the Remote.
@@ -88,25 +90,12 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	
 	@Override
 	public void doActivateCommand() {
-		PacketWirelessDevice packet = new PacketWirelessDevice(
-				this.getCoords().getX(),
-				this.getCoords().getY(),
-				this.getCoords().getZ(),
-				this.data);
-		packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.activateTX.toString());
-		ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
+		super.doActivateCommand();
 	}
 	
 	@Override
 	public void doDeactivateCommand() {
-		PacketWirelessDevice packet = new PacketWirelessDevice(
-				this.getCoords().getX(),
-				this.getCoords().getY(),
-				this.getCoords().getZ(),
-				this.data);
-		packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString());
-		ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
-		
+		super.doDeactivateCommand();
 	}
 	
 	@Override
@@ -127,49 +116,48 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	public static void activatePlayerWirelessRemote(World world, EntityLiving entityliving) {
 		if (entityliving instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer)entityliving;
-			if (entityplayer.entityId == ModLoader.getMinecraftInstance().thePlayer.entityId) {
-				if (remoteTransmitter != null) {
-					if (remoteTransmitter.isBeingHeld())
-						return;
-		
-					WRemoteCore.proxy.deactivateRemote(world, entityplayer);
-				}
-				remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
-				remoteTransmitter.activate(world, entityplayer);
+			if (remoteTransmitter != null) {
+				if (remoteTransmitter.isBeingHeld())
+					return;
+	
+				deactivatePlayerWirelessRemote(world, entityplayer);
+			}
+			remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
+			remoteTransmitter.activate(world, entityplayer);
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static boolean deactivatePlayerWirelessRemote(World world, EntityLiving entityliving) {
+		if (entityliving instanceof EntityPlayer) {
+			EntityPlayer entityplayer = (EntityPlayer)entityliving;
+			if (remoteTransmitter == null) {
+				return false;
+			} else {
+				remoteTransmitter.deactivate(world, entityplayer);
+				PacketWirelessDevice packet = new PacketWirelessDevice(remoteTransmitter.data);
+				packet.setCommand(PacketWirelessDeviceCommands.deviceCommands.deactivateTX.toString());
+				ClientPacketHandler.sendPacket((Packet250CustomPayload)packet.getPacket());
+				remoteTransmitter = null;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public static void activateWirelessRemote(World world, EntityLiving entityliving) {
 		if (remoteTransmitters.containsKey(entityliving)) {
-			if (remoteTransmitters.get(entityliving).isBeingHeld())
+			if (remoteTransmitters.get(entityliving).isBeingHeld()) {
 				return;
-
-			WRemoteCore.proxy.deactivateRemote(world, entityliving);
-		}
-		remoteTransmitters.put(entityliving, new WirelessRemoteDevice(world,
-				entityliving));
-		WirelessRemoteDevice remote = remoteTransmitters.get(entityliving);
-		remoteWirelessCoords.put(remote.getCoords(), remote);
-		remote.activate(world, entityliving);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public static boolean deactivatePlayerWirelessRemote(World world,
-			EntityLiving entityliving) {
-		if (entityliving instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer)entityliving;
-			if (entityplayer.entityId == ModLoader.getMinecraftInstance().thePlayer.entityId) {
-				if (remoteTransmitter == null) {
-					return false;
-				} else {
-					remoteTransmitter.deactivate(world, entityplayer);
-					remoteTransmitter = null;
-					return true;
-				}
 			}
+
+			deactivateWirelessRemote(world, entityliving);
 		}
-		return false;
+		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world,
+				entityliving);
+		remoteTransmitters.put(entityliving, remoteTransmitter);
+		remoteWirelessCoords.put(remoteTransmitter.getCoords(), remoteTransmitter);
+		remoteTransmitter.activate(world, entityliving);
 	}
 
 	public static boolean deactivateWirelessRemote(World world,

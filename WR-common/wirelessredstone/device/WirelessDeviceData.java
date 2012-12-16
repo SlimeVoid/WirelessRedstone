@@ -32,66 +32,16 @@ import net.minecraftforge.common.DimensionManager;
  * 
  */
 public abstract class WirelessDeviceData extends WorldSavedData implements IWirelessDeviceData {
-	protected int xCoord, yCoord, zCoord;
-	protected int ownerid;
+	
 	protected String type;
 	protected int id;
 	protected String name;
-	protected Byte dimension;
+	protected int dimension;
 	protected String freq;
 	protected boolean state;
 
-	public WirelessDeviceData(String par1Str) {
-		super(par1Str);
-	}
-
-	/**
-	 * Set the device's coordinates.
-	 * 
-	 * @param coords Device Coordinates.
-	 */
-	@Override
-	public void setCoords(WirelessCoordinates coords) {
-		int x = coords.getX(),
-			y = coords.getY(),
-			z = coords.getZ();
-		this.setCoords(x, y, z);
-	}
-
-	/**
-	 * Set the device's coordinates.
-	 * 
-	 * @param x the xPosition.
-	 * @param y the yPosition.
-	 * @param z the zPosition
-	 */
-	@Override
-	public void setCoords(int x, int y, int z) {
-		this.xCoord = x;
-		this.yCoord = y;
-		this.zCoord = z;
-		this.markDirty();
-	}
-	
-	/**
-	 * Set the device's owner based on a living entity
-	 * 
-	 * @param entityliving a living entity.
-	 */
-	@Override
-	public void setOwnerID(Entity entity) {
-		this.setOwnerID(entity.entityId);
-	}
-
-	/**
-	 * Set the device's Owner ID.
-	 * 
-	 * @param id Owner ID.
-	 */
-	@Override
-	public void setOwnerID(int ownerid) {
-		this.ownerid = ownerid;
-		this.markDirty();
+	public WirelessDeviceData(String index) {
+		super(index);
 	}
 	
 	/**
@@ -139,13 +89,13 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 	}
 
 	/**
-	 * Set the device's dimension based on world's worldType.
+	 * Set the device's dimension
 	 * 
 	 * @param world The world object.
 	 */
 	@Override
 	public void setDimension(World world) {
-		this.dimension = (byte) world.provider.dimensionId;
+		this.dimension = world.provider.dimensionId;
 		this.markDirty();
 	}
 
@@ -171,35 +121,6 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 	public void setState(boolean state) {
 		this.state = state;
 		this.markDirty();
-	}
-
-	/**
-	 * Get the device coordinates.
-	 * 
-	 * @return Device coordinates.
-	 */
-	@Override
-	public WirelessCoordinates getCoords() {
-		return new WirelessCoordinates(this.xCoord, this.yCoord, this.zCoord);
-	}
-
-	/**
-	 * Get the owner.
-	 * 
-	 * @return entity.
-	 */
-	@Override
-	public Entity getOwner() {
-		return WRCore.getEntityByID(DimensionManager.getWorld(this.dimension), null, this.ownerid);
-	}
-
-	/**
-	 * Get the id of the owner
-	 * 
-	 * @return owner ID
-	 */
-	public int getOwnerID() {
-		return this.ownerid;
 	}
 
 	/**
@@ -235,7 +156,7 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 	 * 
 	 * @return Device dimension.
 	 */
-	public Byte getDimension() {
+	public int getDimension() {
 		return this.dimension;
 	}
 
@@ -259,28 +180,20 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		this.xCoord = nbttagcompound.getInteger("xCoord");
-		this.yCoord = nbttagcompound.getInteger("yCoord");
-		this.zCoord = nbttagcompound.getInteger("zCoord");
-		this.ownerid = nbttagcompound.getInteger("ownerid");
 		this.type = nbttagcompound.getString("index");
 		this.id = nbttagcompound.getInteger("id");
 		this.name = nbttagcompound.getString("name");
-		this.dimension = nbttagcompound.getByte("dimension");
+		this.dimension = nbttagcompound.getInteger("dimension");
 		this.freq = nbttagcompound.getString("freq");
 		this.state = nbttagcompound.getBoolean("state");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
-		nbttagcompound.setInteger("xCoord", this.xCoord);
-		nbttagcompound.setInteger("yCoord", this.yCoord);
-		nbttagcompound.setInteger("zCoord", this.zCoord);
-		nbttagcompound.setInteger("ownerid", this.ownerid);
 		nbttagcompound.setString("index", this.type);
 		nbttagcompound.setInteger("id", this.id);
 		nbttagcompound.setString("name", this.name);
-		nbttagcompound.setByte("dimension", this.dimension);
+		nbttagcompound.setInteger("dimension", this.dimension);
 		nbttagcompound.setString("freq", this.freq);
 		nbttagcompound.setBoolean("state", this.state);
 	}
@@ -304,7 +217,6 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 					);
 			if (data != null) {
 				world.setItemData(worldIndex, data);
-				data.setOwnerID(entity);
 				data.setType(index);
 				data.setID(id);
 				data.setName(name);

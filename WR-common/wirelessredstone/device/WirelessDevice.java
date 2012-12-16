@@ -14,12 +14,16 @@ package wirelessredstone.device;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.ItemStack;
+import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;
+import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.packets.PacketWirelessDevice;
+import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 
 /**
  * A wireless device.<br>
@@ -30,44 +34,30 @@ import wirelessredstone.data.WirelessCoordinates;
 public abstract class WirelessDevice implements IWirelessDevice {
 	
 	protected IWirelessDeviceData data;
+	protected int xCoord, yCoord, zCoord;
+	protected EntityLiving owner;
 	
-	protected WirelessDevice(World world, IWirelessDeviceData data) {
+	protected WirelessDevice(World world, EntityLiving entity, IWirelessDeviceData data) {
 		if (data != null) {
-			this.data = data;	
+			this.data = data;
 		} else {
-			LoggerRedstoneWireless.getInstance(
-				LoggerRedstoneWireless.filterClassName(
-						this.getClass().toString()
-				)).write(
-					world.isRemote,
-					"Tried to create a Wireless Device with no data",
-					LoggerRedstoneWireless.LogLevel.DEBUG
-			);
-			throw new RuntimeException("Tried to create a Wireless Device with no data");
+			this.data = WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), entity.getHeldItem(), world, entity);
 		}
+		this.owner = entity;
+		this.setCoords((int)owner.posX, (int)owner.posY, (int)owner.posZ);
 	}
 	
-	private WirelessDevice() {}
-	
-	protected WirelessDevice(World world, EntityLiving entity) {
-		this();
-		this.data = WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), entity.getHeldItem(), world, entity);
-	}
-
-	/**
-	 * Get the name for this device
-	 * 
-	 * @return deviceName
-	 */
+	@Override
 	public abstract String getName();
 
-	/**
-	 * Get the owner.
-	 * 
-	 * @return Device owner
-	 */
-	public Entity getOwner() {
-		return this.data.getOwner();
+	@Override
+	public EntityLiving getOwner() {
+		return this.owner;
+	}
+	
+	@Override
+	public void setOwner(EntityLiving entity) {
+		this.owner = entity;
 	}
 
 	@Override
@@ -76,8 +66,23 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	}
 
 	@Override
+	public void setCoords(WirelessCoordinates coords) {
+		int x = coords.getX(),
+			y = coords.getY(),
+			z = coords.getZ();
+		this.setCoords(x, y, z);
+	}
+
+	@Override
+	public void setCoords(int x, int y, int z) {
+		this.xCoord = x;
+		this.yCoord = y;
+		this.zCoord = z;
+	}
+
+	@Override
 	public WirelessCoordinates getCoords() {
-		return this.data.getCoords();
+		return new WirelessCoordinates(this.xCoord, this.yCoord, this.zCoord);
 	}
 	
 	@Override
@@ -85,43 +90,32 @@ public abstract class WirelessDevice implements IWirelessDevice {
 		return DimensionManager.getWorld(this.data.getDimension());
 	}
 
-	/**
-	 * Set the owner.
-	 * 
-	 * @param entityplayer Device owner
-	 */
-	public void setOwner(Entity entity) {
-		this.data.setOwnerID(entity);
-	}
-
 	@Override
 	public void setFreq(String freq) {
 		this.data.setFreq(freq);
 	}
-	
-	@Override
-	public void setCoords(int x, int y, int z) {
-		this.data.setCoords(x, y, z);
-	}
 
 	/**
-	 * Get the device data.
+	 * Get the device data class.
 	 * 
-	 * @return Device data
+	 * @return Device data class
 	 */
-	@Override
-	public abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
+	protected abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
 
 	@Override
 	public void activate(World world, Entity entity) {
-		this.data.setState(true);
-		this.doDeactivateCommand();
+		if (!world.isRemote) {
+			this.data.setState(true);
+			this.doActivateCommand();
+		}
 	}
 
 	@Override
 	public void deactivate(World world, Entity entity) {
-		this.data.setState(false);
-		this.doDeactivateCommand();
+		if (!world.isRemote) {
+			this.data.setState(false);
+			this.doDeactivateCommand();
+		}
 	}
 	
 	@Override
@@ -133,7 +127,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	@Override
 	public boolean isBeingHeld() {
 		Entity entity = this.getOwner();
-		if (entity instanceof EntityLiving) {
+		if (entity != null && entity instanceof EntityLiving) {
 			EntityLiving entityliving = (EntityLiving)entity;
 			ItemStack itemstack = entityliving.getHeldItem();
 			return itemstack != null

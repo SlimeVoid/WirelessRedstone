@@ -265,26 +265,24 @@ public class WRCore {
 	 * Fetches an entity by ID.
 	 * 
 	 * @param world The world object
-	 * @param entityplayer The payer
 	 * @param entityId Entity ID
+	 * 
 	 * @return The Entity.
 	 */
-	public static Entity getEntityByID(World world, EntityLiving entityliving, int entityId) {
-		if (entityliving != null && entityId == entityliving.entityId) {
-			return entityliving;
-		} else {
+	public static Entity getEntityByID(World world, int entityId) {
+		if (world != null) {
 			for (int i = 0; i < world.loadedEntityList.size(); ++i) {
 				Entity entity = (Entity) world.loadedEntityList.get(i);
-
+		
 				if (entity == null) {
 					return null;
 				}
-
+		
 				if (entity.entityId == entityId) {
 					return entity;
 				}
 			}
-			return null;
 		}
+		return null;
 	}
 }

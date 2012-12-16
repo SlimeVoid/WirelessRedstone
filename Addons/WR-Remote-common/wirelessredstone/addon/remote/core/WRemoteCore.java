@@ -34,8 +34,6 @@ public class WRemoteCore {
 	public static int remoteID = 6245;
 
 	@SideOnly(Side.CLIENT)
-	public static GuiRedstoneWirelessRemote guiRemote;
-	@SideOnly(Side.CLIENT)
 	public static boolean mouseDown, wasMouseDown, remotePulsing;
 
 	public static long pulseTime = 2500;

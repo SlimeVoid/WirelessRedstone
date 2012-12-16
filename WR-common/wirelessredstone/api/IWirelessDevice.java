@@ -12,6 +12,7 @@
 package wirelessredstone.api;
 
 import net.minecraft.src.Entity;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.World;
 import wirelessredstone.data.WirelessCoordinates;
 
@@ -22,6 +23,20 @@ import wirelessredstone.data.WirelessCoordinates;
  * 
  */
 public interface IWirelessDevice {
+
+	/**
+	 * Set the owner.
+	 * 
+	 * @param a living entity
+	 */
+	void setOwner(EntityLiving entity);
+	
+	/**
+	 * Get the owner of the device instance
+	 * 
+	 * @return a living entity
+	 */
+	EntityLiving getOwner();
 
 	/**
 	 * Set the frequency of the wireless device.
@@ -38,11 +53,27 @@ public interface IWirelessDevice {
 	String getFreq();
 
 	/**
-	 * Get the wireless device's coords.
+	 * Get the device coordinates.
 	 * 
-	 * @return Coordinates
+	 * @return Device coordinates.
 	 */
 	WirelessCoordinates getCoords();
+
+	/**
+	 * Set the device's coordinates.
+	 * 
+	 * @param coords Device Coordinates.
+	 */
+	void setCoords(WirelessCoordinates coords);
+
+	/**
+	 * Set the device's coordinates.
+	 * 
+	 * @param x the xPosition.
+	 * @param y the yPosition.
+	 * @param z the zPosition
+	 */
+	void setCoords(int x, int y, int z);
 
 	/**
 	 * Activate the wireless device.
@@ -65,22 +96,6 @@ public interface IWirelessDevice {
 	 * 
 	 */
 	void doDeactivateCommand();
-
-	/**
-	 * Return the associated data class
-	 * 
-	 * @return an extension class of IWirelessDeviceData
-	 */
-	Class<? extends IWirelessDeviceData> getDeviceDataClass();
-
-	/**
-	 * Set the Device coordinates
-	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
-	void setCoords(int x, int y, int z);
 
 	/**
 	 * Return the world to which the device belongs

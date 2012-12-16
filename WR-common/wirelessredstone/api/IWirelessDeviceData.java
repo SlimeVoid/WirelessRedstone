@@ -6,36 +6,6 @@ import net.minecraft.src.World;
 import wirelessredstone.data.WirelessCoordinates;
 
 public interface IWirelessDeviceData {
-
-	/**
-	 * Set the device's coordinates.
-	 * 
-	 * @param coords Device Coordinates.
-	 */
-	public void setCoords(WirelessCoordinates coords);
-
-	/**
-	 * Set the device's coordinates.
-	 * 
-	 * @param x the xPosition.
-	 * @param y the yPosition.
-	 * @param z the zPosition
-	 */
-	public void setCoords(int x, int y, int z);
-	
-	/**
-	 * Set the device's owner based on a living entity
-	 * 
-	 * @param entityliving a living entity.
-	 */
-	public void setOwnerID(Entity entity);
-
-	/**
-	 * Set the device's Owner ID.
-	 * 
-	 * @param id Owner ID.
-	 */
-	public void setOwnerID(int ownerid);
 	
 	/**
 	 * Set the device's ID based on a itemstack
@@ -90,20 +60,6 @@ public interface IWirelessDeviceData {
 	public void setState(boolean state);
 
 	/**
-	 * Get the device coordinates.
-	 * 
-	 * @return Device coordinates.
-	 */
-	public WirelessCoordinates getCoords();
-
-	/**
-	 * Get the owner.
-	 * 
-	 * @return entity.
-	 */
-	public Entity getOwner();
-
-	/**
 	 * Get the device type.
 	 * 
 	 * @return Device type.
@@ -130,7 +86,7 @@ public interface IWirelessDeviceData {
 	 * 
 	 * @return Device dimension.
 	 */
-	public Byte getDimension();
+	public int getDimension();
 
 	/**
 	 * Get the device's frequency.
@@ -145,11 +101,4 @@ public interface IWirelessDeviceData {
 	 * @return Device state.
 	 */
 	public boolean getState();
-
-	/**
-	 * Get the device's owner ID
-	 * 
-	 * @return owner ID
-	 */
-	public int getOwnerID();
 }

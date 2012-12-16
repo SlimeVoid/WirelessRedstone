@@ -613,6 +613,7 @@ public class RedstoneEther {
 	public synchronized boolean isLoaded(World world, int i, int j, int k) {
 		if (world == null)
 			return false;
+		System.out.println("isLoaded");
 
 		LoggerRedstoneWireless.getInstance(
 				"RedstoneEther"
@@ -626,6 +627,7 @@ public class RedstoneEther {
 		// Run before overrides.
 		boolean prematureExit = false;
 		for (IRedstoneEtherOverride override : overrides) {
+			System.out.println("isLoaded:before");
 			if (override.beforeIsLoaded(world, i, j, k))
 				prematureExit = true;
 		}
@@ -633,14 +635,17 @@ public class RedstoneEther {
 		// Check if blockId and tile is set if premature exit was not called.
 		boolean returnState = false;
 		if (!prematureExit) {
+			System.out.println("isLoaded:during");
 			returnState = world.getBlockId(i, j, k) != 0 && world
 					.getBlockTileEntity(i, j, k) != null;
 		}
 		boolean out = returnState;
 
 		// Run after overrides.
-		for (IRedstoneEtherOverride override : overrides)
+		for (IRedstoneEtherOverride override : overrides) {
+			System.out.println("isLoaded");
 			out = override.afterIsLoaded(world, i, j, k, out);
+		}
 
 		return out;
 	}

@@ -6,7 +6,6 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.src.NetClientHandler;
 import net.minecraft.src.NetHandler;
@@ -17,34 +16,15 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.overrides.GuiRedstoneWirelessRemoteOverride;
 import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.tickhandler.ClientTickHandler;
 import wirelessredstone.api.IBaseModOverride;
-import wirelessredstone.api.IGuiRedstoneWirelessOverride;
+import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.device.WirelessDevice;
-import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
-import wirelessredstone.network.handlers.ClientGuiPacketHandler;
-import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
-import wirelessredstone.network.handlers.ClientTilePacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
-import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.network.packets.executor.ClientEtherPacketRXAddExecutor;
-import wirelessredstone.network.packets.executor.ClientEtherPacketTXAddExecutor;
-import wirelessredstone.overrides.RedstoneEtherOverrideSMP;
-import wirelessredstone.overrides.TileEntityRedstoneWirelessOverrideSMP;
-import wirelessredstone.presentation.TileEntityRedstoneWirelessRenderer;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessDevice;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessR;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessT;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
-import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.registry.TickRegistry;
 /**
@@ -76,6 +56,8 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	 */
 	public static void initGUIs() {
 		guiWirelessRemote = new GuiRedstoneWirelessRemote();
+		IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
+		guiWirelessRemote.addOverride(override);
 	}
 	
 	@Override
@@ -189,8 +171,6 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	public void activateRemote(World world, EntityLiving entityliving) {
 		if (!world.isRemote) {
 			super.activateRemote(world, entityliving);
-		} else {
-			WirelessRemoteDevice.activatePlayerWirelessRemote(world, entityliving);
 		}
 	}
 
@@ -198,8 +178,6 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	public void deactivateRemote(World world, EntityLiving entityplayer) {
 		if (!world.isRemote) {
 			super.deactivateRemote(world, entityplayer);
-		} else {
-			WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityplayer);
 		}
 	}
 }

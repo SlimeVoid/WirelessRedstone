@@ -25,8 +25,9 @@ public class DevicePacketChangeFreqExecutor implements IDevicePacketExecutor {
 					),
 					entityplayer
 			);
-			data.setCoords(packet.xPosition, packet.yPosition, packet.zPosition);
-			data.setFreq(packet.getFreq());
+			int dFreq = Integer.parseInt(packet.getFreq());
+			int oldFreq = Integer.parseInt(data.getFreq().toString());
+			data.setFreq(Integer.toString(oldFreq + dFreq));
 			data.setState(packet.getState());
 		}
 	}

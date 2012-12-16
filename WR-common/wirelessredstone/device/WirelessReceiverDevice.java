@@ -7,23 +7,14 @@ import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.ether.RedstoneEther;
 
 public class WirelessReceiverDevice extends WirelessDevice {
-
-	public WirelessReceiverDevice(World world, EntityLiving entity) {
-		super(world, entity);
-	}
 	
-	public WirelessReceiverDevice(World world, IWirelessDeviceData deviceData) {
-		super(world, deviceData);
+	public WirelessReceiverDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData) {
+		super(world, entityliving, deviceData);
 	}
 	
 	@Override
 	public String getName() {
 		return "Wireless Receiver Device";
-	}
-
-	@Override
-	public Class<? extends IWirelessDeviceData> getDeviceDataClass() {
-		return WirelessDeviceData.class;
 	}
 
 	@Override
@@ -38,6 +29,11 @@ public class WirelessReceiverDevice extends WirelessDevice {
 		RedstoneEther.getInstance().remReceiver(this.getWorld(),
 				this.getCoords().getX(), this.getCoords().getY(),
 				this.getCoords().getZ(), this.getFreq());
+	}
+
+	@Override
+	protected Class<? extends IWirelessDeviceData> getDeviceDataClass() {
+		return WirelessDeviceData.class;
 	}
 
 }

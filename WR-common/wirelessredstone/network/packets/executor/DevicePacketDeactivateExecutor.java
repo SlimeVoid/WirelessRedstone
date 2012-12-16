@@ -1,5 +1,6 @@
 package wirelessredstone.network.packets.executor;
 
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import wirelessredstone.api.IDevicePacketExecutor;
@@ -15,8 +16,8 @@ public abstract class DevicePacketDeactivateExecutor implements IDevicePacketExe
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
 		IWirelessDeviceData deviceData = ((PacketWirelessDevice)packet).getDeviceData(world, entityplayer);
-		this.getDevice(world, deviceData).deactivate(world, entityplayer);
+		this.getDevice(world, entityplayer, deviceData).deactivate(world, entityplayer);
 	}
 
-	protected abstract IWirelessDevice getDevice(World world, IWirelessDeviceData deviceData);
+	protected abstract IWirelessDevice getDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData);
 }

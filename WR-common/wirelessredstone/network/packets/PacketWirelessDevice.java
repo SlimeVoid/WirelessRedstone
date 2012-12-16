@@ -27,18 +27,16 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.setName(name);
 	}
 
-	public PacketWirelessDevice(int x, int y, int z, IWirelessDeviceData data) {
+	public PacketWirelessDevice(IWirelessDeviceData data) {
 		this(data.getName());
-		this.setPosition(x, y, z, 0);
-		this.setID(data.getID());
+		this.setDeviceID(data.getID());
 		this.setFreq(data.getFreq());
 		this.setState(data.getState());
 		this.setItemData(data.getType());
-		this.setOwnerID(data.getOwnerID());
 		this.setDimensionID(data.getDimension());
 	}
 
-	public void setID(int id) {
+	public void setDeviceID(int id) {
 		this.payload.setIntPayload(0, id);
 	}
 
@@ -50,24 +48,8 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.payload.setIntPayload(2, dimensionID);
 	}
 
-	public void setName(String name) {
-		this.payload.setStringPayload(1, name);
-	}
-
-	public void setItemData(String itemData) {
-		this.payload.setStringPayload(2, itemData);
-	}
-
 	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
-	}
-
-	public String getName() {
-		return this.payload.getStringPayload(1);
-	}
-
-	public String getType() {
-		return this.payload.getStringPayload(2);
 	}
 
 	public int getOwnerID() {
@@ -76,6 +58,22 @@ public class PacketWirelessDevice extends PacketWireless {
 
 	public int getDimension() {
 		return this.payload.getIntPayload(2);
+	}
+
+	public void setName(String name) {
+		this.payload.setStringPayload(1, name);
+	}
+
+	public void setItemData(String itemData) {
+		this.payload.setStringPayload(2, itemData);
+	}
+
+	public String getName() {
+		return this.payload.getStringPayload(1);
+	}
+
+	public String getType() {
+		return this.payload.getStringPayload(2);
 	}
 
 	@Override
@@ -89,9 +87,8 @@ public class PacketWirelessDevice extends PacketWireless {
 				this.getType(),
 				this.getDeviceID(),
 				this.getName(),
-				DimensionManager.getWorld(this.getDimension()),
-				WRCore.getEntityByID(world, entityliving, this.getOwnerID()));
-		data.setCoords(this.xPosition, this.yPosition, this.zPosition);
+				world,
+				WRCore.getEntityByID(DimensionManager.getWorld(this.getDimension()), this.getOwnerID()));
 		data.setFreq(this.getFreq());
 		data.setState(this.getState());
 		return data;
