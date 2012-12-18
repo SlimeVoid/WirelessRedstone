@@ -16,7 +16,6 @@ package wirelessredstone.addon.remote.presentation.gui;
 
 import net.minecraft.src.GuiButton;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.addon.remote.network.packets.PacketWirelessRemote;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 import wirelessredstone.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessDevice;
@@ -49,11 +48,6 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 			close();
 			
 		}
-	}
-
-	@Override
-	protected PacketWirelessDevice getDevicePacket() {
-		return new PacketWirelessRemote(this.wirelessDeviceData);
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import net.minecraft.src.ModLoader;
 import net.minecraft.src.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.addon.remote.network.packets.PacketWirelessRemote;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.network.ClientPacketHandler;
@@ -23,7 +22,7 @@ public class GuiRedstoneWirelessRemoteOverride implements
 				int NEW = Integer.parseInt(newFreq.toString());
 				Object PacketWirelessDevice;
 				if (OLD != NEW) {
-					PacketWirelessDevice packet = new PacketWirelessRemote(data);
+					PacketWirelessDevice packet = new PacketWirelessDevice(data);
 					packet.setFreq(Integer.toString(NEW - OLD));
 					packet.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
 					ClientPacketHandler.sendPacket(packet.getPacket());

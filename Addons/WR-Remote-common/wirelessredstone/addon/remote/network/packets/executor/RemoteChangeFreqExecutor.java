@@ -4,7 +4,6 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.addon.remote.network.packets.PacketWirelessRemote;
 import wirelessredstone.api.IDevicePacketExecutor;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.network.ServerPacketHandler;
@@ -21,7 +20,7 @@ public class RemoteChangeFreqExecutor implements IDevicePacketExecutor {
 			int freq = Integer.parseInt(packet.getDeviceFreq());
 			int oldFreq = Integer.parseInt(data.getDeviceFreq());
 			data.setDeviceFreq(Integer.toString(oldFreq + freq));
-			PacketWirelessRemote remotePacket = new PacketWirelessRemote(data);
+			PacketWirelessDevice remotePacket = new PacketWirelessDevice(data);
 			remotePacket.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
 			ServerPacketHandler.broadcastPacket(remotePacket.getPacket());
 		}

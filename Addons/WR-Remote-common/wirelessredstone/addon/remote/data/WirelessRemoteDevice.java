@@ -11,7 +11,6 @@ import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.addon.remote.network.packets.PacketWirelessRemote;
 import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
@@ -134,7 +133,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 			if (remoteTransmitter == null) {
 				return false;
 			} else {
-				PacketWirelessRemote packet = new PacketWirelessRemote(remoteTransmitter.data);
+				PacketWirelessDevice packet = new PacketWirelessDevice(remoteTransmitter.data);
 				packet.setPosition(remoteTransmitter.xCoord, remoteTransmitter.yCoord, remoteTransmitter.zCoord, 0);
 				packet.setCommand("deactivateRemote");
 				packet.isForced(true);
@@ -181,7 +180,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
 	@Override
 	public PacketWirelessDevice getDevicePacket(IWirelessDeviceData devicedata) {
-		return new PacketWirelessRemote(devicedata);
+		return new PacketWirelessDevice(devicedata);
 	}
 
 	@Override
