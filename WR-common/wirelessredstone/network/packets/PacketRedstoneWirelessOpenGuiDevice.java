@@ -68,6 +68,21 @@ public class PacketRedstoneWirelessOpenGuiDevice extends PacketWireless implemen
 	}
 
 	@Override
+	public String getDeviceFreq() {
+		return this.getFreq();
+	}
+
+	@Override
+	public boolean getDeviceState() {
+		return this.getState();
+	}
+
+	@Override
+	public void setDeviceState(boolean state) {
+		this.setState(state);
+	}
+
+	@Override
 	public int getDeviceDimension() {
 		return 0;
 	}

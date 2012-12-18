@@ -45,7 +45,7 @@ public interface IWirelessDeviceData {
 	 * @param state Device state.
 	 * @return 
 	 */
-	public void setState(boolean state);
+	public void setDeviceState(boolean state);
 
 	/**
 	 * Get the device type.

@@ -99,7 +99,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void activate(World world, Entity entity) {
-		this.data.setState(true);
+		this.data.setDeviceState(true);
 		if (!world.isRemote) {
 			this.doActivateCommand();
 		}
@@ -107,7 +107,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void deactivate(World world, Entity entity, boolean isForced) {
-		this.data.setState(false);
+		this.data.setDeviceState(false);
 		if (!world.isRemote) {
 			this.doDeactivateCommand();
 		}

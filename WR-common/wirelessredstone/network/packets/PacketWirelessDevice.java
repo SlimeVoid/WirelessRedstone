@@ -28,8 +28,8 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 	public PacketWirelessDevice(IWirelessDeviceData data) {
 		this(data.getDeviceName());
 		this.setDeviceID(data.getDeviceID());
-		this.setFreq(data.getDeviceFreq());
-		this.setState(data.getDeviceState());
+		this.setDeviceFreq(data.getDeviceFreq());
+		this.setDeviceState(data.getDeviceState());
 		this.setDeviceType(data.getDeviceType());
 		this.setDeviceDimension(data.getDeviceDimension());
 		this.isForced(false);
@@ -48,6 +48,16 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 	@Override
 	public void setDeviceFreq(String freq) {
 		this.setFreq(freq);
+	}
+
+	@Override
+	public void setDeviceState(boolean state) {
+		this.setState(state);
+	}
+
+	@Override
+	public String getDeviceFreq() {
+		return this.getFreq();
 	}
 
 	@Override
@@ -78,6 +88,11 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 	@Override
 	public String getDeviceType() {
 		return this.payload.getStringPayload(2);
+	}
+
+	@Override
+	public boolean getDeviceState() {
+		return this.getState();
 	}
 
 	public void isForced(boolean isForced) {

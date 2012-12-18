@@ -20,7 +20,7 @@ public class ClientEtherPacketRXAddExecutor implements IEtherPacketExecutor {
 				tileentity != null && 
 				tileentity instanceof TileEntityRedstoneWirelessR
 		) {
-			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getDeviceFreq().toString());
+			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
 /*		} else {
 			tileentity = new TileEntityRedstoneWirelessR();
 			((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
@@ -36,14 +36,14 @@ public class ClientEtherPacketRXAddExecutor implements IEtherPacketExecutor {
 				packet.xPosition, 
 				packet.yPosition, 
 				packet.zPosition,
-				packet.getDeviceFreq().toString()
+				packet.getFreq().toString()
 		);
 		((BlockRedstoneWireless)WRCore.blockWirelessR).setState(
 				world,
 				packet.xPosition,
 				packet.yPosition,
 				packet.zPosition,
-				packet.getDeviceState()
+				packet.getState()
 		);
 	}
 

@@ -55,7 +55,7 @@ public class PacketRedstoneEther extends PacketWireless {
 	@Override
 	public String toString() {
 		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ") [" + this
-				.getDeviceFreq() + "] - " + this.getDeviceState();
+				.getFreq() + "] - " + this.getState();
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class PacketRedstoneEther extends PacketWireless {
 	}
 
 	@Override
-	public boolean getDeviceState() {
+	public boolean getState() {
 		return this.payload.getBoolPayload(0);
 	}
 

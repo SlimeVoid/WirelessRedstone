@@ -22,8 +22,8 @@ public class EtherPacketTXSetStateExecutor implements IEtherPacketExecutor {
 				packet.xPosition,
 				packet.yPosition,
 				packet.zPosition,
-				packet.getDeviceFreq(),
-				packet.getDeviceState());
+				packet.getFreq(),
+				packet.getState());
 	}
 
 }

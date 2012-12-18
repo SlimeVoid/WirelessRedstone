@@ -28,7 +28,7 @@ public abstract class ClientGuiDevicePacketExecutor implements IPacketExecutor {
 				((IWirelessDeviceData)packet).getDeviceName(),
 				world,
 				entityplayer);
-		devicedata.setDeviceFreq(packet.getDeviceFreq());
+		devicedata.setDeviceFreq(((IWirelessDeviceData)packet).getDeviceFreq());
 		
 		WRCore.proxy.activateGUI(world, entityplayer, devicedata);
 	}

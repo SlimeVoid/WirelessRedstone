@@ -80,7 +80,7 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 	}
 
 	@Override
-	public void setState(boolean state) {
+	public void setDeviceState(boolean state) {
 		this.state = state;
 		this.markDirty();
 	}
@@ -159,7 +159,7 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 				data.setDeviceName(name);
 				data.setDeviceDimension(world.provider.dimensionId);
 				data.setDeviceFreq("0");
-				data.setState(false);
+				data.setDeviceState(false);
 			} else {
 				LoggerRedstoneWireless.getInstance(
 						"WirelessDeviceData"
