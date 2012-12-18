@@ -13,12 +13,13 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
  * @author Eurymachus
  * 
  */
-public class PacketRedstoneWirelessOpenGui extends PacketWireless {
-	public PacketRedstoneWirelessOpenGui() {
+public class PacketRedstoneWirelessOpenGuiInventory extends PacketWireless {
+
+	public PacketRedstoneWirelessOpenGuiInventory() {
 		super(PacketIds.GUI);
 	}
 
-	public PacketRedstoneWirelessOpenGui(TileEntityRedstoneWireless entity) {
+	public PacketRedstoneWirelessOpenGuiInventory(TileEntityRedstoneWireless entity) {
 		this();
 		this.setCommand(PacketRedstoneWirelessCommands.wirelessCommands.sendGui
 				.toString());

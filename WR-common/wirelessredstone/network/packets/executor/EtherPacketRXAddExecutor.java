@@ -22,7 +22,7 @@ public class EtherPacketRXAddExecutor implements IEtherPacketExecutor {
 				packet.xPosition,
 				packet.yPosition,
 				packet.zPosition,
-				packet.getFreq());
+				packet.getDeviceFreq());
 	}
 
 }

@@ -12,10 +12,9 @@
 package wirelessredstone.network.handlers;
 
 import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.Packet250CustomPayload;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
-import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGui;
+import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGuiInventory;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -28,20 +27,18 @@ public class ServerGuiPacketHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketWireless createNewPacketWireless() {
-		return null;
+		return new PacketRedstoneWirelessOpenGuiInventory();
 	}
 
 	/**
 	 * Send a GUI packet to specified player.
 	 * 
 	 * @param player Receiving player.
-	 * @param entity TileEntity of the wireless block which is being accessed.
+	 * @param tileentity the packet to send.
 	 */
-	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless entity) {
+	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless tileentity) {
 		// Assemble a OpenGUI packet.
-		PacketRedstoneWirelessOpenGui packet = new PacketRedstoneWirelessOpenGui(
-				entity);
-
+		
 		LoggerRedstoneWireless.getInstance(
 				"ServerGuiPacketHandler"
 		).write(
@@ -50,9 +47,10 @@ public class ServerGuiPacketHandler extends SubPacketHandler {
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 
+		PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(tileentity);
 		// Send the packet.
 		ServerPacketHandler.sendPacketTo(
 				player,
-				(Packet250CustomPayload) packet.getPacket());
+				packet.getPacket());
 	}
 }

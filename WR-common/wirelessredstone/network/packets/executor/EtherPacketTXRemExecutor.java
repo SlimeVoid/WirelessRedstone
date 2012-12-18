@@ -22,7 +22,7 @@ public class EtherPacketTXRemExecutor implements IEtherPacketExecutor {
 				packet.xPosition,
 				packet.yPosition,
 				packet.zPosition,
-				packet.getFreq());
+				packet.getDeviceFreq());
 	}
 
 }

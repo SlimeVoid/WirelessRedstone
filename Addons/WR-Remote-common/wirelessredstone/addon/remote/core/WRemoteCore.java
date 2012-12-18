@@ -1,32 +1,19 @@
 package wirelessredstone.addon.remote.core;
 
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.TreeMap;
-
+import net.minecraft.src.Block;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.ModLoader;
+import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
+import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
+import wirelessredstone.core.WRCore;
+import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.asm.SideOnly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-
-import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
-import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
-import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
-import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
-import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.core.WRCore;
-import wirelessredstone.data.ConfigStoreRedstoneWireless;
-import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.device.WirelessDeviceData;
-
-import net.minecraft.src.Block;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
 
 public class WRemoteCore {
 	public static boolean isLoaded = false;
@@ -128,7 +115,7 @@ public class WRemoteCore {
 		String index = name + "[" + i + "]";
 		WirelessRemoteData data = (WirelessRemoteData) WRCore.proxy
 				.getWorld().loadItemData(WirelessRemoteData.class, index);
-		if (data == null || !data.getState())
+		if (data == null || !data.getDeviceState())
 			return remoteoff;
 		return remoteon;
 	}

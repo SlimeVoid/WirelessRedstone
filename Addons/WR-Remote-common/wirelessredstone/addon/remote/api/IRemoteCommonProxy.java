@@ -2,7 +2,6 @@ package wirelessredstone.addon.remote.api;
 
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
 import wirelessredstone.api.ICommonProxy;
 

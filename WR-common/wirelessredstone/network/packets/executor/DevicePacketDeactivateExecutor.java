@@ -11,13 +11,13 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
 
 public abstract class DevicePacketDeactivateExecutor implements IDevicePacketExecutor {
 	
-	protected IWirelessDevice device;
-	
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		IWirelessDeviceData deviceData = ((PacketWirelessDevice)packet).getDeviceData(world, entityplayer);
-		this.getDevice(world, entityplayer, deviceData).deactivate(world, entityplayer);
+		IWirelessDeviceData deviceData = ((PacketWirelessDevice)packet).getDeviceData(this.getDeviceDataClass(), world, entityplayer);
+		this.getDevice(world, entityplayer, deviceData).deactivate(world, entityplayer, ((PacketWirelessDevice)packet).isForced());
 	}
+
+	protected abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
 
 	protected abstract IWirelessDevice getDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData);
 }

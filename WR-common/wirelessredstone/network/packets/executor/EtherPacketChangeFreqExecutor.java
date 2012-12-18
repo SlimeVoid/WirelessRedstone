@@ -36,7 +36,7 @@ public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
 
 		if (entity instanceof TileEntityRedstoneWireless) {
 			// Assemble frequencies.
-			int dFreq = Integer.parseInt(packet.getFreq());
+			int dFreq = Integer.parseInt(packet.getDeviceFreq());
 			int oldFreq = Integer
 					.parseInt(((TileEntityRedstoneWireless) entity)
 							.getFreq()

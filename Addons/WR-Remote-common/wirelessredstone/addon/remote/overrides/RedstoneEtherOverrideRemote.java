@@ -1,11 +1,10 @@
 package wirelessredstone.addon.remote.overrides;
 
+import net.minecraft.src.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.api.IRedstoneEtherOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.ether.RedstoneEther;
-import net.minecraft.src.World;
 
 public class RedstoneEtherOverrideRemote implements IRedstoneEtherOverride {
 	@Override

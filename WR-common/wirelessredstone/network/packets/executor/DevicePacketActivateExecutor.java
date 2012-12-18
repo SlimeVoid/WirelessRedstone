@@ -13,9 +13,11 @@ public abstract class DevicePacketActivateExecutor implements IDevicePacketExecu
 	
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		IWirelessDeviceData deviceData = ((PacketWirelessDevice)packet).getDeviceData(world, entityplayer);
+		IWirelessDeviceData deviceData = ((PacketWirelessDevice)packet).getDeviceData(this.getDeviceDataClass(), world, entityplayer);
 		this.getDevice(world, entityplayer, deviceData).activate(world, entityplayer);
 	}
+
+	protected abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
 
 	protected abstract IWirelessDevice getDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData);
 }

@@ -14,16 +14,11 @@ package wirelessredstone.device;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.ItemStack;
-import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.network.ClientPacketHandler;
-import wirelessredstone.network.packets.PacketWirelessDevice;
-import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 
 /**
  * A wireless device.<br>
@@ -62,7 +57,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public String getFreq() {
-		return this.data.getFreq();
+		return this.data.getDeviceFreq();
 	}
 
 	@Override
@@ -87,12 +82,12 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	
 	@Override
 	public World getWorld() {
-		return DimensionManager.getWorld(this.data.getDimension());
+		return DimensionManager.getWorld(this.data.getDeviceDimension());
 	}
 
 	@Override
 	public void setFreq(String freq) {
-		this.data.setFreq(freq);
+		this.data.setDeviceFreq(freq);
 	}
 
 	/**
@@ -111,7 +106,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	}
 
 	@Override
-	public void deactivate(World world, Entity entity) {
+	public void deactivate(World world, Entity entity, boolean isForced) {
 		this.data.setState(false);
 		if (!world.isRemote) {
 			this.doDeactivateCommand();
@@ -124,6 +119,10 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	@Override
 	public abstract void doDeactivateCommand();
 	
+	protected abstract String getActivateCommand();
+
+	protected abstract String getDeactivateCommand();
+	
 	@Override
 	public boolean isBeingHeld() {
 		EntityLiving entityliving = this.getOwner();
@@ -131,7 +130,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 			ItemStack itemstack = entityliving.getHeldItem();
 			if (itemstack != null) {
 				return WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), itemstack, this.getWorld(),
-						entityliving).getFreq() == this.getFreq();
+						entityliving).getDeviceFreq() == this.getFreq();
 			}
 		}
 		return false;

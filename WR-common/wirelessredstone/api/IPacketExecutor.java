@@ -1,8 +1,8 @@
 package wirelessredstone.api;
 
-import wirelessredstone.network.packets.PacketWireless;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.World;
+import wirelessredstone.network.packets.PacketWireless;
 
 public interface IPacketExecutor {
 	/**

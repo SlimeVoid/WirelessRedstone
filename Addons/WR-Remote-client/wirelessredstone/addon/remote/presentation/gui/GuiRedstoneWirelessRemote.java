@@ -14,10 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.remote.presentation.gui;
 
-import wirelessredstone.core.WRCore;
+import net.minecraft.src.GuiButton;
+import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
+import wirelessredstone.addon.remote.network.packets.PacketWirelessRemote;
+import wirelessredstone.network.packets.PacketWirelessDevice;
 import wirelessredstone.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessDevice;
-import net.minecraft.src.GuiButton;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
@@ -47,5 +49,15 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 			close();
 			
 		}
+	}
+
+	@Override
+	protected PacketWirelessDevice getDevicePacket() {
+		return new PacketWirelessRemote(this.wirelessDeviceData);
+	}
+
+	@Override
+	protected String getCommand() {
+		return PacketRemoteCommands.remoteCommands.changeFreq.toString();
 	}
 }

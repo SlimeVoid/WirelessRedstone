@@ -2,9 +2,7 @@ package wirelessredstone.network.packets;
 
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.World;
-import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.core.WRCore;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.core.PacketPayload;
@@ -15,57 +13,79 @@ import wirelessredstone.network.packets.core.PacketPayload;
  * @author Eurymachus
  * 
  */
-public class PacketWirelessDevice extends PacketWireless {
+public class PacketWirelessDevice extends PacketWireless implements IWirelessDeviceData {
 	
 	public PacketWirelessDevice() {
 		super(PacketIds.DEVICE);
-
 	}
 
 	public PacketWirelessDevice(String name) {
-		super(PacketIds.DEVICE, new PacketPayload(2, 0, 3, 1));
-		this.setName(name);
+		this();
+		this.payload = new PacketPayload(2, 0, 3, 2);
+		this.setDeviceName(name);
 	}
 
 	public PacketWirelessDevice(IWirelessDeviceData data) {
-		this(data.getName());
-		this.setDeviceID(data.getID());
-		this.setFreq(data.getFreq());
-		this.setState(data.getState());
-		this.setItemData(data.getType());
-		this.setDimensionID(data.getDimension());
+		this(data.getDeviceName());
+		this.setDeviceID(data.getDeviceID());
+		this.setFreq(data.getDeviceFreq());
+		this.setState(data.getDeviceState());
+		this.setDeviceType(data.getDeviceType());
+		this.setDeviceDimension(data.getDeviceDimension());
+		this.isForced(false);
 	}
 
+	@Override
 	public void setDeviceID(int id) {
 		this.payload.setIntPayload(0, id);
 	}
 
-	public void setDimensionID(int dimensionID) {
+	@Override
+	public void setDeviceDimension(int dimensionID) {
 		this.payload.setIntPayload(1, dimensionID);
 	}
 
+	@Override
+	public void setDeviceFreq(String freq) {
+		this.setFreq(freq);
+	}
+
+	@Override
+	public int getDeviceDimension() {
+		return this.payload.getIntPayload(1);
+	}
+
+	@Override
 	public int getDeviceID() {
 		return this.payload.getIntPayload(0);
 	}
 
-	public int getDimension() {
-		return this.payload.getIntPayload(1);
-	}
-
-	public void setName(String name) {
+	@Override
+	public void setDeviceName(String name) {
 		this.payload.setStringPayload(1, name);
 	}
 
-	public void setItemData(String itemData) {
-		this.payload.setStringPayload(2, itemData);
+	@Override
+	public void setDeviceType(String devicetype) {
+		this.payload.setStringPayload(2, devicetype);
 	}
 
-	public String getName() {
+	@Override
+	public String getDeviceName() {
 		return this.payload.getStringPayload(1);
 	}
 
-	public String getType() {
+	@Override
+	public String getDeviceType() {
 		return this.payload.getStringPayload(2);
+	}
+
+	public void isForced(boolean isForced) {
+		this.payload.setBoolPayload(1, isForced);
+	}
+
+	public boolean isForced() {
+		return this.payload.getBoolPayload(1);
 	}
 
 	@Override
@@ -73,14 +93,13 @@ public class PacketWirelessDevice extends PacketWireless {
 		return false;
 	}
 	
-	public IWirelessDeviceData getDeviceData(World world, EntityLiving entityliving) {
-		IWirelessDeviceData data = WirelessDeviceData.getDeviceData(
-				WirelessDeviceData.class,
-				this.getType(),
+	public IWirelessDeviceData getDeviceData(Class<? extends IWirelessDeviceData> deviceDataClass, World world, EntityLiving entityliving) {
+		return WirelessDeviceData.getDeviceData(
+				deviceDataClass,
+				this.getDeviceType(),
 				this.getDeviceID(),
-				this.getName(),
+				this.getDeviceName(),
 				world,
 				entityliving);
-		return data;
 	}
 }

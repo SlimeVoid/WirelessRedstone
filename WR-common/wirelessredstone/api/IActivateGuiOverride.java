@@ -12,9 +12,8 @@
 package wirelessredstone.api;
 
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
-import net.minecraft.src.WorldSavedData;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
  * Base Mod override.<br>
@@ -27,16 +26,16 @@ import net.minecraft.src.WorldSavedData;
  * @author Eurymachus
  * 
  */
-public interface IBaseModOverride {
+public interface IActivateGuiOverride {
 	/**
 	 * Called before a GUI is opened. Block specific.
 	 * 
 	 * @param world The world object
 	 * @param entityplayer The player opening the GUI
-	 * @param tileentity Block's TileEntity.
+	 * @param tileentityredstonewireless Block's TileEntity.
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntity tileentity);
+	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless);
 
 	/**
 	 * Called before a GUI is opened. Item specific.
@@ -46,5 +45,5 @@ public interface IBaseModOverride {
 	 * @param data The world saved data.
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, WorldSavedData data);
+	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata);
 }

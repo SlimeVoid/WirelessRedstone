@@ -13,4 +13,5 @@ public class PacketIds {
 	public static final int ADDON = 3;
 	public static final int GUI = 4;
 	public static final int DEVICE = 5;
+	public static final int DEVICEGUI = 6;
 }

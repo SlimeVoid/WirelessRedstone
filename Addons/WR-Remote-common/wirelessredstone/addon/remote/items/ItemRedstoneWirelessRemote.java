@@ -14,18 +14,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.remote.items;
 
-import wirelessredstone.addon.remote.core.WRemoteCore;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
-import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
-import wirelessredstone.device.WirelessDeviceData;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Entity;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EnumAction;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import wirelessredstone.addon.remote.core.WRemoteCore;
+import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.device.WirelessDeviceData;
+import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
+import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ItemRedstoneWirelessRemote extends Item {
 	
@@ -34,22 +35,37 @@ public class ItemRedstoneWirelessRemote extends Item {
 		this.setCreativeTab(CreativeTabs.tabRedstone);
 		maxStackSize = 1;
 	}
-
+	
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
+			World world, int i, int j, int k, int l, float a, float b, float c) {
+		return onItemUseFirst(itemstack, entityplayer, world, i, j, k, l, a, b, c);
+	}
+
+	@Override
+	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer,
 			World world, int i, int j, int k, int l, float a, float b, float c) {
 		WirelessRemoteData remote = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack,
 				world, entityplayer);
 		if (entityplayer.isSneaking()) {
-			WRemoteCore.proxy.activateGUI(world, entityplayer, remote);
-			return true;
-		} else {
 			TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 			if (tileentity != null) {
 				if (tileentity instanceof TileEntityRedstoneWirelessR) {
+					if (world.isRemote) {
+						ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(
+								"updateReceiver",
+								((TileEntityRedstoneWirelessR)tileentity).getBlockCoord(0), 
+								((TileEntityRedstoneWirelessR)tileentity).getBlockCoord(1),
+								((TileEntityRedstoneWirelessR)tileentity).getBlockCoord(2), 
+								0, 
+								false
+						);
+					}
 					return true;
 				}
 			}
+			WRemoteCore.proxy.activateGUI(world, entityplayer, remote);
+			return false;
 		}
 		this.onItemRightClick(itemstack, world, entityplayer);
 		return false;
@@ -59,9 +75,10 @@ public class ItemRedstoneWirelessRemote extends Item {
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		if (!entityplayer.isSneaking()) {
+			entityplayer.setItemInUse(itemstack, 72000);
 			WRemoteCore.proxy.activateRemote(world, entityplayer);
 		} else {
-			onItemUse(itemstack, entityplayer, world,
+			onItemUseFirst(itemstack, entityplayer, world,
 					(int) Math.round(entityplayer.posX),
 					(int) Math.round(entityplayer.posY),
 					(int) Math.round(entityplayer.posZ), 0, 0, 0, 0);
@@ -85,7 +102,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 		
 			WirelessRemoteData data = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack,
 					world, entityplayer);
-			String freq = data.getFreq();
+			String freq = data.getDeviceFreq();
 			if (!isHeld || (!WRemoteCore.proxy.isRemoteOn(world, entityplayer, freq) && !WRemoteCore.proxy.deactivateRemote(world, entityplayer))) {
 			}
 		}
@@ -101,5 +118,10 @@ public class ItemRedstoneWirelessRemote extends Item {
 	@Override
 	public String getTextureFile() {
 		return "/WirelessSprites/Remote/items.png";
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+		return EnumAction.bow;
 	}
 }

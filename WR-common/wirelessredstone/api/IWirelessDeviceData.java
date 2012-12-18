@@ -1,25 +1,13 @@
 package wirelessredstone.api;
 
-import net.minecraft.src.Entity;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
-import wirelessredstone.data.WirelessCoordinates;
-
 public interface IWirelessDeviceData {
-	
-	/**
-	 * Set the device's ID based on a itemstack
-	 * 
-	 * @param itemstack The itemstack.
-	 */
-	public void setID(ItemStack itemstack);
 
 	/**
 	 * Set the device's ID.
 	 * 
 	 * @param id Device ID.
 	 */
-	public void setID(int id);
+	public void setDeviceID(int id);
 
 	/**
 	 * Set the device type.
@@ -27,21 +15,21 @@ public interface IWirelessDeviceData {
 	 * @param type Device type.
 	 * 		e.g. "item.wirelessredstone.remote"
 	 */
-	public void setType(String type);
+	public void setDeviceType(String type);
 
 	/**
 	 * Set the device's name.
 	 * 
 	 * @param name Device name.
 	 */
-	public void setName(String name);
+	public void setDeviceName(String name);
 
 	/**
 	 * Set the device's dimension based on world's worldType.
 	 * 
-	 * @param world The world object.
+	 * @param dimensionID The world dimensionID.
 	 */
-	public void setDimension(World world);
+	public void setDeviceDimension(int dimensionID);
 
 	/**
 	 * Set the device's frequency.
@@ -49,7 +37,7 @@ public interface IWirelessDeviceData {
 	 * @param freq Device frequency.
 	 * @return 
 	 */
-	public void setFreq(String freq);
+	public void setDeviceFreq(String freq);
 
 	/**
 	 * Set the device's state.
@@ -64,21 +52,21 @@ public interface IWirelessDeviceData {
 	 * 
 	 * @return Device type.
 	 */
-	public String getType();
+	public String getDeviceType();
 
 	/**
 	 * Get the device ID.
 	 * 
 	 * @return Device ID.
 	 */
-	public int getID();
+	public int getDeviceID();
 
 	/**
 	 * Get the device name.
 	 * 
 	 * @return Device name.
 	 */
-	public String getName();
+	public String getDeviceName();
 
 	/**
 	 * Get the device's dimension<br>
@@ -86,19 +74,19 @@ public interface IWirelessDeviceData {
 	 * 
 	 * @return Device dimension.
 	 */
-	public int getDimension();
+	public int getDeviceDimension();
 
 	/**
 	 * Get the device's frequency.
 	 * 
 	 * @return Device frequency.
 	 */
-	public String getFreq();
+	public String getDeviceFreq();
 
 	/**
 	 * Get the device's state.
 	 * 
 	 * @return Device state.
 	 */
-	public boolean getState();
+	public boolean getDeviceState();
 }

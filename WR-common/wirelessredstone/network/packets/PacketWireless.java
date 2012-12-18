@@ -58,7 +58,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	@Override
 	public String toString() {
 		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
-				.getFreq() + "]";
+				.getDeviceFreq() + "]";
 	}
 
 	/**
@@ -85,7 +85,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * 
 	 * @return Returns getStringPayload(0) by default
 	 */
-	public String getFreq() {
+	public String getDeviceFreq() {
 		return this.payload.getStringPayload(0);
 	}
 
@@ -104,7 +104,7 @@ public abstract class PacketWireless extends PacketUpdate {
 	 * 
 	 * @return Returns getStringPayload(1) by default
 	 */
-	public boolean getState() {
+	public boolean getDeviceState() {
 		return this.payload.getBoolPayload(0);
 	}
 

@@ -1,13 +1,8 @@
 package wirelessredstone.network.handlers;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.INetworkManager;
-import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -17,8 +12,6 @@ import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.presentation.gui.GuiRedstoneWireless;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import cpw.mods.fml.common.network.IPacketHandler;
-import cpw.mods.fml.common.network.Player;
 
 public class ClientTilePacketHandler extends SubPacketHandler {
 	

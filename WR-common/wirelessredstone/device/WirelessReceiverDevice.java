@@ -2,11 +2,12 @@ package wirelessredstone.device;
 
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.World;
-
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.network.ServerPacketHandler;
+import wirelessredstone.network.packets.PacketWirelessDevice;
 
-public class WirelessReceiverDevice extends WirelessDevice {
+public abstract class WirelessReceiverDevice extends WirelessDevice {
 	
 	public WirelessReceiverDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData) {
 		super(world, entityliving, deviceData);
@@ -22,6 +23,14 @@ public class WirelessReceiverDevice extends WirelessDevice {
 		RedstoneEther.getInstance().addReceiver(this.getWorld(),
 				this.getCoords().getX(), this.getCoords().getY(),
 				this.getCoords().getZ(), this.getFreq());
+		PacketWirelessDevice packet = this.getDevicePacket(this.data);
+		packet.setPosition(
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
+				0);
+		packet.setCommand(this.getActivateCommand());
+		ServerPacketHandler.broadcastPacket(packet.getPacket());
 	}
 
 	@Override
@@ -29,11 +38,13 @@ public class WirelessReceiverDevice extends WirelessDevice {
 		RedstoneEther.getInstance().remReceiver(this.getWorld(),
 				this.getCoords().getX(), this.getCoords().getY(),
 				this.getCoords().getZ(), this.getFreq());
+		PacketWirelessDevice packet = this.getDevicePacket(this.data);
+		packet.setPosition(
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
+				0);
+		packet.setCommand(this.getDeactivateCommand());
+		ServerPacketHandler.broadcastPacket(packet.getPacket());
 	}
-
-	@Override
-	protected Class<? extends IWirelessDeviceData> getDeviceDataClass() {
-		return WirelessDeviceData.class;
-	}
-
 }

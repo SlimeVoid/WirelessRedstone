@@ -5,14 +5,13 @@ import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import wirelessredstone.api.IPacketExecutor;
-import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.packets.PacketWireless;
-
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.INetworkManager;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
+import wirelessredstone.api.IPacketExecutor;
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.packets.PacketWireless;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
@@ -97,6 +96,7 @@ public abstract class SubPacketHandler implements IPacketHandler {
 					"handlePacket(" + packet.toString()+ ", world," + entityplayer.username + ") - UNKNOWN COMMAND",
 					LoggerRedstoneWireless.LogLevel.WARNING
 			);
+			throw new RuntimeException("Tried to get a Packet Executor for command: " + command + " that has not been registered.");
 		}
 	}
 }

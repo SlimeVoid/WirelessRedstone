@@ -13,7 +13,8 @@ public class PacketRedstoneWirelessCommands {
 		changeFreq,
 		fetchTile,
 		fetchEther,
-		sendGui;
+		sendGui,
+		sendDeviceGui;
 
 		private int value;
 		private String name;
@@ -29,7 +30,7 @@ public class PacketRedstoneWirelessCommands {
 			if (this != null && this.name != null && !this.name.isEmpty()) {
 				return this.name;
 			}
-			return "Command not initialzed";
+			return "Command["+this+" is not initialzed";
 		}
 	}
 
@@ -89,6 +90,10 @@ public class PacketRedstoneWirelessCommands {
 		wirelessCommands.sendGui.value = 8;
 		wirelessCommands.sendGui.name = "sendGui";
 		registerCommand(wirelessCommands.sendGui.name);
+
+		wirelessCommands.sendDeviceGui.value = 9;
+		wirelessCommands.sendDeviceGui.name = "sendDeviceGui";
+		registerCommand(wirelessCommands.sendDeviceGui.name);
 	}
 
 	private static Map<Integer, String> commandList = new HashMap<Integer, String>();

@@ -11,7 +11,6 @@
  */
 package wirelessredstone.network.handlers;
 
-import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
@@ -53,7 +52,7 @@ public class ServerTilePacketHandler extends SubPacketHandler {
 					tileentity);
 		
 		// Broadcast packet.
-		ServerPacketHandler.broadcastPacket((Packet250CustomPayload) packet
+		ServerPacketHandler.broadcastPacket(packet
 				.getPacket());
 	}
 }

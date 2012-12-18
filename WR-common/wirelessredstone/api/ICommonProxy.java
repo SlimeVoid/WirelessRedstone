@@ -11,13 +11,13 @@
  */
 package wirelessredstone.api;
 
-import wirelessredstone.device.WirelessDevice;
 import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.NetHandler;
 import net.minecraft.src.INetworkManager;
+import net.minecraft.src.NetHandler;
 import net.minecraft.src.Packet1Login;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 /**
@@ -34,15 +34,6 @@ public interface ICommonProxy extends IGuiHandler {
 	 * tileentity special renderers.
 	 */
 	public void registerRenderInformation();
-
-	/**
-	 * Used for opening a GUI on the client.
-	 * 
-	 * @param world Minecraft World object
-	 * @param entityplayer The player that is opening the GUI
-	 * @param tileentity Tile entity related to the GUI
-	 */
-	public void openGUI(World world, EntityPlayer entityplayer, TileEntity tileentity);
 
 	/**
 	 * Returns the minecraft directory
@@ -68,9 +59,9 @@ public interface ICommonProxy extends IGuiHandler {
 	 * 
 	 * @param world Minecraft world object.
 	 * @param entityplayer The player that is opening the GUI
-	 * @param tileentity Tile entity related to the GUI
+	 * @param tileentityredstonewireless Tile entity related to the GUI
 	 */
-	public void activateGUI(World world, EntityPlayer entityplayer, TileEntity tileentity);
+	public void activateGUI(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless);
 	
 	/**
 	 * Called on activity in the GUI.

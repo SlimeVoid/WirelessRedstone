@@ -12,9 +12,9 @@
 package wirelessredstone.network.handlers;
 
 import java.util.List;
+
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -58,7 +58,7 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 		);
 		
 		// Broadcast packet.
-		ServerPacketHandler.broadcastPacket((Packet250CustomPayload) packet
+		ServerPacketHandler.broadcastPacket(packet
 				.getPacket());
 	}
 
@@ -84,7 +84,7 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 		// Send packet.
 		ServerPacketHandler.sendPacketTo(
 				entityplayermp,
-				(Packet250CustomPayload) packet.getPacket());
+				packet.getPacket());
 	}
 
 	/**

@@ -27,7 +27,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 				PacketWirelessTile packetData = (PacketWirelessTile) data;
 				if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
 					TileEntityRedstoneWirelessT teRWT = (TileEntityRedstoneWirelessT) tileentityredstonewireless;
-					teRWT.setFreq(packetData.getFreq().toString());
+					teRWT.setFreq(packetData.getDeviceFreq().toString());
 					teRWT.onInventoryChanged();
 					teRWT.worldObj.markBlockForRenderUpdate(packetData.xPosition,
 							packetData.yPosition, packetData.zPosition);
@@ -35,7 +35,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 
 				if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
 					TileEntityRedstoneWirelessR teRWR = (TileEntityRedstoneWirelessR) tileentityredstonewireless;
-					teRWR.setFreq(packetData.getFreq().toString());
+					teRWR.setFreq(packetData.getDeviceFreq().toString());
 					teRWR.setInDirectlyPowering(packetData
 							.getInDirectlyPowering());
 					teRWR.setPowerDirections(packetData.getPowerDirections());

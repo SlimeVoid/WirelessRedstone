@@ -15,6 +15,7 @@ import net.minecraft.src.Entity;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.World;
 import wirelessredstone.data.WirelessCoordinates;
+import wirelessredstone.network.packets.PacketWirelessDevice;
 
 /**
  * Wireless device.
@@ -83,7 +84,7 @@ public interface IWirelessDevice {
 	/**
 	 * Deactivate the wireless device.
 	 */
-	void deactivate(World world, Entity entity);
+	void deactivate(World world, Entity entity, boolean isForced);
 
 	/**
 	 * Perform the activate command
@@ -117,4 +118,13 @@ public interface IWirelessDevice {
 	 * @return device name
 	 */
 	String getName();
+	
+	/**
+	 * Return a packet to send for this device
+	 * 
+	 * @param devicedata the device data to send
+	 * 
+	 * @return the packet to send
+	 */
+	PacketWirelessDevice getDevicePacket(IWirelessDeviceData devicedata);
 }

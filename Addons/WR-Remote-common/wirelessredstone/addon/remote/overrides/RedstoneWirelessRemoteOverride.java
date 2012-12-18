@@ -1,7 +1,7 @@
 package wirelessredstone.addon.remote.overrides;
 
-import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import net.minecraft.src.World;
+import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 
 public interface RedstoneWirelessRemoteOverride {
 	public boolean beforeTransmitRemote(String command, World world,

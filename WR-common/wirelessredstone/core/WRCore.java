@@ -13,7 +13,6 @@ package wirelessredstone.core;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.Entity;
-import net.minecraft.src.EntityLiving;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
@@ -26,7 +25,6 @@ import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
-import wirelessredstone.network.packets.PacketWirelessDeviceCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -120,7 +118,7 @@ public class WRCore {
 
 		PacketRedstoneWirelessCommands.registerCommands();
 
-		PacketWirelessDeviceCommands.registerCommands();
+		//PacketWirelessDeviceCommands.registerCommands();
 
 		proxy.initPacketHandlers();
 

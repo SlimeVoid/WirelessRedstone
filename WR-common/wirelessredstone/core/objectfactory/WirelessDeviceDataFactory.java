@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 
 import net.minecraft.src.World;
 import net.minecraft.src.WorldSavedData;
-
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.device.WirelessDeviceData;
@@ -32,8 +31,11 @@ public class WirelessDeviceDataFactory {
 	public WirelessDeviceData getDeviceDataFromClass() {
 		try {
 			if (this.wirelessDeviceDataClass != null && this.wirelessDeviceDataConstructor != null && !this.wirelessDeviceDataIndex.isEmpty()) {
+				System.out.println("FactoryIndex: " + wirelessDeviceDataIndex);
+				System.out.println("FactoryConst: " + wirelessDeviceDataConstructor);
+				System.out.println("FactoryClass: " + wirelessDeviceDataClass);
 				Object data = this.wirelessDeviceDataConstructor.newInstance(wirelessDeviceDataIndex);
-				return this.getDeviceDataFromInstance(data);	
+				return this.getDeviceDataFromInstance(data);
 			}
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(

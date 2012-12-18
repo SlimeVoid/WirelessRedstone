@@ -40,7 +40,7 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 	@Override
 	public String toString() {
 		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
-				.getFreq() + "]";
+				.getDeviceFreq() + "]";
 	}
 
 	public boolean[] getPowerDirections() {
