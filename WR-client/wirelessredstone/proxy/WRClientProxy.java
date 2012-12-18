@@ -194,11 +194,9 @@ public class WRClientProxy extends WRCommonProxy {
 	public void activateGUI(World world, EntityPlayer entityplayer,
 			TileEntityRedstoneWireless tileentityredstonewireless) {
 		if (!world.isRemote) {
-			System.out.println("Activate Gui Server");
 			super.activateGUI(world, entityplayer, tileentityredstonewireless);
 			return;
 		}
-		System.out.println("Activate Gui Client");
 		for (IActivateGuiOverride override : overrides) {
 			if (override.beforeOpenGui(world, entityplayer, tileentityredstonewireless)) {
 				return;
