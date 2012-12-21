@@ -1,7 +1,7 @@
 package wirelessredstone.network.packets.core;
 
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public abstract class PacketTileEntity extends PacketUpdate {
 

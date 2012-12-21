@@ -11,11 +11,11 @@
  */
 package wirelessredstone.device;
 
-import net.minecraft.src.Entity;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.NBTTagCompound;
-import net.minecraft.src.World;
-import net.minecraft.src.WorldSavedData;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldSavedData;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.objectfactory.WirelessDeviceDataFactory;
 import wirelessredstone.data.LoggerRedstoneWireless;

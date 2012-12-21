@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 package wirelessredstone.presentation.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.FontRenderer;
+import net.minecraft.client.gui.FontRenderer;
 
 import org.lwjgl.opengl.GL11;
 

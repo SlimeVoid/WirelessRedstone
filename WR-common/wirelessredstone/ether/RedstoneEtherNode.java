@@ -11,7 +11,7 @@
  */
 package wirelessredstone.ether;
 
-import net.minecraft.src.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * Wireless ether node.

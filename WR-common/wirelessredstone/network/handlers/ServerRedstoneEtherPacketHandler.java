@@ -13,10 +13,10 @@ package wirelessredstone.network.handlers;
 
 import java.util.List;
 
-import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.ether.RedstoneEtherNode;

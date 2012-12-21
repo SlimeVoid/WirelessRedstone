@@ -13,11 +13,11 @@ package wirelessredstone.block;
 
 import java.util.Random;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;

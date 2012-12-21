@@ -16,10 +16,10 @@ import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.INetworkManager;
-import net.minecraft.src.Packet250CustomPayload;
-import net.minecraft.src.World;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.handlers.SubPacketHandler;

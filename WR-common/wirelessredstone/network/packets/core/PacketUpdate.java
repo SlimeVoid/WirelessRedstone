@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 
 /**
  * Packet Information for Reading/Writing packet data

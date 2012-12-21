@@ -1,6 +1,6 @@
 package wirelessredstone.overrides;
 
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 import wirelessredstone.api.IRedstoneEtherOverride;
 
 public class RedstoneEtherOverrideSMP implements IRedstoneEtherOverride {

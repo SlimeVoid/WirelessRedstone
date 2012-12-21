@@ -1,6 +1,6 @@
 package wirelessredstone.network.packets;
 
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless.LogLevel;

@@ -14,8 +14,8 @@ package wirelessredstone.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.World;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 /**
  * Memory storage singleton<br>

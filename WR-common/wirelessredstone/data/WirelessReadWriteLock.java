@@ -11,7 +11,7 @@
  */
 package wirelessredstone.data;
 
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 
 /**
  * A standard Multiple Readers / Single Writer lock.

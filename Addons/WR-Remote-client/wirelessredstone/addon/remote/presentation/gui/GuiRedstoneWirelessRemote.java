@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.remote.presentation.gui;
 
-import net.minecraft.src.GuiButton;
+import net.minecraft.client.gui.GuiButton;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 import wirelessredstone.presentation.gui.GuiButtonBoolean;

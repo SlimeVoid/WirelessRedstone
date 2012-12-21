@@ -2,8 +2,8 @@ package wirelessredstone.core.objectfactory;
 
 import java.lang.reflect.Constructor;
 
-import net.minecraft.src.World;
-import net.minecraft.src.WorldSavedData;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldSavedData;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.device.WirelessDeviceData;

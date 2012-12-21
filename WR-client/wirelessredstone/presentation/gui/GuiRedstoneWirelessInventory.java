@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.presentation.gui;
 
-import net.minecraft.src.GuiButton;
+import net.minecraft.client.gui.GuiButton;
 import wirelessredstone.api.IGuiRedstoneWirelessInventoryOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;

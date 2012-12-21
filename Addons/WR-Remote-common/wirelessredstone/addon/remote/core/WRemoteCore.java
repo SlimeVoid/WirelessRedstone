@@ -1,17 +1,17 @@
 package wirelessredstone.addon.remote.core;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModLoader;
 import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
-import cpw.mods.fml.common.Side;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.asm.SideOnly;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 

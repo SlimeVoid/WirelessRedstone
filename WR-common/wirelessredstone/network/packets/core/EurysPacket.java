@@ -5,7 +5,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import net.minecraft.src.Packet250CustomPayload;
+import net.minecraft.network.packet.Packet250CustomPayload;
 
 /**
  * Packet Information Base

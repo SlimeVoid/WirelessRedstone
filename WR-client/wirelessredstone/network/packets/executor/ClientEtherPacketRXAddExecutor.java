@@ -1,8 +1,8 @@
 package wirelessredstone.network.packets.executor;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.core.WRCore;

@@ -14,9 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.presentation;
 
-import net.minecraft.src.FontRenderer;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.TileEntitySpecialRenderer;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 

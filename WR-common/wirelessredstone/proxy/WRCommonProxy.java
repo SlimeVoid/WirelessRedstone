@@ -1,12 +1,12 @@
 package wirelessredstone.proxy;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.INetworkManager;
-import net.minecraft.src.NetHandler;
-import net.minecraft.src.Packet1Login;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.NetHandler;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.network.ServerPacketHandler;

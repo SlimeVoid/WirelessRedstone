@@ -14,8 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.presentation.gui;
 
-import net.minecraft.src.FontRenderer;
-import net.minecraft.src.GuiButton;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 
 /**
  * A GUI Button<br>

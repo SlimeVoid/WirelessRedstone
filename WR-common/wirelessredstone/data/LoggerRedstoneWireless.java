@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 import net.minecraft.src.ModLoader;
 import wirelessredstone.core.WRCore;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Side;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * Wireless Redstone logging engine.<br>

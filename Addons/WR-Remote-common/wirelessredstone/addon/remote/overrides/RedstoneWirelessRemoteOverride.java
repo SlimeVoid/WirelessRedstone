@@ -1,6 +1,6 @@
 package wirelessredstone.addon.remote.overrides;
 
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 
 public interface RedstoneWirelessRemoteOverride {

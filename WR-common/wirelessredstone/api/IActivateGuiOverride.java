@@ -11,8 +11,8 @@
  */
 package wirelessredstone.api;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.World;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**

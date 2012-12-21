@@ -1,7 +1,7 @@
 package wirelessredstone.addon.remote.network.packets.executor;
 
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.World;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.world.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.api.IWirelessDevice;

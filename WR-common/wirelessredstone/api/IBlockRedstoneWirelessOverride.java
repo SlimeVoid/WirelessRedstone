@@ -13,8 +13,8 @@ package wirelessredstone.api;
 
 import java.util.Random;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.World;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 /**
  * Block override.<br>

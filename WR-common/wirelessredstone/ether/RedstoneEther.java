@@ -19,7 +19,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 import wirelessredstone.api.IRedstoneEtherOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 

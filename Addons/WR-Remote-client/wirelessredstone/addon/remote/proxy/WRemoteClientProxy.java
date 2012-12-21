@@ -1,15 +1,15 @@
 package wirelessredstone.addon.remote.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.INetworkManager;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.NetClientHandler;
-import net.minecraft.src.NetHandler;
-import net.minecraft.src.Packet1Login;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
+import net.minecraft.client.multiplayer.NetClientHandler;
+import net.minecraft.network.packet.NetHandler;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
@@ -28,7 +28,7 @@ import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.proxy.WRClientProxy;
-import cpw.mods.fml.common.Side;
+import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.common.registry.TickRegistry;
 /**
  * WRClientProxy class

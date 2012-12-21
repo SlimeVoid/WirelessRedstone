@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
-import net.minecraft.src.Entity;
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.World;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.api.IWirelessDevice;
@@ -18,8 +18,8 @@ import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.device.WirelessTransmitterDevice;
 import wirelessredstone.network.ClientPacketHandler;
 import wirelessredstone.network.packets.PacketWirelessDevice;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * 

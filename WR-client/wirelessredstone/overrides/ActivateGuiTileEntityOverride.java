@@ -1,8 +1,8 @@
 package wirelessredstone.overrides;
 
-import net.minecraft.src.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.proxy.WRClientProxy;

@@ -1,7 +1,7 @@
 package wirelessredstone.network.packets;
 
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.World;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.world.World;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.network.packets.core.PacketIds;

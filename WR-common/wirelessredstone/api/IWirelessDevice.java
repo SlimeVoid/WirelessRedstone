@@ -11,9 +11,9 @@
  */
 package wirelessredstone.api;
 
-import net.minecraft.src.Entity;
-import net.minecraft.src.EntityLiving;
-import net.minecraft.src.World;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.world.World;
 import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 

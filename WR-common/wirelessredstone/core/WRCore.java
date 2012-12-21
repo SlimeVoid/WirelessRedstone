@@ -11,12 +11,12 @@
  */
 package wirelessredstone.core;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.Entity;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.World;
+import net.minecraft.world.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.block.BlockRedstoneWireless;

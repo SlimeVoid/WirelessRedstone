@@ -17,12 +17,12 @@ package wirelessredstone.presentation.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.GuiButton;
-import net.minecraft.src.GuiScreen;
-import net.minecraft.src.KeyBinding;
-import net.minecraft.src.RenderHelper;
-import net.minecraft.src.World;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
