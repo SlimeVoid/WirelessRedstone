@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.network.ServerPacketHandler;
+import wirelessredstone.network.handlers.ServerAddonPacketHandler;
 import wirelessredstone.network.handlers.ServerDeviceGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
@@ -157,10 +158,21 @@ public class WRCommonProxy implements ICommonProxy {
 		ServerPacketHandler.registerPacketHandler(
 				PacketIds.TILE,
 				tilePacketHandler);
+		// Addon
+		ServerAddonPacketHandler addonPacketHandler = new ServerAddonPacketHandler();
+		ServerPacketHandler.registerPacketHandler(
+				PacketIds.ADDON,
+				addonPacketHandler);
 	}
 
 	@Override
 	public void connectionClosed(INetworkManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void doSomething(String command, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
 		
 	}

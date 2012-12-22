@@ -16,6 +16,7 @@ import wirelessredstone.network.RedstoneWirelessConnectionHandler;
 import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -54,6 +55,9 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  * @author Eurymachus, ali4z
  */
 public class WirelessRedstone {
+
+	@Instance("WirelessRedstoneCore")
+	public static WirelessRedstone instance;
 
 	/**
 	 * Initialization

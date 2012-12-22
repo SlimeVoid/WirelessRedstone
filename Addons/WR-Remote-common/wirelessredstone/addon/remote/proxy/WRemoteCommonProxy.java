@@ -144,4 +144,10 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 		}
 		return false;
 	}
+
+	@Override
+	public void doSomething(String command, World world, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		
+	}
 }

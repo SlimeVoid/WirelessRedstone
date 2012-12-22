@@ -128,4 +128,6 @@ public interface ICommonProxy extends IGuiHandler {
 	 * @param manager
 	 */
 	public void connectionClosed(INetworkManager manager);
+
+	void doSomething(String command, World world, int x, int y, int z);
 }

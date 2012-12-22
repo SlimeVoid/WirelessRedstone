@@ -19,6 +19,7 @@ import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.network.handlers.ClientAddonPacketHandler;
 import wirelessredstone.network.handlers.ClientDeviceGuiPacketHandler;
 import wirelessredstone.network.handlers.ClientInventoryGuiPacketHandler;
 import wirelessredstone.network.handlers.ClientRedstoneEtherPacketHandler;
@@ -294,5 +295,10 @@ public class WRClientProxy extends WRCommonProxy {
 		ClientPacketHandler.registerPacketHandler(
 				PacketIds.DEVICEGUI,
 				guiDevicePacketHandler);
+		// Addon
+		ClientAddonPacketHandler addonPacketHandler = new ClientAddonPacketHandler();
+		ClientPacketHandler.registerPacketHandler(
+				PacketIds.ADDON,
+				addonPacketHandler);
 	}
 }
