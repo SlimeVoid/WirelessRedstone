@@ -86,10 +86,12 @@ public class ItemRedstoneWirelessRemote extends Item {
 		return itemstack;
 	}
 
+	@Override
 	public boolean isFull3D() {
 		return true;
 	}
 
+	@Override
 	public int getIconFromDamage(int i) {
 		return WRemoteCore.getIconFromDamage(this.getItemName(), i);
 	}

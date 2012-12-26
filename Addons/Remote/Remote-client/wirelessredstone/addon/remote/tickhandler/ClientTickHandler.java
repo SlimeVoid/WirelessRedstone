@@ -3,8 +3,8 @@ package wirelessredstone.addon.remote.tickhandler;
 import java.util.EnumSet;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;

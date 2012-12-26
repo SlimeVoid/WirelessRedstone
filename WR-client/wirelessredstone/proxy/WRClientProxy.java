@@ -7,9 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.NetClientHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
-import net.minecraft.src.ModLoader;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -240,6 +240,7 @@ public class WRClientProxy extends WRCommonProxy {
 	 * 
 	 * @return Minecraft world object.
 	 */
+	@Override
 	public World getWorld(NetHandler handler) {
 		if (handler instanceof NetClientHandler) {
 			return ((NetClientHandler)handler).getPlayer().worldObj;

@@ -9,11 +9,11 @@ import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class WRemoteCore {
 	public static boolean isLoaded = false;
