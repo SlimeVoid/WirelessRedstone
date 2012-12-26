@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.network.INetworkManager;
-import net.minecraft.src.ModLoader;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.src.ModLoader;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.handlers.SubPacketHandler;
 import cpw.mods.fml.common.network.IPacketHandler;

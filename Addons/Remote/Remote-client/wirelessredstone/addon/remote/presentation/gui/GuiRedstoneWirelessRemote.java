@@ -16,7 +16,6 @@ package wirelessredstone.addon.remote.presentation.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.network.packets.PacketWirelessDevice;
 import wirelessredstone.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.presentation.gui.GuiRedstoneWirelessDevice;
 

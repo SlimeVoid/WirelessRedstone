@@ -1,13 +1,13 @@
 package wirelessredstone.addon.remote.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.NetClientHandler;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
-import net.minecraft.src.ModLoader;
-import net.minecraft.client.multiplayer.NetClientHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -28,8 +28,8 @@ import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.proxy.WRClientProxy;
-import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 /**
  * WRClientProxy class
  * 
@@ -129,6 +129,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	 * 
 	 * @return Minecraft world object.
 	 */
+	@Override
 	public World getWorld(NetHandler handler) {
 		if (handler instanceof NetClientHandler) {
 			return ((NetClientHandler)handler).getPlayer().worldObj;
@@ -179,6 +180,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 		return WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityliving);
 	}	
 	
+	@Override
 	public boolean isRemoteOn(World world, EntityPlayer entityplayer, String freq) {
 		if (!world.isRemote) {
 			return super.isRemoteOn(world, entityplayer, freq);

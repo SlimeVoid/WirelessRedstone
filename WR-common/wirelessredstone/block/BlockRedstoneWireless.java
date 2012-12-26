@@ -19,8 +19,8 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -585,6 +585,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	/**
 	 * Overridden to do nothing at all.
 	 */
+	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random) {
 	}
 

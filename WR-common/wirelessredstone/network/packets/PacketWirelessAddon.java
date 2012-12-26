@@ -1,7 +1,7 @@
 package wirelessredstone.network.packets;
 
-import wirelessredstone.network.packets.core.PacketIds;
 import net.minecraft.world.World;
+import wirelessredstone.network.packets.core.PacketIds;
 
 public class PacketWirelessAddon extends PacketWireless {
 

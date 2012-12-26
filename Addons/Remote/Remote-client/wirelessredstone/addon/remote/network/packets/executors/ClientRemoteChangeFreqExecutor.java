@@ -1,7 +1,7 @@
 package wirelessredstone.addon.remote.network.packets.executors;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.ModLoader;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
