@@ -60,7 +60,7 @@ public class RedstoneEtherOverrideSMP implements IRedstoneEtherOverride {
 
 	@Override
 	public boolean beforeGetFreqState(World world, String freq) {
-		return false;
+		return (world == null || world.isRemote);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class RedstoneEtherOverrideSMP implements IRedstoneEtherOverride {
 
 	@Override
 	public boolean beforeIsLoaded(World world, int i, int j, int k) {
-		return false;
+		return (world == null || world.isRemote);
 	}
 
 	@Override

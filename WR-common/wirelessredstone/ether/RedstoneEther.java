@@ -30,14 +30,15 @@ import wirelessredstone.data.LoggerRedstoneWireless;
  * @author ali4z
  */
 public class RedstoneEther {
-	private Map<String, RedstoneEtherFrequency> ether;
+	private Map<Integer,Map<String, RedstoneEtherFrequency>> ether;
 	private List<IRedstoneEtherOverride> overrides;
-	private int currentWorldHash = 0;
+	private String currentWorldName = "";
 	private static RedstoneEther instance;
 	private JFrame gui;
 
 	private RedstoneEther() {
-		ether = new HashMap<String, RedstoneEtherFrequency>();
+		ether = new HashMap<Integer,Map<String, RedstoneEtherFrequency>>();
+		//ether = new HashMap<String, RedstoneEtherFrequency>();
 		overrides = new ArrayList<IRedstoneEtherOverride>();
 	}
 
@@ -106,13 +107,13 @@ public class RedstoneEther {
 		try {
 			// Make sure the frequency and world is set up properly.
 			checkWorldHash(world);
-			if (!freqIsset(freq))
-				createFreq(freq);
+			if (!freqIsset(world, freq))
+				createFreq(world, freq);
 
 			// Assemble and store node.
 			RedstoneEtherNode node = new RedstoneEtherNode(i, j, k);
 			node.freq = freq;
-			ether.get(freq).addTransmitter(world, node);
+			ether.get(world.hashCode()).get(freq).addTransmitter(world, node);
 
 			// Repaint GUI.
 			if (gui != null)
@@ -164,12 +165,12 @@ public class RedstoneEther {
 
 			// Make sure the frequency and world is set up properly.
 			checkWorldHash(world);
-			if (freqIsset(freq)) {
+			if (freqIsset(world, freq)) {
 				// Remove the node.
-				ether.get(freq).remTransmitter(world, i, j, k);
+				ether.get(world.hashCode()).get(freq).remTransmitter(world, i, j, k);
 				// Remove the frequency if empty.
-				if (ether.get(freq).count() == 0)
-					ether.remove(freq);
+				if (ether.get(world.hashCode()).get(freq).count() == 0)
+					ether.get(world.hashCode()).remove(freq);
 			}
 
 			// Repaint GUI.
@@ -221,13 +222,13 @@ public class RedstoneEther {
 
 			// Make sure the frequency and world is set up properly.
 			checkWorldHash(world);
-			if (!freqIsset(freq))
-				createFreq(freq);
+			if (!freqIsset(world, freq))
+				createFreq(world, freq);
 
 			// Assemble and store node.
 			RedstoneEtherNode node = new RedstoneEtherNode(i, j, k);
 			node.freq = freq;
-			ether.get(freq).addReceiver(world, node);
+			ether.get(world.hashCode()).get(freq).addReceiver(world, node);
 
 			// Repaint GUI.
 			if (gui != null)
@@ -279,12 +280,12 @@ public class RedstoneEther {
 
 			// Make sure the frequency and world is set up properly.
 			checkWorldHash(world);
-			if (freqIsset(freq)) {
+			if (freqIsset(world, freq)) {
 				// Remove the node.
-				ether.get(freq).remReceiver(world, i, j, k);
+				ether.get(world.hashCode()).get(freq).remReceiver(world, i, j, k);
 				// Remove the frequency if empty.
-				if (ether.get(freq).count() == 0)
-					ether.remove(freq);
+				if (ether.get(world.hashCode()).get(freq).count() == 0)
+					ether.get(world.hashCode()).remove(freq);
 			}
 
 			// Repaint GUI.
@@ -308,10 +309,14 @@ public class RedstoneEther {
 	 * @param world the world object
 	 */
 	private synchronized void checkWorldHash(World world) {
+		if (! currentWorldName.equals(world.getWorldInfo().getWorldName()) ) {
+			ether = new HashMap<Integer,Map<String, RedstoneEtherFrequency>>();
+			currentWorldName = world.getWorldInfo().getWorldName();
+		}
+		
 		// Flush ether if world's hashcode differes from the current.
-		if (world != null && world.hashCode() != currentWorldHash) {
-			ether = new HashMap<String, RedstoneEtherFrequency>();
-			currentWorldHash = world.hashCode();
+		if ( !ether.containsKey(world.hashCode()) ) {
+			ether.put(world.hashCode(), new HashMap<String, RedstoneEtherFrequency>());
 		}
 
 		// Repaint GUI.
@@ -324,8 +329,9 @@ public class RedstoneEther {
 	 * 
 	 * @param freq frequency
 	 */
-	private synchronized void createFreq(String freq) {
-		ether.put(freq, new RedstoneEtherFrequency());
+	private synchronized void createFreq(World world, String freq) {
+		checkWorldHash(world);
+		ether.get(world.hashCode()).put(freq, new RedstoneEtherFrequency());
 	}
 
 	/**
@@ -334,8 +340,9 @@ public class RedstoneEther {
 	 * @param freq frequency
 	 * @return Initialization status.
 	 */
-	private synchronized boolean freqIsset(String freq) {
-		return ether.containsKey(freq);
+	private synchronized boolean freqIsset(World world, String freq) {
+		checkWorldHash(world);
+		return ether.get(world.hashCode()).containsKey(freq);
 	}
 
 	/**
@@ -364,8 +371,8 @@ public class RedstoneEther {
 		// If premature exit was not given, set the initial return state.
 		boolean returnState = false;
 		if (!prematureExit) {
-			if (freqIsset(freq))
-				returnState = ether.get(freq).getState(world);
+			if (freqIsset(world, freq))
+				returnState = ether.get(world.hashCode()).get(freq).getState(world);
 		}
 		boolean out = returnState;
 
@@ -412,8 +419,8 @@ public class RedstoneEther {
 		try {
 
 			// Set the transmitter state if frequency exists.
-			if (freqIsset(freq))
-				ether.get(freq).setTransmitterState(world, i, j, k, state);
+			if (freqIsset(world, freq))
+				ether.get(world.hashCode()).get(freq).setTransmitterState(world, i, j, k, state);
 
 			// Repaint GUI.
 			if (gui != null)
@@ -450,8 +457,8 @@ public class RedstoneEther {
 		if (coords == null) {
 			try {
 				// Fetch the closest TX from the frequency.
-				if (freqIsset(freq))
-					coords = ether.get(freq).getClosestActiveTransmitter(
+				if (freqIsset(world, freq))
+					coords = ether.get(world.hashCode()).get(freq).getClosestActiveTransmitter(
 							world,
 							i,
 							j,
@@ -487,8 +494,8 @@ public class RedstoneEther {
 	 * @return Closest transmitter coordinate: {X,Y,Z}
 	 */
 	public synchronized int[] getClosestTransmitter(World world, int i, int j, int k, String freq) {
-		if (freqIsset(freq))
-			return ether.get(freq).getClosestTransmitter(world, i, j, k);
+		if (freqIsset(world, freq))
+			return ether.get(world.hashCode()).get(freq).getClosestTransmitter(world, i, j, k);
 		else
 			return null;
 	}
@@ -502,7 +509,7 @@ public class RedstoneEther {
 	 * @return State of the given frequency
 	 */
 	public synchronized boolean isFrequencyActive(World world, String freq) {
-		return ether.get(freq).getState(world);
+		return ether.get(world.hashCode()).get(freq).getState(world);
 	}
 
 	/**
@@ -539,12 +546,13 @@ public class RedstoneEther {
 		List<RedstoneEtherNode> list = new LinkedList<RedstoneEtherNode>();
 		try {
 			// Make a clone of the ether to prevent concurrency.
-			HashMap<String, RedstoneEtherFrequency> etherClone = (HashMap<String, RedstoneEtherFrequency>) ((HashMap<String, RedstoneEtherFrequency>) ether)
+			HashMap<Integer,Map<String, RedstoneEtherFrequency>> etherClone = (HashMap<Integer,Map<String, RedstoneEtherFrequency>>) ((HashMap<Integer,Map<String, RedstoneEtherFrequency>>) ether)
 					.clone();
 			
 			// Add all RX nodes to the list.
-			for (RedstoneEtherFrequency freq : etherClone.values())
-				list.addAll(freq.rxs.values());
+			for (Map<String, RedstoneEtherFrequency> world : etherClone.values())
+				for (RedstoneEtherFrequency freq : world.values())
+					list.addAll(freq.rxs.values());
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"RedstoneEther"
@@ -563,12 +571,13 @@ public class RedstoneEther {
 		List<RedstoneEtherNode> list = new LinkedList<RedstoneEtherNode>();
 		try {
 			// Make a clone of the ether to prevent concurrency.
-			HashMap<String, RedstoneEtherFrequency> etherClone = (HashMap<String, RedstoneEtherFrequency>) ((HashMap<String, RedstoneEtherFrequency>) ether)
+			HashMap<Integer,Map<String, RedstoneEtherFrequency>> etherClone = (HashMap<Integer,Map<String, RedstoneEtherFrequency>>) ((HashMap<Integer,Map<String, RedstoneEtherFrequency>>) ether)
 					.clone();
 			
 			// Add all TX nodes to the list.
-			for (RedstoneEtherFrequency freq : etherClone.values())
-				list.addAll(freq.txs.values());
+			for (Map<String, RedstoneEtherFrequency> world : etherClone.values())
+				for (RedstoneEtherFrequency freq : world.values())
+					list.addAll(freq.txs.values());
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"RedstoneEther"
@@ -587,12 +596,21 @@ public class RedstoneEther {
 		Map<String, Integer> list = new HashMap<String, Integer>();
 		try {
 			// Make a clone of the ether to prevent concurrency.
-			HashMap<String, RedstoneEtherFrequency> etherClone = (HashMap<String, RedstoneEtherFrequency>) ((HashMap<String, RedstoneEtherFrequency>) ether)
+			HashMap<Integer,Map<String, RedstoneEtherFrequency>> etherClone = (HashMap<Integer,Map<String, RedstoneEtherFrequency>>) ((HashMap<Integer,Map<String, RedstoneEtherFrequency>>) ether)
 					.clone();
 			
 			// Add all counters for each frequency to the list.
-			for (String freq : etherClone.keySet())
-				list.put(freq, etherClone.get(freq).count());
+			for (Integer world : etherClone.keySet())
+				for (String freq : etherClone.get(world).keySet()) {
+					if ( list.containsKey(freq) )
+						list.put(
+								freq, 
+								list.get(freq) + 
+								etherClone.get(world).get(freq).count()
+						);
+					else
+						list.put(freq, etherClone.get(world).get(freq).count());
+				}
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					"RedstoneEther"
