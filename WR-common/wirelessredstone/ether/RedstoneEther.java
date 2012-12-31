@@ -587,6 +587,38 @@ public class RedstoneEther {
 	}
 
 	/**
+	 * Gets a map of all loaded frequencies and the number of nodes on each for the specified world.
+	 * 
+	 * @return Loaded frequencies: [freq=>nodeCount, ...]
+	 */
+	@SuppressWarnings("unchecked")
+	public synchronized Map<String, Integer> getLoadedFrequenciesForWorld(World world) {
+		Map<String, Integer> list = new HashMap<String, Integer>();
+		try {
+			// Make a clone of the ether to prevent concurrency.
+			HashMap<String, RedstoneEtherFrequency> etherClone = (HashMap<String, RedstoneEtherFrequency>) ((HashMap<String, RedstoneEtherFrequency>) ether.get(world))
+					.clone();
+			
+			// Add all counters for each frequency to the list.
+			for (String freq : etherClone.keySet()) {
+				if ( list.containsKey(freq) )
+					list.put(
+							freq, 
+							list.get(freq) + 
+							etherClone.get(freq).count()
+					);
+				else
+					list.put(freq, etherClone.get(freq).count());
+			}
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(
+					"RedstoneEther"
+			).writeStackTrace(e);
+		}
+		return list;
+	}
+
+	/**
 	 * Gets a map of all loaded frequencies and the number of nodes on each.
 	 * 
 	 * @return Loaded frequencies: [freq=>nodeCount, ...]
