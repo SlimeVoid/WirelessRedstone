@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="WR-common"/>
 	<classpathentry kind="src" path="WR-client"/>
+	<classpathentry kind="src" path="WR-resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Forge"/>
 	<classpathentry kind="lib" path="jars/bin/jinput.jar"/>
