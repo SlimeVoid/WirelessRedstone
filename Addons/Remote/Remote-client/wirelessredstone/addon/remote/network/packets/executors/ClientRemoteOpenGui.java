@@ -2,7 +2,7 @@ package wirelessredstone.addon.remote.network.packets.executors;
 
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.network.packets.executor.ClientGuiDevicePacketExecutor;
+import wirelessredstone.client.network.packets.executor.ClientGuiDevicePacketExecutor;
 
 public class ClientRemoteOpenGui extends ClientGuiDevicePacketExecutor {
 

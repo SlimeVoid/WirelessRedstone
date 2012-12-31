@@ -11,7 +11,7 @@
  */
 package wirelessredstone.core;
 
-import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.network.RedstoneWirelessConnectionHandler;
 import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;

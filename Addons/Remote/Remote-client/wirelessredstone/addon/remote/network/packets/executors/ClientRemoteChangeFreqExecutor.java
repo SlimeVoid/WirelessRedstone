@@ -7,9 +7,9 @@ import net.minecraft.world.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.api.IDevicePacketExecutor;
 import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessDevice;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessDevice;
-import wirelessredstone.presentation.gui.GuiRedstoneWirelessDevice;
 
 public class ClientRemoteChangeFreqExecutor implements IDevicePacketExecutor {
 

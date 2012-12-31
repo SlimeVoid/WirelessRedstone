@@ -6,7 +6,7 @@ import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 
 public class GuiRedstoneWirelessRemoteOverride implements

@@ -101,7 +101,7 @@ public class WRCore {
 	public static boolean isLoaded = false;
 
 	@SidedProxy(
-			clientSide = "wirelessredstone.proxy.WRClientProxy",
+			clientSide = "wirelessredstone.client.proxy.WRClientProxy",
 			serverSide = "wirelessredstone.proxy.WRCommonProxy")
 	public static ICommonProxy proxy;
 

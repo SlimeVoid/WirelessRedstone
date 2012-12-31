@@ -23,11 +23,11 @@ import wirelessredstone.addon.remote.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.tickhandler.ClientTickHandler;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.network.ClientPacketHandler;
+import wirelessredstone.client.network.ClientPacketHandler;
+import wirelessredstone.client.proxy.WRClientProxy;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.proxy.WRClientProxy;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 /**
