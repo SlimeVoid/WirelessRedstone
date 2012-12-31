@@ -9,17 +9,17 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.addon.remote.api;
+package wirelessredstone.addon.remote.client.network.packets.executors;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.client.network.packets.executor.ClientGuiDevicePacketExecutor;
 
-public interface IRemoteCommonProxy extends ICommonProxy {
-	public void activateRemote(World world, EntityLiving entityliving);
+public class ClientRemoteOpenGui extends ClientGuiDevicePacketExecutor {
 
-	public boolean deactivateRemote(World world, EntityLiving entityliving);
+	@Override
+	protected Class<? extends IWirelessDeviceData> getDeviceDataClass() {
+		return WirelessRemoteData.class;
+	}
 
-	public boolean isRemoteOn(World world, EntityPlayer entityplayer, String freq);
 }

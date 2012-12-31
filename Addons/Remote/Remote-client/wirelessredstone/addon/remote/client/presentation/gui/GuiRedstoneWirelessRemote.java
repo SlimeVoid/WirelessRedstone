@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.addon.remote.presentation.gui;
+package wirelessredstone.addon.remote.client.presentation.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
