@@ -26,27 +26,8 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 	}
 
 	@Override
-	protected void addControls() {
-		super.addControls();
-		controlList.add(new GuiButtonBoolean(20, (width / 2) - 20,
-				(height / 2) + 5, 40, 20, "Pulse", false));
-	}
-
-	@Override
 	protected String getBackgroundImage() {
 		return "/gui/wifi_medium.png";
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton guibutton) {
-		super.actionPerformed(guibutton);
-
-		if (guibutton.id == 20) {
-			// TODO Thread to Pulse
-			//ThreadWirelessRemote.pulse(WRCore.proxy.getPlayer(), "pulse");
-			close();
-			
-		}
 	}
 
 	@Override
