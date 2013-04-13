@@ -44,6 +44,20 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	protected Icon[][] iconBuffer;
 	
+	/**
+	 * Retrieves the Icon based on state
+	 * 
+	 * @param state the block state
+	 * @param side the side of the block
+	 * @return an Icon
+	 */
+	protected Icon getIconFromStateAndSide(int state, int side) {
+		if (this.iconBuffer == null) return this.blockIcon;
+		state = (state < 0 || state >= this.iconBuffer.length) ? 0 : state;
+		side = (side < 0 || side >= this.iconBuffer[state].length) ? 0 : side;
+		return this.iconBuffer[state][side];
+	};
+	
 	@Override
     public abstract void registerIcons(IconRegister par1IconRegister);
 
