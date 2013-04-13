@@ -5,14 +5,14 @@
 			"modid": "WirelessRedstoneCore",
 			"name": "Wireless Redstone",
 			"description": "Wireless Redstone allows you to transmit and receive redstone signals without wires.",
-			"version": "1.6.1",
-			"mcversion": "1.4.7",
+			"version": "1.7.0",
+			"mcversion": "1.5.1",
 			"url": "minecraft.ali4z.com",
 			"authorList": [
 				"ali4z",
 				"Eurymachus"
 			],
-			"credits": "Author ali4z, Programmer Eurymachus",
+			"credits": "Author ali4z, Developer Eurymachus",
 			"logoFile": "/wirelessredstone.png",
 			"parent":"",
             "requiredMods": ["Forge"]
