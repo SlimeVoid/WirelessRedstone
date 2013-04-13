@@ -75,24 +75,24 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 
 	@Override
 	protected void addControls() {
-		controlList.add(new GuiButtonWireless(0, (width / 2) + 10,
+		buttonList.add(new GuiButtonWireless(0, (width / 2) + 10,
 				(height / 2) - 20, 20, 20, "+"));
-		controlList.add(new GuiButtonWireless(1, (width / 2) - 30,
+		buttonList.add(new GuiButtonWireless(1, (width / 2) - 30,
 				(height / 2) - 20, 20, 20, "-"));
-		controlList.add(new GuiButtonWireless(2, (width / 2) + 32,
+		buttonList.add(new GuiButtonWireless(2, (width / 2) + 32,
 				(height / 2) - 20, 20, 20, "+10"));
-		controlList.add(new GuiButtonWireless(3, (width / 2) - 52,
+		buttonList.add(new GuiButtonWireless(3, (width / 2) - 52,
 				(height / 2) - 20, 20, 20, "-10"));
-		controlList.add(new GuiButtonWireless(4, (width / 2) + 54,
+		buttonList.add(new GuiButtonWireless(4, (width / 2) + 54,
 				(height / 2) - 20, 26, 20, "+100"));
-		controlList.add(new GuiButtonWireless(5, (width / 2) - 80,
+		buttonList.add(new GuiButtonWireless(5, (width / 2) - 80,
 				(height / 2) - 20, 26, 20, "-100"));
-		controlList.add(new GuiButtonWireless(6, (width / 2) + 48,
+		buttonList.add(new GuiButtonWireless(6, (width / 2) + 48,
 				(height / 2) - 42, 32, 20, "+1000"));
-		controlList.add(new GuiButtonWireless(7, (width / 2) - 80,
+		buttonList.add(new GuiButtonWireless(7, (width / 2) - 80,
 				(height / 2) - 42, 32, 20, "-1000"));
 
-		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
+		buttonList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
 

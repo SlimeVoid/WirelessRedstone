@@ -139,7 +139,7 @@ public class WRClientProxy extends WRCommonProxy {
 	 * into the sprite integers.
 	 */
 	public static void loadBlockTextures() {
-		MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
+		//MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
 	}
 
 	@Override

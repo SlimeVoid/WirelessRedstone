@@ -14,10 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.remote.client.presentation.gui;
 
-import net.minecraft.client.gui.GuiButton;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.client.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessDevice;
+import wirelessredstone.core.lib.GuiLib;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
@@ -27,7 +26,7 @@ public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
 	@Override
 	protected String getBackgroundImage() {
-		return "/gui/wifi_medium.png";
+		return GuiLib.GUI_SMALL;
 	}
 
 	@Override

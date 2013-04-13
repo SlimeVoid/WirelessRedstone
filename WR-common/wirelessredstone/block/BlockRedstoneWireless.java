@@ -17,9 +17,11 @@ import java.util.Random;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
@@ -36,6 +38,14 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * A list of overrides.
 	 */
 	private List<IBlockRedstoneWirelessOverride> overrides;
+	
+	/**
+	 * The icon list
+	 */
+	protected Icon[][] iconBuffer;
+	
+	@Override
+    public abstract void registerIcons(IconRegister par1IconRegister);
 
 	/**
 	 * Constructor sets the block ID, material and initializes the override
@@ -84,7 +94,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
 		// Store meta.
 		try {
-			world.setBlockMetadataWithNotify(i, j, k, meta);
+			world.setBlockMetadataWithNotify(i, j, k, meta, 0x02);
 			world.markBlockForUpdate(i, j, k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
@@ -484,14 +494,14 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Block texture ID
 	 */
 	@Override
-	public int getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 		try {
 			return getBlockRedstoneWirelessTexture(iblockaccess, i, j, k, l);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
 			).writeStackTrace(e);
-			return 0;
+			return this.blockIcon;
 		}
 	}
 
@@ -506,7 +516,16 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @return Block texture ID
 	 */
-	protected abstract int getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l);
+	protected abstract Icon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l);
+
+	/**
+	 * Fetch the Block texture ID at a given side.
+	 * 
+	 * @param side the side of the block
+	 * 
+	 * @return Block texture Icon
+	 */
+	protected abstract Icon getBlockRedstoneWirelessTextureFromSide(int side);
 
 	/**
 	 * Fetch the Block texture ID at a given side.<br>
@@ -518,25 +537,16 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Block texture ID
 	 */
 	@Override
-	public int getBlockTextureFromSide(int i) {
+	public Icon getBlockTextureFromSideAndMetadata(int side, int metadata) {
 		try {
-			return getBlockRedstoneWirelessTextureFromSide(i);
+			return getBlockRedstoneWirelessTextureFromSide(side);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(
 					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
 			).writeStackTrace(e);
-			return 0;
+			return this.blockIcon;
 		}
 	}
-
-	/**
-	 * Fetch the Block texture ID at a given side.<br>
-	 * 
-	 * @param i Direction
-	 * 
-	 * @return Block texture ID
-	 */
-	protected abstract int getBlockRedstoneWirelessTextureFromSide(int l);
 
 	/**
 	 * Fetches a new Block TileEntity.<br>
@@ -664,7 +674,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Powering state.
 	 */
 	@Override
-	public boolean isProvidingStrongPower(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	public int isProvidingStrongPower(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 
 		try {
 			if (iblockaccess instanceof World) {
@@ -687,7 +697,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 					LoggerRedstoneWireless.filterClassName(this.getClass().toString())
 			).writeStackTrace(e);
 		}
-		return false;
+		return 0;
 	}
 
 	/**
@@ -702,7 +712,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @return Powering state.
 	 */
-	protected abstract boolean isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l);
+	protected abstract int isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l);
 
 	/**
 	 * Checks whether or not the Block is indirectly emitting power to a
@@ -718,7 +728,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Powering state.
 	 */
 	@Override
-	public boolean isProvidingWeakPower(IBlockAccess world, int i, int j, int k, int l) {
+	public int isProvidingWeakPower(IBlockAccess world, int i, int j, int k, int l) {
 		if ( world instanceof World ) {
 			LoggerRedstoneWireless
 			.getInstance(
@@ -736,7 +746,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 				).writeStackTrace(e);
 			}
 		}
-		return false;
+		return 0;
 	}
 
 	/**
@@ -751,10 +761,5 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @return Powering state.
 	 */
-	protected abstract boolean isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l);
-
-	@Override
-	public String getTextureFile() {
-		return "/WirelessSprites/terrain.png";
-	}
+	protected abstract int isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l);
 }

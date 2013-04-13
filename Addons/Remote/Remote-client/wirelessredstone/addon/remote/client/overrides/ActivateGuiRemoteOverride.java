@@ -29,7 +29,7 @@ public class ActivateGuiRemoteOverride implements IActivateGuiOverride {
 
 	@Override
 	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		if (devicedata.getDeviceType().equals(WRemoteCore.itemRemote.getItemName())) {
+		if (devicedata.getDeviceType().equals(WRemoteCore.itemRemote.getUnlocalizedName())) {
 			WRemoteClientProxy.guiWirelessRemote.assWirelessDevice(devicedata, entityplayer);
 			ModLoader.openGUI(entityplayer, WRemoteClientProxy.guiWirelessRemote);
 			return true;

@@ -175,7 +175,7 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 	}
 
 	public static IWirelessDeviceData getDeviceData(Class <? extends IWirelessDeviceData> wirelessData, String defaultName, ItemStack itemstack, World world, Entity entity) {
-		String index = itemstack.getItem().getItemName();
+		String index = itemstack.getItem().getUnlocalizedName();
 		int id = itemstack.getItemDamage();
 		String name = defaultName;
 		return getDeviceData(wirelessData, index, id, name, world, entity);

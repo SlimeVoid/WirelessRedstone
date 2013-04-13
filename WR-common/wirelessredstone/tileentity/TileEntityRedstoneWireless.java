@@ -354,4 +354,16 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 			}
 		}
 	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		// TODO :: Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
+		// TODO :: Auto-generated method stub
+		return false;
+	}
 }

@@ -26,6 +26,7 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.SubPacketHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 public class ClientPacketHandler implements IPacketHandler {
@@ -86,6 +87,6 @@ public class ClientPacketHandler implements IPacketHandler {
 	}
 
 	public static void sendPacket(Packet250CustomPayload packet) {
-		ModLoader.getMinecraftInstance().getSendQueue().addToSendQueue(packet);
+		PacketDispatcher.sendPacketToServer(packet);
 	}
 }

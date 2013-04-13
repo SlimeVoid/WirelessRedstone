@@ -14,11 +14,14 @@ package wirelessredstone.block;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.IconLib;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -30,6 +33,24 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
  * 
  */
 public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
+
+	@Override
+	public void registerIcons(IconRegister iconRegister) {
+		this.iconBuffer = new Icon[2][6];
+		this.iconBuffer[0][0] = iconRegister.registerIcon(IconLib.WIRELESS_BOTTOM_OFF);
+		this.iconBuffer[0][1] = iconRegister.registerIcon(IconLib.WIRELESS_TOP_OFF);
+		this.iconBuffer[0][2] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_OFF);
+		this.iconBuffer[0][3] = iconRegister.registerIcon(IconLib.WIRELESS_TX_FRONT_OFF);
+		this.iconBuffer[0][4] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_OFF);
+		this.iconBuffer[0][5] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_OFF);
+		this.iconBuffer[1][0] = iconRegister.registerIcon(IconLib.WIRELESS_BOTTOM_ON);
+		this.iconBuffer[1][1] = iconRegister.registerIcon(IconLib.WIRELESS_TOP_ON);
+		this.iconBuffer[1][2] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_ON);
+		this.iconBuffer[1][3] = iconRegister.registerIcon(IconLib.WIRELESS_TX_FRONT_ON);
+		this.iconBuffer[1][4] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_ON);
+		this.iconBuffer[1][5] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_ON);
+	}
+	
 	/**
 	 * Constructor.<br>
 	 * Sets the Block ID.
@@ -147,37 +168,31 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 
 		// It was not removed, can provide power and is indirectly getting
 		// powered.
-		if (l > 0 && !getState(world, i, j, k) && (world.isBlockGettingPowered(
+		if (l > 0 && !getState(world, i, j, k) && (world.getBlockPowerInput(
 				i,
 				j,
-				k) || world.isBlockIndirectlyGettingPowered(i, j, k)))
+				k) > 0 || world.isBlockIndirectlyGettingPowered(i, j, k)))
 			setState(world, i, j, k, true);
 		// There are no powering entities, state is deactivated.
-		else if (getState(world, i, j, k) && !(world.isBlockGettingPowered(
+		else if (getState(world, i, j, k) && !(world.getBlockPowerInput(
 				i,
 				j,
-				k) || world.isBlockIndirectlyGettingPowered(i, j, k)))
+				k) > 0 || world.isBlockIndirectlyGettingPowered(i, j, k)))
 			setState(world, i, j, k, false);
 	}
 
 	@Override
-	protected int getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	protected Icon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 		if (getState(iblockaccess.getBlockMetadata(i, j, k))) {
-			if (l == 0 || l == 1) {
-				return WRCore.spriteTopOn;
-			}
-			return WRCore.spriteTOn;
+			return this.iconBuffer[1][l];
 		} else {
 			return getBlockRedstoneWirelessTextureFromSide(l);
 		}
 	}
 
 	@Override
-	protected int getBlockRedstoneWirelessTextureFromSide(int l) {
-		if (l == 0 || l == 1) {
-			return WRCore.spriteTopOff;
-		}
-		return WRCore.spriteTOff;
+	protected Icon getBlockRedstoneWirelessTextureFromSide(int l) {
+		return this.iconBuffer[0][l];
 	}
 
 	@Override
@@ -197,8 +212,8 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 * Transmitters never emitt power.
 	 */
 	@Override
-	protected boolean isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l) {
-		return false;
+	protected int isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l) {
+		return 0;
 	}
 
 	/**
@@ -206,7 +221,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 * Transmitters never emitt power.
 	 */
 	@Override
-	protected boolean isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
-		return false;
+	protected int isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
+		return 0;
 	}
 }

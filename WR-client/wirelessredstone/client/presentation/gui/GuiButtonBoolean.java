@@ -86,10 +86,10 @@ public class GuiButtonBoolean extends GuiButtonWireless {
 		FontRenderer fontrenderer = minecraft.fontRenderer;
 		if (state) {
 			GL11.glBindTexture(3553 /* GL_TEXTURE_2D */,
-					minecraft.renderEngine.getTexture("/gui/guiOn.png"));
+					minecraft.renderEngine.getTexture(this.getButtonTexture(state)));
 		} else {
 			GL11.glBindTexture(3553 /* GL_TEXTURE_2D */,
-					minecraft.renderEngine.getTexture("/gui/guiOff.png"));
+					minecraft.renderEngine.getTexture(this.getButtonTexture(state)));
 		}
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

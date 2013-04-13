@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.client.presentation.gui;
 
+import wirelessredstone.core.lib.GuiLib;
+
 /**
  * Wireless Receiver GUI screen.
  * 
@@ -26,6 +28,6 @@ public class GuiRedstoneWirelessR extends GuiRedstoneWirelessInventory {
 
 	@Override
 	protected String getBackgroundImage() {
-		return "/gui/wifi_small.png";
+		return GuiLib.GUI_SMALL;
 	}
 }

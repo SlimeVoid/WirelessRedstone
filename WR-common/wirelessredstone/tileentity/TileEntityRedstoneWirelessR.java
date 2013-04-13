@@ -11,6 +11,7 @@
  */
 package wirelessredstone.tileentity;
 
+import net.minecraft.item.ItemStack;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.core.WRCore;

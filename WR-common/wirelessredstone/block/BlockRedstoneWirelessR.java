@@ -14,11 +14,14 @@ package wirelessredstone.block;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.IconLib;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -31,6 +34,23 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
  */
 public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	private boolean initialSchedule;
+
+	@Override
+	public void registerIcons(IconRegister iconRegister) {
+		this.iconBuffer = new Icon[2][6];
+		this.iconBuffer[0][0] = iconRegister.registerIcon(IconLib.WIRELESS_BOTTOM_OFF);
+		this.iconBuffer[0][1] = iconRegister.registerIcon(IconLib.WIRELESS_TOP_OFF);
+		this.iconBuffer[0][2] = iconRegister.registerIcon(IconLib.WIRELESS_RX_SIDE_OFF);
+		this.iconBuffer[0][3] = iconRegister.registerIcon(IconLib.WIRELESS_RX_FRONT_OFF);
+		this.iconBuffer[0][4] = iconRegister.registerIcon(IconLib.WIRELESS_RX_SIDE_OFF);
+		this.iconBuffer[0][5] = iconRegister.registerIcon(IconLib.WIRELESS_RX_SIDE_OFF);
+		this.iconBuffer[1][0] = iconRegister.registerIcon(IconLib.WIRELESS_BOTTOM_ON);
+		this.iconBuffer[1][1] = iconRegister.registerIcon(IconLib.WIRELESS_TOP_ON);
+		this.iconBuffer[1][2] = iconRegister.registerIcon(IconLib.WIRELESS_RX_SIDE_ON);
+		this.iconBuffer[1][3] = iconRegister.registerIcon(IconLib.WIRELESS_RX_FRONT_ON);
+		this.iconBuffer[1][4] = iconRegister.registerIcon(IconLib.WIRELESS_RX_SIDE_ON);
+		this.iconBuffer[1][5] = iconRegister.registerIcon(IconLib.WIRELESS_RX_SIDE_ON);
+	}
 
 	/**
 	 * Constructor.<br>
@@ -117,8 +137,8 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	}
 
 	/**
-	 * Is triggered on Block's neighboring Block change.<br>
-	 * - Update the tick if the neighboring Block is not of the same type.
+	 * Is triggered on Block's neighbouring Block change.<br>
+	 * - Update the tick if the neighbouring Block is not of the same type.
 	 */
 	@Override
 	protected void onBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
@@ -129,23 +149,17 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	}
 
 	@Override
-	protected int getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+	protected Icon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 		if (getState(iblockaccess.getBlockMetadata(i, j, k))) {
-			if (l == 0 || l == 1) {
-				return WRCore.spriteTopOn;
-			}
-			return WRCore.spriteROn;
+			return this.iconBuffer[1][l];
 		} else {
 			return getBlockRedstoneWirelessTextureFromSide(l);
 		}
 	}
 
 	@Override
-	protected int getBlockRedstoneWirelessTextureFromSide(int l) {
-		if (l == 0 || l == 1) {
-			return WRCore.spriteTopOff;
-		}
-		return WRCore.spriteROff;
+	protected Icon getBlockRedstoneWirelessTextureFromSide(int side) {
+		return this.iconBuffer[0][side];
 	}
 
 	@Override
@@ -194,14 +208,14 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	 * - Query metadata state. - Query the TileEntity for directional state.
 	 */
 	@Override
-	protected boolean isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l) {
+	protected int isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l) {
 
 		TileEntity entity = world.getBlockTileEntity(i, j, k);
 		if (entity instanceof TileEntityRedstoneWireless) {
 			return (((TileEntityRedstoneWireless) entity)
-					.isPoweringDirection(l) && getState(world, i, j, k));
+					.isPoweringDirection(l) && getState(world, i, j, k)) ? 16 : 0;
 		}
-		return false;
+		return 0;
 	}
 
 	/**
@@ -211,14 +225,14 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	 * directional state.
 	 */
 	@Override
-	protected boolean isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
+	protected int isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
 		TileEntity entity = world.getBlockTileEntity(i, j, k);
 		if (entity instanceof TileEntityRedstoneWireless) {
 			if (!((TileEntityRedstoneWireless) entity).isPoweringIndirectly(l))
-				return false;
+				return 0;
 			else
 				return isProvidingStrongPower(world, i, j, k, l);
 		}
-		return false;
+		return 0;
 	}
 }

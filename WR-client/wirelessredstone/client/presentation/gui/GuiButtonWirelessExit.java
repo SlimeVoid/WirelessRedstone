@@ -19,6 +19,8 @@ import net.minecraft.client.gui.FontRenderer;
 
 import org.lwjgl.opengl.GL11;
 
+import wirelessredstone.core.lib.GuiLib;
+
 /**
  * GUI exit button.
  * 
@@ -57,7 +59,7 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
 		FontRenderer fontrenderer = minecraft.fontRenderer;
 
 		GL11.glBindTexture(3553 /* GL_TEXTURE_2D */,
-				minecraft.renderEngine.getTexture("/gui/wifi_exit.png"));
+				minecraft.renderEngine.getTexture(this.getButtonTexture(false)));
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		boolean flag = i >= xPosition && j >= yPosition
 				&& i < xPosition + width && j < yPosition + height;
@@ -66,5 +68,10 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
 		drawTexturedModalRect(xPosition + width / 2, yPosition,
 				200 - width / 2, ((k - 1) * 13), width / 2, height);
 		mouseDragged(minecraft, i, j);
+	}
+	
+	@Override
+	protected String getButtonTexture(boolean state) {
+		return GuiLib.GUI_EXIT;
 	}
 }

@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.client.presentation.gui;
 
+import wirelessredstone.core.lib.GuiLib;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 
@@ -95,5 +96,13 @@ public class GuiButtonWireless extends GuiButton {
 					l1 * 2, 0xFFFFFFFF);
 			zLevel = 0.0F;
 		}
+	}
+	
+	/**
+	 * Used to return a String Texture based on the button state
+	 * @param state 
+	 */
+	protected String getButtonTexture(boolean state) {
+		return state ? GuiLib.GUI_ON : GuiLib.GUI_OFF;
 	}
 }

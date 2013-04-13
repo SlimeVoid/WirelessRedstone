@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.remote.items;
 
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,15 +22,27 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.WRemoteCore;
+import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
+import wirelessredstone.core.WRCore;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ItemRedstoneWirelessRemote extends Item {
 	
+	protected Icon[] iconList;
+	
+	@Override
+	public void updateIcons(IconRegister iconRegister) {
+		iconList = new Icon[2];
+		iconList[0] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_OFF);
+		iconList[1] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_ON);
+	}
+
 	public ItemRedstoneWirelessRemote(int i) {
 		super(i);
 		this.setCreativeTab(CreativeTabs.tabRedstone);
@@ -92,8 +105,13 @@ public class ItemRedstoneWirelessRemote extends Item {
 	}
 
 	@Override
-	public int getIconFromDamage(int i) {
-		return WRemoteCore.getIconFromDamage(this.getItemName(), i);
+	public Icon getIconFromDamage(int i) {
+		String index = this.getUnlocalizedName() + "[" + i + "]";
+		WirelessRemoteData data = (WirelessRemoteData) WRCore.proxy
+				.getWorld().loadItemData(WirelessRemoteData.class, index);
+		if (data == null || !data.getDeviceState())
+			return iconList[0];
+		return iconList[1];
 	}
 
 	@Override
@@ -113,13 +131,8 @@ public class ItemRedstoneWirelessRemote extends Item {
 	@Override
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
+		itemstack.setItemDamage(world.getUniqueDataId(this.getUnlocalizedName()));
 		WirelessRemoteData data = (WirelessRemoteData)WirelessDeviceData.getDeviceData(WirelessRemoteData.class, "Wireless Remote", itemstack, world, entityplayer);
-	}
-	
-	@Override
-	public String getTextureFile() {
-		return "/WirelessSprites/Remote/items.png";
 	}
 
 	@Override

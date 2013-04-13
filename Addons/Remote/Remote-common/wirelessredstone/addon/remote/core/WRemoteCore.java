@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModLoader;
+import net.minecraft.util.Icon;
 import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
@@ -97,7 +98,7 @@ public class WRemoteCore {
 	 */
 	private static void initItems() {
 		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
-				.setItemName("wirelessredstone.remote");
+				.setUnlocalizedName("wirelessredstone.remote");
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class WRemoteCore {
 	 */
 	private static void registerItems() {
 		LanguageRegistry.addName(itemRemote, "Wireless Remote");
-		ModLoader.addName(itemRemote, "de_DE", "Drahtloser Funkfernbedienung");
+		LanguageRegistry.instance().addNameForObject(itemRemote, "de_DE", "Drahtloser Funkfernbedienung");
 	}
 
 	/**
@@ -120,14 +121,5 @@ public class WRemoteCore {
 				Block.torchRedstoneActive,
 				Character.valueOf('T'),
 				WRCore.blockWirelessT });
-	}
-
-	public static int getIconFromDamage(String name, int i) {
-		String index = name + "[" + i + "]";
-		WirelessRemoteData data = (WirelessRemoteData) WRCore.proxy
-				.getWorld().loadItemData(WirelessRemoteData.class, index);
-		if (data == null || !data.getDeviceState())
-			return remoteoff;
-		return remoteon;
 	}
 }

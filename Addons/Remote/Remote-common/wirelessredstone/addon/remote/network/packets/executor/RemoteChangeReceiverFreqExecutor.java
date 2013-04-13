@@ -27,7 +27,7 @@ public class RemoteChangeReceiverFreqExecutor extends EtherPacketChangeFreqExecu
 
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		if (entityplayer.getHeldItem().getItemName().equals(WRemoteCore.itemRemote.getItemName())) {
+		if (entityplayer.getHeldItem().getItemName().equals(WRemoteCore.itemRemote.getUnlocalizedName())) {
 			// Fetch the tile from the packet
 			TileEntity entity = packet.getTarget(world);
 	

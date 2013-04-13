@@ -33,7 +33,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 @Mod(
 		modid = "WirelessRedstoneCore",
 		name = "Wireless Redstone",
-		version = "1.6.1")
+		version = "1.7")
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,

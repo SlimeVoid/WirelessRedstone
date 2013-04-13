@@ -276,9 +276,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            tick partial
 	 */
 	protected void drawGuiContainerBackgroundLayer(int i, int j, float f) {
-		int tex = mc.renderEngine.getTexture(getBackgroundImage());
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(tex);
+		mc.renderEngine.bindTexture(this.getBackgroundImage());
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
 		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
@@ -295,9 +294,9 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            tick partial
 	 */
 	private void drawButtonTooltips(int i, int j, float f) {
-		for (int control = 0; control < this.controlList.size(); control++) {
-			if (this.controlList.get(control) instanceof GuiButtonWireless) {
-				GuiButtonWireless button = (GuiButtonWireless) this.controlList
+		for (int control = 0; control < this.buttonList.size(); control++) {
+			if (this.buttonList.get(control) instanceof GuiButtonWireless) {
+				GuiButtonWireless button = (GuiButtonWireless) this.buttonList
 						.get(control);
 
 				if (this.isMouseOverButton(button, i, j)) {
@@ -406,6 +405,6 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * Used in refreshGui()
 	 */
 	private void removeControls() {
-		this.controlList.clear();
+		this.buttonList.clear();
 	}
 }
