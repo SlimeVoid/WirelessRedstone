@@ -14,9 +14,12 @@ package wirelessredstone.network.packets;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import wirelessredstone.api.IPacketWirelessOverride;
 import wirelessredstone.network.packets.core.PacketPayload;
 import wirelessredstone.network.packets.core.PacketUpdate;
 
@@ -27,6 +30,14 @@ import wirelessredstone.network.packets.core.PacketUpdate;
  * 
  */
 public abstract class PacketWireless extends PacketUpdate {
+	
+	private static List<IPacketWirelessOverride> overrides = new ArrayList<IPacketWirelessOverride>();
+	
+	public static void addOverride(IPacketWirelessOverride override) {
+		if (!overrides.contains(override)) {
+			overrides.add(override);
+		}
+	}
 
 	private String command;
 
@@ -129,11 +140,25 @@ public abstract class PacketWireless extends PacketUpdate {
 	}
 
 	public TileEntity getTarget(World world) {
-		if (this.targetExists(world))
-			return world.getBlockTileEntity(
-					this.xPosition,
-					this.yPosition,
-					this.zPosition);
-		return null;
+		boolean skipDefault = false;
+		for (IPacketWirelessOverride override : overrides) {
+			if (override.shouldSkipDefault()) {
+				skipDefault = true;
+				break;
+			}
+		}
+		TileEntity tileentity = null;
+		if (!skipDefault) {
+			if (this.targetExists(world)) {
+				tileentity = world.getBlockTileEntity(
+						this.xPosition,
+						this.yPosition,
+						this.zPosition);
+			}
+		}
+		for (IPacketWirelessOverride override : overrides) {
+			tileentity = override.getTarget(world, this.xPosition, this.yPosition, this.zPosition, tileentity);
+		}
+		return tileentity;
 	}
 }

@@ -551,7 +551,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Block texture ID
 	 */
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int side, int metadata) {
+	public Icon getIcon(int side, int metadata) {
 		try {
 			return getBlockRedstoneWirelessTextureFromSide(side);
 		} catch (Exception e) {

@@ -11,6 +11,7 @@
  */
 package wirelessredstone.client.overrides;
 
+import net.minecraft.entity.player.EntityPlayer;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.network.packets.PacketWirelessTile;
@@ -57,5 +58,15 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer) {
+		return false;
+	}
+
+	@Override
+	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean returnState) {
+		return returnState;
 	}
 }

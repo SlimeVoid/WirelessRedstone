@@ -37,7 +37,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 	protected Icon[] iconList;
 	
 	@Override
-	public void updateIcons(IconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		iconList = new Icon[2];
 		iconList[0] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_OFF);
 		iconList[1] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_ON);

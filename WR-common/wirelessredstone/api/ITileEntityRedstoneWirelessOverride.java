@@ -11,6 +11,7 @@
  */
 package wirelessredstone.api;
 
+import net.minecraft.entity.player.EntityPlayer;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
@@ -47,4 +48,7 @@ public interface ITileEntityRedstoneWirelessOverride {
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
 	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IRedstoneWirelessData data);
+
+	public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer);
+	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean output);
 }

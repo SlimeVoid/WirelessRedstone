@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
+import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWireless;
@@ -305,7 +306,50 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		try {
+		LoggerRedstoneWireless.getInstance(
+				LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+		).write(
+				this.worldObj.isRemote,
+				"isUseableByPlayer(" + entityplayer.username + ")",
+				LoggerRedstoneWireless.LogLevel.DEBUG
+		);
+		
+		System.out.println("isUseable");
+
+		// Run before overrides.
+		boolean prematureExit = false;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.beforeIsUseableByPlayer(
+					this,
+					entityplayer))
+				prematureExit = true;
+		}
+
+		// If premature exit was not given, set the initial return state.
+		boolean returnState = false;
+		if (!prematureExit) {
+			try {
+				returnState = this.isTileRedstoneWirelessUseable(
+						entityplayer);
+			} catch (Exception e) {
+				LoggerRedstoneWireless.getInstance(
+						LoggerRedstoneWireless.filterClassName(this.getClass().toString())
+				).writeStackTrace(e);
+				return false;
+			}
+		}
+
+		boolean output = returnState;
+		// Run overrides.
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			output = override.afterIsUseableByPlayer(
+					this,
+					entityplayer,
+					output);
+		}
+		return output;
+		
+		/**try {
 			if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
 				return false;
 			}
@@ -318,7 +362,17 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 					"TileEntityRedstoneWireless"
 			).writeStackTrace(e);
 			return false;
+		}**/
+	}
+
+	private boolean isTileRedstoneWirelessUseable(EntityPlayer entityplayer) {
+		if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this) {
+			return false;
 		}
+		return entityplayer.getDistanceSq(
+				xCoord + 0.5D,
+				yCoord + 0.5D,
+				zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
