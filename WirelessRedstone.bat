@@ -1,6 +1,6 @@
 @echo off
 
-set mcpdir="C:\Programming\mcp"
+set mcpdir="C:\Programming\Repositories\MinecraftForge\mcp"
 cd %mcpdir%
 set repodir="C:\Programming\Repositories"
 set wirelessredstone="%repodir%\WirelessRedstone-FML"
