@@ -1,21 +1,24 @@
-package net.minecraft.src.wirelessredstone.addon.powerc;
+package wirelessredstone.addon.powerconfig.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraft.src.TileEntity;
-import net.minecraft.src.World;
-import net.minecraft.src.wirelessredstone.WirelessRedstone;
-import net.minecraft.src.wirelessredstone.addon.powerc.overrides.BlockRedstoneWirelessROverridePC;
-import net.minecraft.src.wirelessredstone.addon.powerc.presentation.GuiRedstoneWirelessPowerDirector;
-import net.minecraft.src.wirelessredstone.data.ConfigStoreRedstoneWireless;
-import net.minecraft.src.wirelessredstone.data.LoggerRedstoneWireless;
-import net.minecraft.src.wirelessredstone.overrides.BaseModOverride;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+import wirelessredstone.addon.powerconfig.client.presentation.gui.GuiRedstoneWirelessPowerDirector;
+import wirelessredstone.addon.powerconfig.items.ItemRedstoneWirelessPowerDirector;
+import wirelessredstone.addon.powerconfig.overrides.BlockRedstoneWirelessROverridePC;
+import wirelessredstone.core.WRCore;
+import wirelessredstone.data.ConfigStoreRedstoneWireless;
+import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class PowerConfigurator {
 	public static boolean isLoaded = false;
@@ -23,11 +26,9 @@ public class PowerConfigurator {
 	public static Item itemPowDir;
 	public static int spritePowerC;
 	public static int pdID = 6243;
-	private static List<BaseModOverride> overrides;
 
 	public static boolean initialize() {
 		try {
-			overrides = new ArrayList<BaseModOverride>();
 			loadConfig();
 			loadItemTextures();
 
@@ -43,7 +44,7 @@ public class PowerConfigurator {
 							LoggerRedstoneWireless
 									.filterClassName(PowerConfigurator.class
 											.toString())).write(
-							"Initialization failed.",
+							false, "Initialization failed.",
 							LoggerRedstoneWireless.LogLevel.WARNING);
 			return false;
 		}
@@ -56,14 +57,12 @@ public class PowerConfigurator {
 	}
 
 	private static void loadItemTextures() {
-		spritePowerC = ModLoader.addOverride("/gui/items.png",
-				"/WirelessSprites/pd.png");
 	}
 
 	private static void initItem() {
 		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID))
-				.setItemName("wirelessredstone.powdir");
-		ModLoader.addName(itemPowDir, "Power Configurator");
+				.setUnlocalizedName("wirelessredstone.powdir");
+		LanguageRegistry.addName(itemPowDir, "Power Configurator");
 	}
 
 	private static void initGui() {
@@ -71,19 +70,14 @@ public class PowerConfigurator {
 	}
 
 	private static void addRecipes() {
-		ModLoader.addRecipe(new ItemStack(itemPowDir, 1), new Object[] { "R R",
+		GameRegistry.addRecipe(new ItemStack(itemPowDir, 1), new Object[] { "R R",
 				" X ", "R R", Character.valueOf('X'),
-				WirelessRedstone.blockWirelessR, Character.valueOf('R'),
+				WRCore.blockWirelessR, Character.valueOf('R'),
 				Item.redstone });
 	}
 
 	private static void addOverrides() {
-		WirelessRedstone
-				.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
-	}
-
-	public static void addOverride(BaseModOverride override) {
-		overrides.add(override);
+		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 	}
 
 	public static void activateGUI(World world, EntityPlayer entityplayer,

@@ -14,6 +14,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.powerconfig.items;
 
+import wirelessredstone.addon.powerconfig.core.lib.IconLib;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,20 +24,31 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class ItemRedstoneWirelessPowerDirector extends Item {
+	
+	protected Icon[] iconList;
+	
+	@Override
+	public void registerIcons(IconRegister iconRegister) {
+		this.iconList = new Icon[1];
+		this.iconList[0] = iconRegister.registerIcon(IconLib.POWER_CONFIG);
+	}
 
-	protected ItemRedstoneWirelessPowerDirector(int i) {
+	public ItemRedstoneWirelessPowerDirector(int i) {
 		super(i);
 		maxStackSize = 1;
 		setMaxDamage(64);
 	}
 
 	@Override
+	// ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
-			World world, int i, int j, int k, int l) {
+			World world, int i, int j, int k, int l,
+			float a, float b, float c) {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if (tileentity != null) {
-			PowerConfigurator.openGUI(world, entityplayer, tileentity);
+			//PowerConfigurator.openGUI(world, entityplayer, tileentity);
+			// TODO :: Open GUI
 			itemstack.damageItem(1, entityplayer);
 			return true;
 		}
@@ -43,7 +56,7 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 	}
 
 	public Icon getIconFromDamage(int i) {
-		return PowerConfigurator.spritePowerC;
+		return this.iconList[0];
 	}
 
 	public boolean isFull3D() {

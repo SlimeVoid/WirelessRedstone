@@ -9,13 +9,10 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.addon.remote.client.overrides;
+package wirelessredstone.addon.powerconfig.client.overrides;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.world.World;
-import wirelessredstone.addon.remote.client.proxy.WRemoteClientProxy;
-import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -29,11 +26,6 @@ public class ActivateGuiRemoteOverride implements IActivateGuiOverride {
 
 	@Override
 	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		if (devicedata.getDeviceType().equals(WRemoteCore.itemRemote.getUnlocalizedName())) {
-			PowerConfigClientProxy.guiWirelessRemote.assWirelessDevice(devicedata, entityplayer);
-			ModLoader.openGUI(entityplayer, PowerConfigClientProxy.guiWirelessRemote);
-			return true;
-		}
 		return false;
 	}
 

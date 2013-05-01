@@ -9,37 +9,18 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.addon.remote.client.overrides;
+package wirelessredstone.addon.powerconfig.client.overrides;
 
-import net.minecraft.src.ModLoader;
-import net.minecraft.world.World;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
-import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
-import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.client.network.ClientPacketHandler;
-import wirelessredstone.network.packets.PacketWirelessDevice;
+import wirelessredstone.api.IGuiRedstoneWirelessInventoryOverride;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class GuiRedstoneWirelessRemoteOverride implements
-		IGuiRedstoneWirelessDeviceOverride {
+		IGuiRedstoneWirelessInventoryOverride {
 
 	@Override
-	public boolean beforeFrequencyChange(IWirelessDeviceData data,
+	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
 			Object oldFreq, Object newFreq) {
-		if (data instanceof WirelessRemoteData) {
-			World world = ModLoader.getMinecraftInstance().theWorld;
-			if (world.isRemote) {
-				int OLD = Integer.parseInt(oldFreq.toString());
-				int NEW = Integer.parseInt(newFreq.toString());
-				Object PacketWirelessDevice;
-				if (OLD != NEW) {
-					PacketWirelessDevice packet = new PacketWirelessDevice(data);
-					packet.setFreq(Integer.toString(NEW - OLD));
-					packet.setCommand(PacketPowerConfigCommands.remoteCommands.changeFreq.toString());
-					ClientPacketHandler.sendPacket(packet.getPacket());
-				}
-			}
-		}
-		return true;
+		// TODO :: Auto-generated method stub
+		return false;
 	}
 }

@@ -12,31 +12,31 @@ GNU General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package net.minecraft.src.wirelessredstone.addon.powerc.presentation;
+package wirelessredstone.addon.powerconfig.client.presentation.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.src.GuiButton;
-import net.minecraft.src.wirelessredstone.block.BlockRedstoneWireless;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessInventoryOverride;
-import net.minecraft.src.wirelessredstone.overrides.GuiRedstoneWirelessOverride;
-import net.minecraft.src.wirelessredstone.presentation.GuiButtonBoolean;
-import net.minecraft.src.wirelessredstone.presentation.GuiButtonWirelessExit;
-import net.minecraft.src.wirelessredstone.presentation.GuiRedstoneWirelessInventory;
-import net.minecraft.src.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import net.minecraft.client.gui.GuiButton;
+
+import wirelessredstone.api.IGuiRedstoneWirelessOverride;
+import wirelessredstone.block.BlockRedstoneWireless;
+import wirelessredstone.client.presentation.gui.GuiButtonBoolean;
+import wirelessredstone.client.presentation.gui.GuiButtonWirelessExit;
+import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
+import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class GuiRedstoneWirelessPowerDirector extends
 		GuiRedstoneWirelessInventory {
-	protected List<GuiRedstoneWirelessOverride> powerOverrides;
+	protected List<IGuiRedstoneWirelessOverride> powerOverrides;
 
 	public GuiRedstoneWirelessPowerDirector() {
 		super();
-		powerOverrides = new ArrayList<GuiRedstoneWirelessOverride>();
+		powerOverrides = new ArrayList<IGuiRedstoneWirelessOverride>();
 	}
 
 	@Override
-	public void addOverride(GuiRedstoneWirelessOverride override) {
+	public void addOverride(IGuiRedstoneWirelessOverride override) {
 		this.powerOverrides.add(override);
 	}
 
@@ -47,41 +47,41 @@ public class GuiRedstoneWirelessPowerDirector extends
 
 	@Override
 	protected void addControls() {
-		controlList = new ArrayList();
-		controlList.add(new GuiButtonBoolean(0, (width / 2) - 60,
+		buttonList = new ArrayList();
+		buttonList.add(new GuiButtonBoolean(0, (width / 2) - 60,
 				(height / 2) - 42, 20, 20, "N", inventory
 						.isPoweringDirection(3), "North Face"));
-		controlList.add(new GuiButtonBoolean(1, (width / 2) - 40,
+		buttonList.add(new GuiButtonBoolean(1, (width / 2) - 40,
 				(height / 2) - 42, 20, 20, "E", inventory
 						.isPoweringDirection(4), "East Face"));
-		controlList.add(new GuiButtonBoolean(2, (width / 2) - 20,
+		buttonList.add(new GuiButtonBoolean(2, (width / 2) - 20,
 				(height / 2) - 42, 20, 20, "S", inventory
 						.isPoweringDirection(2), "South Face"));
-		controlList.add(new GuiButtonBoolean(3, (width / 2), (height / 2) - 42,
+		buttonList.add(new GuiButtonBoolean(3, (width / 2), (height / 2) - 42,
 				20, 20, "W", inventory.isPoweringDirection(5), "West Face"));
-		controlList.add(new GuiButtonBoolean(4, (width / 2) + 20,
+		buttonList.add(new GuiButtonBoolean(4, (width / 2) + 20,
 				(height / 2) - 42, 20, 20, "U", inventory
 						.isPoweringDirection(0), "Upward Face"));
-		controlList.add(new GuiButtonBoolean(5, (width / 2) + 40,
+		buttonList.add(new GuiButtonBoolean(5, (width / 2) + 40,
 				(height / 2) - 42, 20, 20, "D", inventory
 						.isPoweringDirection(1), "Downward Face"));
 
-		controlList.add(new GuiButtonBoolean(6, (width / 2) - 60, (height / 2),
+		buttonList.add(new GuiButtonBoolean(6, (width / 2) - 60, (height / 2),
 				20, 20, "N", inventory.isPoweringIndirectly(3), "North Face"));
-		controlList.add(new GuiButtonBoolean(7, (width / 2) - 40, (height / 2),
+		buttonList.add(new GuiButtonBoolean(7, (width / 2) - 40, (height / 2),
 				20, 20, "E", inventory.isPoweringIndirectly(4), "East Face"));
-		controlList.add(new GuiButtonBoolean(8, (width / 2) - 20, (height / 2),
+		buttonList.add(new GuiButtonBoolean(8, (width / 2) - 20, (height / 2),
 				20, 20, "S", inventory.isPoweringIndirectly(2), "South Face"));
-		controlList.add(new GuiButtonBoolean(9, (width / 2), (height / 2), 20,
+		buttonList.add(new GuiButtonBoolean(9, (width / 2), (height / 2), 20,
 				20, "W", inventory.isPoweringIndirectly(5), "West Face"));
-		controlList.add(new GuiButtonBoolean(10, (width / 2) + 20,
+		buttonList.add(new GuiButtonBoolean(10, (width / 2) + 20,
 				(height / 2), 20, 20, "U", inventory.isPoweringIndirectly(0),
 				"Upward Face"));
-		controlList.add(new GuiButtonBoolean(11, (width / 2) + 40,
+		buttonList.add(new GuiButtonBoolean(11, (width / 2) + 40,
 				(height / 2), 20, 20, "D", inventory.isPoweringIndirectly(1),
 				"Downward Face"));
 
-		controlList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
+		buttonList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
 				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
 
@@ -131,32 +131,15 @@ public class GuiRedstoneWirelessPowerDirector extends
 				close();
 				break;
 			}
-			boolean prematureExit = false;
-			for (GuiRedstoneWirelessOverride override : powerOverrides) {
-				if (dir >= 0) {
-					if (((GuiRedstoneWirelessInventoryOverride) override)
-							.beforeFrequencyChange(inventory,
-									"Power Direction", dir))
-						prematureExit = true;
-				}
-				if (indir >= 0) {
-					if (((GuiRedstoneWirelessInventoryOverride) override)
-							.beforeFrequencyChange(inventory, "Indirect Power",
-									indir))
-						prematureExit = true;
-				}
+			if (dir >= 0) {
+				inventory.flipPowerDirection(dir);
+				notifyNeighbors();
+				initGui();
 			}
-			if (!prematureExit) {
-				if (dir >= 0) {
-					inventory.flipPowerDirection(dir);
-					notifyNeighbors();
-					initGui();
-				}
-				if (indir >= 0) {
-					inventory.flipIndirectPower(indir);
-					notifyNeighbors();
-					initGui();
-				}
+			if (indir >= 0) {
+				inventory.flipIndirectPower(indir);
+				notifyNeighbors();
+				initGui();
 			}
 		}
 	}

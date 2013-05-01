@@ -11,25 +11,17 @@
  */
 package wirelessredstone.addon.powerconfig.proxy;
 
-import java.util.HashMap;
-import java.util.TreeMap;
-
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
 import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.network.ServerPacketHandler;
-import wirelessredstone.network.handlers.ServerDeviceGuiPacketHandler;
-import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.tileentity.ContainerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class PowerConfigCommonProxy implements ICommonProxy {
@@ -40,11 +32,16 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
+		return new ContainerRedstoneWireless(world.getBlockTileEntity(x,  y,  z));
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
+		if (tileentity instanceof TileEntityRedstoneWireless) {
+			PowerConfigurator.guiPowerC.assTileEntity((TileEntityRedstoneWireless) tileentity);
+			return PowerConfigurator.guiPowerC;
+		}
 		return null;
 	}
 
