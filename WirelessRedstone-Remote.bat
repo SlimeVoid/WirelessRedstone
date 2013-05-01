@@ -1,13 +1,14 @@
 @echo off
 
-set mcpdir="C:\Programming\mcp"
+set mcpdir="C:\Programming\Repositories\MinecraftForge\mcp"
 cd %mcpdir%
 set repodir="C:\Programming\Repositories"
+set slimevoidlib="%repodir%\EurysCore-FML"
 set wirelessredstone="%repodir%\WirelessRedstone-FML"
-set remote="%wirelessredstone%\addons\remote"
+set slimevoid="%wirelessredstone%\addons\slimevoid"
 
 if not exist %wirelessredstone% GOTO :WRFAIL
-if exist %remote% GOTO :WIRE
+if exist %slimevoid% GOTO :WIRE
 GOTO :WRFAIL
 
 :WIRE
@@ -27,8 +28,8 @@ GOTO :WRFAIL
 :COPYWR
 xcopy "%wirelessredstone%\WR-common\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%wirelessredstone%\WR-client\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%remote%\Remote-common\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%remote%\Remote-client\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%slimevoidlib%\SV-common\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%slimevoid%\SlimeVoid-common\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat
@@ -45,12 +46,12 @@ if exist "%mcpdir%\src-old" rmdir "%mcpdir%\src-old" /S /Q
 GOTO :WRCOMPLETE
 
 :WRFAIL
-echo Could not compile Wireless Redstone - Remote
+echo Could not compile Wireless Redstone - SlimeVoid
 pause
 GOTO :EOF
 
 :WRCOMPLETE
-echo Wireless Redstone - Remote completed compile successfully
+echo Wireless Redstone - SlimeVoid completed compile successfully
 pause
 GOTO :EOF
 

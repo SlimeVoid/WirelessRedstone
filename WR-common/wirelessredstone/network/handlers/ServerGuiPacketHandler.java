@@ -34,9 +34,9 @@ public class ServerGuiPacketHandler extends SubPacketHandler {
 	 * Send a GUI packet to specified player.
 	 * 
 	 * @param player Receiving player.
-	 * @param tileentity the packet to send.
+	 * @param data the packet to send.
 	 */
-	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless tileentity) {
+	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless data) {
 		// Assemble a OpenGUI packet.
 		
 		LoggerRedstoneWireless.getInstance(
@@ -47,7 +47,7 @@ public class ServerGuiPacketHandler extends SubPacketHandler {
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 
-		PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(tileentity);
+		PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(data);
 		// Send the packet.
 		ServerPacketHandler.sendPacketTo(
 				player,
