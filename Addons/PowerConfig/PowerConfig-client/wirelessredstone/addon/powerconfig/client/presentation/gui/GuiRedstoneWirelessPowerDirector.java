@@ -148,8 +148,8 @@ public class GuiRedstoneWirelessPowerDirector extends
 		}
 	}
 
-	private void notifyServer(String command, int dir) {
-		PacketPowerConfigSettings packet = new PacketPowerConfigSettings(command, dir, this.inventory);
+	private void notifyServer(String command, int side) {
+		PacketPowerConfigSettings packet = new PacketPowerConfigSettings(command, side, this.inventory);
 		PacketDispatcher.sendPacketToServer(packet.getPacket());
 	}
 
