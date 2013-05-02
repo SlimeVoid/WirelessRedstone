@@ -39,9 +39,8 @@ public class GuiButtonWireless extends GuiButton {
 	}
 
 	public boolean inBounds(int x, int y) {
-		boolean flag = x >= xPosition && y >= yPosition
-				&& x < xPosition + width && y < yPosition + height;
-		return flag;
+		return x >= xPosition && y >= yPosition
+		&& x < xPosition + width && y < yPosition + height;
 	}
 
 	public String getPopupText() {
@@ -65,7 +64,7 @@ public class GuiButtonWireless extends GuiButton {
 		String buttonPopupText = this.getPopupText();
 		if (!buttonPopupText.isEmpty()) {
 
-			int l1 = fontRenderer.getStringWidth(this.getPopupText());
+			int l1 = fontRenderer.getStringWidth(buttonPopupText);
 			int i = 0;
 			int j = -10;
 			int j2 = (x - i) + 12;
@@ -92,7 +91,7 @@ public class GuiButtonWireless extends GuiButton {
 			drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4,
 					i4);
 
-			fontRenderer.drawSplitString(this.getPopupText(), x + 15, y - 1,
+			fontRenderer.drawSplitString(buttonPopupText, x + 15, y - 1,
 					l1 * 2, 0xFFFFFFFF);
 			zLevel = 0.0F;
 		}

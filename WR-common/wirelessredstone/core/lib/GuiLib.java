@@ -10,4 +10,6 @@ public class GuiLib {
 	public static final String GUI_MEDIUM = GUI_PREFIX + "wifi_medium.png";
 	public static final String GUI_LARGE = 	GUI_PREFIX + "wifi_large.png";
 	public static final String GUI_XLARGE = GUI_PREFIX + "wifi_xlarge.png";
+	public static final int GUIID_INVENTORY = 0;
+	public static final int GUIID_DEVICE = 1;
 }

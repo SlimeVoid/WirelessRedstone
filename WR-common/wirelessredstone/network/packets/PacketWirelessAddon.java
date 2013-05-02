@@ -22,7 +22,6 @@ public class PacketWirelessAddon extends PacketWireless {
 
 	@Override
 	public boolean targetExists(World world) {
-		return false;
+		return true;
 	}
-
 }

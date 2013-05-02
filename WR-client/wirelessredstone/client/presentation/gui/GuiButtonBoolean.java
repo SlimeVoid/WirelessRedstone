@@ -83,34 +83,36 @@ public class GuiButtonBoolean extends GuiButtonWireless {
 	 */
 	@Override
 	public void drawButton(Minecraft minecraft, int i, int j) {
-		FontRenderer fontrenderer = minecraft.fontRenderer;
-		if (state) {
-			GL11.glBindTexture(3553 /* GL_TEXTURE_2D */,
-					minecraft.renderEngine.getTexture(this.getButtonTexture(state)));
-		} else {
-			GL11.glBindTexture(3553 /* GL_TEXTURE_2D */,
-					minecraft.renderEngine.getTexture(this.getButtonTexture(state)));
-		}
+		if (this.drawButton) {
+			FontRenderer fontrenderer = minecraft.fontRenderer;
+			if (state) {
+				minecraft.renderEngine.bindTexture(this.getButtonTexture(state));
+			} else {
+				minecraft.renderEngine.bindTexture(this.getButtonTexture(state));
+			}
+	
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			/*this.field_82253_i*/ boolean flag = inBounds(i, j);// >= xPosition && j >= yPosition && i <
+											// xPosition + width && j < yPosition +
+											// height;
+			int k = getHoverState(flag);
+			drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 20, width / 2,
+					height);
+			drawTexturedModalRect(xPosition + width / 2, yPosition,
+					200 - width / 2, 46 + k * 20, width / 2, height);
+			mouseDragged(minecraft, i, j);
+			
+			int l = 14737632;
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		boolean flag = inBounds(i, j);// >= xPosition && j >= yPosition && i <
-										// xPosition + width && j < yPosition +
-										// height;
-		int k = getHoverState(flag);
-		drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 20, width / 2,
-				height);
-		drawTexturedModalRect(xPosition + width / 2, yPosition,
-				200 - width / 2, 46 + k * 20, width / 2, height);
-		mouseDragged(minecraft, i, j);
-		if (!enabled) {
+			if (!this.enabled) {
+				l = -6250336;/*0xffa0a0a0*/
+			} else if (flag) {
+				l = 16777120;/*0xffffa0*/
+			} else {
+				l = 0xe0e0e0;
+			}
 			drawCenteredString(fontrenderer, displayString, xPosition + width
-					/ 2, yPosition + (height - 8) / 2, 0xffa0a0a0);
-		} else if (flag) {
-			drawCenteredString(fontrenderer, displayString, xPosition + width
-					/ 2, yPosition + (height - 8) / 2, 0xffffa0);
-		} else {
-			drawCenteredString(fontrenderer, displayString, xPosition + width
-					/ 2, yPosition + (height - 8) / 2, 0xe0e0e0);
+						/ 2, yPosition + (height - 8) / 2, l);
 		}
 	}
 }

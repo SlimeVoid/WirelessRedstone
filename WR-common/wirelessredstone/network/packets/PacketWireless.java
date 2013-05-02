@@ -20,6 +20,7 @@ import java.util.List;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IPacketWirelessOverride;
+import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.network.packets.core.PacketPayload;
 import wirelessredstone.network.packets.core.PacketUpdate;
 
@@ -29,7 +30,7 @@ import wirelessredstone.network.packets.core.PacketUpdate;
  * @author Eurymachus
  * 
  */
-public abstract class PacketWireless extends PacketUpdate {
+public abstract class PacketWireless extends PacketUpdate implements IRedstoneWirelessData {
 	
 	private static List<IPacketWirelessOverride> overrides = new ArrayList<IPacketWirelessOverride>();
 	

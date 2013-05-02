@@ -300,7 +300,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 						.get(control);
 
 				if (this.isMouseOverButton(button, i, j)) {
-					button.drawToolTip(fontRenderer, i, j);
+					// TODO :: button.drawToolTip(mc.fontRenderer, i, j);
 				}
 			}
 		}
