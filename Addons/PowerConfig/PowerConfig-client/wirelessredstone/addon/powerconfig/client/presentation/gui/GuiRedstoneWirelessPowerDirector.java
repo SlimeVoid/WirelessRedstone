@@ -139,29 +139,18 @@ public class GuiRedstoneWirelessPowerDirector extends
 			if (dir >= 0) {
 				notifyServer(PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(), dir);
 				inventory.flipPowerDirection(dir);
-				notifyNeighbors();
 				initGui();
-			}
-			if (indir >= 0) {
+			} else if (indir >= 0) {
 				notifyServer(PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(), indir);
 				inventory.flipIndirectPower(indir);
-				notifyNeighbors();
 				initGui();
 			}
 		}
 	}
 
 	private void notifyServer(String command, int dir) {
-		System.out.println("Sending: " + command);
 		PacketPowerConfigSettings packet = new PacketPowerConfigSettings(command, dir, this.inventory);
 		PacketDispatcher.sendPacketToServer(packet.getPacket());
-	}
-
-	private void notifyNeighbors() {
-		int i = inventory.getBlockCoord(0);
-		int j = inventory.getBlockCoord(1);
-		int k = inventory.getBlockCoord(2);
-		BlockRedstoneWireless.notifyNeighbors(inventory.worldObj, i, j, k);
 	}
 
 	@Override

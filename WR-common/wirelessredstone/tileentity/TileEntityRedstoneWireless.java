@@ -147,6 +147,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		if (isPoweringIndirectly(l) && powerRoute[l])
 			flipIndirectPower(l);
 		powerRoute[l] = !powerRoute[l];
+		this.onInventoryChanged();
+		this.notifyNeighbors();
 	}
 
 	public void flushPowerRoute() {
@@ -208,6 +210,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		if (!isPoweringDirection(l) && !indirPower[l])
 			flipPowerDirection(l);
 		indirPower[l] = !indirPower[l];
+		this.onInventoryChanged();
+		this.notifyNeighbors();
 	}
 
 	public boolean isPoweringIndirectly(int l) {
@@ -222,6 +226,13 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 		for (int i = 0; i < indirPower.length; i++) {
 			indirPower[i] = true;
 		}
+	}
+
+	private void notifyNeighbors() {
+		int i = this.getBlockCoord(0);
+		int j = this.getBlockCoord(1);
+		int k = this.getBlockCoord(2);
+		BlockRedstoneWireless.notifyNeighbors(this.worldObj, i, j, k);
 	}
 
 	@Override
@@ -314,8 +325,6 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements I
 				LoggerRedstoneWireless.LogLevel.DEBUG
 		);
 		
-		System.out.println("isUseable");
-
 		// Run before overrides.
 		boolean prematureExit = false;
 		for (ITileEntityRedstoneWirelessOverride override : overrides) {

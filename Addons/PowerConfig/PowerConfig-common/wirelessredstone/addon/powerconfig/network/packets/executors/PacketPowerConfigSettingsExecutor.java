@@ -17,7 +17,7 @@ public class PacketPowerConfigSettingsExecutor implements IPacketExecutor {
 		TileEntity tileentity = packet.getTarget(world);
 		if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessR) {
 			TileEntityRedstoneWirelessR tR = (TileEntityRedstoneWirelessR) tileentity;
-			if (packet.getCommand().equals(PacketPowerConfigCommands.powerConfigCommands.setDirection)) {
+			if (packet.getCommand().equals(PacketPowerConfigCommands.powerConfigCommands.setDirection.toString())) {
 				tR.flipPowerDirection(packet.side);
 			} else {
 				tR.flipIndirectPower(packet.side);
