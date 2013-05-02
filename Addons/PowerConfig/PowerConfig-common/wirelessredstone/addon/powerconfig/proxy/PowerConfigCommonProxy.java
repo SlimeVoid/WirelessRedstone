@@ -17,10 +17,15 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
+import wirelessredstone.addon.powerconfig.core.PCCore;
 import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
+import wirelessredstone.addon.powerconfig.network.packets.executors.PacketPowerConfigSettingsExecutor;
+import wirelessredstone.addon.powerconfig.overrides.BlockRedstoneWirelessROverridePC;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.core.WRCore;
+import wirelessredstone.network.ServerPacketHandler;
+import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.tileentity.ContainerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -37,11 +42,6 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
-		if (tileentity instanceof TileEntityRedstoneWireless) {
-			PowerConfigurator.guiPowerC.assTileEntity((TileEntityRedstoneWireless) tileentity);
-			return PowerConfigurator.guiPowerC;
-		}
 		return null;
 	}
 
@@ -93,6 +93,12 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 		/////////////////////
 		// Server Executor //
 		/////////////////////
+		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(
+				PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(),
+				new PacketPowerConfigSettingsExecutor());
+		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(
+				PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(),
+				new PacketPowerConfigSettingsExecutor());
 	}
 
 	@Override
@@ -102,6 +108,7 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 	
 	@Override
 	public void addOverrides() {
+		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
 	}
 
 	@Override

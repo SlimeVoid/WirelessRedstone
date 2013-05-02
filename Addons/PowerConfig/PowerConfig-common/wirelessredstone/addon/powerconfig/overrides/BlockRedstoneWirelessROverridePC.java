@@ -19,7 +19,7 @@ import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
+import wirelessredstone.addon.powerconfig.core.PCCore;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 
 public class BlockRedstoneWirelessROverridePC implements
@@ -51,7 +51,7 @@ public class BlockRedstoneWirelessROverridePC implements
 			int j, int k, EntityPlayer entityplayer) {
 
 		if (entityplayer.getCurrentEquippedItem() != null
-				&& entityplayer.getCurrentEquippedItem().itemID == PowerConfigurator.itemPowDir.itemID) {
+				&& entityplayer.getCurrentEquippedItem().itemID == PCCore.itemPowDir.itemID) {
 			return true;
 		}
 

@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PacketPowerConfigCommands {
-	public enum remoteCommands {
-		openGui;
+	public enum powerConfigCommands {
+		setDirection,
+		setInDirection;
 	
 		private int value;
 		private String name;
@@ -38,13 +39,16 @@ public class PacketPowerConfigCommands {
 	}
 
 	public static void registerCommands() {
-		remoteCommands.openGui.value = 0;
-		remoteCommands.openGui.name = "openPowerCGui";
-		registerCommand(remoteCommands.openGui.name);
+		powerConfigCommands.setDirection.value = 0;
+		powerConfigCommands.setDirection.name = "setPowerCDirection";
+		registerCommand(powerConfigCommands.setDirection.name);
+		powerConfigCommands.setInDirection.value = 1;
+		powerConfigCommands.setInDirection.name = "setPowerCInDirection";
+		registerCommand(powerConfigCommands.setInDirection.name);
 	}
 
 	public static String commandToString(int command) {
-		for (remoteCommands value : remoteCommands
+		for (powerConfigCommands value : powerConfigCommands
 				.values()) {
 			if (value != null & value.getCommand() == command) {
 				return value.toString();

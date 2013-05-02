@@ -17,13 +17,18 @@ package wirelessredstone.addon.powerconfig.client.presentation.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
+
 import net.minecraft.client.gui.GuiButton;
 
+import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
+import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigSettings;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.client.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.client.presentation.gui.GuiButtonWirelessExit;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class GuiRedstoneWirelessPowerDirector extends
@@ -42,7 +47,7 @@ public class GuiRedstoneWirelessPowerDirector extends
 
 	@Override
 	public String getBackgroundImage() {
-		return "/gui/wifi_medium.png";
+		return GuiLib.GUI_MEDIUM;
 	}
 
 	@Override
@@ -132,16 +137,24 @@ public class GuiRedstoneWirelessPowerDirector extends
 				break;
 			}
 			if (dir >= 0) {
+				notifyServer(PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(), dir);
 				inventory.flipPowerDirection(dir);
 				notifyNeighbors();
 				initGui();
 			}
 			if (indir >= 0) {
+				notifyServer(PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(), indir);
 				inventory.flipIndirectPower(indir);
 				notifyNeighbors();
 				initGui();
 			}
 		}
+	}
+
+	private void notifyServer(String command, int dir) {
+		System.out.println("Sending: " + command);
+		PacketPowerConfigSettings packet = new PacketPowerConfigSettings(command, dir, this.inventory);
+		PacketDispatcher.sendPacketToServer(packet.getPacket());
 	}
 
 	private void notifyNeighbors() {

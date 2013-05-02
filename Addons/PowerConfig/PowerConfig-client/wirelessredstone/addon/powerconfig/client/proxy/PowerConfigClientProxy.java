@@ -23,6 +23,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.addon.powerconfig.client.network.packets.executors.ClientRemoteOpenGui;
+import wirelessredstone.addon.powerconfig.client.presentation.gui.GuiRedstoneWirelessPowerDirector;
+import wirelessredstone.addon.powerconfig.core.PCCore;
+import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
 import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
 import wirelessredstone.addon.powerconfig.proxy.PowerConfigCommonProxy;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
@@ -33,6 +36,9 @@ import wirelessredstone.client.proxy.WRClientProxy;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 /**
@@ -45,10 +51,11 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 
+	
 	/**
-	 * Wireless Remote GUI
+	 * Power Configurator GUI
 	 */
-	public static GuiRedstoneWireless guiPowerConfig;
+	public static GuiRedstoneWirelessPowerDirector guiPowerC;
 	
 	@Override
 	public void init() {
@@ -60,11 +67,8 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	 * Initializes GUI objects.
 	 */
 	public static void initGUIs() {
-		//guiPowerConfig = new GuiRedstoneWireless();
-		// TODO :: GUI
-		/**IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
-		guiWirelessRemote.addOverride(override);
-		WRClientProxy.addOverride(new ActivateGuiRemoteOverride());**/
+		guiPowerC = new GuiRedstoneWirelessPowerDirector();
+		NetworkRegistry.instance().registerGuiHandler(PowerConfigurator.instance, PCCore.proxy);
 		// TODO :: Overrides
 	}
 	
@@ -82,14 +86,13 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	}
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
-		return null;
-	}
-
-	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
+		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
+		if (tileentity instanceof TileEntityRedstoneWireless) {
+			guiPowerC.assTileEntity((TileEntityRedstoneWireless) tileentity);
+			return guiPowerC;
+		}
 		return null;
 	}
 
@@ -147,7 +150,7 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
 		World world = getWorld(handler);
 		if (world != null) {
-			ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
+			//ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
 		}
 	}
 	
@@ -157,8 +160,8 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 		/////////////////////
 		// Client Handlers //
 		/////////////////////
-		ClientPacketHandler.getPacketHandler(PacketIds.GUI).registerPacketHandler(
-				PacketPowerConfigCommands.remoteCommands.openGui.toString(),
-				new ClientRemoteOpenGui());
+		//ClientPacketHandler.getPacketHandler(PacketIds.GUI).registerPacketHandler(
+		//		PacketPowerConfigCommands.powerConfigCommands.openGui.toString(),
+		//		new ClientRemoteOpenGui());
 	}
 }

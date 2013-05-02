@@ -14,7 +14,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.powerconfig.items;
 
+import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
 import wirelessredstone.addon.powerconfig.core.lib.IconLib;
+import wirelessredstone.core.lib.GuiLib;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -47,7 +49,7 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
 
 		if (tileentity != null) {
-			//PowerConfigurator.openGUI(world, entityplayer, tileentity);
+			entityplayer.openGui(PowerConfigurator.instance, GuiLib.GUIID_DEVICE, world, i, j, k);//PowerConfigurator.openGUI(world, entityplayer, tileentity);
 			// TODO :: Open GUI
 			itemstack.damageItem(1, entityplayer);
 			return true;

@@ -1,102 +1,81 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
+ */
 package wirelessredstone.addon.powerconfig.core;
 
-import java.util.ArrayList;
-import java.util.List;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
+import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
-import wirelessredstone.addon.powerconfig.client.presentation.gui.GuiRedstoneWirelessPowerDirector;
-import wirelessredstone.addon.powerconfig.items.ItemRedstoneWirelessPowerDirector;
-import wirelessredstone.addon.powerconfig.overrides.BlockRedstoneWirelessROverridePC;
-import wirelessredstone.core.WRCore;
-import wirelessredstone.data.ConfigStoreRedstoneWireless;
-import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-
+/**
+ * Power Configurator ModLoader initializing class.
+ * 
+ * @author Eurymachus
+ */
+@Mod(
+		modid = "PowerConfigurator",
+		name = "Wireless Redstone - Power Configurator",
+		version = "1.0",
+		dependencies = "after:WirelessRedstoneCore")
+@NetworkMod(
+		clientSideRequired = true,
+		serverSideRequired = false)
+/**
+ * FML fascade class.
+ * This class uses FML annotations and sorts initialization.
+ * 
+ * ConnectionHandler: 
+ * ClientPacketHandler: 
+ * ServerPacketHandler: 
+ * 
+ * @author Eurymachus, ali4z
+ */
 public class PowerConfigurator {
-	public static boolean isLoaded = false;
-	public static GuiRedstoneWirelessPowerDirector guiPowerC;
-	public static Item itemPowDir;
-	public static int spritePowerC;
-	public static int pdID = 6243;
 
-	public static boolean initialize() {
-		try {
-			loadConfig();
-			loadItemTextures();
 
-			initItem();
-			initGui();
+	@Instance("PowerConfigurator")
+	public static PowerConfigurator instance;
 
-			addRecipes();
-			addOverrides();
-			return true;
-		} catch (Exception e) {
-			LoggerRedstoneWireless
-					.getInstance(
-							LoggerRedstoneWireless
-									.filterClassName(PowerConfigurator.class
-											.toString())).write(
-							false, "Initialization failed.",
-							LoggerRedstoneWireless.LogLevel.WARNING);
-			return false;
-		}
+	/**
+	 * Initialization
+	 * 
+	 * @param event
+	 */
+	@Init
+	public void WirelessRemoteInit(FMLInitializationEvent event) {
+		
 	}
 
-	private static void loadConfig() {
-		pdID = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"PowerConfigurator")
-				.get("ID", Integer.class, new Integer(pdID));
+	/**
+	 * Pre-initialization
+	 * 
+	 * @param event
+	 */
+	@PreInit
+	public void WirelessRemotePreInit(FMLPreInitializationEvent event) {
 	}
 
-	private static void loadItemTextures() {
-	}
-
-	private static void initItem() {
-		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID))
-				.setUnlocalizedName("wirelessredstone.powdir");
-		LanguageRegistry.addName(itemPowDir, "Power Configurator");
-	}
-
-	private static void initGui() {
-		guiPowerC = new GuiRedstoneWirelessPowerDirector();
-	}
-
-	private static void addRecipes() {
-		GameRegistry.addRecipe(new ItemStack(itemPowDir, 1), new Object[] { "R R",
-				" X ", "R R", Character.valueOf('X'),
-				WRCore.blockWirelessR, Character.valueOf('R'),
-				Item.redstone });
-	}
-
-	private static void addOverrides() {
-		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
-	}
-
-	public static void activateGUI(World world, EntityPlayer entityplayer,
-			TileEntity tileentity) {
-		if (tileentity instanceof TileEntityRedstoneWirelessR) {
-			PowerConfigurator.guiPowerC
-					.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
-			ModLoader.openGUI(entityplayer, guiPowerC);
-		}
-	}
-
-	public static void openGUI(World world, EntityPlayer entityplayer,
-			TileEntity tileentity) {
-		boolean prematureExit = false;
-		for (BaseModOverride override : overrides) {
-			if (override.beforeOpenGui(world, entityplayer, tileentity))
-				prematureExit = true;
-		}
-		if (!prematureExit)
-			activateGUI(world, entityplayer, tileentity);
+	/**
+	 * Post-initialization
+	 * 
+	 * @param event
+	 */
+	@PostInit
+	public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
+		PCCore.initialize();
 	}
 }
