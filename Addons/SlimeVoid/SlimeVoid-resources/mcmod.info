@@ -1,0 +1,21 @@
+{
+	"modinfoversion": 2,
+	"modlist" : [
+		{
+			"modid": "SlimeVoidAdditions",
+			"name": "Wireless Redstone - SlimeVoid Additions",
+			"description": "The SlimeVoid ",
+			"version": "1.0",
+			"mcversion": "1.5.1",
+			"url": "www.slimevoid.net/wireless-redstone",
+			"authorList": [
+				"ali4z",
+				"Eurymachus"
+			],
+			"credits": "Author ali4z, Developer Eurymachus",
+			"logoFile": "/wirelessredstone.png",
+			"parent": "WirelessRedstoneCore",
+			"requiredMods": ["Forge", "WirelessRedstoneCore", "SlimeVoidLib"]
+		}
+	]
+}
