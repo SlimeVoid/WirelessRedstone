@@ -18,6 +18,7 @@ import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
 import wirelessredstone.addon.powerconfig.core.lib.IconLib;
 import wirelessredstone.core.lib.GuiLib;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,6 +38,7 @@ public class ItemRedstoneWirelessPowerDirector extends Item {
 
 	public ItemRedstoneWirelessPowerDirector(int i) {
 		super(i);
+		this.setCreativeTab(CreativeTabs.tabRedstone);
 		maxStackSize = 1;
 		setMaxDamage(64);
 	}
