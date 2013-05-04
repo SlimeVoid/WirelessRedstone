@@ -175,10 +175,10 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			drawGuiContainerForegroundLayer(i, j, f);
 
 			GL11.glPopMatrix();
-
+			
 			super.drawScreen(i, j, f);
-
-			drawButtonTooltips(i, j, f);
+			
+			drawTooltips(i, j, f);
 
 			GL11.glEnable(2896 /* GL_LIGHTING */);
 			GL11.glEnable(2929 /* GL_DEPTH_TEST */);
@@ -293,14 +293,13 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * @param f
 	 *            tick partial
 	 */
-	private void drawButtonTooltips(int i, int j, float f) {
-		for (int control = 0; control < this.buttonList.size(); control++) {
-			if (this.buttonList.get(control) instanceof GuiButtonWireless) {
-				GuiButtonWireless button = (GuiButtonWireless) this.buttonList
-						.get(control);
-
-				if (this.isMouseOverButton(button, i, j)) {
-					// TODO :: button.drawToolTip(mc.fontRenderer, i, j);
+	private void drawTooltips(int i, int j, float f) {
+		this.mc.renderEngine.resetBoundTexture();
+		for (Object button : this.buttonList) {
+			if (button instanceof GuiButtonWireless) {
+				GuiButtonWireless guibutton = (GuiButtonWireless) button;
+				if (this.isMouseOverButton(guibutton, i, j)) {
+					guibutton.drawToolTip(this.mc, i, j);
 				}
 			}
 		}

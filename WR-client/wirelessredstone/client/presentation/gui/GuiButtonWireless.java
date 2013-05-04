@@ -14,8 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.client.presentation.gui;
 
+import org.lwjgl.opengl.GL11;
+
 import wirelessredstone.core.lib.GuiLib;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
 /**
@@ -60,11 +62,11 @@ public class GuiButtonWireless extends GuiButton {
 	 * @param y
 	 *            mouse Y coordinate
 	 */
-	protected void drawToolTip(FontRenderer fontRenderer, int x, int y) {
+	protected void drawToolTip(Minecraft mc, int x, int y) {
 		String buttonPopupText = this.getPopupText();
 		if (!buttonPopupText.isEmpty()) {
 
-			int l1 = fontRenderer.getStringWidth(buttonPopupText);
+			int l1 = mc.fontRenderer.getStringWidth(buttonPopupText);
 			int i = 0;
 			int j = -10;
 			int j2 = (x - i) + 12;
@@ -90,8 +92,8 @@ public class GuiButtonWireless extends GuiButton {
 			drawGradientRect(j2 - 3, l2 - 3, j2 + i3 + 3, (l2 - 3) + 1, l3, l3);
 			drawGradientRect(j2 - 3, l2 + j3 + 2, j2 + i3 + 3, l2 + j3 + 3, i4,
 					i4);
-
-			fontRenderer.drawSplitString(buttonPopupText, x + 15, y - 1,
+			
+			mc.fontRenderer.drawSplitString(buttonPopupText, x + 15, y - 1,
 					l1 * 2, 0xFFFFFFFF);
 			zLevel = 0.0F;
 		}

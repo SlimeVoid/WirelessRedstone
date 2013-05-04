@@ -74,7 +74,7 @@ public class GuiButtonBoolean extends GuiButtonWireless {
 	/**
 	 * Renders the button to the screen.
 	 * 
-	 * @param minecraft
+	 * @param mc
 	 *            minecraft instance
 	 * @param i
 	 *            mouse X coordinate
@@ -82,36 +82,36 @@ public class GuiButtonBoolean extends GuiButtonWireless {
 	 *            mouse Y coordinate
 	 */
 	@Override
-	public void drawButton(Minecraft minecraft, int i, int j) {
+	public void drawButton(Minecraft mc, int i, int j) {
 		if (this.drawButton) {
-			FontRenderer fontrenderer = minecraft.fontRenderer;
+			FontRenderer fontrenderer = mc.fontRenderer;
 			if (state) {
-				minecraft.renderEngine.bindTexture(this.getButtonTexture(state));
+				mc.renderEngine.bindTexture(this.getButtonTexture(state));
 			} else {
-				minecraft.renderEngine.bindTexture(this.getButtonTexture(state));
+				mc.renderEngine.bindTexture(this.getButtonTexture(state));
 			}
 	
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			/*this.field_82253_i*/ boolean flag = inBounds(i, j);// >= xPosition && j >= yPosition && i <
+			this.field_82253_i = inBounds(i, j);// >= xPosition && j >= yPosition && i <
 											// xPosition + width && j < yPosition +
 											// height;
-			int k = getHoverState(flag);
+			int k = getHoverState(this.field_82253_i);
 			drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 20, width / 2,
 					height);
 			drawTexturedModalRect(xPosition + width / 2, yPosition,
 					200 - width / 2, 46 + k * 20, width / 2, height);
-			mouseDragged(minecraft, i, j);
+			mouseDragged(mc, i, j);
 			
 			int l = 14737632;
 
 			if (!this.enabled) {
 				l = -6250336;/*0xffa0a0a0*/
-			} else if (flag) {
+			} else if (this.field_82253_i) {
 				l = 16777120;/*0xffffa0*/
 			} else {
 				l = 0xe0e0e0;
 			}
-			drawCenteredString(fontrenderer, displayString, xPosition + width
+			this.drawCenteredString(fontrenderer, displayString, xPosition + width
 						/ 2, yPosition + (height - 8) / 2, l);
 		}
 	}
