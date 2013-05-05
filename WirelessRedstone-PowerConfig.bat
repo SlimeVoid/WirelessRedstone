@@ -1,8 +1,11 @@
-@echo off
+rem @echo off
 
-set mcpdir="C:\Programming\Repositories\MinecraftForge\mcp"
+set programdir="C:\Programming"
+set packagedir="%programdir%\Packages"
+set repodir="%programdir%\Repositories"
+set forgedir="%repodir%\MinecraftForge"
+set mcpdir="%forgedir%\mcp"
 cd %mcpdir%
-set repodir="C:\Programming\Repositories"
 set wirelessredstone="%repodir%\WirelessRedstone-FML"
 set powerconfig="%wirelessredstone%\addons\powerconfig"
 
@@ -32,7 +35,21 @@ xcopy "%powerconfig%\PowerConfig-client\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat
+echo Recompile and Reobf Completed Successfully
 pause
+
+:REPACKAGE
+if not exist "%mcpdir%\reobf" GOTO :WRFAIL
+if exist "%packagedir%\WirelessRedstone-PowerConfig" (
+del "%packagedir%\WirelessRedstone-PowerConfig\*.*" /S /Q
+rmdir "%packagedir%\WirelessRedstone-PowerConfig" /S /Q
+)
+mkdir "%packagedir%\WirelessRedstone-PowerConfig\wirelessredstone\addon"
+xcopy "%mcpdir%\reobf\minecraft\wirelessredstone\addon\*.*" "%packagedir%\WirelessRedstone-PowerConfig\wirelessredstone\addon\" /S
+xcopy "%powerconfig%\PowerConfig-Resources\*.*" "%packagedir%\WirelessRedstone-PowerConfig\" /S
+echo "Power Configurator Packaged Successfully
+pause
+
 ren "%mcpdir%\src" src-old
 echo Recompiled Source folder renamed
 pause

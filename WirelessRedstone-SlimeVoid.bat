@@ -1,8 +1,11 @@
 @echo off
 
-set mcpdir="C:\Programming\Repositories\MinecraftForge\mcp"
+set programdir="C:\Programming"
+set packagedir="%programdir%\Packages"
+set repodir="%programdir%\Repositories"
+set forgedir="%repodir%\MinecraftForge"
+set mcpdir="%forgedir%\mcp"
 cd %mcpdir%
-set repodir="C:\Programming\Repositories"
 set wirelessredstone="%repodir%\WirelessRedstone-FML"
 set slimevoidlib="%repodir%\EurysCore-FML"
 set slimevoid="%wirelessredstone%\addons\slimevoid"
@@ -34,7 +37,21 @@ xcopy "%slimevoid%\SlimeVoid-client\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat
+echo Recompile and Reobf Completed Successfully
 pause
+
+:REPACKAGE
+if not exist "%mcpdir%\reobf" GOTO :WRFAIL
+if exist "%packagedir%\WirelessRedstone-SlimeVoidAdditions" (
+del "%packagedir%\WirelessRedstone-SlimeVoidAdditions\*.*" /S /Q
+rmdir "%packagedir%\WirelessRedstone-SlimeVoidAdditions" /S /Q
+)
+mkdir "%packagedir%\WirelessRedstone-SlimeVoidAdditions\wirelessredstone\addon"
+xcopy "%mcpdir%\reobf\minecraft\wirelessredstone\addon\*.*" "%packagedir%\WirelessRedstone-SlimeVoidAdditions\wirelessredstone\addon\" /S
+xcopy "%slimevoid%\SlimeVoid-Resources\*.*" "%packagedir%\WirelessRedstone-SlimeVoidAdditions\" /S
+echo "Wireless SlimeVoid Additions Packaged Successfully
+pause
+
 ren "%mcpdir%\src" src-old
 echo Recompiled Source folder renamed
 pause

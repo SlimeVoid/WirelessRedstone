@@ -1,8 +1,11 @@
 @echo off
 
-set mcpdir="C:\Programming\Repositories\MinecraftForge\mcp"
+set programdir="C:\Programming"
+set packagedir="%programdir%\Packages"
+set repodir="%programdir%\Repositories"
+set forgedir="%repodir%\MinecraftForge"
+set mcpdir="%forgedir%\mcp"
 cd %mcpdir%
-set repodir="C:\Programming\Repositories"
 set wirelessredstone="%repodir%\WirelessRedstone-FML"
 set remote="%wirelessredstone%\addons\remote"
 
@@ -32,7 +35,21 @@ xcopy "%remote%\Remote-client\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat
+echo Recompile and Reobf Completed Successfully
 pause
+
+:REPACKAGE
+if not exist "%mcpdir%\reobf" GOTO :WRFAIL
+if exist "%packagedir%\WirelessRedstone-WirelessRemote" (
+del "%packagedir%\WirelessRedstone-WirelessRemote\*.*" /S /Q
+rmdir "%packagedir%\WirelessRedstone-WirelessRemote" /S /Q
+)
+mkdir "%packagedir%\WirelessRedstone-WirelessRemote\wirelessredstone\addon"
+xcopy "%mcpdir%\reobf\minecraft\wirelessredstone\addon\*.*" "%packagedir%\WirelessRedstone-WirelessRemote\wirelessredstone\addon\" /S
+xcopy "%remote%\Remote-Resources\*.*" "%packagedir%\WirelessRedstone-WirelessRemote\" /S
+echo "Wireless Remote Packaged Successfully
+pause
+
 ren "%mcpdir%\src" src-old
 echo Recompiled Source folder renamed
 pause
