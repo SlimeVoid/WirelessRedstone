@@ -25,9 +25,9 @@ import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
-import wirelessredstone.core.WRCore;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRedstoneWirelessRemote extends Item {
 
@@ -125,8 +125,8 @@ public class ItemRedstoneWirelessRemote extends Item {
 	@Override
 	public Icon getIconFromDamage(int i) {
 		String index = this.getUnlocalizedName() + "[" + i + "]";
-		WirelessRemoteData data = (WirelessRemoteData) WRCore.proxy.getWorld().loadItemData(WirelessRemoteData.class,
-																							index);
+		WirelessRemoteData data = (WirelessRemoteData) FMLClientHandler.instance().getClient().theWorld.loadItemData(	WirelessRemoteData.class,
+																														index);
 		if (data == null || !data.getDeviceState()) return iconList[0];
 		return iconList[1];
 	}

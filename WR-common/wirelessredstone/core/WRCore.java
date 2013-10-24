@@ -15,15 +15,12 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
-import wirelessredstone.data.ConfigStoreRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -54,11 +51,11 @@ public class WRCore {
 	/**
 	 * Wireless Receiver Block ID
 	 */
-	public static int			rxID				= 180;
+	public static int			rxID;
 	/**
 	 * Wireless Transmitter Block ID
 	 */
-	public static int			txID				= 179;
+	public static int			txID;
 
 	/**
 	 * Wireless Transmitter Item texture.
@@ -89,7 +86,7 @@ public class WRCore {
 	 */
 	public static boolean initialize() {
 
-		loadConfig();
+		// loadConfig();
 
 		proxy.init();
 
@@ -187,20 +184,6 @@ public class WRCore {
 										Item.redstone,
 										Character.valueOf('T'),
 										Block.torchRedstoneActive });
-	}
-
-	/**
-	 * Loads configurations from the properties file.<br>
-	 * - Receiver block ID: (Receiver.ID)<br>
-	 * - Transmitter block ID: (Transmitter.ID)<br>
-	 */
-	private static void loadConfig() {
-		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get(	"Receiver.ID",
-																							Integer.class,
-																							new Integer(rxID));
-		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get(	"Transmitter.ID",
-																							Integer.class,
-																							new Integer(txID));
 	}
 
 	/**

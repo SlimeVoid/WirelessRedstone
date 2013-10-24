@@ -11,17 +11,16 @@
  */
 package wirelessredstone.addon.powerconfig.core;
 
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
+import net.minecraftforge.common.Configuration;
 import wirelessredstone.addon.powerconfig.items.ItemRedstoneWirelessPowerDirector;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
-import wirelessredstone.data.ConfigStoreRedstoneWireless;
+import wirelessredstone.core.lib.ConfigurationLib;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class PCCore {
 	public static boolean		isLoaded	= false;
@@ -56,9 +55,15 @@ public class PCCore {
 	}
 
 	private static void loadConfig() {
-		pdID = (Integer) ConfigStoreRedstoneWireless.getInstance("PowerConfigurator").get(	"ID",
-																							Integer.class,
-																							new Integer(pdID));
+		Configuration wirelessconfig = ConfigurationLib.getConfig();
+
+		wirelessconfig.load();
+
+		pdID = wirelessconfig.get(	Configuration.CATEGORY_ITEM,
+									"Power Configuration",
+									6243).getInt();
+
+		wirelessconfig.save();
 	}
 
 	private static void initItems() {

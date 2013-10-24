@@ -11,13 +11,14 @@
  */
 package wirelessredstone.addon.powerconfig.proxy;
 
+import java.io.File;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import wirelessredstone.addon.powerconfig.core.PCCore;
 import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
 import wirelessredstone.addon.powerconfig.network.packets.executors.PacketPowerConfigSettingsExecutor;
 import wirelessredstone.addon.powerconfig.overrides.BlockRedstoneWirelessROverridePC;
@@ -33,6 +34,10 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
+	}
+
+	@Override
+	public void registerConfiguration(File configFile) {
 	}
 
 	@Override
@@ -64,16 +69,6 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 
 	@Override
 	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-	}
-
-	@Override
-	public World getWorld() {
-		return null;
-	}
-
-	@Override
-	public EntityPlayer getPlayer() {
-		return null;
 	}
 
 	@Override

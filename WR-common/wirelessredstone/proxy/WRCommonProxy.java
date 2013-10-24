@@ -11,6 +11,8 @@
  */
 package wirelessredstone.proxy;
 
+import java.io.File;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
@@ -20,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.core.lib.ConfigurationLib;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerAddonPacketHandler;
 import wirelessredstone.network.handlers.ServerDeviceGuiPacketHandler;
@@ -44,6 +47,11 @@ public class WRCommonProxy implements ICommonProxy {
 	public void registerRenderInformation() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void registerConfiguration(File configFile) {
+		ConfigurationLib.CommonConfig(configFile);
 	}
 
 	@Override
@@ -88,18 +96,6 @@ public class WRCommonProxy implements ICommonProxy {
 			ServerDeviceGuiPacketHandler.sendGuiPacketTo(	(EntityPlayerMP) entityplayer,
 															devicedata);
 		}
-	}
-
-	@Override
-	public World getWorld() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EntityPlayer getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

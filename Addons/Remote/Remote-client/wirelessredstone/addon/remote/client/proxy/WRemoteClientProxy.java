@@ -18,10 +18,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
-import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 import wirelessredstone.addon.remote.client.network.packets.executors.ClientRemoteChangeFreqExecutor;
 import wirelessredstone.addon.remote.client.network.packets.executors.ClientRemoteOpenGui;
 import wirelessredstone.addon.remote.client.overrides.ActivateGuiRemoteOverride;
@@ -115,26 +113,6 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 								entityplayer,
 								devicedata);
 		}
-	}
-
-	/**
-	 * Retrieves the world object without parameters
-	 * 
-	 * @return the world
-	 */
-	@Override
-	public World getWorld() {
-		return ModLoader.getMinecraftInstance().theWorld;
-	}
-
-	/**
-	 * Retrieves the player object
-	 * 
-	 * @return the player
-	 */
-	@Override
-	public EntityPlayer getPlayer() {
-		return ModLoader.getMinecraftInstance().thePlayer;
 	}
 
 	/**

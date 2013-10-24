@@ -75,6 +75,7 @@ public class WirelessRedstone {
 	 */
 	@PreInit
 	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
+		WRCore.proxy.registerConfiguration(event.getSuggestedConfigurationFile());
 	}
 
 	/**

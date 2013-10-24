@@ -14,13 +14,11 @@ package wirelessredstone.addon.remote.core;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.ModLoader;
-import net.minecraft.util.Icon;
+import net.minecraftforge.common.Configuration;
 import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.core.WRCore;
-import wirelessredstone.data.ConfigStoreRedstoneWireless;
+import wirelessredstone.core.lib.ConfigurationLib;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -77,18 +75,23 @@ public class WRemoteCore {
 	 * - Remote item ID: (Remote.ID)<br>
 	 */
 	private static void loadConfig() {
-		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"ID",
-																					Integer.class,
-																					new Integer(remoteID));
-		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"Durability",
-																					Boolean.class,
-																					new Boolean(duraTogg));
-		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"PulseDuration",
-																					Long.class,
-																					new Long(pulseTime));
-		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"MaxPulseThreads",
-																							Integer.class,
-																							new Integer(maxPulseThreads));
+		Configuration wirelessconfig = ConfigurationLib.getConfig();
+
+		wirelessconfig.load();
+
+		remoteID = wirelessconfig.get(	Configuration.CATEGORY_ITEM,
+										"Wireless Remote",
+										remoteID).getInt();
+		duraTogg = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
+										"Duration Toggle",
+										duraTogg).getBoolean(duraTogg);
+		pulseTime = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
+										"Pulse Time",
+										pulseTime).getInt();
+		maxPulseThreads = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
+												"Max Threads",
+												maxPulseThreads).getInt();
+		wirelessconfig.save();
 	}
 
 	/**

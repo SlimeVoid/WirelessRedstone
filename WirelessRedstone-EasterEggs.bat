@@ -1,10 +1,13 @@
 @echo off
 
-set mcpdir="C:\Programming\mcp"
+set programdir=%CD%\..\..
+set packagedir=%programdir%\Packages
+set repodir=%programdir%\Git
+set forgedir=%programdir%\Forge
+set mcpdir=%forgedir%\mcp
 cd %mcpdir%
-set repodir="C:\Programming\Repositories"
-set wirelessredstone="%repodir%\WirelessRedstone-FML"
-set eastereggs="%wirelessredstone%\EasterEggs"
+set wirelessredstone=%repodir%\WirelessRedstone-FML
+set eastereggs=%wirelessredstone%\EasterEggs
 
 if not exist %wirelessredstone% GOTO :WRFAIL
 if exist %eastereggs% GOTO :WIRE

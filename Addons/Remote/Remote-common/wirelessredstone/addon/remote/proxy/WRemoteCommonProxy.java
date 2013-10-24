@@ -11,6 +11,7 @@
  */
 package wirelessredstone.addon.remote.proxy;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -47,6 +48,10 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
+	public void registerConfiguration(File configFile) {
+	}
+
+	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return null;
 	}
@@ -78,16 +83,6 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 																new PacketOpenGuiRemote(devicedata));
 			}
 		}
-	}
-
-	@Override
-	public World getWorld() {
-		return null;
-	}
-
-	@Override
-	public EntityPlayer getPlayer() {
-		return null;
 	}
 
 	@Override

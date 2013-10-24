@@ -1,12 +1,12 @@
 @echo off
 
-set programdir="C:\Programming"
-set packagedir="%programdir%\Packages"
-set repodir="%programdir%\Repositories"
-set forgedir="%repodir%\MinecraftForge"
-set mcpdir="%forgedir%\mcp"
+set programdir=%CD%\..\..
+set packagedir=%programdir%\Packages
+set repodir=%programdir%\Git
+set forgedir=%programdir%\Forge
+set mcpdir=%forgedir%\mcp
 cd %mcpdir%
-set wirelessredstone="%repodir%\WirelessRedstone-FML"
+set wirelessredstone=%repodir%\WirelessRedstone-FML
 
 if exist %wirelessredstone% GOTO :WIRE
 GOTO :WRFAIL
@@ -16,7 +16,7 @@ if exist %mcpdir%\src GOTO :COPYSRC
 GOTO :WRFAIL
 
 :COPYSRC
-if not exist "%mcpdir%\src-work" GOTO :CREATESRC
+if not exist %mcpdir%\src-work GOTO :CREATESRC
 GOTO :WRFAIL
 
 :CREATESRC

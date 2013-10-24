@@ -1,12 +1,12 @@
 rem @echo off
 
-set programdir="C:\Programming"
-set packagedir="%programdir%\Packages"
-set repodir="%programdir%\Repositories"
-set forgedir="%repodir%\MinecraftForge"
-set mcpdir="%forgedir%\mcp"
+set programdir=%CD%\..\..
+set packagedir=%programdir%\Packages
+set repodir=%programdir%\Git
+set forgedir=%programdir%\Forge
+set mcpdir=%forgedir%\mcp
 cd %mcpdir%
-set wirelessredstone="%repodir%\WirelessRedstone-FML"
+set wirelessredstone=%repodir%\WirelessRedstone-FML
 set powerconfig="%wirelessredstone%\addons\powerconfig"
 
 if not exist %wirelessredstone% GOTO :WRFAIL

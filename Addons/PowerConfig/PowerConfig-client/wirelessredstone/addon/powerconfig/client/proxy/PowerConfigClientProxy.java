@@ -13,34 +13,19 @@ package wirelessredstone.addon.powerconfig.client.proxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.NetClientHandler;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
-import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
-import wirelessredstone.addon.powerconfig.client.network.packets.executors.ClientRemoteOpenGui;
 import wirelessredstone.addon.powerconfig.client.presentation.gui.GuiRedstoneWirelessPowerDirector;
 import wirelessredstone.addon.powerconfig.core.PCCore;
 import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
-import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
 import wirelessredstone.addon.powerconfig.proxy.PowerConfigCommonProxy;
-import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.client.network.ClientPacketHandler;
-import wirelessredstone.client.presentation.gui.GuiRedstoneWireless;
-import wirelessredstone.client.proxy.WRClientProxy;
-import wirelessredstone.network.packets.PacketRedstoneEther;
-import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
-import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * WRClientProxy class
@@ -114,26 +99,6 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 								entityplayer,
 								devicedata);
 		}
-	}
-
-	/**
-	 * Retrieves the world object without parameters
-	 * 
-	 * @return the world
-	 */
-	@Override
-	public World getWorld() {
-		return ModLoader.getMinecraftInstance().theWorld;
-	}
-
-	/**
-	 * Retrieves the player object
-	 * 
-	 * @return the player
-	 */
-	@Override
-	public EntityPlayer getPlayer() {
-		return ModLoader.getMinecraftInstance().thePlayer;
 	}
 
 	/**

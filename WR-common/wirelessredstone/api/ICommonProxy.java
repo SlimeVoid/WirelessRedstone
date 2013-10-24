@@ -11,6 +11,8 @@
  */
 package wirelessredstone.api;
 
+import java.io.File;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
@@ -84,13 +86,6 @@ public interface ICommonProxy extends IGuiHandler {
 	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata);
 
 	/**
-	 * Fetches the current minecraft world object.
-	 * 
-	 * @return Minecraft world object.
-	 */
-	public World getWorld();
-
-	/**
 	 * Fetches the current minecraft world object relating to the NetHandler.
 	 * 
 	 * handler the NetHandler (Server or Client)
@@ -98,13 +93,6 @@ public interface ICommonProxy extends IGuiHandler {
 	 * @return Minecraft world object.
 	 */
 	public World getWorld(NetHandler handler);
-
-	/**
-	 * Fetches the current player.
-	 * 
-	 * @return Player
-	 */
-	public EntityPlayer getPlayer();
 
 	/**
 	 * Called on initialization.
@@ -137,4 +125,12 @@ public interface ICommonProxy extends IGuiHandler {
 	public void connectionClosed(INetworkManager manager);
 
 	void doSomething(String command, World world, int x, int y, int z);
+
+	/**
+	 * Registers a configuration file allows sided properties
+	 * 
+	 * @param configFile
+	 *            usually the suggested Configuration File
+	 */
+	public void registerConfiguration(File configFile);
 }
