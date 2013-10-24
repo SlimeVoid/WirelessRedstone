@@ -79,7 +79,7 @@ public class CamouClientProxy extends CamouCommonProxy {
 
 	@Override
 	public String getMinecraftDir() {
-		return Minecraft.getMinecraftDir().toString();
+		return Minecraft.getMinecraft().mcDataDir.getPath();
 	}
 
 	@Override

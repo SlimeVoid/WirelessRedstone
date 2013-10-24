@@ -11,7 +11,7 @@
  */
 package wirelessredstone.network.packets;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.device.WirelessDeviceData;
@@ -125,7 +125,7 @@ public class PacketWirelessDevice extends PacketWireless implements
 		return false;
 	}
 
-	public IWirelessDeviceData getDeviceData(Class<? extends IWirelessDeviceData> deviceDataClass, World world, EntityLiving entityliving) {
+	public IWirelessDeviceData getDeviceData(Class<? extends IWirelessDeviceData> deviceDataClass, World world, EntityLivingBase entityliving) {
 		return WirelessDeviceData.getDeviceData(deviceDataClass,
 												this.getDeviceType(),
 												this.getDeviceID(),

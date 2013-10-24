@@ -11,6 +11,7 @@
  */
 package wirelessredstone.client.presentation.gui;
 
+import net.minecraft.util.ResourceLocation;
 import wirelessredstone.core.lib.GuiLib;
 
 /**
@@ -24,7 +25,7 @@ public class GuiRedstoneWirelessT extends GuiRedstoneWirelessInventory {
 	}
 
 	@Override
-	protected String getBackgroundImage() {
+	protected ResourceLocation getBackgroundImage() {
 		return GuiLib.GUI_SMALL;
 	}
 

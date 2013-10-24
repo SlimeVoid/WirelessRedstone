@@ -12,6 +12,7 @@
 package wirelessredstone.addon.camouflager.client.presentation.gui;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
 import wirelessredstone.addon.camouflager.core.lib.GuiLib;
 import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessContainer;
@@ -24,7 +25,7 @@ public class GuiRedstoneWirelessCamouflager extends
 	}
 
 	@Override
-	public String getBackgroundImage() {
+	public ResourceLocation getBackgroundImage() {
 		return GuiLib.GUI_CAMOU;
 	}
 

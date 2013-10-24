@@ -19,6 +19,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
@@ -116,7 +117,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * 
 	 * @return Background Image
 	 */
-	protected abstract String getBackgroundImage();
+	protected abstract ResourceLocation getBackgroundImage();
 
 	/**
 	 * Fetches the Gui Name to display at the top of the Gui
@@ -306,7 +307,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 						1.0F,
 						1.0F,
 						1.0F);
-		mc.renderEngine.bindTexture(this.getBackgroundImage());
+		mc.getTextureManager().bindTexture(this.getBackgroundImage());
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
 		drawTexturedModalRect(	sizeX,
@@ -328,7 +329,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            tick partial
 	 */
 	private void drawTooltips(int i, int j, float f) {
-		this.mc.renderEngine.resetBoundTexture();
+		// this.mc.getTextureManager()
 		for (Object button : this.buttonList) {
 			if (button instanceof GuiButtonWireless) {
 				GuiButtonWireless guibutton = (GuiButtonWireless) button;

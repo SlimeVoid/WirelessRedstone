@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
@@ -114,7 +115,7 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 	 * 
 	 * @return Background Image
 	 */
-	protected abstract String getBackgroundImage();
+	protected abstract ResourceLocation getBackgroundImage();
 
 	/**
 	 * Fetches the Gui Name to display at the top of the Gui
@@ -196,7 +197,7 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 	 *            tick partial
 	 */
 	private void drawTooltips(int i, int j, float f) {
-		this.mc.renderEngine.resetBoundTexture();
+		// this.mc.renderEngine.resetBoundTexture();
 		for (Object button : this.buttonList) {
 			if (button instanceof GuiButtonWireless) {
 				GuiButtonWireless guibutton = (GuiButtonWireless) button;

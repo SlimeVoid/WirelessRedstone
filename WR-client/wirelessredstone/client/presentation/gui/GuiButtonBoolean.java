@@ -81,9 +81,9 @@ public class GuiButtonBoolean extends GuiButtonWireless {
 		if (this.drawButton) {
 			FontRenderer fontrenderer = mc.fontRenderer;
 			if (state) {
-				mc.renderEngine.bindTexture(this.getButtonTexture(state));
+				mc.getTextureManager().bindTexture(this.getButtonTexture(state));
 			} else {
-				mc.renderEngine.bindTexture(this.getButtonTexture(state));
+				mc.getTextureManager().bindTexture(this.getButtonTexture(state));
 			}
 
 			GL11.glColor4f(	1.0F,

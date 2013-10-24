@@ -18,6 +18,7 @@ import java.util.TreeMap;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -42,13 +43,13 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	@SideOnly(Side.CLIENT)
 	public static WirelessRemoteDevice							remoteTransmitter;
 
-	public static HashMap<EntityLiving, IWirelessDevice>		remoteTransmitters;
+	public static HashMap<EntityLivingBase, IWirelessDevice>	remoteTransmitters;
 	public static TreeMap<WirelessCoordinates, IWirelessDevice>	remoteWirelessCoords;
 
 	protected int												slot;
 	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList();
 
-	protected WirelessRemoteDevice(World world, EntityLiving entity) {
+	protected WirelessRemoteDevice(World world, EntityLivingBase entity) {
 		super(world, entity, null);
 		if (entity instanceof EntityPlayer) {
 			this.slot = ((EntityPlayer) entity).inventory.currentItem;
@@ -56,7 +57,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 		}
 	}
 
-	public WirelessRemoteDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData) {
+	public WirelessRemoteDevice(World world, EntityLivingBase entityliving, IWirelessDeviceData deviceData) {
 		super(world, entityliving, deviceData);
 	}
 
@@ -121,7 +122,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static void activatePlayerWirelessRemote(World world, EntityLiving entityliving) {
+	public static void activatePlayerWirelessRemote(World world, EntityLivingBase entityliving) {
 		if (entityliving instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entityliving;
 			if (remoteTransmitter != null) {
@@ -139,7 +140,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static boolean deactivatePlayerWirelessRemote(World world, EntityLiving entityliving) {
+	public static boolean deactivatePlayerWirelessRemote(World world, EntityLivingBase entityliving) {
 		if (entityliving instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entityliving;
 			if (remoteTransmitter == null) {
@@ -163,7 +164,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 		return false;
 	}
 
-	public static void activateWirelessRemote(World world, EntityLiving entityliving) {
+	public static void activateWirelessRemote(World world, EntityLivingBase entityliving) {
 		if (remoteTransmitters.containsKey(entityliving)) {
 			IWirelessDevice remote = remoteTransmitters.get(entityliving);
 			if (((WirelessRemoteDevice) remote).isBeingHeld()) {
@@ -183,7 +184,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 		}
 	}
 
-	public static boolean deactivateWirelessRemote(World world, EntityLiving entityliving) {
+	public static boolean deactivateWirelessRemote(World world, EntityLivingBase entityliving) {
 		if (remoteTransmitters.containsKey(entityliving)) {
 			IWirelessDevice remote = remoteTransmitters.get(entityliving);
 			if (remoteWirelessCoords.containsKey(remote.getCoords())) {

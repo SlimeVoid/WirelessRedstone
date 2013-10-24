@@ -433,7 +433,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-		this.readFromNBT(pkt.customParam1);
+		this.readFromNBT(pkt.data);
 		this.onInventoryChanged();
 	}
 
@@ -475,7 +475,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	}
 
 	@Override
-	public boolean isStackValidForSlot(int slot, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
 		return this.isRedstoneWirelessStackValidForSlot(slot,
 														itemstack);
 	}

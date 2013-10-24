@@ -14,19 +14,17 @@ package wirelessredstone.addon.powerconfig.client.presentation.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
-
 import net.minecraft.client.gui.GuiButton;
-
+import net.minecraft.util.ResourceLocation;
 import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigCommands;
 import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigSettings;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
-import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.client.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.client.presentation.gui.GuiButtonWirelessExit;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class GuiRedstoneWirelessPowerDirector extends
 		GuiRedstoneWirelessInventory {
@@ -43,7 +41,7 @@ public class GuiRedstoneWirelessPowerDirector extends
 	}
 
 	@Override
-	public String getBackgroundImage() {
+	public ResourceLocation getBackgroundImage() {
 		return GuiLib.GUI_MEDIUM;
 	}
 

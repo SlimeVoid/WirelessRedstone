@@ -13,6 +13,7 @@ package wirelessredstone.client.presentation.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -55,8 +56,7 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
 	public void drawButton(Minecraft minecraft, int i, int j) {
 		FontRenderer fontrenderer = minecraft.fontRenderer;
 
-		GL11.glBindTexture(	3553 /* GL_TEXTURE_2D */,
-							minecraft.renderEngine.getTexture(this.getButtonTexture(false)));
+		minecraft.getTextureManager().bindTexture(this.getButtonTexture(false));
 		GL11.glColor4f(	1.0F,
 						1.0F,
 						1.0F,
@@ -82,7 +82,7 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
 	}
 
 	@Override
-	protected String getButtonTexture(boolean state) {
+	protected ResourceLocation getButtonTexture(boolean state) {
 		return GuiLib.GUI_EXIT;
 	}
 }

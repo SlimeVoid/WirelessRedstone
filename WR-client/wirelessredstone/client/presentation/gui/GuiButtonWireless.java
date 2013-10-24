@@ -11,11 +11,10 @@
  */
 package wirelessredstone.client.presentation.gui;
 
-import org.lwjgl.opengl.GL11;
-
-import wirelessredstone.core.lib.GuiLib;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
+import wirelessredstone.core.lib.GuiLib;
 
 /**
  * A GUI Button<br>
@@ -142,7 +141,7 @@ public class GuiButtonWireless extends GuiButton {
 	 * 
 	 * @param state
 	 */
-	protected String getButtonTexture(boolean state) {
+	protected ResourceLocation getButtonTexture(boolean state) {
 		return state ? GuiLib.GUI_ON : GuiLib.GUI_OFF;
 	}
 }

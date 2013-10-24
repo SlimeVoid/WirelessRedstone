@@ -11,7 +11,7 @@
  */
 package wirelessredstone.network.packets.executor;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import wirelessredstone.api.IDevicePacketExecutor;
@@ -37,5 +37,5 @@ public abstract class DevicePacketDeactivateExecutor implements
 
 	protected abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
 
-	protected abstract IWirelessDevice getDevice(World world, EntityLiving entityliving, IWirelessDeviceData deviceData);
+	protected abstract IWirelessDevice getDevice(World world, EntityLivingBase entityliving, IWirelessDeviceData deviceData);
 }

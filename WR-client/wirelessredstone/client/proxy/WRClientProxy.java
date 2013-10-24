@@ -142,7 +142,7 @@ public class WRClientProxy extends WRCommonProxy {
 
 	@Override
 	public String getMinecraftDir() {
-		return Minecraft.getMinecraftDir().toString();
+		return Minecraft.getMinecraft().mcDataDir.getPath();
 	}
 
 	@Override
