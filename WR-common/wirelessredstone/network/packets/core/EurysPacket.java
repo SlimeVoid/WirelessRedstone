@@ -30,9 +30,9 @@ public abstract class EurysPacket {
 	 * Packet53BlockChange and Packet59ComplexEntity. Used to separate them into
 	 * a different send queue.
 	 */
-	public boolean isChunkDataPacket = false;
+	public boolean	isChunkDataPacket	= false;
 
-	private String channel;
+	private String	channel;
 
 	public void setChannel(String channel) {
 		this.channel = channel;

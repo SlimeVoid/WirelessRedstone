@@ -28,10 +28,10 @@ import cpw.mods.fml.relauncher.Side;
  * @author ali4z
  */
 public class LoggerRedstoneWireless {
-	private static LoggerRedstoneWireless instance;
-	private String name;
-	private LoggerRedstoneWirelessWriter writer;
-	private LogLevel filterLevel;
+	private static LoggerRedstoneWireless	instance;
+	private String							name;
+	private LoggerRedstoneWirelessWriter	writer;
+	private LogLevel						filterLevel;
 
 	/**
 	 * Log level.<br>
@@ -51,12 +51,12 @@ public class LoggerRedstoneWireless {
 	/**
 	 * Gets the logger singleton instance.
 	 * 
-	 * @param name Logger domain name.
+	 * @param name
+	 *            Logger domain name.
 	 * @return Logger instance.
 	 */
 	public static LoggerRedstoneWireless getInstance(String name) {
-		if (instance == null)
-			instance = new LoggerRedstoneWireless();
+		if (instance == null) instance = new LoggerRedstoneWireless();
 
 		instance.name = name;
 
@@ -67,7 +67,8 @@ public class LoggerRedstoneWireless {
 	 * Sets the filtering level based on a string.<br>
 	 * "DEBUG","INFO","WARNING","ERROR" are valid strings.
 	 * 
-	 * @param f log level string
+	 * @param f
+	 *            log level string
 	 * @return true if string valid was valid. Defaults to INFO if not.
 	 */
 	public boolean setFilterLevel(String f) {
@@ -90,80 +91,71 @@ public class LoggerRedstoneWireless {
 	}
 
 	private boolean filter(LogLevel lvl) {
-		if (filterLevel == LogLevel.DEBUG)
-			return true;
+		if (filterLevel == LogLevel.DEBUG) return true;
 		else if (filterLevel == LogLevel.INFO) {
-			if (lvl == LogLevel.DEBUG)
-				return false;
-			else
-				return true;
+			if (lvl == LogLevel.DEBUG) return false;
+			else return true;
 		} else if (filterLevel == LogLevel.WARNING) {
-			if (lvl == LogLevel.DEBUG || lvl == LogLevel.INFO)
-				return false;
-			else
-				return true;
+			if (lvl == LogLevel.DEBUG || lvl == LogLevel.INFO) return false;
+			else return true;
 		} else if (filterLevel == LogLevel.ERROR) {
-			if (lvl == LogLevel.ERROR)
-				return true;
-			else
-				return false;
-		} else
-			return true;
+			if (lvl == LogLevel.ERROR) return true;
+			else return false;
+		} else return true;
 	}
 
 	/**
 	 * Write a message to the logger.
 	 * 
-	 * @param msg message text
-	 * @param lvl message level
+	 * @param msg
+	 *            message text
+	 * @param lvl
+	 *            message level
 	 */
 	public void write(boolean isRemote, String msg, LogLevel lvl) {
 		String name = this.name;
 		if (filter(lvl)) {
-			if (writer == null)
-				writer = new LoggerRedstoneWirelessWriter();
+			if (writer == null) writer = new LoggerRedstoneWirelessWriter();
 
 			StringBuilder trace = new StringBuilder();
 			try {
 				throw new Exception();
 			} catch (Exception e) {
 				StackTraceElement[] c = e.getStackTrace();
-				int min = Math.min(3, c.length - 1);
+				int min = Math.min(	3,
+									c.length - 1);
 				for (int i = min; i >= 1; i--) {
-					trace
-							.append(filterClassName(c[i].getClassName()) + "." + c[i]
-									.getMethodName());
-					if (i > 1)
-						trace.append("->");
+					trace.append(filterClassName(c[i].getClassName()) + "."
+									+ c[i].getMethodName());
+					if (i > 1) trace.append("->");
 				}
 			}
 
-			writer.write(lvl.name() + ":" + getSide(isRemote) + ":" + name + ":" + msg + ":" + trace);
+			writer.write(lvl.name() + ":" + getSide(isRemote) + ":" + name
+							+ ":" + msg + ":" + trace);
 		}
 	}
-	
+
 	private String getSide(boolean isRemote) {
-		if ( !isRemote && FMLCommonHandler.instance().getSide() ==  Side.CLIENT ) 
-			return "ISERVER";
-		if (FMLCommonHandler.instance().getSide() ==  Side.CLIENT ) 
-			return "CLIENT";
-		if (FMLCommonHandler.instance().getSide() ==  Side.SERVER ) 
-			return "SERVER";
-		
+		if (!isRemote && FMLCommonHandler.instance().getSide() == Side.CLIENT) return "ISERVER";
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) return "CLIENT";
+		if (FMLCommonHandler.instance().getSide() == Side.SERVER) return "SERVER";
+
 		return "UNKNOWN";
 	}
 
 	/**
 	 * Write an exception stack trace to the logger.
 	 * 
-	 * @param e exception
+	 * @param e
+	 *            exception
 	 */
 	public void writeStackTrace(Exception e) {
-		if (writer == null)
-			writer = new LoggerRedstoneWirelessWriter();
+		if (writer == null) writer = new LoggerRedstoneWirelessWriter();
 
 		writer.writeStackTrace(e);
-		ModLoader.throwException(e.getMessage(), e);
+		ModLoader.throwException(	e.getMessage(),
+									e);
 	}
 
 	/**
@@ -172,17 +164,14 @@ public class LoggerRedstoneWireless {
 	 * @author ali4z
 	 */
 	private class LoggerRedstoneWirelessWriter {
-		private File file;
-		private FileWriter fstream;
-		private PrintWriter out;
+		private File		file;
+		private FileWriter	fstream;
+		private PrintWriter	out;
 
 		public LoggerRedstoneWirelessWriter() {
 			try {
-				file = new File(
-						WRCore.proxy.getMinecraftDir()+
-						File.separator+
-						"wirelessRedstone.log"
-				);
+				file = new File(WRCore.proxy.getMinecraftDir() + File.separator
+								+ "wirelessRedstone.log");
 				fstream = new FileWriter(file);
 				out = new PrintWriter(fstream);
 			} catch (IOException e) {
@@ -218,7 +207,8 @@ public class LoggerRedstoneWireless {
 	 * Find the class name from a string.<br>
 	 * Returns the string beyond the last period ".".
 	 * 
-	 * @param name class name
+	 * @param name
+	 *            class name
 	 * @return Filtered class name.
 	 */
 

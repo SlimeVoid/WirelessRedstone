@@ -26,16 +26,17 @@ public class ClientRedstoneEtherPacketHandler extends SubPacketHandler {
 
 	public static void sendRedstoneEtherPacket(String command, int i, int j, int k, Object freq, boolean state) {
 		PacketRedstoneEther packet = new PacketRedstoneEther(command);
-		packet.setPosition(i, j, k, 0);
+		packet.setPosition(	i,
+							j,
+							k,
+							0);
 		packet.setFreq(freq);
 		packet.setState(state);
-		LoggerRedstoneWireless.getInstance(
-				"ClientRedstoneEtherPacketHandler"
-		).write(
-				true,
-				"sendRedstoneEtherPacket(" + packet.toString()+")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+		LoggerRedstoneWireless.getInstance("ClientRedstoneEtherPacketHandler").write(	true,
+																						"sendRedstoneEtherPacket("
+																								+ packet.toString()
+																								+ ")",
+																						LoggerRedstoneWireless.LogLevel.DEBUG);
 		ClientPacketHandler.sendPacket(packet.getPacket());
 	}
 }

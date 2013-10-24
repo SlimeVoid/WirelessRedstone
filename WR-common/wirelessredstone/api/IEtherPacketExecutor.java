@@ -10,6 +10,7 @@
  * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.api;
+
 /**
  * A Redstone Ether Packet executor.<br>
  * Used by the Redstone Ether Packet handler to execute packet commands.

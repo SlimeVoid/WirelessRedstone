@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.client.presentation.gui;
 
@@ -32,7 +29,7 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	/**
 	 * Associated Wireless Device
 	 */
-	protected IWirelessDeviceData wirelessDeviceData;
+	protected IWirelessDeviceData	wirelessDeviceData;
 
 	/**
 	 * Constructor.<br>
@@ -60,25 +57,17 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 
 	@Override
 	protected void addControls() {
-		buttonList.add(new GuiButtonWireless(0, (width / 2) + 10,
-				(height / 2) - 20, 20, 20, "+"));
-		buttonList.add(new GuiButtonWireless(1, (width / 2) - 30,
-				(height / 2) - 20, 20, 20, "-"));
-		buttonList.add(new GuiButtonWireless(2, (width / 2) + 32,
-				(height / 2) - 20, 20, 20, "+10"));
-		buttonList.add(new GuiButtonWireless(3, (width / 2) - 52,
-				(height / 2) - 20, 20, 20, "-10"));
-		buttonList.add(new GuiButtonWireless(4, (width / 2) + 54,
-				(height / 2) - 20, 26, 20, "+100"));
-		buttonList.add(new GuiButtonWireless(5, (width / 2) - 80,
-				(height / 2) - 20, 26, 20, "-100"));
-		buttonList.add(new GuiButtonWireless(6, (width / 2) + 48,
-				(height / 2) - 42, 32, 20, "+1000"));
-		buttonList.add(new GuiButtonWireless(7, (width / 2) - 80,
-				(height / 2) - 42, 32, 20, "-1000"));
+		buttonList.add(new GuiButtonWireless(0, (width / 2) + 10, (height / 2) - 20, 20, 20, "+"));
+		buttonList.add(new GuiButtonWireless(1, (width / 2) - 30, (height / 2) - 20, 20, 20, "-"));
+		buttonList.add(new GuiButtonWireless(2, (width / 2) + 32, (height / 2) - 20, 20, 20, "+10"));
+		buttonList.add(new GuiButtonWireless(3, (width / 2) - 52, (height / 2) - 20, 20, 20, "-10"));
+		buttonList.add(new GuiButtonWireless(4, (width / 2) + 54, (height / 2) - 20, 26, 20, "+100"));
+		buttonList.add(new GuiButtonWireless(5, (width / 2) - 80, (height / 2) - 20, 26, 20, "-100"));
+		buttonList.add(new GuiButtonWireless(6, (width / 2) + 48, (height / 2) - 42, 32, 20, "+1000"));
+		buttonList.add(new GuiButtonWireless(7, (width / 2) - 80, (height / 2) - 42, 32, 20, "-1000"));
 
 		buttonList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
-				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
+														+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
 
 	@Override
@@ -123,21 +112,17 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 				close();
 				break;
 			}
-			if (freq > 9999)
-				freq -= 10000;
-			if (freq < 0)
-				freq += 10000;
-			
+			if (freq > 9999) freq -= 10000;
+			if (freq < 0) freq += 10000;
+
 			boolean prematureExit = false;
 			for (IGuiRedstoneWirelessOverride override : overrides) {
-				if (((IGuiRedstoneWirelessDeviceOverride) override)
-						.beforeFrequencyChange(wirelessDeviceData, oldFreq,
-								freq))
-					prematureExit = true;
+				if (((IGuiRedstoneWirelessDeviceOverride) override).beforeFrequencyChange(	wirelessDeviceData,
+																							oldFreq,
+																							freq)) prematureExit = true;
 			}
-			if (prematureExit)
-				return;
-				
+			if (prematureExit) return;
+
 			if (oldFreq != freq) {
 				PacketWirelessDevice packet = new PacketWirelessDevice();
 				packet.setCommand(this.getCommand());
@@ -145,9 +130,7 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 				ClientPacketHandler.sendPacket(packet.getPacket());
 			}
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"GuiRedstoneWirelessDevice"
-			).writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessDevice").writeStackTrace(e);
 		}
 	}
 

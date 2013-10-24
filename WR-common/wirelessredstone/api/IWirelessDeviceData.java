@@ -16,45 +16,50 @@ public interface IWirelessDeviceData {
 	/**
 	 * Set the device's ID.
 	 * 
-	 * @param id Device ID.
+	 * @param id
+	 *            Device ID.
 	 */
 	public void setDeviceID(int id);
 
 	/**
 	 * Set the device type.
 	 * 
-	 * @param type Device type.
-	 * 		e.g. "item.wirelessredstone.remote"
+	 * @param type
+	 *            Device type. e.g. "item.wirelessredstone.remote"
 	 */
 	public void setDeviceType(String type);
 
 	/**
 	 * Set the device's name.
 	 * 
-	 * @param name Device name.
+	 * @param name
+	 *            Device name.
 	 */
 	public void setDeviceName(String name);
 
 	/**
 	 * Set the device's dimension based on world's worldType.
 	 * 
-	 * @param dimensionID The world dimensionID.
+	 * @param dimensionID
+	 *            The world dimensionID.
 	 */
 	public void setDeviceDimension(int dimensionID);
 
 	/**
 	 * Set the device's frequency.
 	 * 
-	 * @param freq Device frequency.
-	 * @return 
+	 * @param freq
+	 *            Device frequency.
+	 * @return
 	 */
 	public void setDeviceFreq(String freq);
 
 	/**
 	 * Set the device's state.
 	 * 
-	 * @param state Device state.
-	 * @return 
+	 * @param state
+	 *            Device state.
+	 * @return
 	 */
 	public void setDeviceState(boolean state);
 

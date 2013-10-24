@@ -7,7 +7,6 @@ public interface IPacketWirelessOverride {
 
 	boolean shouldSkipDefault();
 
-	TileEntity getTarget(World world, int xPosition, int yPosition,
-			int zPosition, TileEntity tileentity);
+	TileEntity getTarget(World world, int xPosition, int yPosition, int zPosition, TileEntity tileentity);
 
 }

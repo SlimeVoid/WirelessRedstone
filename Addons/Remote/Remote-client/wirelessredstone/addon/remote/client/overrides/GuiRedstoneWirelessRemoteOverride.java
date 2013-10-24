@@ -24,8 +24,7 @@ public class GuiRedstoneWirelessRemoteOverride implements
 		IGuiRedstoneWirelessDeviceOverride {
 
 	@Override
-	public boolean beforeFrequencyChange(IWirelessDeviceData data,
-			Object oldFreq, Object newFreq) {
+	public boolean beforeFrequencyChange(IWirelessDeviceData data, Object oldFreq, Object newFreq) {
 		if (data instanceof WirelessRemoteData) {
 			World world = ModLoader.getMinecraftInstance().theWorld;
 			if (world.isRemote) {

@@ -27,8 +27,10 @@ public class ClientRemoteChangeFreqExecutor implements IDevicePacketExecutor {
 	@Override
 	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
 		if (p instanceof PacketWirelessDevice) {
-			PacketWirelessDevice packet = (PacketWirelessDevice)p;
-			IWirelessDeviceData data = packet.getDeviceData(WirelessRemoteData.class, world, entityplayer);
+			PacketWirelessDevice packet = (PacketWirelessDevice) p;
+			IWirelessDeviceData data = packet.getDeviceData(WirelessRemoteData.class,
+															world,
+															entityplayer);
 			data.setDeviceFreq(packet.getDeviceFreq());
 			data.setDeviceState(packet.getDeviceState());
 			Gui currentScreen = ModLoader.getMinecraftInstance().currentScreen;

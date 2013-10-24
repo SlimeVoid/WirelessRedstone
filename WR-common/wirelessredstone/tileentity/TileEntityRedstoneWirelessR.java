@@ -29,12 +29,11 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
 	@Override
 	protected void onUpdateEntity() {
 		if (!((BlockRedstoneWirelessR) blockRedstoneWireless).hasTicked()) {
-			((BlockRedstoneWirelessR) blockRedstoneWireless).updateTick(
-					worldObj,
-					getBlockCoord(0),
-					getBlockCoord(1),
-					getBlockCoord(2),
-					null);
+			((BlockRedstoneWirelessR) blockRedstoneWireless).updateTick(worldObj,
+																		getBlockCoord(0),
+																		getBlockCoord(1),
+																		getBlockCoord(2),
+																		null);
 		}
 	}
 }

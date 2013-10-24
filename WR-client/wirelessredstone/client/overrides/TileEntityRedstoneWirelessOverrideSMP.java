@@ -23,7 +23,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 		ITileEntityRedstoneWirelessOverride {
 	@Override
 	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
-		return false;//tileentity.worldObj.isRemote;
+		return false;// tileentity.worldObj.isRemote;
 	}
 
 	@Override
@@ -31,9 +31,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 	}
 
 	@Override
-	public boolean beforeHandleData(
-			TileEntityRedstoneWireless tileentityredstonewireless,
-			IRedstoneWirelessData data) {
+	public boolean beforeHandleData(TileEntityRedstoneWireless tileentityredstonewireless, IRedstoneWirelessData data) {
 		if (data != null && tileentityredstonewireless != null) {
 			if (data instanceof PacketWirelessTile) {
 				PacketWirelessTile packetData = (PacketWirelessTile) data;
@@ -42,18 +40,19 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 					teRWT.setFreq(packetData.getFreq().toString());
 					teRWT.onInventoryChanged();
 					teRWT.worldObj.markBlockForRenderUpdate(packetData.xPosition,
-							packetData.yPosition, packetData.zPosition);
+															packetData.yPosition,
+															packetData.zPosition);
 				}
 
 				if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
 					TileEntityRedstoneWirelessR teRWR = (TileEntityRedstoneWirelessR) tileentityredstonewireless;
 					teRWR.setFreq(packetData.getFreq().toString());
-					teRWR.setInDirectlyPowering(packetData
-							.getInDirectlyPowering());
+					teRWR.setInDirectlyPowering(packetData.getInDirectlyPowering());
 					teRWR.setPowerDirections(packetData.getPowerDirections());
 					teRWR.onInventoryChanged();
 					teRWR.worldObj.markBlockForRenderUpdate(packetData.xPosition,
-							packetData.yPosition, packetData.zPosition);
+															packetData.yPosition,
+															packetData.zPosition);
 				}
 			}
 		}

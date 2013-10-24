@@ -34,25 +34,20 @@ public class ServerTilePacketHandler extends SubPacketHandler {
 	/**
 	 * Broadcast a wireless tile.
 	 * 
-	 * @param tileentity The tile to broadcast.
-	 * @param world The world object.
+	 * @param tileentity
+	 *            The tile to broadcast.
+	 * @param world
+	 *            The world object.
 	 */
 	public static void sendWirelessTileToAll(TileEntityRedstoneWireless tileentity, World world) {
-		LoggerRedstoneWireless.getInstance(
-				"ServerTilePacketHandler"
-		).write(
-				world.isRemote,
-				"sendWirelessTileToAll()",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		
+		LoggerRedstoneWireless.getInstance("ServerTilePacketHandler").write(world.isRemote,
+																			"sendWirelessTileToAll()",
+																			LoggerRedstoneWireless.LogLevel.DEBUG);
+
 		// Assemble packet.
-		PacketWirelessTile packet = new PacketWirelessTile(
-				PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(),
-					tileentity);
-		
+		PacketWirelessTile packet = new PacketWirelessTile(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(), tileentity);
+
 		// Broadcast packet.
-		ServerPacketHandler.broadcastPacket(packet
-				.getPacket());
+		ServerPacketHandler.broadcastPacket(packet.getPacket());
 	}
 }

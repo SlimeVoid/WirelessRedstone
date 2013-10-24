@@ -28,10 +28,11 @@ public interface IWirelessDevice {
 	/**
 	 * Set the owner.
 	 * 
-	 * @param a living entity
+	 * @param a
+	 *            living entity
 	 */
 	void setOwner(EntityLiving entity);
-	
+
 	/**
 	 * Get the owner of the device instance
 	 * 
@@ -42,7 +43,8 @@ public interface IWirelessDevice {
 	/**
 	 * Set the frequency of the wireless device.
 	 * 
-	 * @param freq Frequency
+	 * @param freq
+	 *            Frequency
 	 */
 	void setFreq(String freq);
 
@@ -63,16 +65,20 @@ public interface IWirelessDevice {
 	/**
 	 * Set the device's coordinates.
 	 * 
-	 * @param coords Device Coordinates.
+	 * @param coords
+	 *            Device Coordinates.
 	 */
 	void setCoords(WirelessCoordinates coords);
 
 	/**
 	 * Set the device's coordinates.
 	 * 
-	 * @param x the xPosition.
-	 * @param y the yPosition.
-	 * @param z the zPosition
+	 * @param x
+	 *            the xPosition.
+	 * @param y
+	 *            the yPosition.
+	 * @param z
+	 *            the zPosition
 	 */
 	void setCoords(int x, int y, int z);
 
@@ -118,11 +124,12 @@ public interface IWirelessDevice {
 	 * @return device name
 	 */
 	String getName();
-	
+
 	/**
 	 * Return a packet to send for this device
 	 * 
-	 * @param devicedata the device data to send
+	 * @param devicedata
+	 *            the device data to send
 	 * 
 	 * @return the packet to send
 	 */

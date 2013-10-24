@@ -26,44 +26,38 @@ import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ClientTilePacketHandler extends SubPacketHandler {
-	
+
 	@Override
 	protected PacketWireless createNewPacketWireless() {
 		return new PacketWirelessTile();
 	}
-	
+
 	@Override
-	protected void handlePacket(PacketWireless packet, World world, EntityPlayer player ) {
-		LoggerRedstoneWireless.getInstance(
-				"ClientTilePacketHandler"
-		).write(
-				world.isRemote,
-				"handlePacket(" + packet.toString()+")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		
+	protected void handlePacket(PacketWireless packet, World world, EntityPlayer player) {
+		LoggerRedstoneWireless.getInstance("ClientTilePacketHandler").write(world.isRemote,
+																			"handlePacket("
+																					+ packet.toString()
+																					+ ")",
+																			LoggerRedstoneWireless.LogLevel.DEBUG);
+
 		TileEntity tileentity = packet.getTarget(world);
 		if (packet.getCommand().equals(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString())) {
-			handleFetchTile(packet,tileentity);
+			handleFetchTile(packet,
+							tileentity);
 		}
 	}
-	
+
 	private void handleFetchTile(PacketWireless packet, TileEntity tileentity) {
-		if (
-				tileentity != null && 
-				tileentity instanceof TileEntityRedstoneWireless
-		) {
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWireless) {
 			TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
-			tileentityredstonewireless.handleData((PacketWirelessTile)packet);
+			tileentityredstonewireless.handleData((PacketWirelessTile) packet);
 
 			GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
-			if (
-					screen != null && 
-					screen instanceof GuiRedstoneWireless &&
-					screen instanceof GuiRedstoneWirelessInventory && 
-					((GuiRedstoneWirelessInventory) screen).compareInventory(tileentityredstonewireless)
-			)
-				((GuiRedstoneWireless) screen).refreshGui();
+			if (screen != null
+				&& screen instanceof GuiRedstoneWireless
+				&& screen instanceof GuiRedstoneWirelessInventory
+				&& ((GuiRedstoneWirelessInventory) screen).compareInventory(tileentityredstonewireless)) ((GuiRedstoneWireless) screen).refreshGui();
 		}
 	}
 }

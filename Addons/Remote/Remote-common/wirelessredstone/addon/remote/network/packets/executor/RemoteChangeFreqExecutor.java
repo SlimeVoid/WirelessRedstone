@@ -27,7 +27,9 @@ public class RemoteChangeFreqExecutor implements IDevicePacketExecutor {
 	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
 		if (p instanceof PacketWirelessDevice) {
 			PacketWirelessDevice packet = (PacketWirelessDevice) p;
-			IWirelessDeviceData data = packet.getDeviceData(WirelessRemoteData.class, world, entityplayer);
+			IWirelessDeviceData data = packet.getDeviceData(WirelessRemoteData.class,
+															world,
+															entityplayer);
 			int freq = Integer.parseInt(packet.getDeviceFreq());
 			int oldFreq = Integer.parseInt(data.getDeviceFreq());
 			data.setDeviceFreq(Integer.toString(oldFreq + freq));

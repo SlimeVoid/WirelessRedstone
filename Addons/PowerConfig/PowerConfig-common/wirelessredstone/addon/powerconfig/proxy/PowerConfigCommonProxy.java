@@ -37,7 +37,9 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new ContainerRedstoneWireless(world.getBlockTileEntity(x,  y,  z));
+		return new ContainerRedstoneWireless(world.getBlockTileEntity(	x,
+																		y,
+																		z));
 	}
 
 	@Override
@@ -90,22 +92,20 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 
 	@Override
 	public void initPacketHandlers() {
-		/////////////////////
+		// ///////////////////
 		// Server Executor //
-		/////////////////////
-		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(
-				PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(),
-				new PacketPowerConfigSettingsExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(
-				PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(),
-				new PacketPowerConfigSettingsExecutor());
+		// ///////////////////
+		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(),
+																					new PacketPowerConfigSettingsExecutor());
+		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(),
+																					new PacketPowerConfigSettingsExecutor());
 	}
 
 	@Override
 	public void connectionClosed(INetworkManager manager) {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@Override
 	public void addOverrides() {
 		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
@@ -114,6 +114,6 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 	@Override
 	public void doSomething(String command, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

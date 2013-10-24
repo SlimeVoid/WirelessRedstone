@@ -24,8 +24,9 @@ import wirelessredstone.network.packets.core.PacketPayload;
  * @author Eurymachus
  * 
  */
-public class PacketWirelessDevice extends PacketWireless implements IWirelessDeviceData {
-	
+public class PacketWirelessDevice extends PacketWireless implements
+		IWirelessDeviceData {
+
 	public PacketWirelessDevice() {
 		super(PacketIds.DEVICE);
 	}
@@ -48,12 +49,14 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 
 	@Override
 	public void setDeviceID(int id) {
-		this.payload.setIntPayload(0, id);
+		this.payload.setIntPayload(	0,
+									id);
 	}
 
 	@Override
 	public void setDeviceDimension(int dimensionID) {
-		this.payload.setIntPayload(1, dimensionID);
+		this.payload.setIntPayload(	1,
+									dimensionID);
 	}
 
 	@Override
@@ -83,12 +86,14 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 
 	@Override
 	public void setDeviceName(String name) {
-		this.payload.setStringPayload(1, name);
+		this.payload.setStringPayload(	1,
+										name);
 	}
 
 	@Override
 	public void setDeviceType(String devicetype) {
-		this.payload.setStringPayload(2, devicetype);
+		this.payload.setStringPayload(	2,
+										devicetype);
 	}
 
 	@Override
@@ -107,7 +112,8 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 	}
 
 	public void isForced(boolean isForced) {
-		this.payload.setBoolPayload(1, isForced);
+		this.payload.setBoolPayload(1,
+									isForced);
 	}
 
 	public boolean isForced() {
@@ -118,14 +124,13 @@ public class PacketWirelessDevice extends PacketWireless implements IWirelessDev
 	public boolean targetExists(World world) {
 		return false;
 	}
-	
+
 	public IWirelessDeviceData getDeviceData(Class<? extends IWirelessDeviceData> deviceDataClass, World world, EntityLiving entityliving) {
-		return WirelessDeviceData.getDeviceData(
-				deviceDataClass,
-				this.getDeviceType(),
-				this.getDeviceID(),
-				this.getDeviceName(),
-				world,
-				entityliving);
+		return WirelessDeviceData.getDeviceData(deviceDataClass,
+												this.getDeviceType(),
+												this.getDeviceID(),
+												this.getDeviceName(),
+												world,
+												entityliving);
 	}
 }

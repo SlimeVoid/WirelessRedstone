@@ -27,16 +27,16 @@ import net.minecraft.world.World;
  * 
  */
 public abstract class PacketUpdate extends EurysPacket {
-	private int packetId;
+	private int		packetId;
 
-	public int xPosition;
-	public int yPosition;
-	public int zPosition;
-	public int side;
+	public int		xPosition;
+	public int		yPosition;
+	public int		zPosition;
+	public int		side;
 
-	public float vecX;
-	public float vecY;
-	public float vecZ;
+	public float	vecX;
+	public float	vecY;
+	public float	vecZ;
 
 	public void setPosition(int x, int y, int z, int side) {
 		this.xPosition = x;
@@ -51,7 +51,7 @@ public abstract class PacketUpdate extends EurysPacket {
 		this.vecZ = vecZ;
 	}
 
-	public PacketPayload payload;
+	public PacketPayload	payload;
 
 	public PacketUpdate() {
 	}
@@ -85,11 +85,10 @@ public abstract class PacketUpdate extends EurysPacket {
 		short var2 = par0DataInputStream.readShort();
 
 		if (var2 > par1) {
-			throw new IOException(
-					"Received string length longer than maximum allowed (" + var2 + " > " + par1 + ")");
+			throw new IOException("Received string length longer than maximum allowed ("
+									+ var2 + " > " + par1 + ")");
 		} else if (var2 < 0) {
-			throw new IOException(
-					"Received string length is less than zero! Weird string!");
+			throw new IOException("Received string length is less than zero! Weird string!");
 		} else {
 			StringBuilder var3 = new StringBuilder();
 
@@ -143,12 +142,13 @@ public abstract class PacketUpdate extends EurysPacket {
 	@Override
 	public void readData(DataInputStream data) throws IOException {
 
-		this.setPosition(
-				data.readInt(),
-				data.readInt(),
-				data.readInt(),
-				data.readInt());
-		this.setVecs(data.readFloat(), data.readFloat(), data.readFloat());
+		this.setPosition(	data.readInt(),
+							data.readInt(),
+							data.readInt(),
+							data.readInt());
+		this.setVecs(	data.readFloat(),
+						data.readFloat(),
+						data.readFloat());
 
 		int intSize = data.readInt();
 		int floatSize = data.readInt();
@@ -156,23 +156,23 @@ public abstract class PacketUpdate extends EurysPacket {
 		int boolSize = data.readInt();
 		int doubleSize = data.readInt();
 
-		this.payload = new PacketPayload(
-				intSize,
-					floatSize,
-					stringSize,
-					boolSize,
-					doubleSize);
+		this.payload = new PacketPayload(intSize, floatSize, stringSize, boolSize, doubleSize);
 
 		for (int i = 0; i < this.payload.getIntSize(); i++)
-			this.payload.setIntPayload(i, data.readInt());
+			this.payload.setIntPayload(	i,
+										data.readInt());
 		for (int i = 0; i < this.payload.getFloatSize(); i++)
-			this.payload.setFloatPayload(i, data.readFloat());
+			this.payload.setFloatPayload(	i,
+											data.readFloat());
 		for (int i = 0; i < this.payload.getStringSize(); i++)
-			this.payload.setStringPayload(i, data.readUTF());
+			this.payload.setStringPayload(	i,
+											data.readUTF());
 		for (int i = 0; i < this.payload.getBoolSize(); i++)
-			this.payload.setBoolPayload(i, data.readBoolean());
+			this.payload.setBoolPayload(i,
+										data.readBoolean());
 		for (int i = 0; i < this.payload.getDoubleSize(); i++)
-			this.payload.setDoublePayload(i, data.readDouble());
+			this.payload.setDoublePayload(	i,
+											data.readDouble());
 	}
 
 	public abstract boolean targetExists(World world);

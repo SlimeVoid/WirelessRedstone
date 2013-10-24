@@ -28,9 +28,9 @@ public class IndexInPayload {
 		this.doubleIndex = doubleIndex;
 	}
 
-	public int intIndex = 0;
-	public int floatIndex = 0;
-	public int stringIndex = 0;
-	public int boolIndex = 0;
-	public int doubleIndex = 0;
+	public int	intIndex	= 0;
+	public int	floatIndex	= 0;
+	public int	stringIndex	= 0;
+	public int	boolIndex	= 0;
+	public int	doubleIndex	= 0;
 }

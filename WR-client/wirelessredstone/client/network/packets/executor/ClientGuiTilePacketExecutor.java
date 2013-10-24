@@ -24,16 +24,17 @@ public class ClientGuiTilePacketExecutor implements IPacketExecutor {
 
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		LoggerRedstoneWireless.getInstance(
-				"ClientGuiTilePacketExecutor"
-		).write(
-				world.isRemote,
-				"handlePacket(" + packet.toString()+")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+		LoggerRedstoneWireless.getInstance("ClientGuiTilePacketExecutor").write(world.isRemote,
+																				"handlePacket("
+																						+ packet.toString()
+																						+ ")",
+																				LoggerRedstoneWireless.LogLevel.DEBUG);
 		TileEntity tileentity = packet.getTarget(world);
-		if (tileentity != null && tileentity instanceof TileEntityRedstoneWireless) {
-			WRCore.proxy.activateGUI(world, entityplayer, (TileEntityRedstoneWireless)tileentity);
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWireless) {
+			WRCore.proxy.activateGUI(	world,
+										entityplayer,
+										(TileEntityRedstoneWireless) tileentity);
 		}
 	}
 }

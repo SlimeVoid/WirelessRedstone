@@ -20,38 +20,40 @@ import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.core.PacketPayload;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class PacketWirelessTile extends PacketWireless implements IRedstoneWirelessData {
+public class PacketWirelessTile extends PacketWireless implements
+		IRedstoneWirelessData {
 	public PacketWirelessTile() {
 		super(PacketIds.TILE);
 	}
 
 	public PacketWirelessTile(String command, TileEntityRedstoneWireless entity) {
 		super(PacketIds.TILE, new PacketPayload(0, 0, 1, 13));
-		this.setPosition(
-				entity.getBlockCoord(0),
-				entity.getBlockCoord(1),
-				entity.getBlockCoord(2),
-				0);
-		LoggerRedstoneWireless.getInstance(
-				"PacketWirelessTile"
-		).write(
-				entity.worldObj.isRemote,
-				this.getCommand() + " - ("+this.xPosition + "," + this.yPosition + "," + this.zPosition+")",
-				LogLevel.INFO
-		);
+		this.setPosition(	entity.getBlockCoord(0),
+							entity.getBlockCoord(1),
+							entity.getBlockCoord(2),
+							0);
+		LoggerRedstoneWireless.getInstance("PacketWirelessTile").write(	entity.worldObj.isRemote,
+																		this.getCommand()
+																				+ " - ("
+																				+ this.xPosition
+																				+ ","
+																				+ this.yPosition
+																				+ ","
+																				+ this.zPosition
+																				+ ")",
+																		LogLevel.INFO);
 		this.setCommand(command);
 		this.setFreq(entity.getFreq());
-		this.setState(RedstoneEther.getInstance().getFreqState(
-				entity.worldObj,
-				entity.getFreq()));
+		this.setState(RedstoneEther.getInstance().getFreqState(	entity.worldObj,
+																entity.getFreq()));
 		this.setPowerDirections(entity.getPowerDirections());
 		this.setInDirectlyPowering(entity.getInDirectlyPowering());
 	}
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
-				.getFreq() + "]";
+		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+				+ zPosition + ")[" + this.getFreq() + "]";
 	}
 
 	public boolean[] getPowerDirections() {
@@ -67,7 +69,8 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 	public void setPowerDirections(boolean[] dir) {
 		int j = this.payload.getBoolSize() - 12;
 		for (int i = 0; i < 6; i++) {
-			this.payload.setBoolPayload(j, dir[i]);
+			this.payload.setBoolPayload(j,
+										dir[i]);
 			j++;
 		}
 	}
@@ -85,16 +88,16 @@ public class PacketWirelessTile extends PacketWireless implements IRedstoneWirel
 	public void setInDirectlyPowering(boolean[] indir) {
 		int j = this.payload.getBoolSize() - 6;
 		for (int i = 0; i < 6; i++) {
-			this.payload.setBoolPayload(j, indir[i]);
+			this.payload.setBoolPayload(j,
+										indir[i]);
 			j++;
 		}
 	}
 
 	@Override
 	public boolean targetExists(World world) {
-		return world.blockHasTileEntity(
-				this.xPosition,
-				this.yPosition,
-				this.zPosition);
+		return world.blockHasTileEntity(this.xPosition,
+										this.yPosition,
+										this.zPosition);
 	}
 }

@@ -28,23 +28,23 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class WRemoteCore {
-	public static boolean isLoaded = false;
-	public static Item itemRemote;
-	public static int remoteID = 6245;
+	public static boolean				isLoaded		= false;
+	public static Item					itemRemote;
+	public static int					remoteID		= 6245;
 
 	@SideOnly(Side.CLIENT)
-	public static boolean mouseDown, wasMouseDown, remotePulsing;
+	public static boolean				mouseDown, wasMouseDown, remotePulsing;
 
-	public static long pulseTime = 2500;
-	public static boolean duraTogg = true;
-	public static int maxPulseThreads = 2;
-	public static int remoteoff = 0;
-	public static int remoteon = 1;
+	public static long					pulseTime		= 2500;
+	public static boolean				duraTogg		= true;
+	public static int					maxPulseThreads	= 2;
+	public static int					remoteoff		= 0;
+	public static int					remoteon		= 1;
 
 	@SidedProxy(
 			clientSide = "wirelessredstone.addon.remote.client.proxy.WRemoteClientProxy",
 			serverSide = "wirelessredstone.addon.remote.proxy.WRemoteCommonProxy")
-	public static IRemoteCommonProxy proxy;
+	public static IRemoteCommonProxy	proxy;
 
 	/**
 	 * Fires off all the canons.<br>
@@ -77,36 +77,36 @@ public class WRemoteCore {
 	 * - Remote item ID: (Remote.ID)<br>
 	 */
 	private static void loadConfig() {
-		remoteID = (Integer) ConfigStoreRedstoneWireless
-				.getInstance("Remote")
-					.get("ID", Integer.class, new Integer(remoteID));
-		duraTogg = (Boolean) ConfigStoreRedstoneWireless
-				.getInstance("Remote")
-					.get("Durability", Boolean.class, new Boolean(duraTogg));
-		pulseTime = (Long) ConfigStoreRedstoneWireless
-				.getInstance("Remote")
-					.get("PulseDuration", Long.class, new Long(pulseTime));
-		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"Remote").get(
-				"MaxPulseThreads",
-				Integer.class,
-				new Integer(maxPulseThreads));
+		remoteID = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"ID",
+																					Integer.class,
+																					new Integer(remoteID));
+		duraTogg = (Boolean) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"Durability",
+																					Boolean.class,
+																					new Boolean(duraTogg));
+		pulseTime = (Long) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"PulseDuration",
+																					Long.class,
+																					new Long(pulseTime));
+		maxPulseThreads = (Integer) ConfigStoreRedstoneWireless.getInstance("Remote").get(	"MaxPulseThreads",
+																							Integer.class,
+																							new Integer(maxPulseThreads));
 	}
 
 	/**
 	 * Initializes Item objects.
 	 */
 	private static void initItems() {
-		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256))
-				.setUnlocalizedName("wirelessredstone.remote");
+		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256)).setUnlocalizedName("wirelessredstone.remote");
 	}
 
 	/**
 	 * Registers the item names
 	 */
 	private static void registerItems() {
-		LanguageRegistry.addName(itemRemote, "Wireless Remote");
-		LanguageRegistry.instance().addNameForObject(itemRemote, "de_DE", "Drahtloser Funkfernbedienung");
+		LanguageRegistry.addName(	itemRemote,
+									"Wireless Remote");
+		LanguageRegistry.instance().addNameForObject(	itemRemote,
+														"de_DE",
+														"Drahtloser Funkfernbedienung");
 	}
 
 	/**
@@ -114,12 +114,13 @@ public class WRemoteCore {
 	 * - Recipe for Remote.
 	 */
 	private static void addRecipes() {
-		GameRegistry.addRecipe(new ItemStack(itemRemote, 1), new Object[] {
-				"I",
-				"T",
-				Character.valueOf('I'),
-				Block.torchRedstoneActive,
-				Character.valueOf('T'),
-				WRCore.blockWirelessT });
+		GameRegistry.addRecipe(	new ItemStack(itemRemote, 1),
+								new Object[] {
+										"I",
+										"T",
+										Character.valueOf('I'),
+										Block.torchRedstoneActive,
+										Character.valueOf('T'),
+										WRCore.blockWirelessT });
 	}
 }

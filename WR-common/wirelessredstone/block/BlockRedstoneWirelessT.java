@@ -50,12 +50,13 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 		this.iconBuffer[1][4] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_ON);
 		this.iconBuffer[1][5] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_ON);
 	}
-	
+
 	/**
 	 * Constructor.<br>
 	 * Sets the Block ID.
 	 * 
-	 * @param i Block ID
+	 * @param i
+	 *            Block ID
 	 */
 	public BlockRedstoneWirelessT(int i, float hardness, float resistance) {
 		super(i, hardness, resistance);
@@ -68,16 +69,22 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 */
 	@Override
 	public void setState(World world, int i, int j, int k, boolean state) {
-		super.setState(world, i, j, k, state);
+		super.setState(	world,
+						i,
+						j,
+						k,
+						state);
 
-		String freq = getFreq(world, i, j, k);
-		RedstoneEther.getInstance().setTransmitterState(
-				world,
-				i,
-				j,
-				k,
-				freq,
-				state);
+		String freq = getFreq(	world,
+								i,
+								j,
+								k);
+		RedstoneEther.getInstance().setTransmitterState(world,
+														i,
+														j,
+														k,
+														freq,
+														state);
 	}
 
 	/**
@@ -89,17 +96,27 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	@Override
 	public void changeFreq(World world, int i, int j, int k, String oldFreq, String freq) {
 		// Remove transmitter from current frequency on the ether.
-		RedstoneEther.getInstance().remTransmitter(world, i, j, k, oldFreq);
+		RedstoneEther.getInstance().remTransmitter(	world,
+													i,
+													j,
+													k,
+													oldFreq);
 
 		// Add transmitter to the ether on new frequency.
-		RedstoneEther.getInstance().addTransmitter(world, i, j, k, freq);
-		RedstoneEther.getInstance().setTransmitterState(
-				world,
-				i,
-				j,
-				k,
-				freq,
-				getState(world, i, j, k));
+		RedstoneEther.getInstance().addTransmitter(	world,
+													i,
+													j,
+													k,
+													freq);
+		RedstoneEther.getInstance().setTransmitterState(world,
+														i,
+														j,
+														k,
+														freq,
+														getState(	world,
+																	i,
+																	j,
+																	k));
 	}
 
 	/**
@@ -110,19 +127,20 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 */
 	@Override
 	protected void onBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
-		RedstoneEther.getInstance().addTransmitter(
-				world,
-				i,
-				j,
-				k,
-				getFreq(world, i, j, k));
+		RedstoneEther.getInstance().addTransmitter(	world,
+													i,
+													j,
+													k,
+													getFreq(world,
+															i,
+															j,
+															k));
 
-		onBlockRedstoneWirelessNeighborChange(
-				world,
-				i,
-				j,
-				k,
-				Block.redstoneWire.blockID);
+		onBlockRedstoneWirelessNeighborChange(	world,
+												i,
+												j,
+												k,
+												Block.redstoneWire.blockID);
 	}
 
 	/**
@@ -132,12 +150,14 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 */
 	@Override
 	protected void onBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
-		RedstoneEther.getInstance().remTransmitter(
-				world,
-				i,
-				j,
-				k,
-				getFreq(world, i, j, k));
+		RedstoneEther.getInstance().remTransmitter(	world,
+													i,
+													j,
+													k,
+													getFreq(world,
+															i,
+															j,
+															k));
 	}
 
 	/**
@@ -146,10 +166,14 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 */
 	@Override
 	protected boolean onBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-		TileEntity tileentity = world.getBlockTileEntity(i, j, k);
+		TileEntity tileentity = world.getBlockTileEntity(	i,
+															j,
+															k);
 
-		if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessT)
-			WRCore.proxy.activateGUI(world, entityplayer, (TileEntityRedstoneWirelessT)tileentity);
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWirelessT) WRCore.proxy.activateGUI(	world,
+																							entityplayer,
+																							(TileEntityRedstoneWirelessT) tileentity);
 
 		return true;
 	}
@@ -163,28 +187,47 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 */
 	@Override
 	protected void onBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-		if (l == this.blockID)
-			return;
+		if (l == this.blockID) return;
 
 		// It was not removed, can provide power and is indirectly getting
 		// powered.
-		if (l > 0 && !getState(world, i, j, k) && (world.getBlockPowerInput(
-				i,
-				j,
-				k) > 0 || world.isBlockIndirectlyGettingPowered(i, j, k)))
-			setState(world, i, j, k, true);
+		if (l > 0
+			&& !getState(	world,
+							i,
+							j,
+							k)
+			&& (world.getBlockPowerInput(	i,
+											j,
+											k) > 0 || world.isBlockIndirectlyGettingPowered(i,
+																							j,
+																							k))) setState(	world,
+																											i,
+																											j,
+																											k,
+																											true);
 		// There are no powering entities, state is deactivated.
-		else if (getState(world, i, j, k) && !(world.getBlockPowerInput(
-				i,
-				j,
-				k) > 0 || world.isBlockIndirectlyGettingPowered(i, j, k)))
-			setState(world, i, j, k, false);
+		else if (getState(	world,
+							i,
+							j,
+							k)
+					&& !(world.getBlockPowerInput(	i,
+													j,
+													k) > 0 || world.isBlockIndirectlyGettingPowered(i,
+																									j,
+																									k))) setState(	world,
+																													i,
+																													j,
+																													k,
+																													false);
 	}
 
 	@Override
 	protected Icon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-		if (getState(iblockaccess.getBlockMetadata(i, j, k))) {
-			return this.getIconFromStateAndSide(1, l);
+		if (getState(iblockaccess.getBlockMetadata(	i,
+													j,
+													k))) {
+			return this.getIconFromStateAndSide(1,
+												l);
 		} else {
 			return getBlockRedstoneWirelessTextureFromSide(l);
 		}
@@ -192,7 +235,8 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 
 	@Override
 	protected Icon getBlockRedstoneWirelessTextureFromSide(int l) {
-		return this.getIconFromStateAndSide(0, l);
+		return this.getIconFromStateAndSide(0,
+											l);
 	}
 
 	@Override

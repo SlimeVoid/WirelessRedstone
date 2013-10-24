@@ -32,13 +32,11 @@ public class PacketRedstoneWirelessOpenGuiInventory extends PacketWireless {
 
 	public PacketRedstoneWirelessOpenGuiInventory(TileEntityRedstoneWireless entity) {
 		this();
-		this.setCommand(PacketRedstoneWirelessCommands.wirelessCommands.sendGui
-				.toString());
-		this.setPosition(
-				entity.getBlockCoord(0),
-				entity.getBlockCoord(1),
-				entity.getBlockCoord(2),
-				0);
+		this.setCommand(PacketRedstoneWirelessCommands.wirelessCommands.sendGui.toString());
+		this.setPosition(	entity.getBlockCoord(0),
+							entity.getBlockCoord(1),
+							entity.getBlockCoord(2),
+							0);
 		this.payload = new PacketPayload(1, 0, 1, 1);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
 			this.setType(0);
@@ -51,8 +49,9 @@ public class PacketRedstoneWirelessOpenGuiInventory extends PacketWireless {
 
 	@Override
 	public String toString() {
-		return this.payload.getIntPayload(0) + " - (" + xPosition + "," + yPosition + "," + zPosition + ")[" + this.payload
-				.getStringPayload(0) + "]";
+		return this.payload.getIntPayload(0) + " - (" + xPosition + ","
+				+ yPosition + "," + zPosition + ")["
+				+ this.payload.getStringPayload(0) + "]";
 	}
 
 	public int getType() {
@@ -60,7 +59,8 @@ public class PacketRedstoneWirelessOpenGuiInventory extends PacketWireless {
 	}
 
 	public void setType(int type) {
-		this.payload.setIntPayload(0, type);
+		this.payload.setIntPayload(	0,
+									type);
 	}
 
 	public boolean getFirstTick() {
@@ -68,14 +68,14 @@ public class PacketRedstoneWirelessOpenGuiInventory extends PacketWireless {
 	}
 
 	public void setFirstTick(boolean firstTick) {
-		this.payload.setBoolPayload(0, firstTick);
+		this.payload.setBoolPayload(0,
+									firstTick);
 	}
 
 	@Override
 	public boolean targetExists(World world) {
-		return world.blockHasTileEntity(
-				this.xPosition,
-				this.yPosition,
-				this.zPosition);
+		return world.blockHasTileEntity(this.xPosition,
+										this.yPosition,
+										this.zPosition);
 	}
 }

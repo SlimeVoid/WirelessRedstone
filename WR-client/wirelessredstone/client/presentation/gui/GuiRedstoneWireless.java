@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.client.presentation.gui;
 
@@ -40,23 +37,23 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	/**
 	 * Current World
 	 */
-	protected World world;
+	protected World									world;
 	/**
 	 * Current Player
 	 */
-	protected EntityPlayer entityplayer;
+	protected EntityPlayer							entityplayer;
 	/**
 	 * Width
 	 */
-	protected int xSize;
+	protected int									xSize;
 	/**
 	 * Height
 	 */
-	protected int ySize;
+	protected int									ySize;
 	/**
 	 * GUI overrides.
 	 */
-	protected List<IGuiRedstoneWirelessOverride> overrides;
+	protected List<IGuiRedstoneWirelessOverride>	overrides;
 
 	/**
 	 * Constructor.<br>
@@ -109,8 +106,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * @return
 	 */
 	private boolean isMouseOverButton(GuiButtonWireless button, int i, int j) {
-		if (button != null)
-			return button.inBounds(i, j);
+		if (button != null) return button.inBounds(	i,
+													j);
 		return false;
 	}
 
@@ -159,11 +156,18 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			drawDefaultBackground();
 			int k = (width - xSize) / 2;
 			int l = (height - ySize) / 2;
-			drawGuiContainerBackgroundLayer(i, j, f);
+			drawGuiContainerBackgroundLayer(i,
+											j,
+											f);
 
 			GL11.glPushMatrix();
-			GL11.glTranslatef(k, l, 0.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GL11.glTranslatef(	k,
+								l,
+								0.0F);
+			GL11.glColor4f(	1.0F,
+							1.0F,
+							1.0F,
+							1.0F);
 			GL11.glDisable(32826 /* GL_RESCALE_NORMAL_EXT */);
 
 			RenderHelper.disableStandardItemLighting();
@@ -172,20 +176,24 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			GL11.glDisable(2929 /* GL_DEPTH_TEST */);
 
 			drawGuiName();
-			drawGuiContainerForegroundLayer(i, j, f);
+			drawGuiContainerForegroundLayer(i,
+											j,
+											f);
 
 			GL11.glPopMatrix();
-			
-			super.drawScreen(i, j, f);
-			
-			drawTooltips(i, j, f);
+
+			super.drawScreen(	i,
+								j,
+								f);
+
+			drawTooltips(	i,
+							j,
+							f);
 
 			GL11.glEnable(2896 /* GL_LIGHTING */);
 			GL11.glEnable(2929 /* GL_DEPTH_TEST */);
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"GuiRedstoneWireless"
-			).writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
 		}
 	}
 
@@ -201,24 +209,32 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            screen X coordinate, bottom right
 	 */
 	protected void drawStringBorder(int x1, int y1, int x2) {
-		drawRect(x1 - 3, y1 - 3, x2 + 3, y1 + 10, 0xff000000);
-		drawRect(x1 - 2, y1 - 2, x2 + 2, y1 + 9, 0xffffffff);
+		drawRect(	x1 - 3,
+					y1 - 3,
+					x2 + 3,
+					y1 + 10,
+					0xff000000);
+		drawRect(	x1 - 2,
+					y1 - 2,
+					x2 + 2,
+					y1 + 9,
+					0xffffffff);
 	}
 
 	/**
 	 * Draws the Name of the Gui at the top of the Gui
 	 */
 	protected void drawGuiName() {
-		drawStringBorder(
-				(xSize / 2)
-						- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
-				6,
-				(xSize / 2)
-						+ (fontRenderer.getStringWidth(this.getGuiName()) / 2));
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+							6,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth(this.getGuiName()) / 2));
 		fontRenderer.drawString(getGuiName(),
-				(xSize / 2)
-						- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
-				6, 0x404040);
+								(xSize / 2)
+										- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+								6,
+								0x404040);
 	}
 
 	/**
@@ -227,9 +243,12 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * @param y
 	 */
 	protected void drawFrequency(int y) {
-		fontRenderer.drawString(this.getFreq() + "", (xSize / 2)
-				- (fontRenderer.getStringWidth(this.getFreq() + "") / 2),
-				(ySize / 2) + y, 0x404040);
+		fontRenderer.drawString(this.getFreq() + "",
+								(xSize / 2)
+										- (fontRenderer.getStringWidth(this.getFreq()
+																		+ "") / 2),
+								(ySize / 2) + y,
+								0x404040);
 	}
 
 	/**
@@ -239,23 +258,30 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * Y the Y position of the text
 	 */
 	protected void drawFrequencyAndBox(int y) {
-		drawStringBorder(
-				(xSize / 2) - (fontRenderer.getStringWidth(getFreq() + "") / 2),
-				(ySize / 2) + y,
-				(xSize / 2) + (fontRenderer.getStringWidth(getFreq() + "") / 2));
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth(getFreq()
+																	+ "") / 2),
+							(ySize / 2) + y,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth(getFreq()
+																	+ "") / 2));
 		drawFrequency(y);
 	}
 
 	protected void drawFrequencyLabel(int y) {
 		fontRenderer.drawString("Frequency",
-				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
-				y, 0x404040);
+								(xSize / 2)
+										- (fontRenderer.getStringWidth("Frequency") / 2),
+								y,
+								0x404040);
 	}
 
 	protected void drawFrequencyLabelAndBox(int y) {
-		drawStringBorder(
-				(xSize / 2) - (fontRenderer.getStringWidth("Frequency") / 2),
-				y, (xSize / 2) + (fontRenderer.getStringWidth("Frequency") / 2));
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth("Frequency") / 2),
+							y,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth("Frequency") / 2));
 		drawFrequencyLabel(y);
 	}
 
@@ -276,11 +302,19 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 *            tick partial
 	 */
 	protected void drawGuiContainerBackgroundLayer(int i, int j, float f) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glColor4f(	1.0F,
+						1.0F,
+						1.0F,
+						1.0F);
 		mc.renderEngine.bindTexture(this.getBackgroundImage());
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
-		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
+		drawTexturedModalRect(	sizeX,
+								sizeY,
+								0,
+								0,
+								xSize,
+								ySize);
 	}
 
 	/**
@@ -298,8 +332,12 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 		for (Object button : this.buttonList) {
 			if (button instanceof GuiButtonWireless) {
 				GuiButtonWireless guibutton = (GuiButtonWireless) button;
-				if (this.isMouseOverButton(guibutton, i, j)) {
-					guibutton.drawToolTip(this.mc, i, j);
+				if (this.isMouseOverButton(	guibutton,
+											i,
+											j)) {
+					guibutton.drawToolTip(	this.mc,
+											i,
+											j);
 				}
 			}
 		}
@@ -335,15 +373,13 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 					}
 				}
 				if (Keyboard.getEventKey() == inventoryKey
-						|| Keyboard.getEventKey() == 28) {
+					|| Keyboard.getEventKey() == 28) {
 					close();
 					return;
 				}
 			}
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"GuiRedstoneWireless"
-			).writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
 		}
 	}
 
@@ -355,12 +391,9 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	public void handleMouseInput() {
 		try {
 			super.handleMouseInput();
-			if (Mouse.getEventButton() == 1 && Mouse.getEventButtonState())
-				close();
+			if (Mouse.getEventButton() == 1 && Mouse.getEventButtonState()) close();
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"GuiRedstoneWireless"
-			).writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
 		}
 	}
 
@@ -372,9 +405,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"GuiRedstoneWireless"
-			).writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
 		}
 	}
 

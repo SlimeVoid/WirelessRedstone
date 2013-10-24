@@ -18,8 +18,7 @@ public class GuiRedstoneWirelessRemoteOverride implements
 		IGuiRedstoneWirelessInventoryOverride {
 
 	@Override
-	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity,
-			Object oldFreq, Object newFreq) {
+	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity, Object oldFreq, Object newFreq) {
 		// TODO :: Auto-generated method stub
 		return false;
 	}

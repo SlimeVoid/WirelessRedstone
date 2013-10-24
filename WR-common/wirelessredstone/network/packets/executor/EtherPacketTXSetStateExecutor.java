@@ -28,13 +28,12 @@ public class EtherPacketTXSetStateExecutor implements IEtherPacketExecutor {
 
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		RedstoneEther.getInstance().setTransmitterState(
-				world,
-				packet.xPosition,
-				packet.yPosition,
-				packet.zPosition,
-				packet.getFreq(),
-				packet.getState());
+		RedstoneEther.getInstance().setTransmitterState(world,
+														packet.xPosition,
+														packet.yPosition,
+														packet.zPosition,
+														packet.getFreq(),
+														packet.getState());
 	}
 
 }

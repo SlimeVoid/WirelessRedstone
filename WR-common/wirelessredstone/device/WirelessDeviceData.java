@@ -28,23 +28,25 @@ import wirelessredstone.data.LoggerRedstoneWireless;
  * @author Eurymachus
  * 
  */
-public abstract class WirelessDeviceData extends WorldSavedData implements IWirelessDeviceData {
-	
-	protected String type;
-	protected int id;
-	protected String name;
-	protected int dimension;
-	protected String freq;
-	protected boolean state;
+public abstract class WirelessDeviceData extends WorldSavedData implements
+		IWirelessDeviceData {
+
+	protected String	type;
+	protected int		id;
+	protected String	name;
+	protected int		dimension;
+	protected String	freq;
+	protected boolean	state;
 
 	public WirelessDeviceData(String index) {
 		super(index);
 	}
-	
+
 	/**
 	 * Set the device's ID based on a itemstack
 	 * 
-	 * @param itemstack The itemstack.
+	 * @param itemstack
+	 *            The itemstack.
 	 */
 	public void setDeviceID(ItemStack itemstack) {
 		this.setDeviceID(itemstack.getItemDamage());
@@ -109,7 +111,7 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 	public String getDeviceFreq() {
 		return this.freq;
 	}
-	
+
 	@Override
 	public boolean getDeviceState() {
 		return this.state;
@@ -127,33 +129,34 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
-		nbttagcompound.setString("index", this.type);
-		nbttagcompound.setInteger("id", this.id);
-		nbttagcompound.setString("name", this.name);
-		nbttagcompound.setInteger("dimension", this.dimension);
-		nbttagcompound.setString("freq", this.freq);
-		nbttagcompound.setBoolean("state", this.state);
+		nbttagcompound.setString(	"index",
+									this.type);
+		nbttagcompound.setInteger(	"id",
+									this.id);
+		nbttagcompound.setString(	"name",
+									this.name);
+		nbttagcompound.setInteger(	"dimension",
+									this.dimension);
+		nbttagcompound.setString(	"freq",
+									this.freq);
+		nbttagcompound.setBoolean(	"state",
+									this.state);
 	}
 
 	public static IWirelessDeviceData getDeviceData(Class<? extends IWirelessDeviceData> wirelessData, String index, int id, String name, World world, Entity entity) {
 		String worldIndex = index + "[" + id + "]";
-		IWirelessDeviceData data = WirelessDeviceDataFactory
-				.getDeviceDataFromFactory(
-						world,
-						wirelessData,
-						worldIndex,
-						true
-				);
+		IWirelessDeviceData data = WirelessDeviceDataFactory.getDeviceDataFromFactory(	world,
+																						wirelessData,
+																						worldIndex,
+																						true);
 		if (data == null) {
-			data = WirelessDeviceDataFactory
-					.getDeviceDataFromFactory(
-							world,
-							wirelessData,
-							worldIndex,
-							false
-					);
+			data = WirelessDeviceDataFactory.getDeviceDataFromFactory(	world,
+																		wirelessData,
+																		worldIndex,
+																		false);
 			if (data != null) {
-				world.setItemData(worldIndex, (WorldSavedData) data);
+				world.setItemData(	worldIndex,
+									(WorldSavedData) data);
 				data.setDeviceType(index);
 				data.setDeviceID(id);
 				data.setDeviceName(name);
@@ -161,24 +164,29 @@ public abstract class WirelessDeviceData extends WorldSavedData implements IWire
 				data.setDeviceFreq("0");
 				data.setDeviceState(false);
 			} else {
-				LoggerRedstoneWireless.getInstance(
-						"WirelessDeviceData"
-				).write(
-						world.isRemote,
-						"Index: " + worldIndex + ", not found for " + name,
-						LoggerRedstoneWireless.LogLevel.DEBUG
-				);
-				throw new RuntimeException("Index: " + worldIndex + ", not found for " + name);
+				LoggerRedstoneWireless.getInstance("WirelessDeviceData").write(	world.isRemote,
+																				"Index: "
+																						+ worldIndex
+																						+ ", not found for "
+																						+ name,
+																				LoggerRedstoneWireless.LogLevel.DEBUG);
+				throw new RuntimeException("Index: " + worldIndex
+											+ ", not found for " + name);
 			}
 		}
 		return data;
 	}
 
-	public static IWirelessDeviceData getDeviceData(Class <? extends IWirelessDeviceData> wirelessData, String defaultName, ItemStack itemstack, World world, Entity entity) {
+	public static IWirelessDeviceData getDeviceData(Class<? extends IWirelessDeviceData> wirelessData, String defaultName, ItemStack itemstack, World world, Entity entity) {
 		String index = itemstack.getItem().getUnlocalizedName();
 		int id = itemstack.getItemDamage();
 		String name = defaultName;
-		return getDeviceData(wirelessData, index, id, name, world, entity);
+		return getDeviceData(	wirelessData,
+								index,
+								id,
+								name,
+								world,
+								entity);
 	}
 
 }

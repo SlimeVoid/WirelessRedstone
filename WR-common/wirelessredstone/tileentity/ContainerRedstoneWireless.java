@@ -5,9 +5,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 
 public class ContainerRedstoneWireless extends Container {
-	
-	public TileEntityRedstoneWireless redstoneWireless;
-	
+
+	public TileEntityRedstoneWireless	redstoneWireless;
+
 	public ContainerRedstoneWireless(TileEntity tileentity) {
 		super();
 		if (tileentity instanceof TileEntityRedstoneWireless) {

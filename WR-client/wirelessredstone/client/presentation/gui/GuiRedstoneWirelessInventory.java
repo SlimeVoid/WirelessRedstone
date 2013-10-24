@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.client.presentation.gui;
 
@@ -31,7 +28,7 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	/**
 	 * Associated TileEntity
 	 */
-	protected TileEntityRedstoneWireless inventory;
+	protected TileEntityRedstoneWireless	inventory;
 
 	/**
 	 * Constructor.<br>
@@ -65,8 +62,8 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	public boolean compareInventory(TileEntityRedstoneWireless tileentity) {
 		if (this.inventory != null) {
 			if (this.inventory.xCoord == tileentity.xCoord
-					&& this.inventory.yCoord == tileentity.yCoord
-					&& this.inventory.zCoord == tileentity.zCoord) {
+				&& this.inventory.yCoord == tileentity.yCoord
+				&& this.inventory.zCoord == tileentity.zCoord) {
 				return true;
 			}
 		}
@@ -75,25 +72,17 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 
 	@Override
 	protected void addControls() {
-		buttonList.add(new GuiButtonWireless(0, (width / 2) + 10,
-				(height / 2) - 20, 20, 20, "+"));
-		buttonList.add(new GuiButtonWireless(1, (width / 2) - 30,
-				(height / 2) - 20, 20, 20, "-"));
-		buttonList.add(new GuiButtonWireless(2, (width / 2) + 32,
-				(height / 2) - 20, 20, 20, "+10"));
-		buttonList.add(new GuiButtonWireless(3, (width / 2) - 52,
-				(height / 2) - 20, 20, 20, "-10"));
-		buttonList.add(new GuiButtonWireless(4, (width / 2) + 54,
-				(height / 2) - 20, 26, 20, "+100"));
-		buttonList.add(new GuiButtonWireless(5, (width / 2) - 80,
-				(height / 2) - 20, 26, 20, "-100"));
-		buttonList.add(new GuiButtonWireless(6, (width / 2) + 48,
-				(height / 2) - 42, 32, 20, "+1000"));
-		buttonList.add(new GuiButtonWireless(7, (width / 2) - 80,
-				(height / 2) - 42, 32, 20, "-1000"));
+		buttonList.add(new GuiButtonWireless(0, (width / 2) + 10, (height / 2) - 20, 20, 20, "+"));
+		buttonList.add(new GuiButtonWireless(1, (width / 2) - 30, (height / 2) - 20, 20, 20, "-"));
+		buttonList.add(new GuiButtonWireless(2, (width / 2) + 32, (height / 2) - 20, 20, 20, "+10"));
+		buttonList.add(new GuiButtonWireless(3, (width / 2) - 52, (height / 2) - 20, 20, 20, "-10"));
+		buttonList.add(new GuiButtonWireless(4, (width / 2) + 54, (height / 2) - 20, 26, 20, "+100"));
+		buttonList.add(new GuiButtonWireless(5, (width / 2) - 80, (height / 2) - 20, 26, 20, "-100"));
+		buttonList.add(new GuiButtonWireless(6, (width / 2) + 48, (height / 2) - 42, 32, 20, "+1000"));
+		buttonList.add(new GuiButtonWireless(7, (width / 2) - 80, (height / 2) - 42, 32, 20, "-1000"));
 
 		buttonList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
-				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
+														+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
 
 	@Override
@@ -138,36 +127,28 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 				close();
 				break;
 			}
-			if (freq > 9999)
-				freq -= 10000;
-			if (freq < 0)
-				freq += 10000;
+			if (freq > 9999) freq -= 10000;
+			if (freq < 0) freq += 10000;
 
 			boolean prematureExit = false;
 			for (IGuiRedstoneWirelessOverride override : overrides) {
-				if (((IGuiRedstoneWirelessInventoryOverride) override)
-						.beforeFrequencyChange(inventory, oldFreq, freq))
-					prematureExit = true;
+				if (((IGuiRedstoneWirelessInventoryOverride) override).beforeFrequencyChange(	inventory,
+																								oldFreq,
+																								freq)) prematureExit = true;
 			}
-			if (prematureExit)
-				return;
-			
-			ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(
-					PacketRedstoneWirelessCommands.wirelessCommands.changeFreq.toString(),
-					inventory.getBlockCoord(0), 
-					inventory.getBlockCoord(1),
-					inventory.getBlockCoord(2), 
-					(freq - oldFreq), 
-					false
-			);
+			if (prematureExit) return;
 
-			if (oldFreq != freq)
-				setFreq(Integer.toString(freq));
+			ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(	PacketRedstoneWirelessCommands.wirelessCommands.changeFreq.toString(),
+																		inventory.getBlockCoord(0),
+																		inventory.getBlockCoord(1),
+																		inventory.getBlockCoord(2),
+																		(freq - oldFreq),
+																		false);
+
+			if (oldFreq != freq) setFreq(Integer.toString(freq));
 
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(
-					"GuiRedstoneWirelessInventory"
-			).writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessInventory").writeStackTrace(e);
 		}
 	}
 

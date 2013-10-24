@@ -23,7 +23,7 @@ public class EtherPacketFetchEtherExecutor implements IEtherPacketExecutor {
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
 		if (entityplayer instanceof EntityPlayerMP) {
-			ServerRedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP)entityplayer);
+			ServerRedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
 		}
 	}
 }

@@ -39,46 +39,41 @@ public class PacketRedstoneEther extends PacketWireless {
 
 	public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world) {
 		super(PacketIds.ETHER, new PacketPayload(0, 0, 1, 1));
-		this.setPosition(
-				entity.getBlockCoord(0),
-				entity.getBlockCoord(1),
-				entity.getBlockCoord(2),
-				0);
+		this.setPosition(	entity.getBlockCoord(0),
+							entity.getBlockCoord(1),
+							entity.getBlockCoord(2),
+							0);
 		if (entity instanceof TileEntityRedstoneWirelessR) {
 			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString());
-			setState(((BlockRedstoneWireless) WRCore.blockWirelessR).getState(
-					world,
-					this.xPosition,
-					this.yPosition,
-					this.zPosition));
+			setState(((BlockRedstoneWireless) WRCore.blockWirelessR).getState(	world,
+																				this.xPosition,
+																				this.yPosition,
+																				this.zPosition));
 		} else if (entity instanceof TileEntityRedstoneWirelessT) {
-			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter
-					.toString());
-			setState(((BlockRedstoneWireless) WRCore.blockWirelessT).getState(
-					world,
-					this.xPosition,
-					this.yPosition,
-					this.zPosition));
+			setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString());
+			setState(((BlockRedstoneWireless) WRCore.blockWirelessT).getState(	world,
+																				this.xPosition,
+																				this.yPosition,
+																				this.zPosition));
 		}
 		setFreq(entity.getFreq());
 	}
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ") [" + this
-				.getFreq() + "] - " + this.getState();
+		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+				+ zPosition + ") [" + this.getFreq() + "] - " + this.getState();
 	}
 
 	@Override
 	public void setState(boolean state) {
-		this.payload.setBoolPayload(0, state);
-		LoggerRedstoneWireless.getInstance(
-				"PacketRedstoneEther"
-		).write(
-				true,
-				"setState(" + state + ")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+		this.payload.setBoolPayload(0,
+									state);
+		LoggerRedstoneWireless.getInstance("PacketRedstoneEther").write(true,
+																		"setState("
+																				+ state
+																				+ ")",
+																		LoggerRedstoneWireless.LogLevel.DEBUG);
 	}
 
 	@Override
@@ -88,9 +83,8 @@ public class PacketRedstoneEther extends PacketWireless {
 
 	@Override
 	public boolean targetExists(World world) {
-		return world.blockHasTileEntity(
-				this.xPosition,
-				this.yPosition,
-				this.zPosition);
+		return world.blockHasTileEntity(this.xPosition,
+										this.yPosition,
+										this.zPosition);
 	}
 }

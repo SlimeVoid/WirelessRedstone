@@ -33,46 +33,46 @@ public class ServerDeviceGuiPacketHandler extends SubPacketHandler {
 	/**
 	 * Send a GUI packet to specified player.
 	 * 
-	 * @param player Receiving player.
-	 * @param devicedata the device data to send.
+	 * @param player
+	 *            Receiving player.
+	 * @param devicedata
+	 *            the device data to send.
 	 */
 	public static void sendGuiPacketTo(EntityPlayerMP player, IWirelessDeviceData devicedata) {
 		// Assemble a OpenGUI packet.
-		
-		LoggerRedstoneWireless.getInstance(
-				"ServerDeviceGuiPacketHandler"
-		).write(
-				false,
-				"sendGuiPacketTo(" + player.username+", entity)",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+
+		LoggerRedstoneWireless.getInstance("ServerDeviceGuiPacketHandler").write(	false,
+																					"sendGuiPacketTo("
+																							+ player.username
+																							+ ", entity)",
+																					LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		PacketRedstoneWirelessOpenGuiDevice packet = new PacketRedstoneWirelessOpenGuiDevice(devicedata);
-		
+
 		// Send the packet.
-		sendGuiPacketTo(player, packet);
+		sendGuiPacketTo(player,
+						packet);
 	}
 
 	/**
 	 * Send a GUI packet to specified player.
 	 * 
-	 * @param player Receiving player.
-	 * @param packet the packet data to send.
+	 * @param player
+	 *            Receiving player.
+	 * @param packet
+	 *            the packet data to send.
 	 */
 	public static void sendGuiPacketTo(EntityPlayerMP player, PacketRedstoneWirelessOpenGuiDevice packet) {
 		// Assemble a OpenGUI packet.
-		
-		LoggerRedstoneWireless.getInstance(
-				"ServerDeviceGuiPacketHandler"
-		).write(
-				false,
-				"sendGuiPacketTo(" + player.username+", entity)",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		
+
+		LoggerRedstoneWireless.getInstance("ServerDeviceGuiPacketHandler").write(	false,
+																					"sendGuiPacketTo("
+																							+ player.username
+																							+ ", entity)",
+																					LoggerRedstoneWireless.LogLevel.DEBUG);
+
 		// Send the packet.
-		ServerPacketHandler.sendPacketTo(
-				player,
-				packet.getPacket());
+		ServerPacketHandler.sendPacketTo(	player,
+											packet.getPacket());
 	}
 }

@@ -41,6 +41,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+
 /**
  * WRClientProxy class
  * 
@@ -51,12 +52,11 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 
-	
 	/**
 	 * Power Configurator GUI
 	 */
-	public static GuiRedstoneWirelessPowerDirector guiPowerC;
-	
+	public static GuiRedstoneWirelessPowerDirector	guiPowerC;
+
 	@Override
 	public void init() {
 		initGUIs();
@@ -68,10 +68,11 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	 */
 	public static void initGUIs() {
 		guiPowerC = new GuiRedstoneWirelessPowerDirector();
-		NetworkRegistry.instance().registerGuiHandler(PowerConfigurator.instance, PCCore.proxy);
+		NetworkRegistry.instance().registerGuiHandler(	PowerConfigurator.instance,
+														PCCore.proxy);
 		// TODO :: Overrides
 	}
-	
+
 	@Override
 	public void registerRenderInformation() {
 		loadBlockTextures();
@@ -82,13 +83,14 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	 * into the sprite integers.
 	 */
 	public static void loadBlockTextures() {
-		//MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
+		// MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
-		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		TileEntity tileentity = world.getBlockTileEntity(	x,
+															y,
+															z);
 		if (tileentity instanceof TileEntityRedstoneWireless) {
 			guiPowerC.assTileEntity((TileEntityRedstoneWireless) tileentity);
 			return guiPowerC;
@@ -102,17 +104,18 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	}
 
 	@Override
-	public void registerTileEntitySpecialRenderer(
-			Class<? extends TileEntity> clazz) {
+	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 	}
 
 	@Override
 	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
 		if (!world.isRemote) {
-			super.activateGUI(world, entityplayer, devicedata);
+			super.activateGUI(	world,
+								entityplayer,
+								devicedata);
 		}
 	}
-	
+
 	/**
 	 * Retrieves the world object without parameters
 	 * 
@@ -132,7 +135,7 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	public EntityPlayer getPlayer() {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
-	
+
 	/**
 	 * Retrieves the world object with NetHandler parameters.
 	 * 
@@ -141,7 +144,7 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	@Override
 	public World getWorld(NetHandler handler) {
 		if (handler instanceof NetClientHandler) {
-			return ((NetClientHandler)handler).getPlayer().worldObj;
+			return ((NetClientHandler) handler).getPlayer().worldObj;
 		}
 		return null;
 	}
@@ -150,18 +153,19 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
 		World world = getWorld(handler);
 		if (world != null) {
-			//ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
+			// ClientPacketHandler.sendPacket(((new
+			// PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
 		}
 	}
-	
+
 	@Override
 	public void initPacketHandlers() {
 		super.initPacketHandlers();
-		/////////////////////
+		// ///////////////////
 		// Client Handlers //
-		/////////////////////
-		//ClientPacketHandler.getPacketHandler(PacketIds.GUI).registerPacketHandler(
-		//		PacketPowerConfigCommands.powerConfigCommands.openGui.toString(),
-		//		new ClientRemoteOpenGui());
+		// ///////////////////
+		// ClientPacketHandler.getPacketHandler(PacketIds.GUI).registerPacketHandler(
+		// PacketPowerConfigCommands.powerConfigCommands.openGui.toString(),
+		// new ClientRemoteOpenGui());
 	}
 }

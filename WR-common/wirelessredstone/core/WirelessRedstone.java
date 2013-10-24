@@ -57,7 +57,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 public class WirelessRedstone {
 
 	@Instance("WirelessRedstoneCore")
-	public static WirelessRedstone instance;
+	public static WirelessRedstone	instance;
 
 	/**
 	 * Initialization

@@ -21,15 +21,16 @@ public abstract class PacketTileEntity extends PacketUpdate {
 	}
 
 	public TileEntity getTileEntity(World world) {
-		return world.getBlockTileEntity(
-				this.xPosition,
-				this.yPosition,
-				this.zPosition);
+		return world.getBlockTileEntity(this.xPosition,
+										this.yPosition,
+										this.zPosition);
 	}
 
 	@Override
 	public boolean targetExists(World world) {
-		if (world.blockExists(this.xPosition, this.yPosition, this.zPosition)) {
+		if (world.blockExists(	this.xPosition,
+								this.yPosition,
+								this.zPosition)) {
 			return true;
 		}
 		return false;

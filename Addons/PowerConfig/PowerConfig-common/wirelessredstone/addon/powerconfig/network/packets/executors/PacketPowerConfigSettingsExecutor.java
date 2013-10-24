@@ -12,10 +12,10 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 public class PacketPowerConfigSettingsExecutor implements IPacketExecutor {
 
 	@Override
-	public void execute(PacketWireless packet, World world,
-			EntityPlayer entityplayer) {
+	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
 		TileEntity tileentity = packet.getTarget(world);
-		if (tileentity != null && tileentity instanceof TileEntityRedstoneWirelessR) {
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWirelessR) {
 			TileEntityRedstoneWirelessR tR = (TileEntityRedstoneWirelessR) tileentity;
 			if (packet.getCommand().equals(PacketPowerConfigCommands.powerConfigCommands.setDirection.toString())) {
 				tR.flipPowerDirection(packet.side);

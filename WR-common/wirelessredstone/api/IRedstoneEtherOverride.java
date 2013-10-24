@@ -26,11 +26,16 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggered before a Transmitter is added to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Transmitter's World X coordinate
-	 * @param j Transmitter's World Y coordinate
-	 * @param k Transmitter's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Transmitter's World X coordinate
+	 * @param j
+	 *            Transmitter's World Y coordinate
+	 * @param k
+	 *            Transmitter's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
@@ -39,22 +44,32 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggered after a Transmitter is added to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Transmitter's World X coordinate
-	 * @param j Transmitter's World Y coordinate
-	 * @param k Transmitter's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Transmitter's World X coordinate
+	 * @param j
+	 *            Transmitter's World Y coordinate
+	 * @param k
+	 *            Transmitter's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 */
 	public void afterAddTransmitter(World world, int i, int j, int k, String freq);
 
 	/**
 	 * Triggered before a Transmitter is removed to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Transmitter's World X coordinate
-	 * @param j Transmitter's World Y coordinate
-	 * @param k Transmitter's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Transmitter's World X coordinate
+	 * @param j
+	 *            Transmitter's World Y coordinate
+	 * @param k
+	 *            Transmitter's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
@@ -63,23 +78,34 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggered after a Transmitter is removed to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Transmitter's World X coordinate
-	 * @param j Transmitter's World Y coordinate
-	 * @param k Transmitter's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Transmitter's World X coordinate
+	 * @param j
+	 *            Transmitter's World Y coordinate
+	 * @param k
+	 *            Transmitter's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 */
 	public void afterRemTransmitter(World world, int i, int j, int k, String freq);
 
 	/**
 	 * Triggered before a Transmitter's state is changed in the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Transmitter's World X coordinate
-	 * @param j Transmitter's World Y coordinate
-	 * @param k Transmitter's World Z coordinate
-	 * @param freq Frequency.
-	 * @param state Transmitter's state to set.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Transmitter's World X coordinate
+	 * @param j
+	 *            Transmitter's World Y coordinate
+	 * @param k
+	 *            Transmitter's World Z coordinate
+	 * @param freq
+	 *            Frequency.
+	 * @param state
+	 *            Transmitter's state to set.
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
@@ -88,23 +114,34 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggered after a Transmitter's state is changed in the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Transmitter's World X coordinate
-	 * @param j Transmitter's World Y coordinate
-	 * @param k Transmitter's World Z coordinate
-	 * @param freq Frequency.
-	 * @param state Transmitter's state to set.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Transmitter's World X coordinate
+	 * @param j
+	 *            Transmitter's World Y coordinate
+	 * @param k
+	 *            Transmitter's World Z coordinate
+	 * @param freq
+	 *            Frequency.
+	 * @param state
+	 *            Transmitter's state to set.
 	 */
 	public void afterSetTransmitterState(World world, int i, int j, int k, String freq, boolean state);
 
 	/**
 	 * Triggered before a Receiver is added to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
@@ -113,22 +150,32 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggered after a Receiver is added to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 */
 	public void afterAddReceiver(World world, int i, int j, int k, String freq);
 
 	/**
 	 * Triggered before a Receiver is removed to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
@@ -137,19 +184,26 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggered after a Receiver is removed to the Ether.
 	 * 
-	 * @param world The world object
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
+	 * @param freq
+	 *            Frequency.
 	 */
 	public void afterRemReceiver(World world, int i, int j, int k, String freq);
 
 	/**
 	 * Triggers before the frequencies state is fetched.
 	 * 
-	 * @param world The world object
-	 * @param freq Frequency.
+	 * @param world
+	 *            The world object
+	 * @param freq
+	 *            Frequency.
 	 * 
 	 * @return Exits prematurely if true, skipping existing code, and moves on
 	 *         to after.
@@ -159,9 +213,12 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggers after the frequencies state is fetched.
 	 * 
-	 * @param world The world object
-	 * @param freq Frequency.
-	 * @param returnState The initial state to be returned.
+	 * @param world
+	 *            The world object
+	 * @param freq
+	 *            Frequency.
+	 * @param returnState
+	 *            The initial state to be returned.
 	 * 
 	 * @return The state to be returned. Return returnState if no changes is to
 	 *         be made!
@@ -171,10 +228,14 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggers before isLoaded is checked.
 	 * 
-	 * @param world The world object
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
 	 * 
 	 * @return Exits prematurely if true, skipping existing code, and moves on
 	 *         to after.
@@ -184,10 +245,14 @@ public interface IRedstoneEtherOverride {
 	/**
 	 * Triggers after isLoaded is checked.
 	 * 
-	 * @param world The world object
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
+	 * @param world
+	 *            The world object
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
 	 * @param returnState
 	 * 
 	 * @return The state to be returned. Return returnState if no changes is to
@@ -199,10 +264,14 @@ public interface IRedstoneEtherOverride {
 	 * Triggers before getClosestActiveTransmitter. Coords are in format {x, y,
 	 * z}
 	 * 
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
-	 * @param freq Frequency
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
+	 * @param freq
+	 *            Frequency
 	 * @return Coords
 	 */
 	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k, String freq);
@@ -211,11 +280,16 @@ public interface IRedstoneEtherOverride {
 	 * Triggers after getClosestActiveTransmitter. Coords are in format {x, y,
 	 * z}
 	 * 
-	 * @param i Receiver's World X coordinate
-	 * @param j Receiver's World Y coordinate
-	 * @param k Receiver's World Z coordinate
-	 * @param freq Frequency
-	 * @param coords The previous coordinates
+	 * @param i
+	 *            Receiver's World X coordinate
+	 * @param j
+	 *            Receiver's World Y coordinate
+	 * @param k
+	 *            Receiver's World Z coordinate
+	 * @param freq
+	 *            Frequency
+	 * @param coords
+	 *            The previous coordinates
 	 * @return Coords
 	 */
 	public int[] afterGetClosestActiveTransmitter(int i, int j, int k, String freq, int[] coords);

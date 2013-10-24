@@ -24,15 +24,15 @@ import wirelessredstone.core.WRCore;
 import wirelessredstone.data.ConfigStoreRedstoneWireless;
 
 public class PCCore {
-	public static boolean isLoaded = false;
-	public static Item itemPowDir;
-	public static int spritePowerC;
-	public static int pdID = 6243;
+	public static boolean		isLoaded	= false;
+	public static Item			itemPowDir;
+	public static int			spritePowerC;
+	public static int			pdID		= 6243;
 
 	@SidedProxy(
 			clientSide = "wirelessredstone.addon.powerconfig.client.proxy.PowerConfigClientProxy",
 			serverSide = "wirelessredstone.addon.powerconfig.proxy.PowerConfigCommonProxy")
-	public static ICommonProxy proxy;
+	public static ICommonProxy	proxy;
 
 	public static boolean initialize() {
 
@@ -56,27 +56,32 @@ public class PCCore {
 	}
 
 	private static void loadConfig() {
-		pdID = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"PowerConfigurator")
-				.get("ID", Integer.class, new Integer(pdID));
+		pdID = (Integer) ConfigStoreRedstoneWireless.getInstance("PowerConfigurator").get(	"ID",
+																							Integer.class,
+																							new Integer(pdID));
 	}
 
 	private static void initItems() {
-		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID))
-				.setUnlocalizedName("wirelessredstone.powdir");
+		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID)).setUnlocalizedName("wirelessredstone.powdir");
 	}
 
 	/**
 	 * Registers the item names
 	 */
 	private static void registerItems() {
-		LanguageRegistry.addName(itemPowDir, "Power Configurator");
+		LanguageRegistry.addName(	itemPowDir,
+									"Power Configurator");
 	}
 
 	private static void addRecipes() {
-		GameRegistry.addRecipe(new ItemStack(itemPowDir, 1), new Object[] { "R R",
-				" X ", "R R", Character.valueOf('X'),
-				WRCore.blockWirelessR, Character.valueOf('R'),
-				Item.redstone });
+		GameRegistry.addRecipe(	new ItemStack(itemPowDir, 1),
+								new Object[] {
+										"R R",
+										" X ",
+										"R R",
+										Character.valueOf('X'),
+										WRCore.blockWirelessR,
+										Character.valueOf('R'),
+										Item.redstone });
 	}
 }

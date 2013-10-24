@@ -42,6 +42,7 @@ import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+
 /**
  * WRClientProxy class
  * 
@@ -55,11 +56,12 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	/**
 	 * Wireless Remote GUI
 	 */
-	public static GuiRedstoneWirelessRemote guiWirelessRemote;
-	
+	public static GuiRedstoneWirelessRemote	guiWirelessRemote;
+
 	@Override
 	public void init() {
-		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
+		TickRegistry.registerTickHandler(	new ClientTickHandler(),
+											Side.CLIENT);
 		initGUIs();
 		super.init();
 	}
@@ -73,7 +75,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 		guiWirelessRemote.addOverride(override);
 		WRClientProxy.addOverride(new ActivateGuiRemoteOverride());
 	}
-	
+
 	@Override
 	public void registerRenderInformation() {
 		loadBlockTextures();
@@ -84,18 +86,16 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	 * into the sprite integers.
 	 */
 	public static void loadBlockTextures() {
-		//MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
+		// MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
 	}
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return null;
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return null;
 	}
 
@@ -105,17 +105,18 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	}
 
 	@Override
-	public void registerTileEntitySpecialRenderer(
-			Class<? extends TileEntity> clazz) {
+	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 	}
 
 	@Override
 	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
 		if (!world.isRemote) {
-			super.activateGUI(world, entityplayer, devicedata);
+			super.activateGUI(	world,
+								entityplayer,
+								devicedata);
 		}
 	}
-	
+
 	/**
 	 * Retrieves the world object without parameters
 	 * 
@@ -135,7 +136,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	public EntityPlayer getPlayer() {
 		return ModLoader.getMinecraftInstance().thePlayer;
 	}
-	
+
 	/**
 	 * Retrieves the world object with NetHandler parameters.
 	 * 
@@ -144,7 +145,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	@Override
 	public World getWorld(NetHandler handler) {
 		if (handler instanceof NetClientHandler) {
-			return ((NetClientHandler)handler).getPlayer().worldObj;
+			return ((NetClientHandler) handler).getPlayer().worldObj;
 		}
 		return null;
 	}
@@ -156,49 +157,49 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 			ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
 		}
 	}
-	
+
 	@Override
 	public void initPacketHandlers() {
 		super.initPacketHandlers();
-		/////////////////////
+		// ///////////////////
 		// Client Handlers //
-		/////////////////////
-		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.activate.toString(),
-				new ActivateRemoteExecutor());
-		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.deactivate.toString(),
-				new DeactivateRemoteExecutor());
-		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.changeFreq.toString(),
-				new ClientRemoteChangeFreqExecutor());
-		ClientPacketHandler.getPacketHandler(PacketIds.DEVICEGUI).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.openGui.toString(),
-				new ClientRemoteOpenGui());
+		// ///////////////////
+		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.activate.toString(),
+																						new ActivateRemoteExecutor());
+		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.deactivate.toString(),
+																						new DeactivateRemoteExecutor());
+		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.changeFreq.toString(),
+																						new ClientRemoteChangeFreqExecutor());
+		ClientPacketHandler.getPacketHandler(PacketIds.DEVICEGUI).registerPacketHandler(PacketRemoteCommands.remoteCommands.openGui.toString(),
+																						new ClientRemoteOpenGui());
 	}
 
 	@Override
 	public void activateRemote(World world, EntityLiving entityliving) {
 		if (!world.isRemote) {
-			super.activateRemote(world, entityliving);
+			super.activateRemote(	world,
+									entityliving);
 		}
 	}
 
 	@Override
 	public boolean deactivateRemote(World world, EntityLiving entityliving) {
 		if (!world.isRemote) {
-			return super.deactivateRemote(world, entityliving);
+			return super.deactivateRemote(	world,
+											entityliving);
 		}
-		return WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityliving);
-	}	
-	
+		return WirelessRemoteDevice.deactivatePlayerWirelessRemote(	world,
+																	entityliving);
+	}
+
 	@Override
 	public boolean isRemoteOn(World world, EntityPlayer entityplayer, String freq) {
 		if (!world.isRemote) {
-			return super.isRemoteOn(world, entityplayer, freq);
+			return super.isRemoteOn(world,
+									entityplayer,
+									freq);
 		}
-		boolean flag = WirelessRemoteDevice.remoteTransmitter == null ? false
-				: WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
+		boolean flag = WirelessRemoteDevice.remoteTransmitter == null ? false : WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
 		return flag;
 	}
 }

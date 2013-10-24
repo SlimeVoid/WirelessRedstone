@@ -37,26 +37,21 @@ public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
 		if (entity instanceof TileEntityRedstoneWireless) {
 			// Assemble frequencies.
 			int dFreq = Integer.parseInt(packet.getFreq());
-			int oldFreq = Integer
-					.parseInt(((TileEntityRedstoneWireless) entity)
-							.getFreq()
-								.toString());
+			int oldFreq = Integer.parseInt(((TileEntityRedstoneWireless) entity).getFreq().toString());
 
 			// Set the frequency to the tile
-			((TileEntityRedstoneWireless) entity).setFreq(Integer
-					.toString(oldFreq + dFreq));
+			((TileEntityRedstoneWireless) entity).setFreq(Integer.toString(oldFreq
+																			+ dFreq));
 			entity.onInventoryChanged();
 
 			// Makr the block for update with the world.
-			world.markBlockForRenderUpdate(
-					packet.xPosition,
-					packet.yPosition,
-					packet.zPosition);
+			world.markBlockForRenderUpdate(	packet.xPosition,
+											packet.yPosition,
+											packet.zPosition);
 
 			// Broadcast change to all clients.
-			ServerRedstoneEtherPacketHandler.sendEtherTileToAll(
-					(TileEntityRedstoneWireless) entity,
-					world);
+			ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+																world);
 		}
 	}
 }

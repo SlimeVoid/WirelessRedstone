@@ -31,9 +31,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 		name = "Wireless Redstone - Power Configurator",
 		version = "1.0",
 		dependencies = "after:WirelessRedstoneCore")
-@NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * FML fascade class.
  * This class uses FML annotations and sorts initialization.
@@ -46,9 +44,8 @@ import cpw.mods.fml.common.network.NetworkMod;
  */
 public class PowerConfigurator {
 
-
 	@Instance("PowerConfigurator")
-	public static PowerConfigurator instance;
+	public static PowerConfigurator	instance;
 
 	/**
 	 * Initialization
@@ -57,7 +54,7 @@ public class PowerConfigurator {
 	 */
 	@Init
 	public void WirelessRemoteInit(FMLInitializationEvent event) {
-		
+
 	}
 
 	/**

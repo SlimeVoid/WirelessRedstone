@@ -25,9 +25,9 @@ import net.minecraft.world.World;
  * 
  */
 public class RedstoneEtherCoordsPlayerMem {
-	private static RedstoneEtherCoordsPlayerMem instance;
-	private Map<String, PlayerEtherCoordsMemNode> coords;
-	private World world;
+	private static RedstoneEtherCoordsPlayerMem		instance;
+	private Map<String, PlayerEtherCoordsMemNode>	coords;
+	private World									world;
 
 	private RedstoneEtherCoordsPlayerMem(World world) {
 		coords = new HashMap<String, PlayerEtherCoordsMemNode>();
@@ -37,12 +37,12 @@ public class RedstoneEtherCoordsPlayerMem {
 	/**
 	 * Get the singleton instance.
 	 * 
-	 * @param world World object
+	 * @param world
+	 *            World object
 	 * @return Instance
 	 */
 	public static RedstoneEtherCoordsPlayerMem getInstance(World world) {
-		if (instance == null || instance.world.hashCode() != world.hashCode())
-			instance = new RedstoneEtherCoordsPlayerMem(world);
+		if (instance == null || instance.world.hashCode() != world.hashCode()) instance = new RedstoneEtherCoordsPlayerMem(world);
 
 		return instance;
 	}
@@ -50,20 +50,22 @@ public class RedstoneEtherCoordsPlayerMem {
 	/**
 	 * Add a player coordinate to the memory.
 	 * 
-	 * @param entityplayer The player.
-	 * @param newcoords Coordinates.
+	 * @param entityplayer
+	 *            The player.
+	 * @param newcoords
+	 *            Coordinates.
 	 */
 	public void addMem(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
-		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(
-				entityplayer,
-					newcoords);
-		coords.put(entityplayer.username, memnode);
+		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
+		coords.put(	entityplayer.username,
+					memnode);
 	}
 
 	/**
 	 * Remove a player coordinate from the memory.
 	 * 
-	 * @param username The player's username.
+	 * @param username
+	 *            The player's username.
 	 */
 	public void remMem(String username) {
 		coords.remove(username);
@@ -72,23 +74,28 @@ public class RedstoneEtherCoordsPlayerMem {
 	/**
 	 * Alias for addMem()
 	 * 
-	 * @param entityplayer The player.
-	 * @param newcoords Coordinates.
+	 * @param entityplayer
+	 *            The player.
+	 * @param newcoords
+	 *            Coordinates.
 	 */
 	public void setCoords(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
-		addMem(entityplayer, newcoords);
+		addMem(	entityplayer,
+				newcoords);
 	}
 
 	/**
 	 * Fetch coordinates for a given player.
 	 * 
-	 * @param entityplayer The player
+	 * @param entityplayer
+	 *            The player
 	 * @return coordinates
 	 */
 	public WirelessCoordinates getCoords(EntityPlayer entityplayer) {
 		PlayerEtherCoordsMemNode node = coords.get(entityplayer.username);
 		if (node == null) {
-			addMem(entityplayer, null);
+			addMem(	entityplayer,
+					null);
 			return null;
 		} else {
 			return node.coords;
@@ -102,8 +109,8 @@ public class RedstoneEtherCoordsPlayerMem {
 	 * 
 	 */
 	public class PlayerEtherCoordsMemNode {
-		EntityPlayer entityplayer;
-		WirelessCoordinates coords;
+		EntityPlayer		entityplayer;
+		WirelessCoordinates	coords;
 
 		public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, WirelessCoordinates coords) {
 			this.entityplayer = entityplayer;

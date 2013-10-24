@@ -16,7 +16,7 @@ public class WSlimeCore {
 		addOverrides();
 		return true;
 	}
-	
+
 	private static void addOverrides() {
 		TileEntityRedstoneWirelessSlimevoidOverride tileOverride = new TileEntityRedstoneWirelessSlimevoidOverride();
 		TileEntityRedstoneWireless.addOverride(tileOverride);

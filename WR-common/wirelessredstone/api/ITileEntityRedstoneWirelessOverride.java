@@ -28,7 +28,8 @@ public interface ITileEntityRedstoneWirelessOverride {
 	 * 
 	 * Is triggered before updateEntity().
 	 * 
-	 * @param tileentity The TileEntity
+	 * @param tileentity
+	 *            The TileEntity
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
 	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity);
@@ -36,19 +37,23 @@ public interface ITileEntityRedstoneWirelessOverride {
 	/**
 	 * Is triggered after updateEntity().
 	 * 
-	 * @param tileentity The TileEntity
+	 * @param tileentity
+	 *            The TileEntity
 	 */
 	public void afterUpdateEntity(TileEntityRedstoneWireless tileentity);
 
 	/**
 	 * Is triggered before handleData().
 	 * 
-	 * @param tileEntityRedstoneWireless The TileEntity
-	 * @param data WR data
+	 * @param tileEntityRedstoneWireless
+	 *            The TileEntity
+	 * @param data
+	 *            WR data
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
 	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IRedstoneWirelessData data);
 
 	public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer);
+
 	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean output);
 }

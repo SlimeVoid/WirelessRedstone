@@ -26,15 +26,15 @@ public class ActivateGuiTileEntityOverride implements IActivateGuiOverride {
 	@Override
 	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
 		if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
-			WRClientProxy.guiWirelessR
-					.assTileEntity(tileentityredstonewireless);
-			ModLoader.openGUI(entityplayer, WRClientProxy.guiWirelessR);
+			WRClientProxy.guiWirelessR.assTileEntity(tileentityredstonewireless);
+			ModLoader.openGUI(	entityplayer,
+								WRClientProxy.guiWirelessR);
 			return true;
 		}
 		if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
-			WRClientProxy.guiWirelessT
-					.assTileEntity(tileentityredstonewireless);
-			ModLoader.openGUI(entityplayer, WRClientProxy.guiWirelessT);
+			WRClientProxy.guiWirelessT.assTileEntity(tileentityredstonewireless);
+			ModLoader.openGUI(	entityplayer,
+								WRClientProxy.guiWirelessT);
 			return true;
 		}
 		return false;

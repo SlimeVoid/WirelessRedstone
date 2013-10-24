@@ -20,28 +20,25 @@ import net.minecraft.world.World;
  * 
  */
 public class WirelessReadWriteLock {
-	private int readers = 0;
-	private int writers = 0;
-	private int writeReq = 0;
+	private int	readers		= 0;
+	private int	writers		= 0;
+	private int	writeReq	= 0;
 
 	/**
 	 * Register a read lock position.<br>
 	 * Waits if no position is available.
 	 * 
-	 * @throws InterruptedException if any thread interrupted the current thread
-	 *             before or while the current thread was waiting for a
-	 *             notification. The interrupted status of the current thread is
-	 *             cleared when this exception is thrown.
+	 * @throws InterruptedException
+	 *             if any thread interrupted the current thread before or while
+	 *             the current thread was waiting for a notification. The
+	 *             interrupted status of the current thread is cleared when this
+	 *             exception is thrown.
 	 */
 	public synchronized void readLock(World world) throws InterruptedException {
 		while (writers > 0 || writeReq > 0) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessReadWriteLock"
-			).write(
-					world.isRemote,
-					"readLock() - waiting",
-					LoggerRedstoneWireless.LogLevel.INFO
-			);
+			LoggerRedstoneWireless.getInstance("WirelessReadWriteLock").write(	world.isRemote,
+																				"readLock() - waiting",
+																				LoggerRedstoneWireless.LogLevel.INFO);
 			wait();
 		}
 		readers++;
@@ -59,21 +56,18 @@ public class WirelessReadWriteLock {
 	 * Register a write lock position.<br>
 	 * Waits if no position is available.
 	 * 
-	 * @throws InterruptedException if any thread interrupted the current thread
-	 *             before or while the current thread was waiting for a
-	 *             notification. The interrupted status of the current thread is
-	 *             cleared when this exception is thrown.
+	 * @throws InterruptedException
+	 *             if any thread interrupted the current thread before or while
+	 *             the current thread was waiting for a notification. The
+	 *             interrupted status of the current thread is cleared when this
+	 *             exception is thrown.
 	 */
 	public synchronized void writeLock(World world) throws InterruptedException {
 		writeReq++;
 		while (readers > 0 || writers > 0) {
-			LoggerRedstoneWireless.getInstance(
-					"WirelessReadWriteLock"
-			).write(
-					world.isRemote,
-					"writeLock() - waiting",
-					LoggerRedstoneWireless.LogLevel.INFO
-			);
+			LoggerRedstoneWireless.getInstance("WirelessReadWriteLock").write(	world.isRemote,
+																				"writeLock() - waiting",
+																				LoggerRedstoneWireless.LogLevel.INFO);
 			wait();
 		}
 		writers++;

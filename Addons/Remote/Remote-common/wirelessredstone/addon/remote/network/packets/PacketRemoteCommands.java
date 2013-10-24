@@ -16,28 +16,24 @@ import java.util.Map;
 
 public class PacketRemoteCommands {
 	public enum remoteCommands {
-		activate,
-		deactivate,
-		changeFreq,
-		updateReceiver,
-		openGui;
-	
-		private int value;
-		private String name;
-	
+		activate, deactivate, changeFreq, updateReceiver, openGui;
+
+		private int		value;
+		private String	name;
+
 		public int getCommand() {
 			if (this != null) {
 				return this.value;
 			}
 			return -1;
 		}
-	
+
 		@Override
 		public String toString() {
 			if (this != null && this.name != null && !this.name.isEmpty()) {
 				return this.name;
 			}
-			return "Command["+this+" is not initialzed";
+			return "Command[" + this + " is not initialzed";
 		}
 	}
 
@@ -60,8 +56,7 @@ public class PacketRemoteCommands {
 	}
 
 	public static String commandToString(int command) {
-		for (remoteCommands value : remoteCommands
-				.values()) {
+		for (remoteCommands value : remoteCommands.values()) {
 			if (value != null & value.getCommand() == command) {
 				return value.toString();
 			}
@@ -79,17 +74,18 @@ public class PacketRemoteCommands {
 		}
 		return "";
 	}
-	
-	private static Map<Integer, String> commandList = new HashMap<Integer, String>();
-	
+
+	private static Map<Integer, String>	commandList	= new HashMap<Integer, String>();
+
 	private static int getNextAvailableCommand() {
 		return commandList.size() - 1;
 	}
-	
+
 	public static void registerCommand(String name) {
 		int nextID = getNextAvailableCommand();
 		if (!commandList.containsKey(nextID)) {
-			commandList.put(nextID, name);
+			commandList.put(nextID,
+							name);
 		}
 	}
 }

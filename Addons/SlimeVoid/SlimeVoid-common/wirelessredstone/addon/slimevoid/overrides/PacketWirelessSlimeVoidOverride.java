@@ -1,8 +1,8 @@
 package wirelessredstone.addon.slimevoid.overrides;
 
-import slimevoid.lib.util.SlimevoidHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import slimevoidlib.util.helpers.SlimevoidHelper;
 import wirelessredstone.api.IPacketWirelessOverride;
 
 public class PacketWirelessSlimeVoidOverride implements IPacketWirelessOverride {
@@ -13,10 +13,12 @@ public class PacketWirelessSlimeVoidOverride implements IPacketWirelessOverride 
 	}
 
 	@Override
-	public TileEntity getTarget(World world, int xPosition, int yPosition,
-			int zPosition, TileEntity tileentity) {
+	public TileEntity getTarget(World world, int xPosition, int yPosition, int zPosition, TileEntity tileentity) {
 		if (tileentity == null) {
-			return SlimevoidHelper.getBlockTileEntity(world, xPosition, yPosition, zPosition);
+			return SlimevoidHelper.getBlockTileEntity(	world,
+														xPosition,
+														yPosition,
+														zPosition);
 		}
 		return tileentity;
 	}

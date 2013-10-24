@@ -18,7 +18,7 @@ package wirelessredstone.data;
  * 
  */
 public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
-	int x, y, z;
+	int	x, y, z;
 
 	public WirelessCoordinates(int x, int y, int z) {
 		this.x = x;
@@ -70,7 +70,8 @@ public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 	/**
 	 * Setter for the X coordinate.
 	 * 
-	 * @param posX The X coordinate.
+	 * @param posX
+	 *            The X coordinate.
 	 */
 	public void setX(int posX) {
 		this.x = posX;
@@ -79,7 +80,8 @@ public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 	/**
 	 * Setter for the Y coordinate.
 	 * 
-	 * @param posY The Y coordinate.
+	 * @param posY
+	 *            The Y coordinate.
 	 */
 	public void setY(int posY) {
 		this.y = posY;
@@ -88,7 +90,8 @@ public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 	/**
 	 * Setter for the Z coordinate.
 	 * 
-	 * @param posZ The Z coordinate.
+	 * @param posZ
+	 *            The Z coordinate.
 	 */
 	public void setZ(int posZ) {
 		this.z = posZ;
@@ -107,8 +110,7 @@ public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 			coordArray[1] = this.getY();
 			coordArray[2] = this.getZ();
 			return coordArray;
-		} else
-			return null;
+		} else return null;
 	}
 
 	@Override
@@ -125,23 +127,17 @@ public class WirelessCoordinates implements Comparable<WirelessCoordinates> {
 				}
 			}
 		}
-		if (theString != "")
-			return theString;
-		else
-			return "No Coordinates found!";
+		if (theString != "") return theString;
+		else return "No Coordinates found!";
 	}
 
 	@Override
 	public int compareTo(WirelessCoordinates arg0) {
 		if (arg0.x == this.x) {
 			if (arg0.y == this.y) {
-				if (arg0.z == this.z)
-					return 0;
-				else
-					return this.z - arg0.z;
-			} else
-				return this.y - arg0.y;
-		} else
-			return this.x - arg0.x;
+				if (arg0.z == this.z) return 0;
+				else return this.z - arg0.z;
+			} else return this.y - arg0.y;
+		} else return this.x - arg0.x;
 	}
 }

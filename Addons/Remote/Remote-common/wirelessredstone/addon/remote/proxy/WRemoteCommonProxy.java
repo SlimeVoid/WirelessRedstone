@@ -74,9 +74,8 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
 		if (!world.isRemote) {
 			if (devicedata instanceof WirelessRemoteData) {
-				ServerDeviceGuiPacketHandler.sendGuiPacketTo(
-						(EntityPlayerMP) entityplayer,
-						new PacketOpenGuiRemote(devicedata));
+				ServerDeviceGuiPacketHandler.sendGuiPacketTo(	(EntityPlayerMP) entityplayer,
+																new PacketOpenGuiRemote(devicedata));
 			}
 		}
 	}
@@ -109,37 +108,35 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 
 	@Override
 	public void initPacketHandlers() {
-		/////////////////////
+		// ///////////////////
 		// Server Executor //
-		/////////////////////
-		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.deactivate.toString(),
-				new DeactivateRemoteExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.activate.toString(),
-				new ActivateRemoteExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.ETHER).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.updateReceiver.toString(),
-				new RemoteChangeReceiverFreqExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(
-				PacketRemoteCommands.remoteCommands.changeFreq.toString(),
-				new RemoteChangeFreqExecutor());
+		// ///////////////////
+		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.deactivate.toString(),
+																						new DeactivateRemoteExecutor());
+		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.activate.toString(),
+																						new ActivateRemoteExecutor());
+		ServerPacketHandler.getPacketHandler(PacketIds.ETHER).registerPacketHandler(PacketRemoteCommands.remoteCommands.updateReceiver.toString(),
+																					new RemoteChangeReceiverFreqExecutor());
+		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.changeFreq.toString(),
+																						new RemoteChangeFreqExecutor());
 	}
 
 	@Override
 	public void connectionClosed(INetworkManager manager) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void activateRemote(World world, EntityLiving entityliving) {
-		WirelessRemoteDevice.activateWirelessRemote(world, entityliving);
+		WirelessRemoteDevice.activateWirelessRemote(world,
+													entityliving);
 	}
 
 	@Override
 	public boolean deactivateRemote(World world, EntityLiving entityliving) {
-		return WirelessRemoteDevice.deactivateWirelessRemote(world, entityliving);
+		return WirelessRemoteDevice.deactivateWirelessRemote(	world,
+																entityliving);
 	}
 
 	@Override
@@ -159,6 +156,6 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	@Override
 	public void doSomething(String command, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

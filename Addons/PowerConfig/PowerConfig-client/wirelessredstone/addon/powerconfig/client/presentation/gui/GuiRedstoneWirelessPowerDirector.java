@@ -1,16 +1,13 @@
-/*    
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU
+ * Lesser General Public License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>
  */
 package wirelessredstone.addon.powerconfig.client.presentation.gui;
 
@@ -33,7 +30,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class GuiRedstoneWirelessPowerDirector extends
 		GuiRedstoneWirelessInventory {
-	protected List<IGuiRedstoneWirelessOverride> powerOverrides;
+	protected List<IGuiRedstoneWirelessOverride>	powerOverrides;
 
 	public GuiRedstoneWirelessPowerDirector() {
 		super();
@@ -53,41 +50,22 @@ public class GuiRedstoneWirelessPowerDirector extends
 	@Override
 	protected void addControls() {
 		buttonList = new ArrayList();
-		buttonList.add(new GuiButtonBoolean(0, (width / 2) - 60,
-				(height / 2) - 42, 20, 20, "N", inventory
-						.isPoweringDirection(3), "North Face"));
-		buttonList.add(new GuiButtonBoolean(1, (width / 2) - 40,
-				(height / 2) - 42, 20, 20, "E", inventory
-						.isPoweringDirection(4), "East Face"));
-		buttonList.add(new GuiButtonBoolean(2, (width / 2) - 20,
-				(height / 2) - 42, 20, 20, "S", inventory
-						.isPoweringDirection(2), "South Face"));
-		buttonList.add(new GuiButtonBoolean(3, (width / 2), (height / 2) - 42,
-				20, 20, "W", inventory.isPoweringDirection(5), "West Face"));
-		buttonList.add(new GuiButtonBoolean(4, (width / 2) + 20,
-				(height / 2) - 42, 20, 20, "U", inventory
-						.isPoweringDirection(0), "Upward Face"));
-		buttonList.add(new GuiButtonBoolean(5, (width / 2) + 40,
-				(height / 2) - 42, 20, 20, "D", inventory
-						.isPoweringDirection(1), "Downward Face"));
+		buttonList.add(new GuiButtonBoolean(0, (width / 2) - 60, (height / 2) - 42, 20, 20, "N", inventory.isPoweringDirection(3), "North Face"));
+		buttonList.add(new GuiButtonBoolean(1, (width / 2) - 40, (height / 2) - 42, 20, 20, "E", inventory.isPoweringDirection(4), "East Face"));
+		buttonList.add(new GuiButtonBoolean(2, (width / 2) - 20, (height / 2) - 42, 20, 20, "S", inventory.isPoweringDirection(2), "South Face"));
+		buttonList.add(new GuiButtonBoolean(3, (width / 2), (height / 2) - 42, 20, 20, "W", inventory.isPoweringDirection(5), "West Face"));
+		buttonList.add(new GuiButtonBoolean(4, (width / 2) + 20, (height / 2) - 42, 20, 20, "U", inventory.isPoweringDirection(0), "Upward Face"));
+		buttonList.add(new GuiButtonBoolean(5, (width / 2) + 40, (height / 2) - 42, 20, 20, "D", inventory.isPoweringDirection(1), "Downward Face"));
 
-		buttonList.add(new GuiButtonBoolean(6, (width / 2) - 60, (height / 2),
-				20, 20, "N", inventory.isPoweringIndirectly(3), "North Face"));
-		buttonList.add(new GuiButtonBoolean(7, (width / 2) - 40, (height / 2),
-				20, 20, "E", inventory.isPoweringIndirectly(4), "East Face"));
-		buttonList.add(new GuiButtonBoolean(8, (width / 2) - 20, (height / 2),
-				20, 20, "S", inventory.isPoweringIndirectly(2), "South Face"));
-		buttonList.add(new GuiButtonBoolean(9, (width / 2), (height / 2), 20,
-				20, "W", inventory.isPoweringIndirectly(5), "West Face"));
-		buttonList.add(new GuiButtonBoolean(10, (width / 2) + 20,
-				(height / 2), 20, 20, "U", inventory.isPoweringIndirectly(0),
-				"Upward Face"));
-		buttonList.add(new GuiButtonBoolean(11, (width / 2) + 40,
-				(height / 2), 20, 20, "D", inventory.isPoweringIndirectly(1),
-				"Downward Face"));
+		buttonList.add(new GuiButtonBoolean(6, (width / 2) - 60, (height / 2), 20, 20, "N", inventory.isPoweringIndirectly(3), "North Face"));
+		buttonList.add(new GuiButtonBoolean(7, (width / 2) - 40, (height / 2), 20, 20, "E", inventory.isPoweringIndirectly(4), "East Face"));
+		buttonList.add(new GuiButtonBoolean(8, (width / 2) - 20, (height / 2), 20, 20, "S", inventory.isPoweringIndirectly(2), "South Face"));
+		buttonList.add(new GuiButtonBoolean(9, (width / 2), (height / 2), 20, 20, "W", inventory.isPoweringIndirectly(5), "West Face"));
+		buttonList.add(new GuiButtonBoolean(10, (width / 2) + 20, (height / 2), 20, 20, "U", inventory.isPoweringIndirectly(0), "Upward Face"));
+		buttonList.add(new GuiButtonBoolean(11, (width / 2) + 40, (height / 2), 20, 20, "D", inventory.isPoweringIndirectly(1), "Downward Face"));
 
 		buttonList.add(new GuiButtonWirelessExit(100, (((width - xSize) / 2)
-				+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
+														+ xSize - 13 - 1), (((height - ySize) / 2) + 1)));
 	}
 
 	@Override
@@ -137,11 +115,13 @@ public class GuiRedstoneWirelessPowerDirector extends
 				break;
 			}
 			if (dir >= 0) {
-				notifyServer(PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(), dir);
+				notifyServer(	PacketPowerConfigCommands.powerConfigCommands.setDirection.toString(),
+								dir);
 				inventory.flipPowerDirection(dir);
 				initGui();
 			} else if (indir >= 0) {
-				notifyServer(PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(), indir);
+				notifyServer(	PacketPowerConfigCommands.powerConfigCommands.setInDirection.toString(),
+								indir);
 				inventory.flipIndirectPower(indir);
 				initGui();
 			}
@@ -155,26 +135,26 @@ public class GuiRedstoneWirelessPowerDirector extends
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
-		drawStringBorder(
-				(xSize / 2)
-						- (fontRenderer.getStringWidth("Power Direction") / 2),
-				28,
-				(xSize / 2)
-						+ (fontRenderer.getStringWidth("Power Direction") / 2));
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth("Power Direction") / 2),
+							28,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth("Power Direction") / 2));
 		fontRenderer.drawString("Power Direction",
-				(xSize / 2)
-						- (fontRenderer.getStringWidth("Power Direction") / 2),
-				28, 0x404040);
+								(xSize / 2)
+										- (fontRenderer.getStringWidth("Power Direction") / 2),
+								28,
+								0x404040);
 
-		drawStringBorder(
-				(xSize / 2)
-						- (fontRenderer.getStringWidth("Indirect Power") / 2),
-				70,
-				(xSize / 2)
-						+ (fontRenderer.getStringWidth("Indirect Power") / 2));
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth("Indirect Power") / 2),
+							70,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth("Indirect Power") / 2));
 		fontRenderer.drawString("Indirect Power",
-				(xSize / 2)
-						- (fontRenderer.getStringWidth("Indirect Power") / 2),
-				70, 0x404040);
+								(xSize / 2)
+										- (fontRenderer.getStringWidth("Indirect Power") / 2),
+								70,
+								0x404040);
 	}
 }

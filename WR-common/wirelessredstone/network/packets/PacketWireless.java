@@ -30,17 +30,18 @@ import wirelessredstone.network.packets.core.PacketUpdate;
  * @author Eurymachus
  * 
  */
-public abstract class PacketWireless extends PacketUpdate implements IRedstoneWirelessData {
-	
-	private static List<IPacketWirelessOverride> overrides = new ArrayList<IPacketWirelessOverride>();
-	
+public abstract class PacketWireless extends PacketUpdate implements
+		IRedstoneWirelessData {
+
+	private static List<IPacketWirelessOverride>	overrides	= new ArrayList<IPacketWirelessOverride>();
+
 	public static void addOverride(IPacketWirelessOverride override) {
 		if (!overrides.contains(override)) {
 			overrides.add(override);
 		}
 	}
 
-	private String command;
+	private String	command;
 
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
@@ -57,8 +58,9 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 	/**
 	 * Constructor for Default Wireless Packets
 	 * 
-	 * @param packetId the packet ID used to identify the type of packet data
-	 *            being sent or received
+	 * @param packetId
+	 *            the packet ID used to identify the type of packet data being
+	 *            sent or received
 	 */
 	public PacketWireless(int packetId) {
 		super(packetId);
@@ -69,9 +71,11 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 	 * Constructor for Default Wireless Packets Used to add payload data to the
 	 * packet
 	 * 
-	 * @param packetId the packet ID used to identify the type of packet data
-	 *            being sent or received
-	 * @param payload the new payload to be associated with the packet
+	 * @param packetId
+	 *            the packet ID used to identify the type of packet data being
+	 *            sent or received
+	 * @param payload
+	 *            the new payload to be associated with the packet
 	 */
 	public PacketWireless(int packetId, PacketPayload payload) {
 		super(packetId, payload);
@@ -80,8 +84,8 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")[" + this
-				.getFreq() + "]";
+		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+				+ zPosition + ")[" + this.getFreq() + "]";
 	}
 
 	/**
@@ -96,7 +100,8 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 	/**
 	 * Sets the command in the packet
 	 * 
-	 * @param command The command to be added
+	 * @param command
+	 *            The command to be added
 	 */
 	public void setCommand(String command) {
 		this.command = command;
@@ -115,10 +120,12 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 	/**
 	 * Sets the command in the payload Override to change the index position
 	 * 
-	 * @param freq The command to be added
+	 * @param freq
+	 *            The command to be added
 	 */
 	public void setFreq(Object freq) {
-		this.payload.setStringPayload(0, freq.toString());
+		this.payload.setStringPayload(	0,
+										freq.toString());
 	}
 
 	/**
@@ -134,10 +141,12 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 	/**
 	 * Sets the command in the payload Override to change the index position
 	 * 
-	 * @param freq The command to be added
+	 * @param freq
+	 *            The command to be added
 	 */
 	public void setState(boolean state) {
-		this.payload.setBoolPayload(0, state);
+		this.payload.setBoolPayload(0,
+									state);
 	}
 
 	public TileEntity getTarget(World world) {
@@ -151,14 +160,17 @@ public abstract class PacketWireless extends PacketUpdate implements IRedstoneWi
 		TileEntity tileentity = null;
 		if (!skipDefault) {
 			if (this.targetExists(world)) {
-				tileentity = world.getBlockTileEntity(
-						this.xPosition,
-						this.yPosition,
-						this.zPosition);
+				tileentity = world.getBlockTileEntity(	this.xPosition,
+														this.yPosition,
+														this.zPosition);
 			}
 		}
 		for (IPacketWirelessOverride override : overrides) {
-			tileentity = override.getTarget(world, this.xPosition, this.yPosition, this.zPosition, tileentity);
+			tileentity = override.getTarget(world,
+											this.xPosition,
+											this.yPosition,
+											this.zPosition,
+											tileentity);
 		}
 		return tileentity;
 	}

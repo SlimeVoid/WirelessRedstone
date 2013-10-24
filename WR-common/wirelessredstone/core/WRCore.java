@@ -45,42 +45,42 @@ public class WRCore {
 	/**
 	 * Wireless Receiver Block
 	 */
-	public static Block blockWirelessR;
+	public static Block			blockWirelessR;
 	/**
 	 * Wireless Transmitter Block
 	 */
-	public static Block blockWirelessT;
+	public static Block			blockWirelessT;
 
 	/**
 	 * Wireless Receiver Block ID
 	 */
-	public static int rxID = 180;
+	public static int			rxID				= 180;
 	/**
 	 * Wireless Transmitter Block ID
 	 */
-	public static int txID = 179;
-	
+	public static int			txID				= 179;
+
 	/**
 	 * Wireless Transmitter Item texture.
 	 */
-	public static int spriteTItem;
+	public static int			spriteTItem;
 	/**
 	 * Wireless Receiver Item texture.
 	 */
-	public static int spriteRItem;
+	public static int			spriteRItem;
 	/**
 	 * Wireless Redstone Ether maximum nodes
 	 */
-	public static int maxEtherFrequencies = 10000;
+	public static int			maxEtherFrequencies	= 10000;
 	/**
 	 * Wireless Redstone load state
 	 */
-	public static boolean isLoaded = false;
+	public static boolean		isLoaded			= false;
 
 	@SidedProxy(
 			clientSide = "wirelessredstone.client.proxy.WRClientProxy",
 			serverSide = "wirelessredstone.proxy.WRCommonProxy")
-	public static ICommonProxy proxy;
+	public static ICommonProxy	proxy;
 
 	/**
 	 * Fires off all the canons.<br>
@@ -95,7 +95,7 @@ public class WRCore {
 
 		PacketRedstoneWirelessCommands.registerCommands();
 
-		//PacketWirelessDeviceCommands.registerCommands();
+		// PacketWirelessDeviceCommands.registerCommands();
 
 		proxy.initPacketHandlers();
 
@@ -119,32 +119,44 @@ public class WRCore {
 	 * Initializes Block objects.
 	 */
 	private static void initBlocks() {
-		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F))
-				.setUnlocalizedName("wirelessredstone.receiver");
-		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F))
-				.setUnlocalizedName("wirelessredstone.transmitter");
+		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.receiver");
+		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.transmitter");
 	}
 
 	/**
 	 * Registers the Blocks, block names and TileEntities
 	 */
 	private static void registerBlocks() {
-		GameRegistry.registerBlock(blockWirelessR, "wirelessredstone.receiver");
-		LanguageRegistry.addName(blockWirelessR, "Wireless Receiver");
-		LanguageRegistry.instance().addNameForObject(blockWirelessR, "de_DE", "Drahtloser Empfanger");
-		LanguageRegistry.instance().addNameForObject(blockWirelessR, "nb_NO", "Tradlos Mottaker");
-		LanguageRegistry.instance().addNameForObject(blockWirelessR, "nn_NO", "Tradlaus Mottaker");
-		GameRegistry.registerTileEntity(
-				TileEntityRedstoneWirelessR.class,
-				"Wireless Receiver");
-		GameRegistry.registerBlock(blockWirelessT, "wirelessredstone.transmitter");
-		LanguageRegistry.addName(blockWirelessT, "Wireless Transmitter");
-		LanguageRegistry.instance().addNameForObject(blockWirelessT, "de_DE", "Drahtloser Sender");
-		LanguageRegistry.instance().addNameForObject(blockWirelessT, "nb_NO", "Tradlos Sender");
-		LanguageRegistry.instance().addNameForObject(blockWirelessT, "nn_NO", "Tradlaus Sender");
-		GameRegistry.registerTileEntity(
-				TileEntityRedstoneWirelessT.class,
-				"Wireless Transmitter");
+		GameRegistry.registerBlock(	blockWirelessR,
+									"wirelessredstone.receiver");
+		LanguageRegistry.addName(	blockWirelessR,
+									"Wireless Receiver");
+		LanguageRegistry.instance().addNameForObject(	blockWirelessR,
+														"de_DE",
+														"Drahtloser Empfanger");
+		LanguageRegistry.instance().addNameForObject(	blockWirelessR,
+														"nb_NO",
+														"Tradlos Mottaker");
+		LanguageRegistry.instance().addNameForObject(	blockWirelessR,
+														"nn_NO",
+														"Tradlaus Mottaker");
+		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessR.class,
+										"Wireless Receiver");
+		GameRegistry.registerBlock(	blockWirelessT,
+									"wirelessredstone.transmitter");
+		LanguageRegistry.addName(	blockWirelessT,
+									"Wireless Transmitter");
+		LanguageRegistry.instance().addNameForObject(	blockWirelessT,
+														"de_DE",
+														"Drahtloser Sender");
+		LanguageRegistry.instance().addNameForObject(	blockWirelessT,
+														"nb_NO",
+														"Tradlos Sender");
+		LanguageRegistry.instance().addNameForObject(	blockWirelessT,
+														"nn_NO",
+														"Tradlaus Sender");
+		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessT.class,
+										"Wireless Transmitter");
 	}
 
 	/**
@@ -153,26 +165,28 @@ public class WRCore {
 	 * - Receipt for Transmitter.
 	 */
 	private static void addRecipes() {
-		GameRegistry.addRecipe(new ItemStack(blockWirelessR, 1), new Object[] {
-				"IRI",
-				"RLR",
-				"IRI",
-				Character.valueOf('I'),
-				Item.ingotIron,
-				Character.valueOf('R'),
-				Item.redstone,
-				Character.valueOf('L'),
-				Block.lever });
-		GameRegistry.addRecipe(new ItemStack(blockWirelessT, 1), new Object[] {
-				"IRI",
-				"RTR",
-				"IRI",
-				Character.valueOf('I'),
-				Item.ingotIron,
-				Character.valueOf('R'),
-				Item.redstone,
-				Character.valueOf('T'),
-				Block.torchRedstoneActive });
+		GameRegistry.addRecipe(	new ItemStack(blockWirelessR, 1),
+								new Object[] {
+										"IRI",
+										"RLR",
+										"IRI",
+										Character.valueOf('I'),
+										Item.ingotIron,
+										Character.valueOf('R'),
+										Item.redstone,
+										Character.valueOf('L'),
+										Block.lever });
+		GameRegistry.addRecipe(	new ItemStack(blockWirelessT, 1),
+								new Object[] {
+										"IRI",
+										"RTR",
+										"IRI",
+										Character.valueOf('I'),
+										Item.ingotIron,
+										Character.valueOf('R'),
+										Item.redstone,
+										Character.valueOf('T'),
+										Block.torchRedstoneActive });
 	}
 
 	/**
@@ -181,63 +195,55 @@ public class WRCore {
 	 * - Transmitter block ID: (Transmitter.ID)<br>
 	 */
 	private static void loadConfig() {
-		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"WirelessRedstone").get(
-				"Receiver.ID",
-				Integer.class,
-				new Integer(rxID));
-		txID = (Integer) ConfigStoreRedstoneWireless.getInstance(
-				"WirelessRedstone").get(
-				"Transmitter.ID",
-				Integer.class,
-				new Integer(txID));
+		rxID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get(	"Receiver.ID",
+																							Integer.class,
+																							new Integer(rxID));
+		txID = (Integer) ConfigStoreRedstoneWireless.getInstance("WirelessRedstone").get(	"Transmitter.ID",
+																							Integer.class,
+																							new Integer(txID));
 	}
 
 	/**
 	 * Adds a Block override to the Receiver.
 	 * 
-	 * @param override Block override
+	 * @param override
+	 *            Block override
 	 */
 	public static void addOverrideToReceiver(IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance(
-				"Wireless Redstone"
-		).write(
-				true,
-				"Override added to " + 
-					LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessR.getClass().toString())
-					+ " - " + 
-					LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(	true,
+																		"Override added to "
+																				+ LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessR.getClass().toString())
+																				+ " - "
+																				+ LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+																		LoggerRedstoneWireless.LogLevel.DEBUG);
+
 		((BlockRedstoneWireless) WRCore.blockWirelessR).addOverride(override);
 	}
 
 	/**
 	 * Adds a Block override to the Transmitter.
 	 * 
-	 * @param override Block override
+	 * @param override
+	 *            Block override
 	 */
 	public static void addOverrideToTransmitter(IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance(
-				"Wireless Redstone"
-		).write(
-				true,
-				"Override added to " + 
-					LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessT.getClass().toString())
-					+ " - " + 
-					LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
-		
+		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(	true,
+																		"Override added to "
+																				+ LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessT.getClass().toString())
+																				+ " - "
+																				+ LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+																		LoggerRedstoneWireless.LogLevel.DEBUG);
+
 		((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
 	}
 
 	/**
 	 * Fetches an entity by ID.
 	 * 
-	 * @param world The world object
-	 * @param entityId Entity ID
+	 * @param world
+	 *            The world object
+	 * @param entityId
+	 *            Entity ID
 	 * 
 	 * @return The Entity.
 	 */
@@ -245,11 +251,11 @@ public class WRCore {
 		if (world != null) {
 			for (int i = 0; i < world.loadedEntityList.size(); ++i) {
 				Entity entity = (Entity) world.loadedEntityList.get(i);
-		
+
 				if (entity == null) {
 					return null;
 				}
-		
+
 				if (entity.entityId == entityId) {
 					return entity;
 				}

@@ -29,12 +29,9 @@ import cpw.mods.fml.common.network.NetworkMod;
 		modid = "WirelessSlimeVoid",
 		name = "Wireless Redstone - Wireless Slimevoid Additions",
 		version = "1.0",
-		dependencies = "after:WirelessRedstoneCore")
-@NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false)
+		dependencies = "required-after:WirelessRedstoneCore")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class WirelessSlimeVoid {
-
 
 	/**
 	 * Initialization
@@ -43,7 +40,7 @@ public class WirelessSlimeVoid {
 	 */
 	@Init
 	public void WirelessSlimeVoidInit(FMLInitializationEvent event) {
-		
+
 	}
 
 	/**

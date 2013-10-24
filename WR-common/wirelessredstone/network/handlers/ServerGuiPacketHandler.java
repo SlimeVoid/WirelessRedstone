@@ -33,24 +33,23 @@ public class ServerGuiPacketHandler extends SubPacketHandler {
 	/**
 	 * Send a GUI packet to specified player.
 	 * 
-	 * @param player Receiving player.
-	 * @param data the packet to send.
+	 * @param player
+	 *            Receiving player.
+	 * @param data
+	 *            the packet to send.
 	 */
 	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless data) {
 		// Assemble a OpenGUI packet.
-		
-		LoggerRedstoneWireless.getInstance(
-				"ServerGuiPacketHandler"
-		).write(
-				false,
-				"sendGuiPacketTo(" + player.username+", entity)",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+
+		LoggerRedstoneWireless.getInstance("ServerGuiPacketHandler").write(	false,
+																			"sendGuiPacketTo("
+																					+ player.username
+																					+ ", entity)",
+																			LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(data);
 		// Send the packet.
-		ServerPacketHandler.sendPacketTo(
-				player,
-				packet.getPacket());
+		ServerPacketHandler.sendPacketTo(	player,
+											packet.getPacket());
 	}
 }

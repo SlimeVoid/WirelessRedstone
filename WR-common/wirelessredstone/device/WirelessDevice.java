@@ -27,21 +27,27 @@ import wirelessredstone.data.WirelessCoordinates;
  * @author Eurymachus
  */
 public abstract class WirelessDevice implements IWirelessDevice {
-	
-	protected IWirelessDeviceData data;
-	protected int xCoord, yCoord, zCoord;
-	protected EntityLiving owner;
-	
+
+	protected IWirelessDeviceData	data;
+	protected int					xCoord, yCoord, zCoord;
+	protected EntityLiving			owner;
+
 	protected WirelessDevice(World world, EntityLiving entity, IWirelessDeviceData data) {
 		if (data != null) {
 			this.data = data;
 		} else {
-			this.data = WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), entity.getHeldItem(), world, entity);
+			this.data = WirelessDeviceData.getDeviceData(	this.getDeviceDataClass(),
+															this.getName(),
+															entity.getHeldItem(),
+															world,
+															entity);
 		}
 		this.owner = entity;
-		this.setCoords((int)entity.posX, (int)entity.posY, (int)entity.posZ);
+		this.setCoords(	(int) entity.posX,
+						(int) entity.posY,
+						(int) entity.posZ);
 	}
-	
+
 	@Override
 	public abstract String getName();
 
@@ -49,7 +55,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	public EntityLiving getOwner() {
 		return this.owner;
 	}
-	
+
 	@Override
 	public void setOwner(EntityLiving entity) {
 		this.owner = entity;
@@ -62,10 +68,10 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void setCoords(WirelessCoordinates coords) {
-		int x = coords.getX(),
-			y = coords.getY(),
-			z = coords.getZ();
-		this.setCoords(x, y, z);
+		int x = coords.getX(), y = coords.getY(), z = coords.getZ();
+		this.setCoords(	x,
+						y,
+						z);
 	}
 
 	@Override
@@ -79,7 +85,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	public WirelessCoordinates getCoords() {
 		return new WirelessCoordinates(this.xCoord, this.yCoord, this.zCoord);
 	}
-	
+
 	@Override
 	public World getWorld() {
 		return DimensionManager.getWorld(this.data.getDeviceDimension());
@@ -112,28 +118,31 @@ public abstract class WirelessDevice implements IWirelessDevice {
 			this.doDeactivateCommand();
 		}
 	}
-	
+
 	@Override
 	public abstract void doActivateCommand();
-	
+
 	@Override
 	public abstract void doDeactivateCommand();
-	
+
 	protected abstract String getActivateCommand();
 
 	protected abstract String getDeactivateCommand();
-	
+
 	@Override
 	public boolean isBeingHeld() {
 		EntityLiving entityliving = this.getOwner();
 		if (entityliving != null) {
 			ItemStack itemstack = entityliving.getHeldItem();
 			if (itemstack != null) {
-				return WirelessDeviceData.getDeviceData(this.getDeviceDataClass(), this.getName(), itemstack, this.getWorld(),
-						entityliving).getDeviceFreq() == this.getFreq();
+				return WirelessDeviceData.getDeviceData(this.getDeviceDataClass(),
+														this.getName(),
+														itemstack,
+														this.getWorld(),
+														entityliving).getDeviceFreq() == this.getFreq();
 			}
 		}
 		return false;
 	}
-	
+
 }

@@ -61,7 +61,9 @@ public class RedstoneWirelessConnectionHandler implements IConnectionHandler {
 
 	@Override
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
-		WRCore.proxy.login(clientHandler, manager, login);
+		WRCore.proxy.login(	clientHandler,
+							manager,
+							login);
 	}
 
 }

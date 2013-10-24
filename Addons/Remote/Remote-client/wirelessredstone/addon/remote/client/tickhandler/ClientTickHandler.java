@@ -28,24 +28,26 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 public class ClientTickHandler implements ITickHandler {
-	
-	public static boolean mouseDown, wasMouseDown, remotePulsing;
-	Minecraft mc = ModLoader.getMinecraftInstance();
-	
-	public static void processRemote(World world, EntityPlayer entityplayer,
-			GuiScreen gui, MovingObjectPosition mop) {
+
+	public static boolean	mouseDown, wasMouseDown, remotePulsing;
+	Minecraft				mc	= ModLoader.getMinecraftInstance();
+
+	public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop) {
 		if (world.isRemote) {
-			if (WirelessRemoteDevice.remoteTransmitter != null && !mouseDown && !remotePulsing) {
-				//ThreadWirelessRemote.pulse(entityplayer, "hold");
-				WirelessRemoteDevice.deactivatePlayerWirelessRemote(world, entityplayer);
+			if (WirelessRemoteDevice.remoteTransmitter != null && !mouseDown
+				&& !remotePulsing) {
+				// ThreadWirelessRemote.pulse(entityplayer, "hold");
+				WirelessRemoteDevice.deactivatePlayerWirelessRemote(world,
+																	entityplayer);
 			}
-	
+
 			if (mouseClicked()
-					&& WirelessRemoteDevice.remoteTransmitter == null
-					&& entityplayer.inventory.getCurrentItem() != null
-					&& entityplayer.inventory.getCurrentItem().getItem() == WRemoteCore.itemRemote
-					&& !entityplayer.isSneaking()) {
-				WirelessRemoteDevice.activatePlayerWirelessRemote(world, entityplayer);
+				&& WirelessRemoteDevice.remoteTransmitter == null
+				&& entityplayer.inventory.getCurrentItem() != null
+				&& entityplayer.inventory.getCurrentItem().getItem() == WRemoteCore.itemRemote
+				&& !entityplayer.isSneaking()) {
+				WirelessRemoteDevice.activatePlayerWirelessRemote(	world,
+																	entityplayer);
 			}
 		}
 	}
@@ -58,7 +60,7 @@ public class ClientTickHandler implements ITickHandler {
 		wasMouseDown = mouseDown;
 		mouseDown = Mouse.isButtonDown(1);
 	}
-	
+
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		checkMouseClicks();
@@ -67,8 +69,10 @@ public class ClientTickHandler implements ITickHandler {
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		if (mc.theWorld != null && mc.theWorld.isRemote) {
-			processRemote(mc.theWorld, mc.thePlayer, mc.currentScreen,
-					mc.objectMouseOver);
+			processRemote(	mc.theWorld,
+							mc.thePlayer,
+							mc.currentScreen,
+							mc.objectMouseOver);
 		}
 	}
 

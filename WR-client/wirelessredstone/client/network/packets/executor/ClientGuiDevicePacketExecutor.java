@@ -24,25 +24,24 @@ public abstract class ClientGuiDevicePacketExecutor implements IPacketExecutor {
 
 	@Override
 	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		LoggerRedstoneWireless.getInstance(
-				"ClientGuiDevicePacketExecutor"
-		).write(
-				world.isRemote,
-				"handlePacket(" + packet.toString()+")",
-				LoggerRedstoneWireless.LogLevel.DEBUG
-		);
+		LoggerRedstoneWireless.getInstance("ClientGuiDevicePacketExecutor").write(	world.isRemote,
+																					"handlePacket("
+																							+ packet.toString()
+																							+ ")",
+																					LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		IWirelessDeviceData devicedata = WirelessDeviceData.getDeviceData(
-				this.getDeviceDataClass(),
-				((IWirelessDeviceData)packet).getDeviceType(),
-				((IWirelessDeviceData)packet).getDeviceID(),
-				((IWirelessDeviceData)packet).getDeviceName(),
-				world,
-				entityplayer);
-		devicedata.setDeviceFreq(((IWirelessDeviceData)packet).getDeviceFreq());
-		
-		WRCore.proxy.activateGUI(world, entityplayer, devicedata);
+		IWirelessDeviceData devicedata = WirelessDeviceData.getDeviceData(	this.getDeviceDataClass(),
+																			((IWirelessDeviceData) packet).getDeviceType(),
+																			((IWirelessDeviceData) packet).getDeviceID(),
+																			((IWirelessDeviceData) packet).getDeviceName(),
+																			world,
+																			entityplayer);
+		devicedata.setDeviceFreq(((IWirelessDeviceData) packet).getDeviceFreq());
+
+		WRCore.proxy.activateGUI(	world,
+									entityplayer,
+									devicedata);
 	}
-	
+
 	protected abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
 }

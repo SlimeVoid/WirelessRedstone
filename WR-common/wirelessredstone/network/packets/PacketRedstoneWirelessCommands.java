@@ -27,8 +27,8 @@ public class PacketRedstoneWirelessCommands {
 		sendGui,
 		sendDeviceGui;
 
-		private int value;
-		private String name;
+		private int		value;
+		private String	name;
 
 		public int getCommand() {
 			if (this != null) {
@@ -42,7 +42,7 @@ public class PacketRedstoneWirelessCommands {
 			if (this != null && this.name != null && !this.name.isEmpty()) {
 				return this.name;
 			}
-			return "Command["+this+" is not initialzed";
+			return "Command[" + this + " is not initialzed";
 		}
 	}
 
@@ -108,7 +108,7 @@ public class PacketRedstoneWirelessCommands {
 		registerCommand(wirelessCommands.sendDeviceGui.name);
 	}
 
-	private static Map<Integer, String> commandList = new HashMap<Integer, String>();
+	private static Map<Integer, String>	commandList	= new HashMap<Integer, String>();
 
 	private static int getNextAvailableCommand() {
 		return commandList.size() - 1;
@@ -117,7 +117,8 @@ public class PacketRedstoneWirelessCommands {
 	public static void registerCommand(String name) {
 		int nextID = getNextAvailableCommand();
 		if (!commandList.containsKey(nextID)) {
-			commandList.put(nextID, name);
+			commandList.put(nextID,
+							name);
 		}
 	}
 }

@@ -30,9 +30,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 		name = "Wireless Redstone - Wireless Remote",
 		version = "2.1",
 		dependencies = "after:WirelessRedstoneCore")
-@NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * FML fascade class.
  * This class uses FML annotations and sorts initialization.
@@ -45,7 +43,6 @@ import cpw.mods.fml.common.network.NetworkMod;
  */
 public class WirelessRemote {
 
-
 	/**
 	 * Initialization
 	 * 
@@ -53,7 +50,7 @@ public class WirelessRemote {
 	 */
 	@Init
 	public void WirelessRemoteInit(FMLInitializationEvent event) {
-		
+
 	}
 
 	/**

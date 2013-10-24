@@ -22,13 +22,17 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * @author ali4z
  * 
  */
-public interface IGuiRedstoneWirelessInventoryOverride extends IGuiRedstoneWirelessOverride {
+public interface IGuiRedstoneWirelessInventoryOverride extends
+		IGuiRedstoneWirelessOverride {
 	/**
 	 * Triggers before the frequency is changed.
 	 * 
-	 * @param entity TileEntity
-	 * @param oldFreq Old frequency
-	 * @param newFreq New frequency
+	 * @param entity
+	 *            TileEntity
+	 * @param oldFreq
+	 *            Old frequency
+	 * @param newFreq
+	 *            New frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
 	public boolean beforeFrequencyChange(TileEntityRedstoneWireless entity, Object oldFreq, Object newFreq);
