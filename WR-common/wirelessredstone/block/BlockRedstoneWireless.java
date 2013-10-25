@@ -603,16 +603,36 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 */
 	@Override
 	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+
+		Icon output;
 		try {
-			return getBlockRedstoneWirelessTexture(	iblockaccess,
+			output = getBlockRedstoneWirelessTexture(	iblockaccess,
+														i,
+														j,
+														k,
+														l);
+		} catch (Exception e) {
+			LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
+			output = this.blockIcon;
+
+		}
+
+		// Run overrides.
+		for (IBlockRedstoneWirelessOverride override : overrides) {
+			if (override.shouldOverrideTextureAt(	iblockaccess,
 													i,
 													j,
 													k,
-													l);
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
-			return this.blockIcon;
+													l)) {
+				output = override.getBlockTexture(	iblockaccess,
+													i,
+													j,
+													k,
+													l,
+													output);
+			}
 		}
+		return output;
 	}
 
 	/**

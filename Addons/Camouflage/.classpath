@@ -5,8 +5,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/SlimevoidLibrary"/>
 	<classpathentry kind="lib" path="/Minecraft/jars/bin/lwjgl.jar"/>
 	<classpathentry kind="src" path="CF-common"/>
-	<classpathentry kind="src" path="CF-resources"/>
 	<classpathentry kind="src" path="CF-client"/>
+	<classpathentry kind="src" path="CF-resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

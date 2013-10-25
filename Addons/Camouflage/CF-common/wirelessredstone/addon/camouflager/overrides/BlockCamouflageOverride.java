@@ -9,18 +9,20 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.client.overrides;
+package wirelessredstone.addon.camouflager.overrides;
 
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class BlockRedstoneWirelessOverrideSMP implements
-		IBlockRedstoneWirelessOverride {
+public class BlockCamouflageOverride implements IBlockRedstoneWirelessOverride {
 
 	@Override
 	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
@@ -69,13 +71,28 @@ public class BlockRedstoneWirelessOverrideSMP implements
 
 	@Override
 	public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
-		// TODO Auto-generated method stub
+		TileEntity tileentity = iblockaccess.getBlockTileEntity(i,
+																j,
+																k);
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWireless) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output) {
-		// TODO Auto-generated method stub
-		return null;
+		TileEntity tileentity = iblockaccess.getBlockTileEntity(i,
+																j,
+																k);
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWireless) {
+			TileEntityRedstoneWireless tRW = (TileEntityRedstoneWireless) tileentity;
+			output = CamouLib.getIconForTile(	tRW,
+												side,
+												output);
+		}
+		return output;
 	}
 }

@@ -41,9 +41,6 @@ public class ItemRedstoneWirelessCamouflager extends Item {
 	}
 
 	@Override
-	// ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World,
-	// int par4, int par5, int par6, int par7, float par8, float par9, float
-	// par10
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
 		TileEntity tileentity = world.getBlockTileEntity(	i,
 															j,
@@ -55,9 +52,7 @@ public class ItemRedstoneWirelessCamouflager extends Item {
 									world,
 									i,
 									j,
-									k);// PowerConfigurator.openGUI(world,
-										// entityplayer, tileentity);
-			// TODO :: Open GUI
+									k);
 			itemstack.damageItem(	1,
 									entityplayer);
 			return true;

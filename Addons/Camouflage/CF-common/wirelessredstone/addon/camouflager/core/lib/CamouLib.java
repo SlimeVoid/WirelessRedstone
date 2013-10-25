@@ -1,58 +1,55 @@
 package wirelessredstone.addon.camouflager.core.lib;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import wirelessredstone.addon.camouflager.api.ICamouflaged;
-import wirelessredstone.addon.camouflager.tileentity.TileEntityCamouflagedWirelessR;
-import wirelessredstone.addon.camouflager.tileentity.TileEntityCamouflagedWirelessT;
+import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class CamouLib {
 
-	public static TileEntity createCamouflagedTile(TileEntityRedstoneWireless tRW) {
+	public static void setIconForTile(World world, TileEntityRedstoneWireless tRW, ItemStack blockRef) {
+		tRW.reference = blockRef;
+		tRW.onInventoryChanged();
+		world.markBlockForUpdate(	tRW.xCoord,
+									tRW.yCoord,
+									tRW.zCoord);
+	}
+
+	public static Icon getIconForTile(TileEntityRedstoneWireless tRW, int side, Icon output) {
 		NBTTagCompound tags = new NBTTagCompound();
 		tRW.writeToNBT(tags);
-		TileEntityRedstoneWireless camouTile = null;
-		if (tRW instanceof TileEntityRedstoneWirelessR) {
-			camouTile = new TileEntityCamouflagedWirelessR();
-			camouTile.readFromNBT(tags);
-		} else if (tRW instanceof TileEntityRedstoneWirelessT) {
-			camouTile = new TileEntityCamouflagedWirelessT();
-			camouTile.readFromNBT(tags);
+		if (tags.hasKey("BlockRef")) {
+			NBTTagCompound stackTag = tags.getCompoundTag("BlockRef");
+			ItemStack itemstack = ItemStack.loadItemStackFromNBT(stackTag);
+			int blockID = itemstack.itemID;
+			int damage = itemstack.getItemDamage();
+			return Block.blocksList[blockID].getIcon(	side,
+														damage);
 		}
-		return camouTile;
+		return output;
 	}
 
-	public static void writeToNBT(ICamouflaged tRW, NBTTagCompound nbttagcompound) {
-		NBTTagList items = new NBTTagList();
-		for (int i = 0; i < tRW.getBlockRefs().length; i++) {
-			if (tRW.getBlockRefs()[i] != null) {
-				NBTTagCompound item = new NBTTagCompound();
-				item.setByte(	"Side",
-								(byte) i);
-				tRW.getBlockRefs()[i].writeToNBT(item);
-				items.appendTag(item);
-			}
+	public static void writeToNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound) {
+		NBTTagCompound stackTag = new NBTTagCompound();
+		ItemStack reference = tileEntityRedstoneWireless.reference;
+
+		if (reference == null) {
+			reference = new ItemStack(Block.blockRedstone);
 		}
-		nbttagcompound.setTag(	"BlockRef",
-								items);
+
+		if (reference != null) {
+			reference.writeToNBT(stackTag);
+			nbttagcompound.setCompoundTag(	"BlockRef",
+											stackTag);
+		}
 	}
 
-	public static void readFromNBT(ICamouflaged tRW, NBTTagCompound nbttagcompound) {
+	public static void readFromNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound) {
 		if (nbttagcompound.hasKey("BlockRef")) {
-			NBTTagList items = nbttagcompound.getTagList("BlockRef");
-			for (int i = 0; i < items.tagCount(); i++) {
-				NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
-				int j = item.getByte("Side") & 0xff;
-				if (j >= 0 && j < tRW.getBlockRefs().length) {
-					tRW.setBlockReferenceForSide(	ItemStack.loadItemStackFromNBT(item),
-													j);
-				}
-			}
+			NBTTagCompound stackTag = nbttagcompound.getCompoundTag("BlockRef");
+			tileEntityRedstoneWireless.reference = ItemStack.loadItemStackFromNBT(stackTag);
 		}
 	}
 }

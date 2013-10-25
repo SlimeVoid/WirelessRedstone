@@ -11,31 +11,23 @@
  */
 package wirelessredstone.addon.camouflager.client.presentation.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import wirelessredstone.addon.camouflager.core.lib.GuiLib;
-import wirelessredstone.api.IGuiRedstoneWirelessOverride;
-import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
+import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
+import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessContainer;
 
 public class GuiRedstoneWirelessCamouflager extends
-		GuiRedstoneWirelessInventory {
-	protected List<IGuiRedstoneWirelessOverride>	camouOverrides;
+		GuiRedstoneWirelessContainer {
 
-	public GuiRedstoneWirelessCamouflager() {
-		super();
-		camouOverrides = new ArrayList<IGuiRedstoneWirelessOverride>();
+	public GuiRedstoneWirelessCamouflager(ContainerCamouflagedRedstoneWireless container) {
+		super(container);
 	}
 
-	@Override
-	public void addOverride(IGuiRedstoneWirelessOverride override) {
-		this.camouOverrides.add(override);
-	}
-
-	@Override
 	public String getBackgroundImage() {
 		return GuiLib.GUI_CAMOU;
+	}
+
+	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
 	}
 
 	@Override
@@ -43,20 +35,11 @@ public class GuiRedstoneWirelessCamouflager extends
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton guibutton) {
+	protected String getGuiName() {
+		return "Wireless Camouflager";
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
-		drawStringBorder(	(xSize / 2)
-									- (fontRenderer.getStringWidth("Camouflager") / 2),
-							28,
-							(xSize / 2)
-									+ (fontRenderer.getStringWidth("Camouflager") / 2));
-		fontRenderer.drawString("Camouflager",
-								(xSize / 2)
-										- (fontRenderer.getStringWidth("Camouflager") / 2),
-								28,
-								0x404040);
+	protected void actionPerformed(GuiButton guibutton) {
 	}
 }
