@@ -12,6 +12,7 @@
 package wirelessredstone.core;
 
 import wirelessredstone.client.network.ClientPacketHandler;
+import wirelessredstone.core.lib.CoreLib;
 import wirelessredstone.network.RedstoneWirelessConnectionHandler;
 import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
@@ -31,18 +32,18 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  * @author ali4z
  */
 @Mod(
-		modid = "WirelessRedstoneCore",
-		name = "Wireless Redstone",
-		version = "1.7")
+		modid = CoreLib.MOD_ID,
+		name = CoreLib.MOD_NAME,
+		version = CoreLib.MOD_VERSION)
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,
 		connectionHandler = RedstoneWirelessConnectionHandler.class,
 		clientPacketHandlerSpec = @SidedPacketHandler(
-				channels = { "WR" },
+				channels = { CoreLib.MOD_CHANNEL },
 				packetHandler = ClientPacketHandler.class),
 		serverPacketHandlerSpec = @SidedPacketHandler(
-				channels = { "WR" },
+				channels = { CoreLib.MOD_CHANNEL },
 				packetHandler = ServerPacketHandler.class))
 /**
  * FML fascade class.
@@ -56,7 +57,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  */
 public class WirelessRedstone {
 
-	@Instance("WirelessRedstoneCore")
+	@Instance(CoreLib.MOD_ID)
 	public static WirelessRedstone	instance;
 
 	/**
