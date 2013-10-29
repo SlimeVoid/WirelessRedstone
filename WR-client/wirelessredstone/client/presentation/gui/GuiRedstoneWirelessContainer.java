@@ -20,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
@@ -236,21 +235,7 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 				}
 			}
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
-		}
-	}
-
-	/**
-	 * Handles mouse input.<br>
-	 * Close GUI on right click.
-	 */
-	@Override
-	public void handleMouseInput() {
-		try {
-			super.handleMouseInput();
-			if (Mouse.getEventButton() == 1 && Mouse.getEventButtonState()) close();
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessContainer").writeStackTrace(e);
 		}
 	}
 
@@ -262,7 +247,7 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
 		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance("GuiRedstoneWireless").writeStackTrace(e);
+			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessContainer").writeStackTrace(e);
 		}
 	}
 

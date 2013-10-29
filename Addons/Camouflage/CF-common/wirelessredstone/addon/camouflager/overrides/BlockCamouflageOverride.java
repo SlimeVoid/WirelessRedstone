@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import wirelessredstone.addon.camouflager.core.CamouCore;
 import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -51,7 +52,12 @@ public class BlockCamouflageOverride implements IBlockRedstoneWirelessOverride {
 
 	@Override
 	public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-		return (world.isRemote);
+		if (entityplayer.getCurrentEquippedItem() != null
+			&& entityplayer.getCurrentEquippedItem().itemID == CamouCore.itemCamouflager.itemID) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
