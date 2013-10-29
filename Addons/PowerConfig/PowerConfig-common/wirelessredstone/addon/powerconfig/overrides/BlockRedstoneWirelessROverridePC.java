@@ -33,7 +33,7 @@ public class BlockRedstoneWirelessROverridePC implements
 	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
 		return false;
 	}
 

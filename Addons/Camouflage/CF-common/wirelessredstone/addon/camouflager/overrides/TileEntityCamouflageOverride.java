@@ -69,13 +69,50 @@ public class TileEntityCamouflageOverride implements
 	}
 
 	@Override
-	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j) {
-		// TODO :: Decrease Stack Size
-		return null;
+	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, int amount) {
+		if (tileEntityRedstoneWireless.getStackInSlot(slot) == null) {
+			return null;
+		}
+		ItemStack itemstack;
+		if (tileEntityRedstoneWireless.reference.stackSize <= amount) {
+			itemstack = tileEntityRedstoneWireless.reference;
+			tileEntityRedstoneWireless.reference = null;
+			tileEntityRedstoneWireless.onInventoryChanged();
+			return itemstack;
+		}
+		itemstack = tileEntityRedstoneWireless.reference.splitStack(amount);
+		if (tileEntityRedstoneWireless.reference.stackSize == 0) {
+			tileEntityRedstoneWireless.reference = null;
+		}
+		tileEntityRedstoneWireless.onInventoryChanged();
+		return itemstack;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
 		return itemstack;
+	}
+
+	@Override
+	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
+		tileEntityRedstoneWireless.reference = itemstack;
+		return true;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
+		return CamouLib.isBlock(itemstack)
+				&& tileEntityRedstoneWireless.reference == null;
+	}
+
+	@Override
+	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
+		if (tileEntityRedstoneWireless.reference != null) {
+			CamouLib.dropItem(	tileEntityRedstoneWireless.worldObj,
+								tileEntityRedstoneWireless.xCoord,
+								tileEntityRedstoneWireless.yCoord,
+								tileEntityRedstoneWireless.zCoord,
+								tileEntityRedstoneWireless.reference);
+		}
 	}
 }

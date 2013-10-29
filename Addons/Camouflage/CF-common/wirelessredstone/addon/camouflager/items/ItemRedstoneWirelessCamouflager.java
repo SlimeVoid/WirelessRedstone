@@ -60,10 +60,12 @@ public class ItemRedstoneWirelessCamouflager extends Item {
 		return false;
 	}
 
+	@Override
 	public Icon getIconFromDamage(int i) {
 		return this.iconList[0];
 	}
 
+	@Override
 	public boolean isFull3D() {
 		return true;
 	}

@@ -76,7 +76,7 @@ public class TileEntityRedstoneWirelessSlimevoidOverride implements
 	@Override
 	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
 		// TODO Auto-generated method stub
-		return null;
+		return itemstack;
 	}
 
 	@Override
@@ -88,7 +88,25 @@ public class TileEntityRedstoneWirelessSlimevoidOverride implements
 	@Override
 	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
 		// TODO Auto-generated method stub
-		return null;
+		return itemstack;
+	}
+
+	@Override
+	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
+		// TODO Auto-generated method stub
+		return result;
+	}
+
+	@Override
+	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

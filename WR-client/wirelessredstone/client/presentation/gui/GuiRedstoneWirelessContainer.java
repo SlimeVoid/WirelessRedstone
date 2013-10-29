@@ -14,7 +14,6 @@ package wirelessredstone.client.presentation.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -170,12 +169,6 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 		this.drawGuiName();
 	}
 
-	/**
-	 * Draws the background layer.
-	 * 
-	 * @param f
-	 *            tick partial
-	 */
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(	1.0F,
@@ -218,18 +211,6 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 			}
 		}
 	}
-
-	/**
-	 * Action listener.<br>
-	 * Triggers when a button was clicked on the GUI.<br>
-	 * - Runs all override beforeFrequencyChange, exits if premature exit was
-	 * returned, skipping the frequency from being set.
-	 * 
-	 * @param guibutton
-	 *            button that was clicked
-	 */
-	@Override
-	protected abstract void actionPerformed(GuiButton guibutton);
 
 	/**
 	 * Handles keyboard input.<br>

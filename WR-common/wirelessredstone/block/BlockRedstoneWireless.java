@@ -345,7 +345,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 			if (override.beforeBlockRedstoneWirelessRemoved(world,
 															i,
 															j,
-															k)) prematureExit = true;
+															k,
+															l,
+															m)) prematureExit = true;
 		}
 		if (prematureExit) return;
 

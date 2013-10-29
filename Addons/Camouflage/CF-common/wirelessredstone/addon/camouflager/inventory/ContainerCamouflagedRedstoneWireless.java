@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.addon.camouflager.inventory.slot.SlotBlock;
 import wirelessredstone.tileentity.ContainerRedstoneWireless;
 
@@ -41,9 +42,43 @@ public class ContainerCamouflagedRedstoneWireless extends
 		}
 	}
 
+	private ItemStack transferBlockToSlot(EntityPlayer player, int slotShiftClicked) {
+		ItemStack stackCopy = null;
+		Slot slot = (Slot) this.inventorySlots.get(slotShiftClicked);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack stackInSlot = slot.getStack();
+			if (CamouLib.isBlock(stackInSlot)) {
+				stackCopy = stackInSlot.copy();
+				if (slotShiftClicked < 1) {
+					if (!this.mergeItemStack(	stackInSlot,
+												1,
+												this.inventorySlots.size(),
+												true)) {
+						return null;
+					}
+				} else if (!this.mergeItemStack(stackInSlot,
+												0,
+												1,
+												false)) {
+					return null;
+				}
+
+				if (stackInSlot.stackSize == 0) {
+					slot.putStack((ItemStack) null);
+				} else {
+					slot.onSlotChanged();
+				}
+			}
+		}
+
+		return stackCopy;
+	}
+
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotID) {
-		ItemStack stack = null;
+		ItemStack stack = this.transferBlockToSlot(	player,
+													slotID);
 
 		return stack;
 	}

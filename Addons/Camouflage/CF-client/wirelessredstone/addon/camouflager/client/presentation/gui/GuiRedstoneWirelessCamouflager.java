@@ -23,6 +23,7 @@ public class GuiRedstoneWirelessCamouflager extends
 		super(container);
 	}
 
+	@Override
 	public String getBackgroundImage() {
 		return GuiLib.GUI_CAMOU;
 	}

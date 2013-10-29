@@ -34,7 +34,14 @@ public class BlockCamouflageOverride implements IBlockRedstoneWirelessOverride {
 	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
+		TileEntity tileentity = world.getBlockTileEntity(	i,
+															j,
+															k);
+		if (tileentity instanceof TileEntityRedstoneWireless) {
+			((TileEntityRedstoneWireless) tileentity).onBlockRemoval(	l,
+																		m);
+		}
 		return (world.isRemote);
 	}
 

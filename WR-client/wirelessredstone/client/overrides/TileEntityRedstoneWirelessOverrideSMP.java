@@ -104,4 +104,20 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
 		return null;
 	}
+
+	@Override
+	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
+		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
+		return result;
+	}
+
+	@Override
+	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
+		// TODO Auto-generated method stub
+
+	}
 }

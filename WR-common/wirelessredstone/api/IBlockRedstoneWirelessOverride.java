@@ -70,10 +70,12 @@ public interface IBlockRedstoneWirelessOverride {
 	 *            World Y coordinate
 	 * @param k
 	 *            World Z coordinate
+	 * @param m
+	 * @param l
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k);
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m);
 
 	/**
 	 * Triggers after the Block is removed from the world.

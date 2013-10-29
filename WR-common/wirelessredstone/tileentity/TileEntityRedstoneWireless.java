@@ -146,7 +146,25 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		onInventoryChanged();
+		this.setRedstoneWirelessSlotContents(	i,
+												itemstack);
+		this.onInventoryChanged();
+		this.worldObj.markBlockForUpdate(	this.xCoord,
+											this.yCoord,
+											this.zCoord);
+	}
+
+	protected void setRedstoneWirelessSlotContents(int slot, ItemStack itemstack) {
+		boolean prematureExit = false;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				if (override.setInventorySlotContents(	this,
+														slot,
+														itemstack)) {
+					prematureExit = true;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -440,13 +458,33 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public boolean isInvNameLocalized() {
-		// TODO :: Auto-generated method stub
 		return true;
 	}
 
-	@Override
-	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
-		// TODO :: Auto-generated method stub
+	protected boolean isRedstoneWirelessStackValidForSlot(int slot, ItemStack itemstack) {
+		boolean result = false;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				result = override.isStackValidForSlot(	this,
+														slot,
+														itemstack,
+														result);
+			}
+		}
 		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int slot, ItemStack itemstack) {
+		return this.isRedstoneWirelessStackValidForSlot(slot,
+														itemstack);
+	}
+
+	public void onBlockRemoval(int side, int metadata) {
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			override.onBlockRemoval(this,
+									side,
+									metadata);
+		}
 	}
 }

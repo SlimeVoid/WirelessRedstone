@@ -55,21 +55,122 @@ public interface ITileEntityRedstoneWirelessOverride {
 	 */
 	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IRedstoneWirelessData data);
 
+	/**
+	 * Triggered before checking isUseableByPlayer
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 *            The TileEntity
+	 * @param entityplayer
+	 *            The Player
+	 * @return Premature exit
+	 */
 	public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer);
 
+	/**
+	 * Triggered after default check isUseableByPlayer
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 *            The TileEntity
+	 * @param entityplayer
+	 *            The Player
+	 * @param output
+	 *            the original result
+	 * @return The new/original result
+	 */
 	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean output);
 
+	/**
+	 * Used to assist with additional NBT Data
+	 * 
+	 * @return whether we should handle additional data
+	 */
 	public boolean handlesExtraNBTTags();
 
+	/**
+	 * Writes data to an NBTTagCompound
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 *            The TileEntity
+	 * @param nbttagcompound
+	 *            the NBT data
+	 */
 	public void writeToNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound);
 
+	/**
+	 * Reads data into an NBTTagCompound
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 *            The TileEntity
+	 * @param nbttagcompound
+	 *            the NBT data
+	 */
 	public void readFromNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound);
 
+	/**
+	 * Should we handle additional Inventory information
+	 * 
+	 * @return Whether we should or not
+	 */
 	public boolean handleInventory();
 
-	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack);
+	/**
+	 * Retrieves the stack in slot
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 * @param slot
+	 * @param itemstack
+	 * @return
+	 */
+	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack);
 
-	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j);
+	/**
+	 * Decreases stack size in a given slot
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 * @param slot
+	 * @param amount
+	 * @return
+	 */
+	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, int amount);
 
-	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack);
+	/**
+	 * Returns the stack in slot when the container is closed
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 * @param slot
+	 * @param itemstack
+	 * @return
+	 */
+	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack);
+
+	/**
+	 * Sets the slot contents for a given slot
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 * @param slot
+	 * @param itemstack
+	 * @return If we should prematurely exit
+	 */
+	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack);
+
+	/**
+	 * Ensures that the given stack is valid for a given slot
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 * @param slot
+	 * @param itemstack
+	 * @param result
+	 *            the previous result
+	 * @return a new result or the existing previous result
+	 */
+	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result);
+
+	/**
+	 * Called when we remove the TileEntity
+	 * 
+	 * @param tileEntityRedstoneWireless
+	 * @param side
+	 * @param metadata
+	 */
+	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata);
 }
