@@ -19,15 +19,12 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import wirelessredstone.addon.camouflager.network.packets.PacketCamouflagerCommands;
-import wirelessredstone.addon.camouflager.network.packets.executors.PacketCamouflagerExecutor;
-import wirelessredstone.addon.camouflager.overrides.BlockRedstoneWirelessROverridePC;
+import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
+import wirelessredstone.addon.camouflager.overrides.BlockCamouflageOverride;
+import wirelessredstone.addon.camouflager.overrides.TileEntityCamouflageOverride;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.WRCore;
-import wirelessredstone.network.ServerPacketHandler;
-import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.tileentity.ContainerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class CamouCommonProxy implements ICommonProxy {
@@ -42,9 +39,9 @@ public class CamouCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new ContainerRedstoneWireless(world.getBlockTileEntity(	x,
-																		y,
-																		z));
+		return new ContainerCamouflagedRedstoneWireless(player.inventory, world.getBlockTileEntity(	x,
+																									y,
+																									z));
 	}
 
 	@Override
@@ -73,7 +70,6 @@ public class CamouCommonProxy implements ICommonProxy {
 
 	@Override
 	public void init() {
-		PacketCamouflagerCommands.registerCommands();
 	}
 
 	@Override
@@ -90,10 +86,6 @@ public class CamouCommonProxy implements ICommonProxy {
 		// ///////////////////
 		// Server Executor //
 		// ///////////////////
-		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketCamouflagerCommands.camouflagerCommands.setBlockRefSide.toString(),
-																					new PacketCamouflagerExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketCamouflagerCommands.camouflagerCommands.setBlockRef.toString(),
-																					new PacketCamouflagerExecutor());
 	}
 
 	@Override
@@ -103,7 +95,9 @@ public class CamouCommonProxy implements ICommonProxy {
 
 	@Override
 	public void addOverrides() {
-		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
+		WRCore.addOverrideToTransmitter(new BlockCamouflageOverride());
+		WRCore.addOverrideToReceiver(new BlockCamouflageOverride());
+		TileEntityRedstoneWireless.addOverride(new TileEntityCamouflageOverride());
 	}
 
 	@Override

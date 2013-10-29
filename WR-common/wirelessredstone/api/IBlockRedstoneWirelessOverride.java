@@ -14,6 +14,8 @@ package wirelessredstone.api;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 /**
@@ -68,10 +70,12 @@ public interface IBlockRedstoneWirelessOverride {
 	 *            World Y coordinate
 	 * @param k
 	 *            World Z coordinate
+	 * @param m
+	 * @param l
 	 * 
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k);
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m);
 
 	/**
 	 * Triggers after the Block is removed from the world.
@@ -190,4 +194,8 @@ public interface IBlockRedstoneWirelessOverride {
 	 *            Randomization object
 	 */
 	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random);
+
+	public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side);
+
+	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output);
 }

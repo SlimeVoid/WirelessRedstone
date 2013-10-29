@@ -12,6 +12,8 @@
 package wirelessredstone.client.overrides;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.network.packets.PacketWirelessTile;
@@ -67,5 +69,55 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 	@Override
 	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean returnState) {
 		return returnState;
+	}
+
+	@Override
+	public boolean handlesExtraNBTTags() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void writeToNBT(TileEntityRedstoneWireless tRW, NBTTagCompound nbttagcompound) {
+	}
+
+	@Override
+	public void readFromNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound) {
+	}
+
+	@Override
+	public boolean handleInventory() {
+		return false;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
+		return null;
+	}
+
+	@Override
+	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j) {
+		return null;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
+		return null;
+	}
+
+	@Override
+	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
+		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
+		return result;
+	}
+
+	@Override
+	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
+		// TODO Auto-generated method stub
+
 	}
 }

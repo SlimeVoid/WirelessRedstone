@@ -19,15 +19,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
-import wirelessredstone.network.packets.PacketWirelessTile;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		IInventory {
@@ -37,6 +36,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public String												currentFreq;
 	protected boolean[]											powerRoute;
 	protected boolean[]											indirPower;
+	public ItemStack											reference;
 	protected static List<ITileEntityRedstoneWirelessOverride>	overrides	= new ArrayList();
 
 	public TileEntityRedstoneWireless(BlockRedstoneWireless block) {
@@ -60,7 +60,19 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public ItemStack getStackInSlot(int i) {
-		return null;
+		return this.getRedstoneWirelessStackInSlot(i);
+	}
+
+	protected ItemStack getRedstoneWirelessStackInSlot(int i) {
+		ItemStack itemstack = this.reference;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				itemstack = override.getStackInSlot(this,
+													i,
+													itemstack);
+			}
+		}
+		return itemstack;
 	}
 
 	public String getFreq() {
@@ -121,12 +133,38 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
-		return null;
+		ItemStack itemstack = null;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				itemstack = override.decrStackSize(	this,
+													i,
+													j);
+			}
+		}
+		return itemstack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		onInventoryChanged();
+		this.setRedstoneWirelessSlotContents(	i,
+												itemstack);
+		this.onInventoryChanged();
+		this.worldObj.markBlockForUpdate(	this.xCoord,
+											this.yCoord,
+											this.zCoord);
+	}
+
+	protected void setRedstoneWirelessSlotContents(int slot, ItemStack itemstack) {
+		boolean prematureExit = false;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				if (override.setInventorySlotContents(	this,
+														slot,
+														itemstack)) {
+					prematureExit = true;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -256,6 +294,12 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 				flushIndirPower();
 				writeToNBT(nbttagcompound);
 			}
+			for (ITileEntityRedstoneWirelessOverride override : overrides) {
+				if (override.handlesExtraNBTTags()) {
+					override.readFromNBT(	this,
+											nbttagcompound);
+				}
+			}
 
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance("TileEntityRedstoneWireless").writeStackTrace(e);
@@ -294,6 +338,12 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			}
 			nbttagcompound.setTag(	"IndirPower",
 									nbttaglist4);
+			for (ITileEntityRedstoneWirelessOverride override : overrides) {
+				if (override.handlesExtraNBTTags()) {
+					override.writeToNBT(this,
+										nbttagcompound);
+				}
+			}
 
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance("TileEntityRedstoneWireless").writeStackTrace(e);
@@ -302,7 +352,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 64;
+		return 1;
 	}
 
 	@Override
@@ -370,16 +420,29 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
-		return null;
+		ItemStack itemstack = this.reference;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				itemstack = override.getStackInSlotOnClosing(	this,
+																i,
+																itemstack);
+			}
+		}
+		return itemstack;
+	}
+
+	@Override
+	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+		this.readFromNBT(pkt.customParam1);
+		this.onInventoryChanged();
 	}
 
 	@Override
 	public Packet getDescriptionPacket() {
-		return getUpdatePacket();
-	}
-
-	private Packet getUpdatePacket() {
-		return new PacketWirelessTile(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(), this).getPacket();
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		this.writeToNBT(nbttagcompound);
+		Packet packet = new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, nbttagcompound);
+		return packet;
 	}
 
 	public void handleData(IRedstoneWirelessData data) {
@@ -395,13 +458,33 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public boolean isInvNameLocalized() {
-		// TODO :: Auto-generated method stub
 		return true;
 	}
 
-	@Override
-	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
-		// TODO :: Auto-generated method stub
+	protected boolean isRedstoneWirelessStackValidForSlot(int slot, ItemStack itemstack) {
+		boolean result = false;
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			if (override.handleInventory()) {
+				result = override.isStackValidForSlot(	this,
+														slot,
+														itemstack,
+														result);
+			}
+		}
 		return false;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int slot, ItemStack itemstack) {
+		return this.isRedstoneWirelessStackValidForSlot(slot,
+														itemstack);
+	}
+
+	public void onBlockRemoval(int side, int metadata) {
+		for (ITileEntityRedstoneWirelessOverride override : overrides) {
+			override.onBlockRemoval(this,
+									side,
+									metadata);
+		}
 	}
 }

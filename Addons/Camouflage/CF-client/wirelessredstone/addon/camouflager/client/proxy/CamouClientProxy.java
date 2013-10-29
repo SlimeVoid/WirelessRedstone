@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import wirelessredstone.addon.camouflager.client.presentation.gui.GuiRedstoneWirelessCamouflager;
 import wirelessredstone.addon.camouflager.core.CamouCore;
 import wirelessredstone.addon.camouflager.core.WirelessCamouflager;
+import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.addon.camouflager.proxy.CamouCommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -37,11 +38,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  */
 public class CamouClientProxy extends CamouCommonProxy {
 
-	/**
-	 * Power Configurator GUI
-	 */
-	public static GuiRedstoneWirelessCamouflager	guiCamou;
-
 	@Override
 	public void init() {
 		initGUIs();
@@ -52,7 +48,6 @@ public class CamouClientProxy extends CamouCommonProxy {
 	 * Initializes GUI objects.
 	 */
 	public static void initGUIs() {
-		guiCamou = new GuiRedstoneWirelessCamouflager();
 		NetworkRegistry.instance().registerGuiHandler(	WirelessCamouflager.instance,
 														CamouCore.proxy);
 		// TODO :: Overrides
@@ -77,8 +72,7 @@ public class CamouClientProxy extends CamouCommonProxy {
 															y,
 															z);
 		if (tileentity instanceof TileEntityRedstoneWireless) {
-			guiCamou.assTileEntity((TileEntityRedstoneWireless) tileentity);
-			return guiCamou;
+			return new GuiRedstoneWirelessCamouflager(new ContainerCamouflagedRedstoneWireless(player.inventory, tileentity));
 		}
 		return null;
 	}

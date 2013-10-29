@@ -14,8 +14,9 @@ package wirelessredstone.addon.powerconfig.overrides;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import wirelessredstone.addon.powerconfig.core.PCCore;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 
@@ -32,7 +33,7 @@ public class BlockRedstoneWirelessROverridePC implements
 	}
 
 	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
 		return false;
 	}
 
@@ -71,6 +72,16 @@ public class BlockRedstoneWirelessROverridePC implements
 
 	@Override
 	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+	}
+
+	@Override
+	public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
+		return false;
+	}
+
+	@Override
+	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output) {
+		return null;
 	}
 
 }
