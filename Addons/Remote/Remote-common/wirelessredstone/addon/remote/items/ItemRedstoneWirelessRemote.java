@@ -12,7 +12,6 @@
 package wirelessredstone.addon.remote.items;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -25,6 +24,7 @@ import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
+import wirelessredstone.core.WRCore;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -42,7 +42,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 
 	public ItemRedstoneWirelessRemote(int i) {
 		super(i);
-		this.setCreativeTab(CreativeTabs.tabRedstone);
+		setCreativeTab(WRCore.wirelessRedstone);
 		maxStackSize = 1;
 	}
 

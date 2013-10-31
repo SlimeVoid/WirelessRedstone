@@ -12,6 +12,7 @@
 package wirelessredstone.core;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,7 @@ import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
+import wirelessredstone.core.lib.LocaleLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -28,7 +30,6 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * WirelessRedstone class
@@ -74,6 +75,11 @@ public class WRCore {
 	 */
 	public static boolean		isLoaded			= false;
 
+	/**
+	 * Wireless Redstone Creative Tab
+	 */
+	public static CreativeTabs	wirelessRedstone;
+
 	@SidedProxy(
 			clientSide = "wirelessredstone.client.proxy.WRClientProxy",
 			serverSide = "wirelessredstone.proxy.WRCommonProxy")
@@ -102,6 +108,8 @@ public class WRCore {
 
 		registerBlocks();
 
+		LocaleLib.registerLanguages();
+
 		proxy.registerRenderInformation();
 
 		proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
@@ -126,32 +134,10 @@ public class WRCore {
 	private static void registerBlocks() {
 		GameRegistry.registerBlock(	blockWirelessR,
 									"wirelessredstone.receiver");
-		LanguageRegistry.addName(	blockWirelessR,
-									"Wireless Receiver");
-		LanguageRegistry.instance().addNameForObject(	blockWirelessR,
-														"de_DE",
-														"Drahtloser Empfanger");
-		LanguageRegistry.instance().addNameForObject(	blockWirelessR,
-														"nb_NO",
-														"Tradlos Mottaker");
-		LanguageRegistry.instance().addNameForObject(	blockWirelessR,
-														"nn_NO",
-														"Tradlaus Mottaker");
 		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessR.class,
 										"Wireless Receiver");
 		GameRegistry.registerBlock(	blockWirelessT,
 									"wirelessredstone.transmitter");
-		LanguageRegistry.addName(	blockWirelessT,
-									"Wireless Transmitter");
-		LanguageRegistry.instance().addNameForObject(	blockWirelessT,
-														"de_DE",
-														"Drahtloser Sender");
-		LanguageRegistry.instance().addNameForObject(	blockWirelessT,
-														"nb_NO",
-														"Tradlos Sender");
-		LanguageRegistry.instance().addNameForObject(	blockWirelessT,
-														"nn_NO",
-														"Tradlaus Sender");
 		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessT.class,
 										"Wireless Transmitter");
 	}

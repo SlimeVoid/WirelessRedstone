@@ -2,6 +2,8 @@ package wirelessredstone.core.lib;
 
 import java.io.File;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -41,6 +43,13 @@ public class ConfigurationLib {
 																									"INFO").getString());
 
 		configuration.save();
+
+		WRCore.wirelessRedstone = new CreativeTabs(CoreLib.MOD_RESOURCES) {
+			public ItemStack getIconItemStack() {
+				return new ItemStack(WRCore.blockWirelessT, 1, 0);
+			}
+
+		};
 	}
 
 	public static Configuration getConfig() {
