@@ -19,6 +19,8 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import wirelessredstone.addon.camouflager.core.CamouCore;
+import wirelessredstone.addon.camouflager.core.WirelessCamouflager;
 import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.addon.camouflager.overrides.BlockCamouflageOverride;
 import wirelessredstone.addon.camouflager.overrides.TileEntityCamouflageOverride;
@@ -26,6 +28,7 @@ import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class CamouCommonProxy implements ICommonProxy {
 
@@ -70,6 +73,8 @@ public class CamouCommonProxy implements ICommonProxy {
 
 	@Override
 	public void init() {
+		NetworkRegistry.instance().registerGuiHandler(	WirelessCamouflager.instance,
+														CamouCore.proxy);
 	}
 
 	@Override
