@@ -22,6 +22,7 @@ import wirelessredstone.addon.camouflager.core.WirelessCamouflager;
 import wirelessredstone.addon.camouflager.core.lib.IconLib;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.GuiLib;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessCamouflager extends Item {
 
@@ -46,7 +47,8 @@ public class ItemRedstoneWirelessCamouflager extends Item {
 															j,
 															k);
 
-		if (tileentity != null) {
+		if (tileentity != null
+			&& tileentity instanceof TileEntityRedstoneWireless) {
 			entityplayer.openGui(	WirelessCamouflager.instance,
 									GuiLib.GUIID_DEVICE,
 									world,
