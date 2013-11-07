@@ -12,6 +12,7 @@
 package wirelessredstone.tileentity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +37,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public String												currentFreq;
 	protected boolean[]											powerRoute;
 	protected boolean[]											indirPower;
-	public ItemStack											reference;
+	public HashMap<String, IRedstoneWirelessData>				tileData	= new HashMap<String, IRedstoneWirelessData>();
 	protected static List<ITileEntityRedstoneWirelessOverride>	overrides	= new ArrayList();
 
 	public TileEntityRedstoneWireless(BlockRedstoneWireless block) {
@@ -64,7 +65,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	}
 
 	protected ItemStack getRedstoneWirelessStackInSlot(int i) {
-		ItemStack itemstack = this.reference;
+		ItemStack itemstack = null;
 		for (ITileEntityRedstoneWirelessOverride override : overrides) {
 			if (override.handleInventory()) {
 				itemstack = override.getStackInSlot(this,
@@ -390,13 +391,6 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		}
 		return output;
 
-		/**
-		 * try { if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) !=
-		 * this) { return false; } return entityplayer.getDistanceSq( xCoord +
-		 * 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D; } catch (Exception e) {
-		 * LoggerRedstoneWireless.getInstance( "TileEntityRedstoneWireless"
-		 * ).writeStackTrace(e); return false; }
-		 **/
 	}
 
 	private boolean isTileRedstoneWirelessUseable(EntityPlayer entityplayer) {
@@ -420,7 +414,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {
-		ItemStack itemstack = this.reference;
+		ItemStack itemstack = null;
 		for (ITileEntityRedstoneWirelessOverride override : overrides) {
 			if (override.handleInventory()) {
 				itemstack = override.getStackInSlotOnClosing(	this,
@@ -485,6 +479,19 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			override.onBlockRemoval(this,
 									side,
 									metadata);
+		}
+	}
+
+	public void setAdditionalData(String dataID, IRedstoneWirelessData data) {
+		this.tileData.put(	dataID,
+							data);
+	}
+
+	public IRedstoneWirelessData getAdditionalData(String dataID) {
+		if (this.tileData.containsKey(dataID)) {
+			return this.tileData.get(dataID);
+		} else {
+			return null;
 		}
 	}
 }
