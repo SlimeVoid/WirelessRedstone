@@ -149,10 +149,6 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
 		this.setRedstoneWirelessSlotContents(	i,
 												itemstack);
-		this.onInventoryChanged();
-		this.worldObj.markBlockForUpdate(	this.xCoord,
-											this.yCoord,
-											this.zCoord);
 	}
 
 	protected void setRedstoneWirelessSlotContents(int slot, ItemStack itemstack) {
@@ -428,7 +424,9 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
 		this.readFromNBT(pkt.customParam1);
-		this.onInventoryChanged();
+		this.getWorldObj().markBlockForUpdate(	this.xCoord,
+												this.yCoord,
+												this.zCoord);
 	}
 
 	@Override
