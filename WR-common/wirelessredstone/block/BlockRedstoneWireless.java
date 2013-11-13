@@ -23,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -967,4 +968,26 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @return Powering state.
 	 */
 	protected abstract int isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l);
+
+	@Override
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+		return this.isBlockRedstoneWirelessSolidOnSide(	world,
+														x,
+														y,
+														z,
+														side);
+	}
+
+	/**
+	 * Checks if the block is a solid face on the given side, used by placement
+	 * logic.
+	 * 
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param side
+	 * @return
+	 */
+	protected abstract boolean isBlockRedstoneWirelessSolidOnSide(World world, int x, int y, int z, ForgeDirection side);
 }
