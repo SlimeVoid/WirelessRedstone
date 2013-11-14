@@ -299,4 +299,9 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	protected boolean isBlockRedstoneWirelessSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
 		return this.isOpaqueCube();
 	}
+
+	@Override
+	protected boolean isBlockRedstoneWirelessOpaqueCube() {
+		return false;
+	}
 }
