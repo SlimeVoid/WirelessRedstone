@@ -3,7 +3,9 @@ package wirelessredstone.addon.camouflager.overrides;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import wirelessredstone.addon.camouflager.core.lib.CamouAddonData;
 import wirelessredstone.addon.camouflager.core.lib.CamouLib;
+import wirelessredstone.addon.camouflager.core.lib.CoreLib;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -65,6 +67,10 @@ public class TileEntityCamouflageOverride implements
 
 	@Override
 	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
+		CamouAddonData data = (CamouAddonData) tileEntityRedstoneWireless.getAdditionalData(CoreLib.MOD_ID);
+		if (data != null) {
+			return data.getBlockRef();
+		}
 		return itemstack;
 	}
 
@@ -73,16 +79,24 @@ public class TileEntityCamouflageOverride implements
 		if (tileEntityRedstoneWireless.getStackInSlot(slot) == null) {
 			return null;
 		}
+		CamouAddonData data = (CamouAddonData) tileEntityRedstoneWireless.getAdditionalData(CoreLib.MOD_ID);
+		if (data == null) {
+			return null;
+		}
 		ItemStack itemstack;
-		if (tileEntityRedstoneWireless.reference.stackSize <= amount) {
-			itemstack = tileEntityRedstoneWireless.reference;
-			tileEntityRedstoneWireless.reference = null;
+		if (data.getBlockRef().stackSize <= amount) {
+			itemstack = data.getBlockRef();
+			data.setBlockRef(null);
+			tileEntityRedstoneWireless.setAdditionalData(	CoreLib.MOD_ID,
+															data);
 			tileEntityRedstoneWireless.onInventoryChanged();
 			return itemstack;
 		}
-		itemstack = tileEntityRedstoneWireless.reference.splitStack(amount);
-		if (tileEntityRedstoneWireless.reference.stackSize == 0) {
-			tileEntityRedstoneWireless.reference = null;
+		itemstack = data.getBlockRef().splitStack(amount);
+		if (data.getBlockRef().stackSize == 0) {
+			data.setBlockRef(null);
+			tileEntityRedstoneWireless.setAdditionalData(	CoreLib.MOD_ID,
+															data);
 		}
 		tileEntityRedstoneWireless.onInventoryChanged();
 		return itemstack;
@@ -95,24 +109,29 @@ public class TileEntityCamouflageOverride implements
 
 	@Override
 	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
-		tileEntityRedstoneWireless.reference = itemstack;
+		CamouLib.setBlockRef(	tileEntityRedstoneWireless.getWorldObj(),
+								tileEntityRedstoneWireless,
+								itemstack);
 		return true;
 	}
 
 	@Override
 	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
 		return CamouLib.isBlock(itemstack)
-				&& tileEntityRedstoneWireless.reference == null;
+				&& CamouLib.getBlockRef(tileEntityRedstoneWireless.getWorldObj(),
+										tileEntityRedstoneWireless) == null;
 	}
 
 	@Override
 	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
-		if (tileEntityRedstoneWireless.reference != null) {
+		ItemStack blockRef = CamouLib.getBlockRef(	tileEntityRedstoneWireless.getWorldObj(),
+													tileEntityRedstoneWireless);
+		if (blockRef != null) {
 			CamouLib.dropItem(	tileEntityRedstoneWireless.worldObj,
 								tileEntityRedstoneWireless.xCoord,
 								tileEntityRedstoneWireless.yCoord,
 								tileEntityRedstoneWireless.zCoord,
-								tileEntityRedstoneWireless.reference);
+								blockRef);
 		}
 	}
 }

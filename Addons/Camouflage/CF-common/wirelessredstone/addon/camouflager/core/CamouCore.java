@@ -58,7 +58,7 @@ public class CamouCore {
 	}
 
 	private static void initItems() {
-		itemCamouflager = (new ItemRedstoneWirelessCamouflager(camouID)).setUnlocalizedName("wirelessredstone.powdir");
+		itemCamouflager = (new ItemRedstoneWirelessCamouflager(camouID)).setUnlocalizedName("wirelessredstone.camou");
 	}
 
 	/*

@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.IconLib;
 import wirelessredstone.ether.RedstoneEther;
@@ -267,5 +268,15 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	@Override
 	protected int isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
 		return 0;
+	}
+
+	@Override
+	protected boolean isBlockRedstoneWirelessSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+		return true;
+	}
+
+	@Override
+	protected boolean isBlockRedstoneWirelessOpaqueCube() {
+		return true;
 	}
 }

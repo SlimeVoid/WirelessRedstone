@@ -20,13 +20,10 @@ import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.addon.camouflager.client.presentation.gui.GuiRedstoneWirelessCamouflager;
-import wirelessredstone.addon.camouflager.core.CamouCore;
-import wirelessredstone.addon.camouflager.core.WirelessCamouflager;
 import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.addon.camouflager.proxy.CamouCommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 /**
  * WRClientProxy class
@@ -40,30 +37,11 @@ public class CamouClientProxy extends CamouCommonProxy {
 
 	@Override
 	public void init() {
-		initGUIs();
 		super.init();
-	}
-
-	/**
-	 * Initializes GUI objects.
-	 */
-	public static void initGUIs() {
-		NetworkRegistry.instance().registerGuiHandler(	WirelessCamouflager.instance,
-														CamouCore.proxy);
-		// TODO :: Overrides
 	}
 
 	@Override
 	public void registerRenderInformation() {
-		loadBlockTextures();
-	}
-
-	/**
-	 * Loads all Block textures from ModLoader override and stores the indices
-	 * into the sprite integers.
-	 */
-	public static void loadBlockTextures() {
-		// MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
 	}
 
 	@Override
