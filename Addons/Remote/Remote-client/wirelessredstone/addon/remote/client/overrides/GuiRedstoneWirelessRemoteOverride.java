@@ -11,7 +11,6 @@
  */
 package wirelessredstone.addon.remote.client.overrides;
 
-import net.minecraft.src.ModLoader;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.data.WirelessRemoteData;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
@@ -19,6 +18,7 @@ import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.network.packets.PacketWirelessDevice;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class GuiRedstoneWirelessRemoteOverride implements
 		IGuiRedstoneWirelessDeviceOverride {
@@ -26,11 +26,10 @@ public class GuiRedstoneWirelessRemoteOverride implements
 	@Override
 	public boolean beforeFrequencyChange(IWirelessDeviceData data, Object oldFreq, Object newFreq) {
 		if (data instanceof WirelessRemoteData) {
-			World world = ModLoader.getMinecraftInstance().theWorld;
+			World world = FMLClientHandler.instance().getClient().theWorld;
 			if (world.isRemote) {
 				int OLD = Integer.parseInt(oldFreq.toString());
 				int NEW = Integer.parseInt(newFreq.toString());
-				Object PacketWirelessDevice;
 				if (OLD != NEW) {
 					PacketWirelessDevice packet = new PacketWirelessDevice(data);
 					packet.setFreq(Integer.toString(NEW - OLD));

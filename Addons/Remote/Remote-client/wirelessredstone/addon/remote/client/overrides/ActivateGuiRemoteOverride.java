@@ -12,13 +12,13 @@
 package wirelessredstone.addon.remote.client.overrides;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.client.proxy.WRemoteClientProxy;
 import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class ActivateGuiRemoteOverride implements IActivateGuiOverride {
 
@@ -32,8 +32,9 @@ public class ActivateGuiRemoteOverride implements IActivateGuiOverride {
 		if (devicedata.getDeviceType().equals(WRemoteCore.itemRemote.getUnlocalizedName())) {
 			WRemoteClientProxy.guiWirelessRemote.assWirelessDevice(	devicedata,
 																	entityplayer);
-			ModLoader.openGUI(	entityplayer,
-								WRemoteClientProxy.guiWirelessRemote);
+
+			FMLClientHandler.instance().displayGuiScreen(	entityplayer,
+															WRemoteClientProxy.guiWirelessRemote);
 			return true;
 		}
 		return false;

@@ -16,7 +16,6 @@ import java.util.EnumSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -24,13 +23,14 @@ import org.lwjgl.input.Mouse;
 
 import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
 public class ClientTickHandler implements ITickHandler {
 
 	public static boolean	mouseDown, wasMouseDown, remotePulsing;
-	Minecraft				mc	= ModLoader.getMinecraftInstance();
+	Minecraft				mc	= FMLClientHandler.instance().getClient();
 
 	public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop) {
 		if (world.isRemote) {

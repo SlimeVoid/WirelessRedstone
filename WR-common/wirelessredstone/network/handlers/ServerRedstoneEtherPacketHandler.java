@@ -14,7 +14,6 @@ package wirelessredstone.network.handlers;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -26,6 +25,7 @@ import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 /**
  * A server-side RedstoneEther packet sub-handler.
@@ -96,7 +96,7 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 	 */
 	public static void sendEtherNodeTileToAll(RedstoneEtherNode node) {
 		// Fetch required data.
-		World world = ModLoader.getMinecraftServerInstance().worldServerForDimension(0);
+		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 		TileEntity entity = world.getBlockTileEntity(	node.i,
 														node.j,
 														node.k);
@@ -123,7 +123,7 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 
 		// Prepare required data.
 		PacketRedstoneEther packet;
-		World world = ModLoader.getMinecraftServerInstance().worldServerForDimension(0);
+		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
 		// Fetch all receivers
 		List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
@@ -166,7 +166,7 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 
 		// Prepare required data.
 		PacketRedstoneEther packet;
-		World world = ModLoader.getMinecraftServerInstance().worldServerForDimension(0);
+		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
 		// Fetch all receivers
 		List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
@@ -209,7 +209,7 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 																						LoggerRedstoneWireless.LogLevel.DEBUG);
 
 		// Assemble required data.
-		World world = ModLoader.getMinecraftServerInstance().worldServerForDimension(0);
+		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
 		// Broadcast receivers.
 		for (RedstoneEtherNode node : rxs) {

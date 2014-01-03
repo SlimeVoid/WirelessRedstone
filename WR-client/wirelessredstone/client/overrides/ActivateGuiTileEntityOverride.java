@@ -12,7 +12,6 @@
 package wirelessredstone.client.overrides;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.world.World;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IWirelessDeviceData;
@@ -20,6 +19,7 @@ import wirelessredstone.client.proxy.WRClientProxy;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class ActivateGuiTileEntityOverride implements IActivateGuiOverride {
 
@@ -27,14 +27,14 @@ public class ActivateGuiTileEntityOverride implements IActivateGuiOverride {
 	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
 		if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
 			WRClientProxy.guiWirelessR.assTileEntity(tileentityredstonewireless);
-			ModLoader.openGUI(	entityplayer,
-								WRClientProxy.guiWirelessR);
+			FMLClientHandler.instance().displayGuiScreen(	entityplayer,
+															WRClientProxy.guiWirelessR);
 			return true;
 		}
 		if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
 			WRClientProxy.guiWirelessT.assTileEntity(tileentityredstonewireless);
-			ModLoader.openGUI(	entityplayer,
-								WRClientProxy.guiWirelessT);
+			FMLClientHandler.instance().displayGuiScreen(	entityplayer,
+															WRClientProxy.guiWirelessT);
 			return true;
 		}
 		return false;

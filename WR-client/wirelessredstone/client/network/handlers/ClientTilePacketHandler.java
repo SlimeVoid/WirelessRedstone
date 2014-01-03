@@ -13,7 +13,6 @@ package wirelessredstone.client.network.handlers;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWireless;
@@ -24,6 +23,7 @@ import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class ClientTilePacketHandler extends SubPacketHandler {
 
@@ -53,7 +53,7 @@ public class ClientTilePacketHandler extends SubPacketHandler {
 			TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
 			tileentityredstonewireless.handleData((PacketWirelessTile) packet);
 
-			GuiScreen screen = ModLoader.getMinecraftInstance().currentScreen;
+			GuiScreen screen = FMLClientHandler.instance().getClient().currentScreen;
 			if (screen != null
 				&& screen instanceof GuiRedstoneWireless
 				&& screen instanceof GuiRedstoneWirelessInventory

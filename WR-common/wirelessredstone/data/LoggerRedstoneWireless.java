@@ -16,7 +16,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import net.minecraft.src.ModLoader;
 import wirelessredstone.core.WRCore;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -41,7 +40,10 @@ public class LoggerRedstoneWireless {
 	 * @author ali4z
 	 */
 	public static enum LogLevel {
-		DEBUG, INFO, WARNING, ERROR
+		DEBUG,
+		INFO,
+		WARNING,
+		ERROR
 	}
 
 	private LoggerRedstoneWireless() {
@@ -154,8 +156,9 @@ public class LoggerRedstoneWireless {
 		if (writer == null) writer = new LoggerRedstoneWirelessWriter();
 
 		writer.writeStackTrace(e);
-		ModLoader.throwException(	e.getMessage(),
-									e);
+		FMLCommonHandler.instance().raiseException(	e,
+													e.getMessage(),
+													true);
 	}
 
 	/**
