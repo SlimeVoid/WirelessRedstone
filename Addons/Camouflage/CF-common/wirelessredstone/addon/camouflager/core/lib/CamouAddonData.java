@@ -6,7 +6,7 @@ import wirelessredstone.api.IRedstoneWirelessData;
 
 public class CamouAddonData implements IRedstoneWirelessData {
 
-	private ItemStack	blockRef;
+	private ItemStack	blockRef	= null;
 
 	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		NBTTagCompound stackTag = new NBTTagCompound();

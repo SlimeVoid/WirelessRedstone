@@ -12,7 +12,7 @@
 package wirelessredstone.network.packets;
 
 import net.minecraft.world.World;
-import wirelessredstone.api.IRedstoneWirelessData;
+import wirelessredstone.api.IWirelessData;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless.LogLevel;
 import wirelessredstone.ether.RedstoneEther;
@@ -20,8 +20,7 @@ import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.core.PacketPayload;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class PacketWirelessTile extends PacketWireless implements
-		IRedstoneWirelessData {
+public class PacketWirelessTile extends PacketWireless implements IWirelessData {
 	public PacketWirelessTile() {
 		super(PacketIds.TILE);
 	}

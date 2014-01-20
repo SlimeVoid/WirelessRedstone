@@ -25,6 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
+import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -116,16 +117,22 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 																																+ ")",
 																														LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		int meta = 0;
-		if (state) meta = 1;
+		// int meta = 0;
+		// if (state) meta = 1;
 
 		// Store meta.
 		try {
-			world.setBlockMetadataWithNotify(	i,
-												j,
-												k,
-												meta,
-												0x02);
+			TileEntity tRW = world.getBlockTileEntity(	i,
+														j,
+														k);
+			if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
+				((TileEntityRedstoneWireless) tRW).setState(state);
+			}
+			// world.setBlockMetadataWithNotify( i,
+			// j,
+			// k,
+			// meta,
+			// 0x02);
 			world.markBlockForUpdate(	i,
 										j,
 										k);
@@ -137,7 +144,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	/**
 	 * Fetches the state from metadata.
 	 * 
-	 * @param world
+	 * @param iblockaccess
 	 *            The world object
 	 * @param i
 	 *            World X coordinate
@@ -148,8 +155,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * 
 	 * @return The state.
 	 */
-	public synchronized boolean getState(World world, int i, int j, int k) {
-		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(	world.isRemote,
+	public synchronized boolean getState(IBlockAccess iblockaccess, int i, int j, int k) {
+		LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(	false,
 																														"getState(world,"
 																																+ i
 																																+ ","
@@ -159,17 +166,24 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 																																+ ")",
 																														LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		int meta = 0;
+		// int meta = 0;
+		boolean state = false;
 		try {
-			meta = world.getBlockMetadata(	i,
-											j,
-											k);
+			TileEntity tRW = iblockaccess.getBlockTileEntity(	i,
+																j,
+																k);
+			if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
+				state = ((TileEntityRedstoneWireless) tRW).getState();
+			}
+			// meta = world.getBlockMetadata( i,
+			// j,
+			// k);
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
 		}
 
 		// Returns true if the last bit in meta is 1.
-		return getState(meta);
+		return state;// getState(meta);
 	}
 
 	/**
@@ -992,4 +1006,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	protected abstract boolean isBlockRedstoneWirelessSolidOnSide(World world, int x, int y, int z, ForgeDirection side);
 
 	protected abstract boolean isBlockRedstoneWirelessOpaqueCube();
+
+	@Override
+	public int getRenderType() {
+		return BlockRedstoneWirelessRenderer.renderID;
+	}
 }

@@ -185,9 +185,10 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 
 	@Override
 	protected Icon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-		if (getState(iblockaccess.getBlockMetadata(	i,
-													j,
-													k))) {
+		if (getState(	iblockaccess,
+						i,
+						j,
+						k)) {
 			return this.getIconFromStateAndSide(1,
 												l);
 		} else {

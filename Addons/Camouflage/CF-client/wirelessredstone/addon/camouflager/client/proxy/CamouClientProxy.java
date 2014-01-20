@@ -19,10 +19,12 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import wirelessredstone.addon.camouflager.client.presentation.BlockWirelessCamouRenderer;
 import wirelessredstone.addon.camouflager.client.presentation.gui.GuiRedstoneWirelessCamouflager;
 import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.addon.camouflager.proxy.CamouCommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
@@ -42,6 +44,7 @@ public class CamouClientProxy extends CamouCommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
+		BlockRedstoneWirelessRenderer.addOverride(new BlockWirelessCamouRenderer());
 	}
 
 	@Override

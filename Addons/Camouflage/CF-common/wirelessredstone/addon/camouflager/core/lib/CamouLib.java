@@ -6,11 +6,21 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class CamouLib {
+
+	public static Block getBlock(IBlockAccess world, TileEntityRedstoneWireless tRW) {
+		ItemStack blockRef = getBlockRef(	world,
+											tRW);
+		if (blockRef == null) {
+			return null;
+		}
+		return Block.blocksList[blockRef.getItem().itemID];
+	}
 
 	public static void setBlockRef(World world, TileEntityRedstoneWireless tRW, ItemStack blockRef) {
 		CamouAddonData newData = (CamouAddonData) tRW.getAdditionalData(CoreLib.MOD_ID);
@@ -20,13 +30,22 @@ public class CamouLib {
 		newData.setBlockRef(blockRef);
 		tRW.setAdditionalData(	CoreLib.MOD_ID,
 								newData);
-		tRW.onInventoryChanged();
+		// tRW.onInventoryChanged();
+		int metadata = 0;
+		if (blockRef != null) {
+			metadata = blockRef.getItemDamage();
+		}
+		world.setBlockMetadataWithNotify(	tRW.xCoord,
+											tRW.yCoord,
+											tRW.zCoord,
+											metadata,
+											2);
 		world.markBlockForUpdate(	tRW.xCoord,
 									tRW.yCoord,
 									tRW.zCoord);
 	}
 
-	public static ItemStack getBlockRef(World world, TileEntityRedstoneWireless tRW) {
+	public static ItemStack getBlockRef(IBlockAccess world, TileEntityRedstoneWireless tRW) {
 		CamouAddonData data = (CamouAddonData) tRW.getAdditionalData(CoreLib.MOD_ID);
 		if (data != null) {
 			return data.getBlockRef();
@@ -72,9 +91,11 @@ public class CamouLib {
 		}
 	}
 
-	public static boolean isBlock(ItemStack itemstack) {
-		return itemstack != null && itemstack.getItem() != null
-				&& itemstack.getItem() instanceof ItemBlock;
+	public static boolean isValidStack(ItemStack itemstack) {
+		return itemstack != null
+				&& itemstack.getItem() != null
+				&& itemstack.getItem() instanceof ItemBlock
+				&& !Block.blocksList[itemstack.itemID].hasTileEntity(itemstack.getItemDamage());
 	}
 
 	public static void dropItem(World world, int x, int y, int z, ItemStack itemstack) {

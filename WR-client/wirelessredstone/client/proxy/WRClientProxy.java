@@ -38,6 +38,7 @@ import wirelessredstone.client.network.packets.executor.ClientGuiTilePacketExecu
 import wirelessredstone.client.overrides.ActivateGuiTileEntityOverride;
 import wirelessredstone.client.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
+import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessR;
@@ -50,6 +51,7 @@ import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.proxy.WRCommonProxy;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 
 /**
  * WRClientProxy class
@@ -119,15 +121,8 @@ public class WRClientProxy extends WRCommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
-		loadBlockTextures();
-	}
-
-	/**
-	 * Loads all Block textures from ModLoader override and stores the indices
-	 * into the sprite integers.
-	 */
-	public static void loadBlockTextures() {
-		// MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
+		RenderingRegistry.registerBlockHandler(	BlockRedstoneWirelessRenderer.renderID,
+												new BlockRedstoneWirelessRenderer());
 	}
 
 	@Override

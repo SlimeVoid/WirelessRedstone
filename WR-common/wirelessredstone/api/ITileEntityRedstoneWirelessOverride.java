@@ -53,7 +53,7 @@ public interface ITileEntityRedstoneWirelessOverride {
 	 *            WR data
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IRedstoneWirelessData data);
+	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IWirelessData data);
 
 	/**
 	 * Triggered before checking isUseableByPlayer
@@ -129,9 +129,10 @@ public interface ITileEntityRedstoneWirelessOverride {
 	 * @param tileEntityRedstoneWireless
 	 * @param slot
 	 * @param amount
+	 * @param itemstack
 	 * @return
 	 */
-	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, int amount);
+	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, int amount, ItemStack itemstack);
 
 	/**
 	 * Returns the stack in slot when the container is closed

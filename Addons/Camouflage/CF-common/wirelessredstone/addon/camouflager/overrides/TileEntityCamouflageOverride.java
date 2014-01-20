@@ -6,8 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import wirelessredstone.addon.camouflager.core.lib.CamouAddonData;
 import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.addon.camouflager.core.lib.CoreLib;
-import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
+import wirelessredstone.api.IWirelessData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class TileEntityCamouflageOverride implements
@@ -15,32 +15,26 @@ public class TileEntityCamouflageOverride implements
 
 	@Override
 	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void afterUpdateEntity(TileEntityRedstoneWireless tileentity) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IRedstoneWirelessData data) {
-		// TODO Auto-generated method stub
+	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IWirelessData data) {
 		return false;
 	}
 
 	@Override
 	public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean output) {
-		// TODO Auto-generated method stub
-		return false;
+		return output;
 	}
 
 	@Override
@@ -75,7 +69,7 @@ public class TileEntityCamouflageOverride implements
 	}
 
 	@Override
-	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, int amount) {
+	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, int amount, ItemStack itemstack) {
 		if (tileEntityRedstoneWireless.getStackInSlot(slot) == null) {
 			return null;
 		}
@@ -83,23 +77,23 @@ public class TileEntityCamouflageOverride implements
 		if (data == null) {
 			return null;
 		}
-		ItemStack itemstack;
+		ItemStack stackcopy;
 		if (data.getBlockRef().stackSize <= amount) {
-			itemstack = data.getBlockRef();
+			stackcopy = data.getBlockRef();
 			data.setBlockRef(null);
 			tileEntityRedstoneWireless.setAdditionalData(	CoreLib.MOD_ID,
 															data);
 			tileEntityRedstoneWireless.onInventoryChanged();
-			return itemstack;
+			return stackcopy;
 		}
-		itemstack = data.getBlockRef().splitStack(amount);
+		stackcopy = data.getBlockRef().splitStack(amount);
 		if (data.getBlockRef().stackSize == 0) {
 			data.setBlockRef(null);
 			tileEntityRedstoneWireless.setAdditionalData(	CoreLib.MOD_ID,
 															data);
 		}
 		tileEntityRedstoneWireless.onInventoryChanged();
-		return itemstack;
+		return stackcopy;
 	}
 
 	@Override
@@ -109,15 +103,19 @@ public class TileEntityCamouflageOverride implements
 
 	@Override
 	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
-		CamouLib.setBlockRef(	tileEntityRedstoneWireless.getWorldObj(),
-								tileEntityRedstoneWireless,
-								itemstack);
-		return true;
+		if (CamouLib.isValidStack(itemstack)) {
+			CamouLib.setBlockRef(	tileEntityRedstoneWireless.getWorldObj(),
+									tileEntityRedstoneWireless,
+									itemstack);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
-		return CamouLib.isBlock(itemstack)
+		return slot == 0
+				&& CamouLib.isValidStack(itemstack)
 				&& CamouLib.getBlockRef(tileEntityRedstoneWireless.getWorldObj(),
 										tileEntityRedstoneWireless) == null;
 	}

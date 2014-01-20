@@ -14,8 +14,8 @@ package wirelessredstone.client.overrides;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
+import wirelessredstone.api.IWirelessData;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
@@ -33,7 +33,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 	}
 
 	@Override
-	public boolean beforeHandleData(TileEntityRedstoneWireless tileentityredstonewireless, IRedstoneWirelessData data) {
+	public boolean beforeHandleData(TileEntityRedstoneWireless tileentityredstonewireless, IWirelessData data) {
 		if (data != null && tileentityredstonewireless != null) {
 			if (data instanceof PacketWirelessTile) {
 				PacketWirelessTile packetData = (PacketWirelessTile) data;
@@ -92,17 +92,17 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
 
 	@Override
 	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
-		return null;
+		return itemstack;
 	}
 
 	@Override
-	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j) {
-		return null;
+	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j, ItemStack itemstack) {
+		return itemstack;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
-		return null;
+		return itemstack;
 	}
 
 	@Override

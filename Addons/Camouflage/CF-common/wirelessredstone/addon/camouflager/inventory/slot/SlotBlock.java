@@ -2,9 +2,10 @@ package wirelessredstone.addon.camouflager.inventory.slot;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import wirelessredstone.addon.camouflager.core.lib.CamouLib;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class SlotBlock extends Slot {
 
@@ -15,7 +16,7 @@ public class SlotBlock extends Slot {
 	@Override
 	// isItemValid
 	public boolean isItemValid(ItemStack itemstack) {
-		return itemstack.getItem() instanceof ItemBlock;
+		return CamouLib.isValidStack(itemstack);
 	}
 
 	@Override
@@ -31,6 +32,16 @@ public class SlotBlock extends Slot {
 			tileentity.worldObj.markBlockForUpdate(	tileentity.xCoord,
 													tileentity.yCoord,
 													tileentity.zCoord);
+		}
+	}
+
+	@Override
+	public void putStack(ItemStack itemstack) {
+		if (this.inventory instanceof TileEntityRedstoneWireless) {
+			TileEntityRedstoneWireless tRW = (TileEntityRedstoneWireless) this.inventory;
+			CamouLib.setBlockRef(	tRW.getWorldObj(),
+									tRW,
+									itemstack);
 		}
 	}
 }

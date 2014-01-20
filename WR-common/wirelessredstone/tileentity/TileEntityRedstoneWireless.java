@@ -26,12 +26,14 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import wirelessredstone.api.IRedstoneWirelessData;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
+import wirelessredstone.api.IWirelessData;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		IInventory {
 	protected BlockRedstoneWireless								blockRedstoneWireless;
+	private boolean												state		= false;
 	public boolean												firstTick	= true;
 	public String												oldFreq;
 	public String												currentFreq;
@@ -139,7 +141,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			if (override.handleInventory()) {
 				itemstack = override.decrStackSize(	this,
 													i,
-													j);
+													j, itemstack);
 			}
 		}
 		return itemstack;
@@ -291,6 +293,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 				flushIndirPower();
 				writeToNBT(nbttagcompound);
 			}
+			state = nbttagcompound.getBoolean("State");
 			for (ITileEntityRedstoneWirelessOverride override : overrides) {
 				if (override.handlesExtraNBTTags()) {
 					override.readFromNBT(	this,
@@ -335,6 +338,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			}
 			nbttagcompound.setTag(	"IndirPower",
 									nbttaglist4);
+			nbttagcompound.setBoolean(	"State",
+										state);
 			for (ITileEntityRedstoneWirelessOverride override : overrides) {
 				if (override.handlesExtraNBTTags()) {
 					override.writeToNBT(this,
@@ -437,7 +442,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		return packet;
 	}
 
-	public void handleData(IRedstoneWirelessData data) {
+	public void handleData(IWirelessData data) {
 		boolean prematureExit = false;
 
 		for (ITileEntityRedstoneWirelessOverride override : overrides) {
@@ -491,5 +496,13 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		} else {
 			return null;
 		}
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
+	public boolean getState() {
+		return this.state;
 	}
 }
