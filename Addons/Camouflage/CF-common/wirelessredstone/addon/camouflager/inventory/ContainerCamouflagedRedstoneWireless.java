@@ -5,8 +5,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import slimevoidlib.util.helpers.ContainerHelper;
+import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.addon.camouflager.inventory.slot.SlotBlock;
+import wirelessredstone.core.WRCore;
 import wirelessredstone.tileentity.ContainerRedstoneWireless;
 
 public class ContainerCamouflagedRedstoneWireless extends
@@ -49,18 +50,24 @@ public class ContainerCamouflagedRedstoneWireless extends
 		if (slot != null && slot.getHasStack()) {
 			ItemStack stackInSlot = slot.getStack();
 			stackCopy = stackInSlot.copy();
-			if (slotShiftClicked < 1) {
-				if (!ContainerHelper.mergeItemStack(this,
-													stackInSlot,
-													1,
-													this.inventorySlots.size(),
-													true)) {
+			if (slotShiftClicked != 0) {
+				if (!CamouLib.isValidStack(stackInSlot)) {
 					return null;
+				} else {
+					if (!WRCore.mergeItemStack(	this,
+												stackInSlot,
+												0,
+												1,
+												true)) {
+						return null;
+					}
 				}
 			} else {
-				if (!ContainerHelper.moveItemStack(	this,
-													stackInSlot,
-													0)) {
+				if (!WRCore.mergeItemStack(	this,
+											stackInSlot,
+											1,
+											this.inventorySlots.size(),
+											true)) {
 					return null;
 				}
 			}

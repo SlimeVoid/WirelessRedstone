@@ -13,10 +13,10 @@ package wirelessredstone.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.block.BlockRedstoneWireless;
@@ -206,30 +206,88 @@ public class WRCore {
 		((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
 	}
 
-	/**
-	 * Fetches an entity by ID.
-	 * 
-	 * @param world
-	 *            The world object
-	 * @param entityId
-	 *            Entity ID
-	 * 
-	 * @return The Entity.
-	 */
-	public static Entity getEntityByID(World world, int entityId) {
-		if (world != null) {
-			for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entity = (Entity) world.loadedEntityList.get(i);
+	public static boolean mergeItemStack(Container container, ItemStack stackToMerge, int slotStart, int slotEnd, boolean reverseOrder) {
+		boolean stackMerged = false;
+		int realSlotStart = slotStart;
 
-				if (entity == null) {
-					return null;
+		if (reverseOrder) {
+			realSlotStart = slotEnd - 1;
+		}
+
+		Slot slot;
+		ItemStack stackInSlot;
+
+		if (stackToMerge.isStackable()) {
+			while (stackToMerge.stackSize > 0
+					&& (!reverseOrder && realSlotStart < slotEnd || reverseOrder
+																	&& realSlotStart >= slotStart)) {
+				slot = (Slot) container.inventorySlots.get(realSlotStart);
+				stackInSlot = slot.getStack();
+
+				if (stackInSlot != null
+					&& stackInSlot.itemID == stackToMerge.itemID
+					&& (!stackToMerge.getHasSubtypes() || stackToMerge.getItemDamage() == stackInSlot.getItemDamage())
+					&& ItemStack.areItemStackTagsEqual(	stackToMerge,
+														stackInSlot)) {
+					int totalStackSize = stackInSlot.stackSize + stackToMerge.stackSize;
+
+					if (totalStackSize <= stackToMerge.getMaxStackSize()
+						&& totalStackSize <= slot.getSlotStackLimit()) {
+						stackToMerge.stackSize = 0;
+						stackInSlot.stackSize = totalStackSize;
+						slot.onSlotChanged();
+						stackMerged = true;
+					} else if (stackInSlot.stackSize < stackToMerge.getMaxStackSize()
+								&& stackInSlot.stackSize < slot.getSlotStackLimit()) {
+						stackToMerge.stackSize -= stackToMerge.getMaxStackSize()
+													- stackInSlot.stackSize;
+						stackInSlot.stackSize = stackToMerge.getMaxStackSize();
+						slot.onSlotChanged();
+						stackMerged = true;
+					}
 				}
 
-				if (entity.entityId == entityId) {
-					return entity;
+				if (reverseOrder) {
+					--realSlotStart;
+				} else {
+					++realSlotStart;
 				}
 			}
 		}
-		return null;
+
+		if (stackToMerge.stackSize > 0) {
+			if (reverseOrder) {
+				realSlotStart = slotEnd - 1;
+			} else {
+				realSlotStart = slotStart;
+			}
+
+			while (!reverseOrder && realSlotStart < slotEnd || reverseOrder
+					&& realSlotStart >= slotStart) {
+				slot = (Slot) container.inventorySlots.get(realSlotStart);
+				stackInSlot = slot.getStack();
+
+				if (stackInSlot == null) {
+					slot.putStack(stackToMerge.copy());
+					if (stackToMerge.stackSize > slot.getSlotStackLimit()) {
+						slot.getStack().stackSize = slot.getSlotStackLimit();
+						stackToMerge.stackSize -= slot.getSlotStackLimit();
+					} else {
+						stackToMerge.stackSize = 0;
+						stackMerged = true;
+					}
+					slot.onSlotChanged();
+					break;
+				}
+
+				if (reverseOrder) {
+					--realSlotStart;
+				} else {
+					++realSlotStart;
+				}
+			}
+		}
+
+		return stackMerged;
 	}
 }
