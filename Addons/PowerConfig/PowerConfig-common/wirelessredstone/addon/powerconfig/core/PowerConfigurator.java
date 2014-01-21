@@ -11,11 +11,10 @@
  */
 package wirelessredstone.addon.powerconfig.core;
 
+import wirelessredstone.addon.powerconfig.core.lib.CoreLib;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -27,10 +26,10 @@ import cpw.mods.fml.common.network.NetworkMod;
  * @author Eurymachus
  */
 @Mod(
-		modid = "PowerConfigurator",
-		name = "Wireless Redstone - Power Configurator",
-		version = "1.0",
-		dependencies = "after:WirelessRedstoneCore")
+		modid = CoreLib.MOD_ID,
+		name = CoreLib.MOD_NAME,
+		version = CoreLib.MOD_VERSION,
+		dependencies = CoreLib.MOD_DEPENDENCIES)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * FML fascade class.
@@ -52,7 +51,7 @@ public class PowerConfigurator {
 	 * 
 	 * @param event
 	 */
-	@Init
+	@EventHandler
 	public void WirelessRemoteInit(FMLInitializationEvent event) {
 
 	}
@@ -62,7 +61,7 @@ public class PowerConfigurator {
 	 * 
 	 * @param event
 	 */
-	@PreInit
+	@EventHandler
 	public void WirelessRemotePreInit(FMLPreInitializationEvent event) {
 	}
 
@@ -71,7 +70,7 @@ public class PowerConfigurator {
 	 * 
 	 * @param event
 	 */
-	@PostInit
+	@EventHandler
 	public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
 		PCCore.initialize();
 	}

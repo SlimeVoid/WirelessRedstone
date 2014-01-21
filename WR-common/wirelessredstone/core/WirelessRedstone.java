@@ -16,10 +16,8 @@ import wirelessredstone.core.lib.CoreLib;
 import wirelessredstone.network.RedstoneWirelessConnectionHandler;
 import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -65,7 +63,7 @@ public class WirelessRedstone {
 	 * 
 	 * @param event
 	 */
-	@Init
+	@EventHandler
 	public void WirelessRedstoneInit(FMLInitializationEvent event) {
 	}
 
@@ -74,7 +72,7 @@ public class WirelessRedstone {
 	 * 
 	 * @param event
 	 */
-	@PreInit
+	@EventHandler
 	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
 		WRCore.proxy.registerConfiguration(event.getSuggestedConfigurationFile());
 	}
@@ -84,7 +82,7 @@ public class WirelessRedstone {
 	 * 
 	 * @param event
 	 */
-	@PostInit
+	@EventHandler
 	public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
 		WRCore.initialize();
 	}

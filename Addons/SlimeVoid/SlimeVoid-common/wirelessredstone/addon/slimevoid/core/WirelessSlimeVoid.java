@@ -11,10 +11,9 @@
  */
 package wirelessredstone.addon.slimevoid.core;
 
+import wirelessredstone.addon.slimevoid.core.lib.CoreLib;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -26,10 +25,10 @@ import cpw.mods.fml.common.network.NetworkMod;
  * @author Eurymachus
  */
 @Mod(
-		modid = "WirelessSlimeVoid",
-		name = "Wireless Redstone - Wireless Slimevoid Additions",
-		version = "1.0",
-		dependencies = "required-after:WirelessRedstoneCore")
+		modid = CoreLib.MOD_ID,
+		name = CoreLib.MOD_NAME,
+		version = CoreLib.MOD_VERSION,
+		dependencies = CoreLib.MOD_DEPENDENCIES)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class WirelessSlimeVoid {
 
@@ -38,7 +37,7 @@ public class WirelessSlimeVoid {
 	 * 
 	 * @param event
 	 */
-	@Init
+	@EventHandler
 	public void WirelessSlimeVoidInit(FMLInitializationEvent event) {
 
 	}
@@ -48,7 +47,7 @@ public class WirelessSlimeVoid {
 	 * 
 	 * @param event
 	 */
-	@PreInit
+	@EventHandler
 	public void WirelessSlimeVoidPreInit(FMLPreInitializationEvent event) {
 	}
 
@@ -57,7 +56,7 @@ public class WirelessSlimeVoid {
 	 * 
 	 * @param event
 	 */
-	@PostInit
+	@EventHandler
 	public void WirelessSlimeVoidPostInit(FMLPostInitializationEvent event) {
 		WSlimeCore.initialize();
 	}
