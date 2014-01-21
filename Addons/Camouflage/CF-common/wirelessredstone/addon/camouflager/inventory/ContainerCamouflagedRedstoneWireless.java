@@ -53,21 +53,14 @@ public class ContainerCamouflagedRedstoneWireless extends
 											1,
 											this.inventorySlots.size(),
 											true)) {
-					if (!this.mergeItemStack(	stackInSlot,
-												0,
-												1,
-												true)) {
-						return null;
-					}
+					return null;
 				}
 			} else {
-				if (!this.getSlot(0).getHasStack()) {
-					if (!this.mergeItemStack(	stackInSlot,
-												0,
-												1,
-												true)) {
-						return null;
-					}
+				if (!this.mergeItemStack(	stackInSlot,
+											0,
+											1,
+											true)) {
+					return null;
 				}
 			}
 
