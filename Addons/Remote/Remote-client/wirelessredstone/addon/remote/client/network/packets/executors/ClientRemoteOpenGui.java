@@ -11,7 +11,7 @@
  */
 package wirelessredstone.addon.remote.client.network.packets.executors;
 
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteData;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.client.network.packets.executor.ClientGuiDevicePacketExecutor;
 

@@ -9,7 +9,7 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.addon.remote.data;
+package wirelessredstone.addon.remote.inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,16 +77,6 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	 */
 	public static void addOverride(RedstoneWirelessRemoteOverride override) {
 		overrides.add(override);
-	}
-
-	@Override
-	public Class<? extends IWirelessDeviceData> getDeviceDataClass() {
-		return WirelessRemoteData.class;
-	}
-
-	@Override
-	public String getName() {
-		return "Wireless Remote";
 	}
 
 	@Override
@@ -213,5 +203,83 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	@Override
 	protected String getDeactivateCommand() {
 		return PacketRemoteCommands.remoteCommands.deactivate.toString();
+	}
+
+	@Override
+	public int getSizeInventory() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack decrStackSize(int i, int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getInvName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onInventoryChanged() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void openChest() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void closeChest() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

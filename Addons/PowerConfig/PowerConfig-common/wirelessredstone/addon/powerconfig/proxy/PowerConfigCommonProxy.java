@@ -25,9 +25,9 @@ import wirelessredstone.addon.powerconfig.overrides.BlockRedstoneWirelessROverri
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.tileentity.ContainerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class PowerConfigCommonProxy implements ICommonProxy {

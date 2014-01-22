@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Mouse;
 
 import wirelessredstone.addon.remote.core.WRemoteCore;
-import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;

@@ -13,6 +13,7 @@ package wirelessredstone.addon.remote.items;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -21,13 +22,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.WRemoteCore;
+import wirelessredstone.addon.remote.core.WirelessRemote;
+import wirelessredstone.addon.remote.core.lib.GuiLib;
 import wirelessredstone.addon.remote.core.lib.IconLib;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.core.lib.NBTLib;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.core.WRCore;
-import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRedstoneWirelessRemote extends Item {
 
@@ -62,11 +63,6 @@ public class ItemRedstoneWirelessRemote extends Item {
 
 	@Override
 	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
-		WirelessRemoteData remote = (WirelessRemoteData) WirelessDeviceData.getDeviceData(	WirelessRemoteData.class,
-																							"Wireless Remote",
-																							itemstack,
-																							world,
-																							entityplayer);
 		if (entityplayer.isSneaking()) {
 			TileEntity tileentity = world.getBlockTileEntity(	i,
 																j,
@@ -84,9 +80,12 @@ public class ItemRedstoneWirelessRemote extends Item {
 					return true;
 				}
 			}
-			WRemoteCore.proxy.activateGUI(	world,
-											entityplayer,
-											remote);
+			entityplayer.openGui(	WirelessRemote.instance,
+									GuiLib.REMOTE,
+									world,
+									i,
+									j,
+									k);
 			return false;
 		}
 		this.onItemRightClick(	itemstack,
@@ -123,42 +122,23 @@ public class ItemRedstoneWirelessRemote extends Item {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int i) {
-		String index = this.getUnlocalizedName() + "[" + i + "]";
-		WirelessRemoteData data = (WirelessRemoteData) FMLClientHandler.instance().getClient().theWorld.loadItemData(	WirelessRemoteData.class,
-																														index);
-		if (data == null || !data.getDeviceState()) return iconList[0];
+	public Icon getIcon(ItemStack itemstack, int pass) {
+		if (!NBTLib.getDeviceState(itemstack)) return iconList[0];
 		return iconList[1];
 	}
 
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld) {
-		if (entity instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) entity;
-
-			WirelessRemoteData data = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class,
-																							"Wireless Remote",
-																							itemstack,
-																							world,
-																							entityplayer);
-			String freq = data.getDeviceFreq();
+		if (entity instanceof EntityLivingBase) {
+			EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+			String freq = NBTLib.getDeviceFreq(itemstack);
 			if (!isHeld
 				|| (!WRemoteCore.proxy.isRemoteOn(	world,
-													entityplayer,
+													entitylivingbase,
 													freq) && !WRemoteCore.proxy.deactivateRemote(	world,
-																									entityplayer))) {
+																									entitylivingbase))) {
 			}
 		}
-	}
-
-	@Override
-	public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		itemstack.setItemDamage(world.getUniqueDataId(this.getUnlocalizedName()));
-		WirelessRemoteData data = (WirelessRemoteData) WirelessDeviceData.getDeviceData(WirelessRemoteData.class,
-																						"Wireless Remote",
-																						itemstack,
-																						world,
-																						entityplayer);
 	}
 
 	@Override

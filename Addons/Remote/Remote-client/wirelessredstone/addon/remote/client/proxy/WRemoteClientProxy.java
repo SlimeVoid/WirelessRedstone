@@ -26,7 +26,7 @@ import wirelessredstone.addon.remote.client.overrides.ActivateGuiRemoteOverride;
 import wirelessredstone.addon.remote.client.overrides.GuiRedstoneWirelessRemoteOverride;
 import wirelessredstone.addon.remote.client.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.client.tickhandler.ClientTickHandler;
-import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.addon.remote.network.packets.executor.ActivateRemoteExecutor;
 import wirelessredstone.addon.remote.network.packets.executor.DeactivateRemoteExecutor;

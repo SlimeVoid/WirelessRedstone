@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.addon.camouflager.inventory.slot.SlotBlock;
 import wirelessredstone.core.WRCore;
-import wirelessredstone.tileentity.ContainerRedstoneWireless;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 
 public class ContainerCamouflagedRedstoneWireless extends
 		ContainerRedstoneWireless {

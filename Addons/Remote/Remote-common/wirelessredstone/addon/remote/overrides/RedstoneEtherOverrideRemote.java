@@ -12,7 +12,7 @@
 package wirelessredstone.addon.remote.overrides;
 
 import net.minecraft.world.World;
-import wirelessredstone.addon.remote.data.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import wirelessredstone.api.IRedstoneEtherOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;

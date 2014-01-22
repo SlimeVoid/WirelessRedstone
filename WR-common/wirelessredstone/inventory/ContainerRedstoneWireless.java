@@ -1,5 +1,6 @@
-package wirelessredstone.tileentity;
+package wirelessredstone.inventory;
 
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;

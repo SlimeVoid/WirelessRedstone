@@ -13,7 +13,7 @@ package wirelessredstone.addon.remote.network.packets.executor;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteData;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.api.IDevicePacketExecutor;
 import wirelessredstone.api.IWirelessDeviceData;

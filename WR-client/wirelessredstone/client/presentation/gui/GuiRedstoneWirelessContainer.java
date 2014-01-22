@@ -25,7 +25,7 @@ import org.lwjgl.opengl.GL11;
 
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.tileentity.ContainerRedstoneWireless;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 
 /**
  * Wireless Redstone GUI screen.

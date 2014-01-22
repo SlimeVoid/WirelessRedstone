@@ -14,6 +14,7 @@ package wirelessredstone.api;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.network.packets.PacketWirelessDevice;
@@ -24,7 +25,7 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
  * @author Eurymachus
  * 
  */
-public interface IWirelessDevice {
+public interface IWirelessDevice extends IInventory {
 
 	/**
 	 * Set the owner.

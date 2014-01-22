@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.WRemoteCore;
-import wirelessredstone.addon.remote.data.WirelessRemoteData;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteData;
 import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.device.WirelessDeviceData;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;

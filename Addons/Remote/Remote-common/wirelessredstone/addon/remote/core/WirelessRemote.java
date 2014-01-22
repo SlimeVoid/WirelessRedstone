@@ -14,6 +14,7 @@ package wirelessredstone.addon.remote.core;
 import wirelessredstone.addon.remote.core.lib.CoreLib;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -41,6 +42,9 @@ import cpw.mods.fml.common.network.NetworkMod;
  * @author Eurymachus, ali4z
  */
 public class WirelessRemote {
+
+	@Instance(CoreLib.MOD_ID)
+	public static WirelessRemote	instance;
 
 	/**
 	 * Initialization
