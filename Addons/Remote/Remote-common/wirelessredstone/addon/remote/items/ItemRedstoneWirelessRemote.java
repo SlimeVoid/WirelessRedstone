@@ -21,13 +21,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import wirelessredstone.addon.remote.core.WRemoteCore;
 import wirelessredstone.addon.remote.core.WirelessRemote;
 import wirelessredstone.addon.remote.core.lib.GuiLib;
 import wirelessredstone.addon.remote.core.lib.IconLib;
-import wirelessredstone.addon.remote.core.lib.NBTLib;
+import wirelessredstone.addon.remote.core.lib.ItemLib;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.NBTHelper;
+import wirelessredstone.core.lib.NBTLib;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ItemRedstoneWirelessRemote extends Item {
@@ -99,7 +100,7 @@ public class ItemRedstoneWirelessRemote extends Item {
 		if (!entityplayer.isSneaking()) {
 			entityplayer.setItemInUse(	itemstack,
 										72000);
-			WRemoteCore.proxy.activateRemote(	world,
+			WirelessRemote.proxy.activateRemote(world,
 												entityplayer);
 		} else {
 			onItemUseFirst(	itemstack,
@@ -133,10 +134,10 @@ public class ItemRedstoneWirelessRemote extends Item {
 			EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
 			String freq = NBTLib.getDeviceFreq(itemstack);
 			if (!isHeld
-				|| (!WRemoteCore.proxy.isRemoteOn(	world,
-													entitylivingbase,
-													freq) && !WRemoteCore.proxy.deactivateRemote(	world,
-																									entitylivingbase))) {
+				|| (!WirelessRemote.proxy.isRemoteOn(	world,
+														entitylivingbase,
+														freq) && !WirelessRemote.proxy.deactivateRemote(world,
+																										entitylivingbase))) {
 			}
 		}
 	}
@@ -144,5 +145,14 @@ public class ItemRedstoneWirelessRemote extends Item {
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
 		return EnumAction.bow;
+	}
+
+	public String getFreq(ItemStack itemstack) {
+		if (ItemLib.isWirelessRemote(itemstack)) {
+			return NBTHelper.getString(	itemstack,
+										NBTLib.FREQUENCY,
+										"0");
+		}
+		return "0";
 	}
 }

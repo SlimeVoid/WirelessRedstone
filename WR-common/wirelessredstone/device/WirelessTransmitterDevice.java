@@ -13,6 +13,7 @@ package wirelessredstone.device;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
+import wirelessredstone.core.lib.DeviceLib;
 import wirelessredstone.ether.RedstoneEther;
 
 public abstract class WirelessTransmitterDevice extends WirelessDevice {
@@ -23,8 +24,7 @@ public abstract class WirelessTransmitterDevice extends WirelessDevice {
 
 	@Override
 	public String getInvName() {
-		return "wirelessredstone.device.transmitter";
-		// Wireless Transmitting Device
+		return DeviceLib.TRANSMITTER;
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.client.network.handlers.ClientAddonPacketHandler;
+import wirelessredstone.client.network.handlers.ClientDevicePacketHandler;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.client.network.handlers.ClientTilePacketHandler;
 import wirelessredstone.client.network.packets.executor.ClientEtherPacketRXAddExecutor;
@@ -232,6 +233,9 @@ public class WRClientProxy extends WRCommonProxy {
 													new ClientEtherPacketRXAddExecutor());
 		ClientPacketHandler.registerPacketHandler(	PacketIds.ETHER,
 													etherPacketHandler);
+		// Device Packets
+		ClientPacketHandler.registerPacketHandler(	PacketIds.DEVICE,
+													new ClientDevicePacketHandler());
 		// Tile Packets
 		ClientPacketHandler.registerPacketHandler(	PacketIds.TILE,
 													new ClientTilePacketHandler());

@@ -26,6 +26,7 @@ import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerAddonPacketHandler;
+import wirelessredstone.network.handlers.ServerDevicePacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.handlers.ServerTilePacketHandler;
@@ -126,6 +127,10 @@ public class WRCommonProxy implements ICommonProxy {
 		ServerPacketHandler.registerPacketHandler(	PacketIds.ETHER,
 													etherPacketHandler);
 
+		// Device Packets
+		ServerDevicePacketHandler devicePacketHandler = new ServerDevicePacketHandler();
+		ServerPacketHandler.registerPacketHandler(	PacketIds.DEVICE,
+													devicePacketHandler);
 		// GUI Packets
 		ServerGuiPacketHandler guiPacketHandler = new ServerGuiPacketHandler();
 		ServerPacketHandler.registerPacketHandler(	PacketIds.GUI,

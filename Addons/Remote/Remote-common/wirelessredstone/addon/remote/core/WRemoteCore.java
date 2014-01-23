@@ -15,34 +15,27 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
-import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
+import wirelessredstone.addon.remote.core.lib.ItemLib;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.ConfigurationLib;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class WRemoteCore {
-	public static boolean				isLoaded		= false;
-	public static Item					itemRemote;
-	public static int					remoteID		= 6245;
+	public static boolean	isLoaded		= false;
+	public static Item		itemRemote;
+	public static int		remoteID		= 6245;
 
 	@SideOnly(Side.CLIENT)
-	public static boolean				mouseDown, wasMouseDown, remotePulsing;
+	public static boolean	mouseDown, wasMouseDown, remotePulsing;
 
-	public static long					pulseTime		= 2500;
-	public static boolean				duraTogg		= true;
-	public static int					maxPulseThreads	= 2;
-	public static int					remoteoff		= 0;
-	public static int					remoteon		= 1;
-
-	@SidedProxy(
-			clientSide = "wirelessredstone.addon.remote.client.proxy.WRemoteClientProxy",
-			serverSide = "wirelessredstone.addon.remote.proxy.WRemoteCommonProxy")
-	public static IRemoteCommonProxy	proxy;
+	public static long		pulseTime		= 2500;
+	public static boolean	duraTogg		= true;
+	public static int		maxPulseThreads	= 2;
+	public static int		remoteoff		= 0;
+	public static int		remoteon		= 1;
 
 	/**
 	 * Fires off all the canons.<br>
@@ -53,19 +46,17 @@ public class WRemoteCore {
 
 		loadConfig();
 
-		proxy.init();
+		WirelessRemote.proxy.init();
 
-		proxy.initPacketHandlers();
-
-		initItems();
-
-		proxy.addOverrides();
+		WirelessRemote.proxy.initPacketHandlers();
 
 		registerItems();
 
-		proxy.registerRenderInformation();
+		WirelessRemote.proxy.addOverrides();
 
-		addRecipes();
+		WirelessRemote.proxy.registerRenderInformation();
+
+		registerRecipes();
 
 		return true;
 	}
@@ -80,7 +71,7 @@ public class WRemoteCore {
 		wirelessconfig.load();
 
 		remoteID = wirelessconfig.get(	Configuration.CATEGORY_ITEM,
-										"Wireless Remote",
+										ItemLib.REMOTE,
 										remoteID).getInt();
 		duraTogg = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
 										"Duration Toggle",
@@ -97,26 +88,26 @@ public class WRemoteCore {
 	/**
 	 * Initializes Item objects.
 	 */
-	private static void initItems() {
-		itemRemote = (new ItemRedstoneWirelessRemote(remoteID - 256)).setUnlocalizedName("wirelessredstone.remote");
+	private static void registerItems() {
+		itemRemote = (new ItemRedstoneWirelessRemote(remoteID)).setUnlocalizedName(ItemLib.REMOTE);
 	}
 
 	/**
 	 * Registers the item names
 	 */
-	private static void registerItems() {
-		LanguageRegistry.addName(	itemRemote,
-									"Wireless Remote");
-		LanguageRegistry.instance().addNameForObject(	itemRemote,
-														"de_DE",
-														"Drahtloser Funkfernbedienung");
-	}
+	// private static void registerItems() {
+	// LanguageRegistry.addName( itemRemote,
+	// "Wireless Remote");
+	// LanguageRegistry.instance().addNameForObject( itemRemote,
+	// "de_DE",
+	// "Drahtloser Funkfernbedienung");
+	// }
 
 	/**
 	 * Registers recipes with ModLoader<br>
 	 * - Recipe for Remote.
 	 */
-	private static void addRecipes() {
+	private static void registerRecipes() {
 		GameRegistry.addRecipe(	new ItemStack(itemRemote, 1),
 								new Object[] {
 										"I",

@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import wirelessredstone.data.WirelessCoordinates;
 
@@ -117,5 +118,9 @@ public interface IWirelessDevice extends IInventory {
 	 * 
 	 * @return true if the device is being held
 	 */
-	boolean isBeingHeld();
+	boolean isBeingHeld(EntityLivingBase entitylivingbase);
+
+	public void writeToNBT(NBTTagCompound nbttabcompound);
+
+	public void readFromNBT(NBTTagCompound nbttagcompound);
 }

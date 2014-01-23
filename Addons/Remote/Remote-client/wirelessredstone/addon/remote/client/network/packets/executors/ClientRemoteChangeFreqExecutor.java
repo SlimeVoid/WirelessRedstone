@@ -11,33 +11,30 @@
  */
 package wirelessredstone.addon.remote.client.network.packets.executors;
 
-import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import wirelessredstone.addon.remote.inventory.WirelessRemoteData;
 import wirelessredstone.api.IDevicePacketExecutor;
-import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessDevice;
 import wirelessredstone.network.packets.PacketWireless;
-import wirelessredstone.network.packets.PacketWirelessDevice;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ClientRemoteChangeFreqExecutor implements IDevicePacketExecutor {
 
 	@Override
 	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
-		if (p instanceof PacketWirelessDevice) {
-			PacketWirelessDevice packet = (PacketWirelessDevice) p;
-			IWirelessDeviceData data = packet.getDeviceData(WirelessRemoteData.class,
-															world,
-															entityplayer);
-			data.setDeviceFreq(packet.getDeviceFreq());
-			data.setDeviceState(packet.getDeviceState());
-			Gui currentScreen = FMLClientHandler.instance().getClient().currentScreen;
-			if (currentScreen instanceof GuiRedstoneWirelessDevice) {
-				GuiRedstoneWirelessDevice gui = (GuiRedstoneWirelessDevice) currentScreen;
-				gui.refreshGui();
-			}
-		}
+		// if (p instanceof PacketWirelessDevice) {
+		// PacketWirelessDevice packet = (PacketWirelessDevice) p;
+		// IWirelessDeviceData data =
+		// packet.getDeviceData(WirelessRemoteData.class,
+		// world,
+		// entityplayer);
+		// data.setDeviceFreq(packet.getDeviceFreq());
+		// data.setDeviceState(packet.getDeviceState());
+		// Gui currentScreen =
+		// FMLClientHandler.instance().getClient().currentScreen;
+		// if (currentScreen instanceof GuiRedstoneWirelessDevice) {
+		// GuiRedstoneWirelessDevice gui = (GuiRedstoneWirelessDevice)
+		// currentScreen;
+		// gui.refreshGui();
+		// }
+		// }
 	}
 }

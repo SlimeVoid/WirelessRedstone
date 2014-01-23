@@ -11,10 +11,12 @@
  */
 package wirelessredstone.addon.remote.core;
 
+import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
 import wirelessredstone.addon.remote.core.lib.CoreLib;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -43,18 +45,13 @@ import cpw.mods.fml.common.network.NetworkMod;
  */
 public class WirelessRemote {
 
+	@SidedProxy(
+			clientSide = CoreLib.CLIENT_PROXY,
+			serverSide = CoreLib.COMMON_PROXY)
+	public static IRemoteCommonProxy	proxy;
+
 	@Instance(CoreLib.MOD_ID)
-	public static WirelessRemote	instance;
-
-	/**
-	 * Initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRemoteInit(FMLInitializationEvent event) {
-
-	}
+	public static WirelessRemote		instance;
 
 	/**
 	 * Pre-initialization
@@ -66,12 +63,21 @@ public class WirelessRemote {
 	}
 
 	/**
+	 * Initialization
+	 * 
+	 * @param event
+	 */
+	@EventHandler
+	public void WirelessRemoteInit(FMLInitializationEvent event) {
+		WRemoteCore.initialize();
+	}
+
+	/**
 	 * Post-initialization
 	 * 
 	 * @param event
 	 */
 	@EventHandler
 	public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
-		WRemoteCore.initialize();
 	}
 }

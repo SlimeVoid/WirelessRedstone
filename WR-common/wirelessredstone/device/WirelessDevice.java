@@ -16,9 +16,11 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDevice;
+import wirelessredstone.core.lib.NBTLib;
 import wirelessredstone.data.WirelessCoordinates;
 
 /**
@@ -40,6 +42,35 @@ public abstract class WirelessDevice implements IWirelessDevice {
 		this.setCoords(	(int) entity.posX,
 						(int) entity.posY,
 						(int) entity.posZ);
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
+		if (nbttagcompound == null) {
+			nbttagcompound = new NBTTagCompound();
+		}
+		nbttagcompound.setInteger(	"x",
+									this.xCoord);
+		nbttagcompound.setInteger(	"y",
+									this.yCoord);
+		nbttagcompound.setInteger(	"z",
+									this.zCoord);
+		nbttagcompound.setString(	NBTLib.FREQUENCY,
+									this.freq);
+		nbttagcompound.setBoolean(	NBTLib.STATE,
+									this.state);
+		nbttagcompound.setInteger(	NBTLib.DIMENSION,
+									this.dimension);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
+		this.xCoord = nbttagcompound.getInteger("x");
+		this.yCoord = nbttagcompound.getInteger("y");
+		this.zCoord = nbttagcompound.getInteger("z");
+		this.freq = nbttagcompound.getString(NBTLib.FREQUENCY);
+		this.state = nbttagcompound.getBoolean(NBTLib.STATE);
+		this.dimension = nbttagcompound.getInteger(NBTLib.DIMENSION);
 	}
 
 	@Override
@@ -87,13 +118,6 @@ public abstract class WirelessDevice implements IWirelessDevice {
 		this.freq = freq;
 	}
 
-	/**
-	 * Get the device data class.
-	 * 
-	 * @return Device data class
-	 */
-	protected abstract Class<? extends IWirelessDevice> getDeviceDataClass();
-
 	@Override
 	public void activate(World world, Entity entity) {
 		this.state = true;
@@ -121,7 +145,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	protected abstract String getDeactivateCommand();
 
 	@Override
-	public abstract boolean isBeingHeld();
+	public abstract boolean isBeingHeld(EntityLivingBase entityliving);
 
 	@Override
 	public int getSizeInventory() {

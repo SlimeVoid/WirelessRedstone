@@ -20,13 +20,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.lib.ItemLib;
+import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.api.IWirelessDevice;
-import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.device.WirelessTransmitterDevice;
 import cpw.mods.fml.relauncher.Side;
@@ -45,14 +44,12 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	public static HashMap<EntityLivingBase, IWirelessDevice>	remoteTransmitters;
 	public static TreeMap<WirelessCoordinates, IWirelessDevice>	remoteWirelessCoords;
 
-	protected int												slot;
 	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList();
 
-	protected WirelessRemoteDevice(World world, EntityLivingBase entity) {
+	public WirelessRemoteDevice(World world, EntityLivingBase entity) {
 		super(world, entity);
-		if (entity instanceof EntityPlayer) {
-			this.slot = ((EntityPlayer) entity).inventory.currentItem;
-			ItemStack itemstack = ((EntityPlayer) entity).inventory.getStackInSlot(this.slot);
+		if (entity.getHeldItem().hasTagCompound()) {
+			this.readFromNBT(entity.getHeldItem().getTagCompound());
 		}
 	}
 
@@ -103,7 +100,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 		if (entityliving instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entityliving;
 			if (remoteTransmitter != null) {
-				boolean isHeld = remoteTransmitter.isBeingHeld();
+				boolean isHeld = remoteTransmitter.isBeingHeld(entityliving);
 				if (isHeld) {
 					return;
 				}
@@ -123,14 +120,15 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 			if (remoteTransmitter == null) {
 				return false;
 			} else {
-				PacketWirelessDevice packet = new PacketWirelessDevice(remoteTransmitter.data);
-				packet.setPosition(	remoteTransmitter.xCoord,
-									remoteTransmitter.yCoord,
-									remoteTransmitter.zCoord,
-									0);
-				packet.setCommand("deactivateRemote");
-				packet.isForced(true);
-				ClientPacketHandler.sendPacket(packet.getPacket());
+				// PacketWirelessDevice packet = new
+				// PacketWirelessDevice(remoteTransmitter.data);
+				// packet.setPosition( remoteTransmitter.xCoord,
+				// remoteTransmitter.yCoord,
+				// remoteTransmitter.zCoord,
+				// 0);
+				// packet.setCommand("deactivateRemote");
+				// packet.isForced(true);
+				// ClientPacketHandler.sendPacket(packet.getPacket());
 				remoteTransmitter.deactivate(	world,
 												entityplayer,
 												false);
@@ -144,7 +142,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	public static void activateWirelessRemote(World world, EntityLivingBase entityliving) {
 		if (remoteTransmitters.containsKey(entityliving)) {
 			IWirelessDevice remote = remoteTransmitters.get(entityliving);
-			if (((WirelessRemoteDevice) remote).isBeingHeld()) {
+			if (((WirelessRemoteDevice) remote).isBeingHeld(entityliving)) {
 				return;
 			}
 			deactivateWirelessRemote(	world,
@@ -190,5 +188,13 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	@Override
 	public String getInvName() {
 		return ItemLib.REMOTE;
+	}
+
+	@Override
+	public boolean isBeingHeld(EntityLivingBase entityliving) {
+		if (ItemLib.isWirelessRemote(entityliving.getHeldItem())) {
+			return ((ItemRedstoneWirelessRemote) entityliving.getHeldItem().getItem()).getFreq(entityliving.getHeldItem()).equals(this.freq);
+		}
+		return false;
 	}
 }

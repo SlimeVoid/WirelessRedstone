@@ -3,3 +3,5 @@ tile.wirelessredstone.receiver.name=Wireless Receiver
 tile.wirelessredstone.transmitter.name=Wireless Transmitter
 item.wirelessredstone.name=Example Item
 itemGroup.wirelessredstone=Wireless Redstone
+wirelessredstone.device.receiver=Wireless Receiving Device
+wirelessredstone.device.transmitter=Wireless Transmitting Device

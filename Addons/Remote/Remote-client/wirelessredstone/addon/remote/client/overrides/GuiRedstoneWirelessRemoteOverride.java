@@ -11,33 +11,27 @@
  */
 package wirelessredstone.addon.remote.client.overrides;
 
-import net.minecraft.world.World;
-import wirelessredstone.addon.remote.inventory.WirelessRemoteData;
-import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
-import wirelessredstone.api.IWirelessDeviceData;
-import wirelessredstone.client.network.ClientPacketHandler;
-import wirelessredstone.network.packets.PacketWirelessDevice;
-import cpw.mods.fml.client.FMLClientHandler;
+import wirelessredstone.api.IWirelessDevice;
 
 public class GuiRedstoneWirelessRemoteOverride implements
 		IGuiRedstoneWirelessDeviceOverride {
 
 	@Override
-	public boolean beforeFrequencyChange(IWirelessDeviceData data, Object oldFreq, Object newFreq) {
-		if (data instanceof WirelessRemoteData) {
-			World world = FMLClientHandler.instance().getClient().theWorld;
-			if (world.isRemote) {
-				int OLD = Integer.parseInt(oldFreq.toString());
-				int NEW = Integer.parseInt(newFreq.toString());
-				if (OLD != NEW) {
-					PacketWirelessDevice packet = new PacketWirelessDevice(data);
-					packet.setFreq(Integer.toString(NEW - OLD));
-					packet.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
-					ClientPacketHandler.sendPacket(packet.getPacket());
-				}
-			}
-		}
+	public boolean beforeFrequencyChange(IWirelessDevice data, Object oldFreq, Object newFreq) {
+		// if (data instanceof WirelessRemoteData) {
+		// World world = FMLClientHandler.instance().getClient().theWorld;
+		// if (world.isRemote) {
+		// int OLD = Integer.parseInt(oldFreq.toString());
+		// int NEW = Integer.parseInt(newFreq.toString());
+		// if (OLD != NEW) {
+		// PacketWirelessDevice packet = new PacketWirelessDevice(data);
+		// packet.setFreq(Integer.toString(NEW - OLD));
+		// packet.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
+		// ClientPacketHandler.sendPacket(packet.getPacket());
+		// }
+		// }
+		// }
 		return true;
 	}
 }

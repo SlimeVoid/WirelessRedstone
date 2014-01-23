@@ -17,29 +17,24 @@ import java.util.TreeMap;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.api.IRemoteCommonProxy;
-import wirelessredstone.addon.remote.inventory.WirelessRemoteData;
+import wirelessredstone.addon.remote.core.WirelessRemote;
+import wirelessredstone.addon.remote.inventory.ContainerWirelessRemote;
 import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
-import wirelessredstone.addon.remote.network.packets.PacketOpenGuiRemote;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
-import wirelessredstone.addon.remote.network.packets.executor.ActivateRemoteExecutor;
-import wirelessredstone.addon.remote.network.packets.executor.DeactivateRemoteExecutor;
 import wirelessredstone.addon.remote.network.packets.executor.RemoteChangeFreqExecutor;
-import wirelessredstone.addon.remote.network.packets.executor.RemoteChangeReceiverFreqExecutor;
 import wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import wirelessredstone.api.IWirelessDevice;
-import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.ServerPacketHandler;
-import wirelessredstone.network.handlers.ServerDeviceGuiPacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class WRemoteCommonProxy implements IRemoteCommonProxy {
 
@@ -53,6 +48,10 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		if (ID == GuiLib.GUIID_DEVICE) {
+			WirelessRemoteDevice device = new WirelessRemoteDevice(world, player);
+			return new ContainerWirelessRemote(device);
+		}
 		return null;
 	}
 
@@ -72,21 +71,9 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		if (!world.isRemote) {
-			if (devicedata instanceof WirelessRemoteData) {
-				ServerDeviceGuiPacketHandler.sendGuiPacketTo(	(EntityPlayerMP) entityplayer,
-																new PacketOpenGuiRemote(devicedata));
-			}
-		}
-	}
-
-	@Override
 	public void init() {
+		NetworkRegistry.instance().registerGuiHandler(	WirelessRemote.instance,
+														WirelessRemote.proxy);
 		PacketRemoteCommands.registerCommands();
 		WirelessRemoteDevice.remoteTransmitters = new HashMap();
 		WirelessRemoteDevice.remoteWirelessCoords = new TreeMap();
@@ -106,12 +93,6 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 		// ///////////////////
 		// Server Executor //
 		// ///////////////////
-		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.deactivate.toString(),
-																						new DeactivateRemoteExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.activate.toString(),
-																						new ActivateRemoteExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.ETHER).registerPacketHandler(PacketRemoteCommands.remoteCommands.updateReceiver.toString(),
-																					new RemoteChangeReceiverFreqExecutor());
 		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.changeFreq.toString(),
 																						new RemoteChangeFreqExecutor());
 	}
@@ -140,17 +121,11 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
-	public boolean isRemoteOn(World world, EntityPlayer entityplayer, String freq) {
+	public boolean isRemoteOn(World world, EntityLivingBase entityplayer, String freq) {
 		if (WirelessRemoteDevice.remoteTransmitters.containsKey(entityplayer)) {
 			IWirelessDevice remote = WirelessRemoteDevice.remoteTransmitters.get(entityplayer);
 			return remote.getFreq() == freq;
 		}
 		return false;
-	}
-
-	@Override
-	public void doSomething(String command, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
-
 	}
 }
