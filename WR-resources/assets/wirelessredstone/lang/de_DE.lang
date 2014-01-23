@@ -1,0 +1,5 @@
+Localization File
+tile.wirelessredstone.receiver.nameDrahtloser Empfanger
+tile.wirelessredstone.transmitter.name=Drahtloser Sender
+item.wirelessredstone.name=Example Item
+itemGroup.wirelessredstone=Drahtloser Redstone

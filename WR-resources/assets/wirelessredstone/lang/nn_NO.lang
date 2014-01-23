@@ -1,0 +1,5 @@
+Localization File
+tile.wirelessredstone.receiver.name=Tradlaus Mottaker
+tile.wirelessredstone.transmitter.name=Tradlaus Sender
+item.wirelessredstone.name=Example Item
+itemGroup.wirelessredstone=Tradlaus Redstone

@@ -1,0 +1,5 @@
+English (US) Localization File
+tile.wirelessredstone.receiver.name=Wireless Receiver
+tile.wirelessredstone.transmitter.name=Wireless Transmitter
+item.wirelessredstone.name=Example Item
+itemGroup.wirelessredstone=Wireless Redstone

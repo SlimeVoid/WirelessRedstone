@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties version="1.0">
-	<comment>English (US) Localization File</comment>
-    <entry key="tile.wirelessredstone.receiver.name">Tradlos Mottaker</entry>
-    <entry key="tile.wirelessredstone.transmitter.name">Tradlos Sender</entry>
-	<entry key="item.wirelessredstone.name">Example Item</entry>
-	<entry key="itemGroup.wirelessredstone">Tradlos Redstone</entry>
-</properties>
