@@ -14,8 +14,8 @@
 			],
 			"credits": "Author ali4z, Developer Eurymachus",
 			"logoFile": "/wirelessredstone.png",
-			"parent": "WirelessRedstoneCore",
-			"requiredMods": ["Forge", "WirelessRedstoneCore", "SlimeVoidLib"]
+			"parent": "WirelessRedstone",
+			"requiredMods": ["Forge", "WirelessRedstone", "SlimeVoidLib"]
 		}
 	]
 }

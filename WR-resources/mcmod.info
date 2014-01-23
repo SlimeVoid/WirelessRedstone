@@ -2,7 +2,7 @@
 	"modinfoversion": 2,
 	"modlist" : [
 		{
-			"modid": "WirelessRedstoneCore",
+			"modid": "WirelessRedstone",
 			"name": "Wireless Redstone",
 			"description": "Wireless Redstone allows you to transmit and receive redstone signals without wires.",
 			"version": "1.7.2.0",
