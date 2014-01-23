@@ -32,10 +32,10 @@ public class ConfigurationLib {
 		configuration.load();
 
 		WRCore.txID = configuration.get(Configuration.CATEGORY_BLOCK,
-										"Wireless Transmitter",
+										BlockLib.WIRELESS_TRANSMITTER,
 										1750).getInt();
 		WRCore.rxID = configuration.get(Configuration.CATEGORY_BLOCK,
-										"Wireless Reciever",
+										BlockLib.WIRELESS_RECEIVER,
 										1751).getInt();
 
 		LoggerRedstoneWireless.getInstance("Wireless Redstone").setFilterLevel(configuration.get(	Configuration.CATEGORY_GENERAL,

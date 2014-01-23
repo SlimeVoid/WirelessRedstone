@@ -20,6 +20,7 @@ import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
+import wirelessredstone.core.WirelessRedstone;
 import wirelessredstone.core.lib.ConfigurationLib;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.inventory.ContainerRedstoneWireless;
@@ -38,13 +39,12 @@ import wirelessredstone.network.packets.executor.EtherPacketTXAddExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXSetStateExecutor;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -68,20 +68,16 @@ public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getMinecraftDir() {
-		// TODO Auto-generated method stub
 		return ".";
 	}
 
 	@Override
 	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -90,6 +86,8 @@ public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public void init() {
+		NetworkRegistry.instance().registerGuiHandler(	WirelessRedstone.instance,
+														WirelessRedstone.proxy);
 	}
 
 	@Override
@@ -99,8 +97,6 @@ public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -147,13 +143,9 @@ public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public void connectionClosed(INetworkManager manager) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void doSomething(String command, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
-
 	}
 }

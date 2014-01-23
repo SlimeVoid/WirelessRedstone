@@ -9,13 +9,10 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.core;
+package wirelessredstone.addon.powerdirector.core;
 
+import wirelessredstone.addon.powerdirector.core.lib.CoreLib;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.client.network.ClientPacketHandler;
-import wirelessredstone.core.lib.CoreLib;
-import wirelessredstone.network.RedstoneWirelessConnectionHandler;
-import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -24,56 +21,37 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 /**
- * Wireless Redstone ModLoader initializing class.
+ * Power Configurator ModLoader initializing class.
  * 
- * @author ali4z
+ * @author Eurymachus
  */
 @Mod(
 		modid = CoreLib.MOD_ID,
 		name = CoreLib.MOD_NAME,
-		version = CoreLib.MOD_VERSION)
-@NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false,
-		connectionHandler = RedstoneWirelessConnectionHandler.class,
-		clientPacketHandlerSpec = @SidedPacketHandler(
-				channels = { CoreLib.MOD_CHANNEL },
-				packetHandler = ClientPacketHandler.class),
-		serverPacketHandlerSpec = @SidedPacketHandler(
-				channels = { CoreLib.MOD_CHANNEL },
-				packetHandler = ServerPacketHandler.class))
+		version = CoreLib.MOD_VERSION,
+		dependencies = CoreLib.MOD_DEPENDENCIES)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * FML fascade class.
  * This class uses FML annotations and sorts initialization.
  * 
- * ConnectionHandler: RedstoneWirelessConnectionHandler
- * ClientPacketHandler: ClientPacketHandler
- * ServerPacketHandler: ServerPacketHandler
+ * ConnectionHandler: 
+ * ClientPacketHandler: 
+ * ServerPacketHandler: 
  * 
  * @author Eurymachus, ali4z
  */
-public class WirelessRedstone {
+public class PowerDirector {
 
 	@SidedProxy(
-			clientSide = CoreLib.MOD_CLIENT_PROXY,
-			serverSide = CoreLib.MOD_COMMON_PROXY)
+			clientSide = CoreLib.CLIENT_PROXY,
+			serverSide = CoreLib.COMMON_PROXY)
 	public static ICommonProxy		proxy;
 
 	@Instance(CoreLib.MOD_ID)
-	public static WirelessRedstone	instance;
-
-	/**
-	 * Pre-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
-		proxy.registerConfiguration(event.getSuggestedConfigurationFile());
-	}
+	public static PowerDirector	instance;
 
 	/**
 	 * Initialization
@@ -81,8 +59,17 @@ public class WirelessRedstone {
 	 * @param event
 	 */
 	@EventHandler
-	public void WirelessRedstoneInit(FMLInitializationEvent event) {
-		WRCore.initialize();
+	public void WirelessRemoteInit(FMLInitializationEvent event) {
+
+	}
+
+	/**
+	 * Pre-initialization
+	 * 
+	 * @param event
+	 */
+	@EventHandler
+	public void WirelessRemotePreInit(FMLPreInitializationEvent event) {
 	}
 
 	/**
@@ -91,6 +78,7 @@ public class WirelessRedstone {
 	 * @param event
 	 */
 	@EventHandler
-	public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
+	public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
+		PDCore.initialize();
 	}
 }

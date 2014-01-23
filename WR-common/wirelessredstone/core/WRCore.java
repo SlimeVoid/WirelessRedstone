@@ -18,17 +18,15 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
-import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
+import wirelessredstone.core.lib.BlockLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -80,11 +78,6 @@ public class WRCore {
 	 */
 	public static CreativeTabs	wirelessRedstone;
 
-	@SidedProxy(
-			clientSide = "wirelessredstone.client.proxy.WRClientProxy",
-			serverSide = "wirelessredstone.proxy.WRCommonProxy")
-	public static ICommonProxy	proxy;
-
 	/**
 	 * Fires off all the canons.<br>
 	 * Loads configurations and initializes objects. Loads ModLoader related
@@ -94,35 +87,28 @@ public class WRCore {
 
 		// loadConfig();
 
-		proxy.init();
+		WirelessRedstone.proxy.init();
 
 		PacketRedstoneWirelessCommands.registerCommands();
 
 		// PacketWirelessDeviceCommands.registerCommands();
 
-		proxy.initPacketHandlers();
+		WirelessRedstone.proxy.initPacketHandlers();
 
 		initBlocks();
 
-		proxy.addOverrides();
+		WirelessRedstone.proxy.addOverrides();
 
 		registerBlocks();
 
-		proxy.registerRenderInformation();
+		WirelessRedstone.proxy.registerRenderInformation();
 
-		proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
+		WirelessRedstone.proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
 
 		addRecipes();
 
-		registerGui();
-
 		return true;
 
-	}
-
-	private static void registerGui() {
-		NetworkRegistry.instance().registerGuiHandler(	WirelessRedstone.instance,
-														proxy);
 	}
 
 	/**
@@ -138,13 +124,15 @@ public class WRCore {
 	 */
 	private static void registerBlocks() {
 		GameRegistry.registerBlock(	blockWirelessR,
-									"wirelessredstone.receiver");
-		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessR.class,
-										"Wireless Receiver");
+									BlockLib.WIRELESS_RECEIVER);
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityRedstoneWirelessR.class,
+														BlockLib.WIRELESS_RECEIVER,
+														BlockLib.WIRELESS_RECEIVER_ALT);
 		GameRegistry.registerBlock(	blockWirelessT,
-									"wirelessredstone.transmitter");
-		GameRegistry.registerTileEntity(TileEntityRedstoneWirelessT.class,
-										"Wireless Transmitter");
+									BlockLib.WIRELESS_TRANSMITTER);
+		GameRegistry.registerTileEntityWithAlternatives(TileEntityRedstoneWirelessT.class,
+														BlockLib.WIRELESS_TRANSMITTER,
+														BlockLib.WIRELESS_TRANSMITTER_ALT);
 	}
 
 	/**

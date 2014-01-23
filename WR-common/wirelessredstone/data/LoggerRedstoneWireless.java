@@ -16,7 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import wirelessredstone.core.WRCore;
+import wirelessredstone.core.WirelessRedstone;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -173,8 +173,8 @@ public class LoggerRedstoneWireless {
 
 		public LoggerRedstoneWirelessWriter() {
 			try {
-				file = new File(WRCore.proxy.getMinecraftDir() + File.separator
-								+ "wirelessRedstone.log");
+				file = new File(WirelessRedstone.proxy.getMinecraftDir()
+								+ File.separator + "wirelessRedstone.log");
 				fstream = new FileWriter(file);
 				out = new PrintWriter(fstream);
 			} catch (IOException e) {

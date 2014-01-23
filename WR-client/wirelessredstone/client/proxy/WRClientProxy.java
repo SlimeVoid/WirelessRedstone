@@ -75,6 +75,7 @@ public class WRClientProxy extends WRCommonProxy {
 	@Override
 	public void init() {
 		initGUIs();
+		super.init();
 	}
 
 	/**
