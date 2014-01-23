@@ -38,6 +38,7 @@ import wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessR;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessT;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneEther;
@@ -45,6 +46,8 @@ import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.proxy.WRCommonProxy;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -122,6 +125,21 @@ public class WRClientProxy extends WRCommonProxy {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		if (ID == GuiLib.GUIID_INVENTORY) {
+			TileEntity tileentity = world.getBlockTileEntity(	x,
+																y,
+																z);
+			if (tileentity != null) {
+				if (tileentity instanceof TileEntityRedstoneWirelessT) {
+					guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
+					return guiWirelessT;
+				}
+				if (tileentity instanceof TileEntityRedstoneWirelessR) {
+					guiWirelessR.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
+					return guiWirelessR;
+				}
+			}
+		}
 		return null;
 	}
 

@@ -19,6 +19,7 @@ public class GuiLib {
 																											+ "wifi_large.png");
 	public static final ResourceLocation	GUI_XLARGE		= new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_PREFIX
 																											+ "wifi_xlarge.png");
+
 	public static final int					GUIID_INVENTORY	= 0;
 	public static final int					GUIID_DEVICE	= 1;
 }

@@ -21,6 +21,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.lib.ConfigurationLib;
+import wirelessredstone.core.lib.GuiLib;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerAddonPacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
@@ -35,6 +37,7 @@ import wirelessredstone.network.packets.executor.EtherPacketRXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXAddExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXSetStateExecutor;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class WRCommonProxy implements ICommonProxy {
 
@@ -51,7 +54,15 @@ public class WRCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
+		if (ID == GuiLib.GUIID_INVENTORY) {
+			TileEntity tileentity = world.getBlockTileEntity(	x,
+																y,
+																z);
+			if (tileentity != null
+				&& tileentity instanceof TileEntityRedstoneWireless) {
+				return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
+			}
+		}
 		return null;
 	}
 

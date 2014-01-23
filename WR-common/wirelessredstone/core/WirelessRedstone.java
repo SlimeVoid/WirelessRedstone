@@ -65,6 +65,7 @@ public class WirelessRedstone {
 	 */
 	@EventHandler
 	public void WirelessRedstoneInit(FMLInitializationEvent event) {
+		WRCore.initialize();
 	}
 
 	/**
@@ -84,6 +85,5 @@ public class WirelessRedstone {
 	 */
 	@EventHandler
 	public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
-		WRCore.initialize();
 	}
 }

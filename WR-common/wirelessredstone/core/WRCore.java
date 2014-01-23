@@ -29,6 +29,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
@@ -116,8 +117,15 @@ public class WRCore {
 
 		addRecipes();
 
+		registerGui();
+
 		return true;
 
+	}
+
+	private static void registerGui() {
+		NetworkRegistry.instance().registerGuiHandler(	WirelessRedstone.instance,
+														proxy);
 	}
 
 	/**
@@ -229,7 +237,8 @@ public class WRCore {
 					&& (!stackToMerge.getHasSubtypes() || stackToMerge.getItemDamage() == stackInSlot.getItemDamage())
 					&& ItemStack.areItemStackTagsEqual(	stackToMerge,
 														stackInSlot)) {
-					int totalStackSize = stackInSlot.stackSize + stackToMerge.stackSize;
+					int totalStackSize = stackInSlot.stackSize
+											+ stackToMerge.stackSize;
 
 					if (totalStackSize <= stackToMerge.getMaxStackSize()
 						&& totalStackSize <= slot.getSlotStackLimit()) {
