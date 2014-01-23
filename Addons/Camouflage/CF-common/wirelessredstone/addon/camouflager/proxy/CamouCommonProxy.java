@@ -19,7 +19,6 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import wirelessredstone.addon.camouflager.core.CamouCore;
 import wirelessredstone.addon.camouflager.core.WirelessCamouflager;
 import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.addon.camouflager.overrides.BlockCamouflageOverride;
@@ -64,7 +63,7 @@ public class CamouCommonProxy implements ICommonProxy {
 	@Override
 	public void init() {
 		NetworkRegistry.instance().registerGuiHandler(	WirelessCamouflager.instance,
-														CamouCore.proxy);
+														WirelessCamouflager.proxy);
 	}
 
 	@Override
@@ -93,11 +92,5 @@ public class CamouCommonProxy implements ICommonProxy {
 		WRCore.addOverrideToTransmitter(new BlockCamouflageOverride());
 		WRCore.addOverrideToReceiver(new BlockCamouflageOverride());
 		TileEntityRedstoneWireless.addOverride(new TileEntityCamouflageOverride());
-	}
-
-	@Override
-	public void doSomething(String command, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
-
 	}
 }

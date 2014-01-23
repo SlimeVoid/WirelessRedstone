@@ -91,17 +91,10 @@ public class PowerDirectorCommonProxy implements ICommonProxy {
 
 	@Override
 	public void connectionClosed(INetworkManager manager) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void addOverrides() {
 		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
-	}
-
-	@Override
-	public void doSomething(String command, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
-
 	}
 }

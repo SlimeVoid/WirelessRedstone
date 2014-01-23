@@ -144,8 +144,4 @@ public class WRCommonProxy implements ICommonProxy {
 	@Override
 	public void connectionClosed(INetworkManager manager) {
 	}
-
-	@Override
-	public void doSomething(String command, World world, int x, int y, int z) {
-	}
 }

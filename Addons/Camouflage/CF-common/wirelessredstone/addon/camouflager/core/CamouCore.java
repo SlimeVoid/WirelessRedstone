@@ -4,22 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import wirelessredstone.addon.camouflager.core.lib.IconLib;
+import wirelessredstone.addon.camouflager.core.lib.ItemLib;
 import wirelessredstone.addon.camouflager.items.ItemRedstoneWirelessCamouflager;
-import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.lib.ConfigurationLib;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class CamouCore {
 
-	@SidedProxy(
-			clientSide = "wirelessredstone.addon.camouflager.client.proxy.CamouClientProxy",
-			serverSide = "wirelessredstone.addon.camouflager.proxy.CamouCommonProxy")
-	public static ICommonProxy	proxy;
-
-	public static int			camouID	= 6244;
-	public static Item			itemCamouflager;
+	public static int	camouID	= 6244;
+	public static Item	itemCamouflager;
 
 	/**
 	 * Fires off all the canons.<br>
@@ -29,19 +24,19 @@ public class CamouCore {
 	public static boolean initialize() {
 		loadConfig();
 
-		proxy.init();
+		WirelessCamouflager.proxy.init();
 
-		proxy.initPacketHandlers();
+		WirelessCamouflager.proxy.initPacketHandlers();
 
 		initItems();
 
-		proxy.addOverrides();
+		WirelessCamouflager.proxy.addOverrides();
 
 		registerItems();
 
-		proxy.registerRenderInformation();
+		WirelessCamouflager.proxy.registerRenderInformation();
 
-		addRecipes();
+		registerdRecipes();
 		return true;
 	}
 
@@ -58,7 +53,7 @@ public class CamouCore {
 	}
 
 	private static void initItems() {
-		itemCamouflager = (new ItemRedstoneWirelessCamouflager(camouID)).setUnlocalizedName("wirelessredstone.camou");
+		itemCamouflager = (new ItemRedstoneWirelessCamouflager(camouID)).setUnlocalizedName(ItemLib.CAMOUFLAGER).setTextureName(IconLib.CAMOUFLAGER);
 	}
 
 	/*
@@ -79,7 +74,7 @@ public class CamouCore {
 									"Wireless Camouflager");
 	}
 
-	private static void addRecipes() {
+	private static void registerdRecipes() {
 		GameRegistry.addRecipe(	new ItemStack(itemCamouflager, 1),
 								new Object[] {
 										"GRG",

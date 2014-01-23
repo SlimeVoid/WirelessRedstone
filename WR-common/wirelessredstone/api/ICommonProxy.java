@@ -98,8 +98,6 @@ public interface ICommonProxy extends IGuiHandler {
 	 */
 	public void connectionClosed(INetworkManager manager);
 
-	void doSomething(String command, World world, int x, int y, int z);
-
 	/**
 	 * Registers a configuration file allows sided properties
 	 * 

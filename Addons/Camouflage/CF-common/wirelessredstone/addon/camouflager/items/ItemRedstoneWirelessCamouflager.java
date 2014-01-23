@@ -11,28 +11,17 @@
  */
 package wirelessredstone.addon.camouflager.items;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import wirelessredstone.addon.camouflager.core.WirelessCamouflager;
-import wirelessredstone.addon.camouflager.core.lib.IconLib;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessCamouflager extends Item {
-
-	protected Icon[]	iconList;
-
-	@Override
-	public void registerIcons(IconRegister iconRegister) {
-		this.iconList = new Icon[1];
-		this.iconList[0] = iconRegister.registerIcon(IconLib.CAMOUFLAGER);
-	}
 
 	public ItemRedstoneWirelessCamouflager(int i) {
 		super(i);
@@ -60,11 +49,6 @@ public class ItemRedstoneWirelessCamouflager extends Item {
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public Icon getIconFromDamage(int i) {
-		return this.iconList[0];
 	}
 
 	@Override

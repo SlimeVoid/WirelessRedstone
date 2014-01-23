@@ -12,11 +12,11 @@
 package wirelessredstone.addon.camouflager.core;
 
 import wirelessredstone.addon.camouflager.core.lib.CoreLib;
+import wirelessredstone.api.ICommonProxy;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -34,27 +34,31 @@ import cpw.mods.fml.common.network.NetworkMod;
 		dependencies = CoreLib.MOD_DEPENDENCIES)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class WirelessCamouflager {
+	@SidedProxy(
+			clientSide = CoreLib.CLIENT_PROXY,
+			serverSide = CoreLib.COMMON_PROXY)
+	public static ICommonProxy			proxy;
 
 	@Instance(CoreLib.MOD_ID)
 	public static WirelessCamouflager	instance;
-
-	/**
-	 * Initialization
-	 * 
-	 * @param event
-	 */
-	@Init
-	public void WirelessCamouflagerInit(FMLInitializationEvent event) {
-
-	}
 
 	/**
 	 * Pre-initialization
 	 * 
 	 * @param event
 	 */
-	@PreInit
+	@EventHandler
 	public void WirelessCamouflagerPreInit(FMLPreInitializationEvent event) {
+	}
+
+	/**
+	 * Initialization
+	 * 
+	 * @param event
+	 */
+	@EventHandler
+	public void WirelessCamouflagerInit(FMLInitializationEvent event) {
+		CamouCore.initialize();
 	}
 
 	/**
@@ -62,8 +66,7 @@ public class WirelessCamouflager {
 	 * 
 	 * @param event
 	 */
-	@PostInit
+	@EventHandler
 	public void WirelessCamouflagerPostInit(FMLPostInitializationEvent event) {
-		CamouCore.initialize();
 	}
 }
