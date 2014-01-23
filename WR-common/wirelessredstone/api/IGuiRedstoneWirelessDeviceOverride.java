@@ -33,5 +33,5 @@ public interface IGuiRedstoneWirelessDeviceOverride extends
 	 *            New frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeFrequencyChange(IWirelessDeviceData wirelessDeviceData, Object oldFreq, Object newFreq);
+	public boolean beforeFrequencyChange(IWirelessDevice wirelessDevice, Object oldFreq, Object newFreq);
 }

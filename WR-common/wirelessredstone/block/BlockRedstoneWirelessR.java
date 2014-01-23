@@ -21,7 +21,8 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import wirelessredstone.core.WRCore;
+import wirelessredstone.core.WirelessRedstone;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.IconLib;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
@@ -161,9 +162,14 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 															k);
 
 		if (tileentity != null
-			&& tileentity instanceof TileEntityRedstoneWirelessR) WRCore.proxy.activateGUI(	world,
-																							entityplayer,
-																							(TileEntityRedstoneWirelessR) tileentity);
+			&& tileentity instanceof TileEntityRedstoneWirelessR) {
+			entityplayer.openGui(	WirelessRedstone.instance,
+									GuiLib.GUIID_INVENTORY,
+									world,
+									i,
+									j,
+									k);
+		}
 
 		return true;
 	}

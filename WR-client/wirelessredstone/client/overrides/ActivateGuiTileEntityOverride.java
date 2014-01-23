@@ -14,7 +14,7 @@ package wirelessredstone.client.overrides;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import wirelessredstone.api.IActivateGuiOverride;
-import wirelessredstone.api.IWirelessDeviceData;
+import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.client.proxy.WRClientProxy;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
@@ -41,7 +41,7 @@ public class ActivateGuiTileEntityOverride implements IActivateGuiOverride {
 	}
 
 	@Override
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
+	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDevice wirelessDevice) {
 		return false;
 	}
 

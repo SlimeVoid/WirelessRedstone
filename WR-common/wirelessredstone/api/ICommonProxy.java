@@ -13,13 +13,11 @@ package wirelessredstone.api;
 
 import java.io.File;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.IGuiHandler;
 // import net.minecraft.network.INetworkManager;
 // import net.minecraft.network.packet.NetHandler;
@@ -60,30 +58,6 @@ public interface ICommonProxy extends IGuiHandler {
 	 * Adds all overrides.
 	 */
 	public void addOverrides();
-
-	/**
-	 * Called on activity in the GUI.
-	 * 
-	 * @param world
-	 *            Minecraft world object.
-	 * @param entityplayer
-	 *            The player that is opening the GUI
-	 * @param tileentityredstonewireless
-	 *            Tile entity related to the GUI
-	 */
-	public void activateGUI(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless);
-
-	/**
-	 * Called on activity in the GUI.
-	 * 
-	 * @param world
-	 *            Minecraft world object.
-	 * @param entityplayer
-	 *            The player that is opening the GUI
-	 * @param device
-	 *            Wireless Device related to the GUI
-	 */
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata);
 
 	/**
 	 * Fetches the current minecraft world object relating to the NetHandler.

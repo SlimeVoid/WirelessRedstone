@@ -53,7 +53,7 @@ public interface ITileEntityRedstoneWirelessOverride {
 	 *            WR data
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IWirelessData data);
+	public boolean beforeHandleData(TileEntityRedstoneWireless tileEntityRedstoneWireless, IWirelessData device);
 
 	/**
 	 * Triggered before checking isUseableByPlayer

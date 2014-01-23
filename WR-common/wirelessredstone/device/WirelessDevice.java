@@ -14,11 +14,11 @@ package wirelessredstone.device;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDevice;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.data.WirelessCoordinates;
 
 /**
@@ -29,28 +29,18 @@ import wirelessredstone.data.WirelessCoordinates;
  */
 public abstract class WirelessDevice implements IWirelessDevice {
 
-	protected IWirelessDeviceData	data;
-	protected int					xCoord, yCoord, zCoord;
-	protected EntityLivingBase		owner;
+	protected int				xCoord, yCoord, zCoord;
+	protected EntityLivingBase	owner;
+	protected String			freq;
+	protected boolean			state;
+	protected int				dimension;
 
-	protected WirelessDevice(World world, EntityLivingBase entity, IWirelessDeviceData data) {
-		if (data != null) {
-			this.data = data;
-		} else {
-			this.data = WirelessDeviceData.getDeviceData(	this.getDeviceDataClass(),
-															this.getName(),
-															entity.getHeldItem(),
-															world,
-															entity);
-		}
+	protected WirelessDevice(World world, EntityLivingBase entity) {
 		this.owner = entity;
 		this.setCoords(	(int) entity.posX,
 						(int) entity.posY,
 						(int) entity.posZ);
 	}
-
-	@Override
-	public abstract String getName();
 
 	@Override
 	public EntityLivingBase getOwner() {
@@ -64,7 +54,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public String getFreq() {
-		return this.data.getDeviceFreq();
+		return this.freq;
 	}
 
 	@Override
@@ -89,12 +79,12 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public World getWorld() {
-		return DimensionManager.getWorld(this.data.getDeviceDimension());
+		return DimensionManager.getWorld(this.dimension);
 	}
 
 	@Override
 	public void setFreq(String freq) {
-		this.data.setDeviceFreq(freq);
+		this.freq = freq;
 	}
 
 	/**
@@ -102,11 +92,11 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	 * 
 	 * @return Device data class
 	 */
-	protected abstract Class<? extends IWirelessDeviceData> getDeviceDataClass();
+	protected abstract Class<? extends IWirelessDevice> getDeviceDataClass();
 
 	@Override
 	public void activate(World world, Entity entity) {
-		this.data.setDeviceState(true);
+		this.state = true;
 		if (!world.isRemote) {
 			this.doActivateCommand();
 		}
@@ -114,7 +104,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void deactivate(World world, Entity entity, boolean isForced) {
-		this.data.setDeviceState(false);
+		this.state = true;
 		if (!world.isRemote) {
 			this.doDeactivateCommand();
 		}
@@ -131,18 +121,61 @@ public abstract class WirelessDevice implements IWirelessDevice {
 	protected abstract String getDeactivateCommand();
 
 	@Override
-	public boolean isBeingHeld() {
-		EntityLivingBase entityliving = this.getOwner();
-		if (entityliving != null) {
-			ItemStack itemstack = entityliving.getHeldItem();
-			if (itemstack != null) {
-				return WirelessDeviceData.getDeviceData(this.getDeviceDataClass(),
-														this.getName(),
-														itemstack,
-														this.getWorld(),
-														entityliving).getDeviceFreq() == this.getFreq();
-			}
-		}
+	public abstract boolean isBeingHeld();
+
+	@Override
+	public int getSizeInventory() {
+		return 0;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int i) {
+		return null;
+	}
+
+	@Override
+	public ItemStack decrStackSize(int i, int j) {
+		return null;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int i) {
+		return null;
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 0;
+	}
+
+	@Override
+	public void onInventoryChanged() {
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		return false;
+	}
+
+	@Override
+	public void openChest() {
+	}
+
+	@Override
+	public void closeChest() {
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return false;
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
 		return false;
 	}
 

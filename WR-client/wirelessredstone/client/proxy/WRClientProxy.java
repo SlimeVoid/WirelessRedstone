@@ -24,17 +24,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.client.network.handlers.ClientAddonPacketHandler;
-import wirelessredstone.client.network.handlers.ClientDeviceGuiPacketHandler;
-import wirelessredstone.client.network.handlers.ClientInventoryGuiPacketHandler;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.client.network.handlers.ClientTilePacketHandler;
-import wirelessredstone.client.network.handlers.ClientWirelessDevicePacketHandler;
 import wirelessredstone.client.network.packets.executor.ClientEtherPacketRXAddExecutor;
 import wirelessredstone.client.network.packets.executor.ClientEtherPacketTXAddExecutor;
-import wirelessredstone.client.network.packets.executor.ClientGuiTilePacketExecutor;
 import wirelessredstone.client.overrides.ActivateGuiTileEntityOverride;
 import wirelessredstone.client.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
@@ -126,11 +121,6 @@ public class WRClientProxy extends WRCommonProxy {
 	}
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
-	}
-
-	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return null;
 	}
@@ -187,34 +177,6 @@ public class WRClientProxy extends WRCommonProxy {
 		overrides.add(override);
 	}
 
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
-		if (!world.isRemote) {
-			super.activateGUI(	world,
-								entityplayer,
-								tileentityredstonewireless);
-			return;
-		}
-		for (IActivateGuiOverride override : overrides) {
-			if (override.beforeOpenGui(	world,
-										entityplayer,
-										tileentityredstonewireless)) {
-				return;
-			}
-		}
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		for (IActivateGuiOverride override : overrides) {
-			if (override.beforeOpenGui(	world,
-										entityplayer,
-										devicedata)) {
-				return;
-			}
-		}
-	}
-
 	/**
 	 * Retrieves the world object with NetHandler parameters.
 	 * 
@@ -251,24 +213,9 @@ public class WRClientProxy extends WRCommonProxy {
 													new ClientEtherPacketRXAddExecutor());
 		ClientPacketHandler.registerPacketHandler(	PacketIds.ETHER,
 													etherPacketHandler);
-		// Device Packets
-		ClientWirelessDevicePacketHandler devicePacketHandler = new ClientWirelessDevicePacketHandler();
-		ClientPacketHandler.registerPacketHandler(	PacketIds.DEVICE,
-													devicePacketHandler);
 		// Tile Packets
 		ClientPacketHandler.registerPacketHandler(	PacketIds.TILE,
 													new ClientTilePacketHandler());
-		// GUI Packets
-		// Inventory
-		ClientInventoryGuiPacketHandler guiInventoryPacketHandler = new ClientInventoryGuiPacketHandler();
-		guiInventoryPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.sendGui.toString(),
-														new ClientGuiTilePacketExecutor());
-		ClientPacketHandler.registerPacketHandler(	PacketIds.GUI,
-													guiInventoryPacketHandler);
-		// Device
-		ClientDeviceGuiPacketHandler guiDevicePacketHandler = new ClientDeviceGuiPacketHandler();
-		ClientPacketHandler.registerPacketHandler(	PacketIds.DEVICEGUI,
-													guiDevicePacketHandler);
 		// Addon
 		ClientAddonPacketHandler addonPacketHandler = new ClientAddonPacketHandler();
 		ClientPacketHandler.registerPacketHandler(	PacketIds.ADDON,

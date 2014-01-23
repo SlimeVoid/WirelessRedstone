@@ -22,14 +22,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import wirelessredstone.addon.remote.core.lib.ItemLib;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.api.IWirelessDevice;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.device.WirelessTransmitterDevice;
-import wirelessredstone.network.packets.PacketWirelessDevice;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -50,24 +49,12 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList();
 
 	protected WirelessRemoteDevice(World world, EntityLivingBase entity) {
-		super(world, entity, null);
+		super(world, entity);
 		if (entity instanceof EntityPlayer) {
 			this.slot = ((EntityPlayer) entity).inventory.currentItem;
 			ItemStack itemstack = ((EntityPlayer) entity).inventory.getStackInSlot(this.slot);
 		}
 	}
-
-	public WirelessRemoteDevice(World world, EntityLivingBase entityliving, IWirelessDeviceData deviceData) {
-		super(world, entityliving, deviceData);
-	}
-
-	/*
-	 * @Override public boolean isBeingHeld() { boolean flag =
-	 * super.isBeingHeld(); if (flag) { if (this.getOwner() instanceof
-	 * EntityPlayer) { return
-	 * ((EntityPlayer)this.getOwner()).inventory.currentItem == this.slot &&
-	 * flag; } else { return flag; } } return false; }
-	 */
 
 	/**
 	 * Adds a Remote override to the Remote.
@@ -191,11 +178,6 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	}
 
 	@Override
-	public PacketWirelessDevice getDevicePacket(IWirelessDeviceData devicedata) {
-		return new PacketWirelessDevice(devicedata);
-	}
-
-	@Override
 	protected String getActivateCommand() {
 		return PacketRemoteCommands.remoteCommands.activate.toString();
 	}
@@ -206,80 +188,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	}
 
 	@Override
-	public int getSizeInventory() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String getInvName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isInvNameLocalized() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void onInventoryChanged() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void openChest() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void closeChest() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		// TODO Auto-generated method stub
-		return false;
+		return ItemLib.REMOTE;
 	}
 }

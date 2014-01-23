@@ -23,7 +23,6 @@ import wirelessredstone.addon.powerconfig.client.presentation.gui.GuiRedstoneWir
 import wirelessredstone.addon.powerconfig.core.PCCore;
 import wirelessredstone.addon.powerconfig.core.PowerConfigurator;
 import wirelessredstone.addon.powerconfig.proxy.PowerConfigCommonProxy;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
@@ -90,15 +89,6 @@ public class PowerConfigClientProxy extends PowerConfigCommonProxy {
 
 	@Override
 	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		if (!world.isRemote) {
-			super.activateGUI(	world,
-								entityplayer,
-								devicedata);
-		}
 	}
 
 	/**

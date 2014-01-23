@@ -17,7 +17,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 import wirelessredstone.data.WirelessCoordinates;
-import wirelessredstone.network.packets.PacketWirelessDevice;
 
 /**
  * Wireless device.
@@ -119,21 +118,4 @@ public interface IWirelessDevice extends IInventory {
 	 * @return true if the device is being held
 	 */
 	boolean isBeingHeld();
-
-	/**
-	 * Return the name of the device
-	 * 
-	 * @return device name
-	 */
-	String getName();
-
-	/**
-	 * Return a packet to send for this device
-	 * 
-	 * @param devicedata
-	 *            the device data to send
-	 * 
-	 * @return the packet to send
-	 */
-	PacketWirelessDevice getDevicePacket(IWirelessDeviceData devicedata);
 }

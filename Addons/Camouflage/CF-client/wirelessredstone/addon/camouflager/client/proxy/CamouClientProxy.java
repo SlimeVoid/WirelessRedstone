@@ -23,7 +23,6 @@ import wirelessredstone.addon.camouflager.client.presentation.BlockWirelessCamou
 import wirelessredstone.addon.camouflager.client.presentation.gui.GuiRedstoneWirelessCamouflager;
 import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstoneWireless;
 import wirelessredstone.addon.camouflager.proxy.CamouCommonProxy;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -65,15 +64,6 @@ public class CamouClientProxy extends CamouCommonProxy {
 
 	@Override
 	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		if (!world.isRemote) {
-			super.activateGUI(	world,
-								entityplayer,
-								devicedata);
-		}
 	}
 
 	/**

@@ -23,12 +23,10 @@ import wirelessredstone.addon.powerconfig.network.packets.PacketPowerConfigComma
 import wirelessredstone.addon.powerconfig.network.packets.executors.PacketPowerConfigSettingsExecutor;
 import wirelessredstone.addon.powerconfig.overrides.BlockRedstoneWirelessROverridePC;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class PowerConfigCommonProxy implements ICommonProxy {
 
@@ -60,15 +58,6 @@ public class PowerConfigCommonProxy implements ICommonProxy {
 	@Override
 	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
-		// TODO :: Activate GUI
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
 	}
 
 	@Override

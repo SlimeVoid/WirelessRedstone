@@ -14,22 +14,18 @@ package wirelessredstone.proxy;
 import java.io.File;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.api.IWirelessDeviceData;
 import wirelessredstone.core.lib.ConfigurationLib;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerAddonPacketHandler;
-import wirelessredstone.network.handlers.ServerDeviceGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.handlers.ServerTilePacketHandler;
-import wirelessredstone.network.handlers.ServerWirelessDevicePacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
 import wirelessredstone.network.packets.executor.EtherPacketChangeFreqExecutor;
@@ -39,7 +35,6 @@ import wirelessredstone.network.packets.executor.EtherPacketRXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXAddExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXSetStateExecutor;
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class WRCommonProxy implements ICommonProxy {
 
@@ -83,22 +78,6 @@ public class WRCommonProxy implements ICommonProxy {
 	}
 
 	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
-		if (!world.isRemote) {
-			ServerGuiPacketHandler.sendGuiPacketTo(	(EntityPlayerMP) entityplayer,
-													tileentityredstonewireless);
-		}
-	}
-
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, IWirelessDeviceData devicedata) {
-		if (!world.isRemote) {
-			ServerDeviceGuiPacketHandler.sendGuiPacketTo(	(EntityPlayerMP) entityplayer,
-															devicedata);
-		}
-	}
-
-	@Override
 	public void init() {
 	}
 
@@ -139,11 +118,7 @@ public class WRCommonProxy implements ICommonProxy {
 													new EtherPacketFetchEtherExecutor());
 		ServerPacketHandler.registerPacketHandler(	PacketIds.ETHER,
 													etherPacketHandler);
-		// Wireless Device Packets
-		ServerWirelessDevicePacketHandler devicePacketHandler = new ServerWirelessDevicePacketHandler();
-		ServerPacketHandler.registerPacketHandler(	PacketIds.DEVICE,
-													devicePacketHandler);
-		// TODO Wireless Device Executors
+
 		// GUI Packets
 		ServerGuiPacketHandler guiPacketHandler = new ServerGuiPacketHandler();
 		ServerPacketHandler.registerPacketHandler(	PacketIds.GUI,
