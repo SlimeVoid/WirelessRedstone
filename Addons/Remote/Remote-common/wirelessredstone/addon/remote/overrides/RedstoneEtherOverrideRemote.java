@@ -19,59 +19,59 @@ import wirelessredstone.data.WirelessCoordinates;
 
 public class RedstoneEtherOverrideRemote implements IRedstoneEtherOverride {
 	@Override
-	public boolean beforeAddTransmitter(World world, int i, int j, int k, String freq) {
+	public boolean beforeAddTransmitter(World world, int i, int j, int k, Object freq) {
 		return false;
 	}
 
 	@Override
-	public void afterAddTransmitter(World world, int i, int j, int k, String freq) {
+	public void afterAddTransmitter(World world, int i, int j, int k, Object freq) {
 	}
 
 	@Override
-	public boolean beforeRemTransmitter(World world, int i, int j, int k, String freq) {
+	public boolean beforeRemTransmitter(World world, int i, int j, int k, Object freq) {
 		return false;
 	}
 
 	@Override
-	public void afterRemTransmitter(World world, int i, int j, int k, String freq) {
+	public void afterRemTransmitter(World world, int i, int j, int k, Object freq) {
 
 	}
 
 	@Override
-	public boolean beforeSetTransmitterState(World world, int i, int j, int k, String freq, boolean state) {
+	public boolean beforeSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
 		return false;
 	}
 
 	@Override
-	public void afterSetTransmitterState(World world, int i, int j, int k, String freq, boolean state) {
+	public void afterSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
 
 	}
 
 	@Override
-	public boolean beforeAddReceiver(World world, int i, int j, int k, String freq) {
+	public boolean beforeAddReceiver(World world, int i, int j, int k, Object freq) {
 		return false;
 	}
 
 	@Override
-	public void afterAddReceiver(World world, int i, int j, int k, String freq) {
+	public void afterAddReceiver(World world, int i, int j, int k, Object freq) {
 	}
 
 	@Override
-	public boolean beforeRemReceiver(World world, int i, int j, int k, String freq) {
+	public boolean beforeRemReceiver(World world, int i, int j, int k, Object freq) {
 		return false;
 	}
 
 	@Override
-	public void afterRemReceiver(World world, int i, int j, int k, String freq) {
+	public void afterRemReceiver(World world, int i, int j, int k, Object freq) {
 	}
 
 	@Override
-	public boolean beforeGetFreqState(World world, String freq) {
+	public boolean beforeGetFreqState(World world, Object freq) {
 		return false;
 	}
 
 	@Override
-	public boolean afterGetFreqState(World world, String freq, boolean returnState) {
+	public boolean afterGetFreqState(World world, Object freq, boolean returnState) {
 		return returnState;
 	}
 

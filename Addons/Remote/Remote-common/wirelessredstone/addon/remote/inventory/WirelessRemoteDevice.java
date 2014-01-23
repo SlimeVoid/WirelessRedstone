@@ -20,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.lib.ItemLib;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
@@ -46,11 +47,8 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
 	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList();
 
-	public WirelessRemoteDevice(World world, EntityLivingBase entity) {
-		super(world, entity);
-		if (entity.getHeldItem().hasTagCompound()) {
-			this.readFromNBT(entity.getHeldItem().getTagCompound());
-		}
+	public WirelessRemoteDevice(World world, EntityLivingBase entity, ItemStack itemstack) {
+		super(world, entity, itemstack);
 	}
 
 	/**
@@ -107,7 +105,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 				deactivatePlayerWirelessRemote(	world,
 												entityplayer);
 			}
-			remoteTransmitter = new WirelessRemoteDevice(world, entityplayer);
+			remoteTransmitter = new WirelessRemoteDevice(world, entityliving, entityliving.getHeldItem());
 			remoteTransmitter.activate(	world,
 										entityplayer);
 		}
@@ -148,7 +146,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 			deactivateWirelessRemote(	world,
 										entityliving);
 		}
-		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world, entityliving);
+		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world, entityliving, entityliving.getHeldItem());
 		remoteTransmitters.put(	entityliving,
 								remoteTransmitter);
 		if (remoteTransmitters.containsKey(entityliving)) {

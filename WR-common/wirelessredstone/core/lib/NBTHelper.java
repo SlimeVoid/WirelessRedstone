@@ -18,4 +18,17 @@ public class NBTHelper {
 		return defaultValue;
 	}
 
+	public static boolean getBoolean(ItemStack itemstack, String key, boolean defaultValue) {
+		if (itemstack != null && itemstack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+			if (nbttagcompound.hasKey(key)) {
+				return nbttagcompound.getBoolean(key);
+			} else {
+				nbttagcompound.setBoolean(	key,
+											defaultValue);
+			}
+		}
+		return defaultValue;
+	}
+
 }

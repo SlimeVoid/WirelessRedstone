@@ -39,7 +39,7 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 	/**
 	 * Frequency
 	 */
-	public String		freq;
+	public Object		freq;
 	/**
 	 * Unixtimestamp, milliseconds, added.
 	 */

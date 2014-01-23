@@ -83,7 +83,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 	 * - Update the tick.
 	 */
 	@Override
-	public void changeFreq(World world, int i, int j, int k, String oldFreq, String freq) {
+	public void changeFreq(World world, int i, int j, int k, Object oldFreq, Object freq) {
 		RedstoneEther.getInstance().remReceiver(world,
 												i,
 												j,

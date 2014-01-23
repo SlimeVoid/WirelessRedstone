@@ -11,6 +11,7 @@
  */
 package wirelessredstone.addon.remote.client.overrides;
 
+import net.minecraft.world.World;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDevice;
 
@@ -18,20 +19,7 @@ public class GuiRedstoneWirelessRemoteOverride implements
 		IGuiRedstoneWirelessDeviceOverride {
 
 	@Override
-	public boolean beforeFrequencyChange(IWirelessDevice data, Object oldFreq, Object newFreq) {
-		// if (data instanceof WirelessRemoteData) {
-		// World world = FMLClientHandler.instance().getClient().theWorld;
-		// if (world.isRemote) {
-		// int OLD = Integer.parseInt(oldFreq.toString());
-		// int NEW = Integer.parseInt(newFreq.toString());
-		// if (OLD != NEW) {
-		// PacketWirelessDevice packet = new PacketWirelessDevice(data);
-		// packet.setFreq(Integer.toString(NEW - OLD));
-		// packet.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
-		// ClientPacketHandler.sendPacket(packet.getPacket());
-		// }
-		// }
-		// }
-		return true;
+	public boolean beforeFrequencyChange(World world, IWirelessDevice device, Object oldFreq, Object newFreq) {
+		return false;
 	}
 }

@@ -13,25 +13,22 @@ package wirelessredstone.addon.remote.items;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.WirelessRemote;
-import wirelessredstone.addon.remote.core.lib.GuiLib;
 import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.core.lib.ItemLib;
-import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.NBTHelper;
 import wirelessredstone.core.lib.NBTLib;
-import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
+import wirelessredstone.device.ItemWirelessDevice;
 
-public class ItemRedstoneWirelessRemote extends Item {
+public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 
 	protected Icon[]	iconList;
 
@@ -48,71 +45,51 @@ public class ItemRedstoneWirelessRemote extends Item {
 		maxStackSize = 1;
 	}
 
-	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
-		return onItemUseFirst(	itemstack,
-								entityplayer,
-								world,
-								i,
-								j,
-								k,
-								l,
-								a,
-								b,
-								c);
-	}
-
-	@Override
-	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
-		if (entityplayer.isSneaking()) {
-			TileEntity tileentity = world.getBlockTileEntity(	i,
-																j,
-																k);
-			if (tileentity != null) {
-				if (tileentity instanceof TileEntityRedstoneWirelessR) {
-					if (world.isRemote) {
-						ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(	"updateReceiver",
-																					((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(0),
-																					((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(1),
-																					((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(2),
-																					0,
-																					false);
-					}
-					return true;
-				}
-			}
-			entityplayer.openGui(	WirelessRemote.instance,
-									GuiLib.REMOTE,
-									world,
-									i,
-									j,
-									k);
-			return false;
-		}
-		this.onItemRightClick(	itemstack,
-								world,
-								entityplayer);
-		return false;
-	}
+	//
+	// @Override
+	// public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
+	// World world, int i, int j, int k, int l, float a, float b, float c) {
+	// return true;
+	// }
+	//
+	// @Override
+	// public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer
+	// entityplayer, World world, int i, int j, int k, int l, float a, float b,
+	// float c) {
+	// if (entityplayer.isSneaking()) {
+	// TileEntity tileentity = world.getBlockTileEntity( i,
+	// j,
+	// k);
+	// if (tileentity != null) {
+	// if (tileentity instanceof TileEntityRedstoneWirelessR) {
+	// if (world.isRemote) {
+	// ClientRedstoneEtherPacketHandler.sendRedstoneEtherPacket(
+	// "updateReceiver",
+	// ((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(0),
+	// ((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(1),
+	// ((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(2),
+	// 0,
+	// false);
+	// }
+	// return true;
+	// }
+	// }
+	// } else {
+	// // WirelessRemote.proxy.activateRemote(world,
+	// // entityplayer);
+	// }
+	// return false;
+	// }
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		if (!entityplayer.isSneaking()) {
-			entityplayer.setItemInUse(	itemstack,
-										72000);
-			WirelessRemote.proxy.activateRemote(world,
-												entityplayer);
-		} else {
-			onItemUseFirst(	itemstack,
-							entityplayer,
-							world,
-							(int) Math.round(entityplayer.posX),
-							(int) Math.round(entityplayer.posY),
-							(int) Math.round(entityplayer.posZ),
-							0,
-							0,
-							0,
-							0);
+		if (entityplayer.isSneaking()) {
+			entityplayer.openGui(	WirelessRemote.instance,
+									GuiLib.GUIID_DEVICE,
+									world,
+									(int) Math.floor(entityplayer.posX),
+									(int) Math.floor(entityplayer.posY),
+									(int) Math.floor(entityplayer.posZ));
 		}
 		return itemstack;
 	}
@@ -124,22 +101,29 @@ public class ItemRedstoneWirelessRemote extends Item {
 
 	@Override
 	public Icon getIcon(ItemStack itemstack, int pass) {
-		if (!NBTLib.getDeviceState(itemstack)) return iconList[0];
+		if (!this.getState(itemstack)) return iconList[0];
 		return iconList[1];
 	}
 
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld) {
-		if (entity instanceof EntityLivingBase) {
-			EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
-			String freq = NBTLib.getDeviceFreq(itemstack);
-			if (!isHeld
-				|| (!WirelessRemote.proxy.isRemoteOn(	world,
-														entitylivingbase,
-														freq) && !WirelessRemote.proxy.deactivateRemote(world,
-																										entitylivingbase))) {
+		if (ItemLib.isWirelessRemote(itemstack)) {
+			if (!itemstack.hasTagCompound()) {
+				itemstack.stackTagCompound = new NBTTagCompound();
+				this.getFreq(itemstack);
+				this.getState(itemstack);
 			}
 		}
+		// if (entity instanceof EntityLivingBase) {
+		// EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+		// String freq = NBTLib.getDeviceFreq(itemstack);
+		// if (!isHeld
+		// || (!WirelessRemote.proxy.isRemoteOn( world,
+		// entitylivingbase,
+		// freq) && !WirelessRemote.proxy.deactivateRemote(world,
+		// entitylivingbase))) {
+		// }
+		// }
 	}
 
 	@Override
@@ -154,5 +138,14 @@ public class ItemRedstoneWirelessRemote extends Item {
 										"0");
 		}
 		return "0";
+	}
+
+	public boolean getState(ItemStack itemstack) {
+		if (ItemLib.isWirelessRemote(itemstack)) {
+			return NBTHelper.getBoolean(itemstack,
+										NBTLib.STATE,
+										false);
+		}
+		return false;
 	}
 }

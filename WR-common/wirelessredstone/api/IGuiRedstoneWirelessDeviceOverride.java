@@ -11,6 +11,8 @@
  */
 package wirelessredstone.api;
 
+import net.minecraft.world.World;
+
 /**
  * GUI override.<br>
  * Used for injecting code into existing Wireless Device GUI screens.<br>
@@ -25,6 +27,8 @@ public interface IGuiRedstoneWirelessDeviceOverride extends
 	/**
 	 * Triggers before the frequency is changed.
 	 * 
+	 * @param world
+	 * 
 	 * @param wirelessDeviceData
 	 *            WirelessDeviceData
 	 * @param oldFreq
@@ -33,5 +37,5 @@ public interface IGuiRedstoneWirelessDeviceOverride extends
 	 *            New frequency
 	 * @return Exits prematurely if true, skipping existing code.
 	 */
-	public boolean beforeFrequencyChange(IWirelessDevice wirelessDevice, Object oldFreq, Object newFreq);
+	public boolean beforeFrequencyChange(World world, IWirelessDevice wirelessDevice, Object oldFreq, Object newFreq);
 }

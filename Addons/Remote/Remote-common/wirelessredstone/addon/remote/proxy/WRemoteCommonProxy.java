@@ -49,7 +49,7 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == GuiLib.GUIID_DEVICE) {
-			WirelessRemoteDevice device = new WirelessRemoteDevice(world, player);
+			WirelessRemoteDevice device = new WirelessRemoteDevice(world, player, player.getHeldItem());
 			return new ContainerWirelessRemote(device);
 		}
 		return null;

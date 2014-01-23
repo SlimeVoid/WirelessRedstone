@@ -251,7 +251,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	 * @param freq
 	 *            New frequency to change to.
 	 */
-	public abstract void changeFreq(World world, int i, int j, int k, String oldFreq, String freq);
+	public abstract void changeFreq(World world, int i, int j, int k, Object oldFreq, Object freq);
 
 	/**
 	 * Triggers when the Block is added to the world.<br>

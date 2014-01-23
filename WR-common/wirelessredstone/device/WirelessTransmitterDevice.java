@@ -12,14 +12,15 @@
 package wirelessredstone.device;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import wirelessredstone.core.lib.DeviceLib;
 import wirelessredstone.ether.RedstoneEther;
 
 public abstract class WirelessTransmitterDevice extends WirelessDevice {
 
-	public WirelessTransmitterDevice(World world, EntityLivingBase entityliving) {
-		super(world, entityliving);
+	public WirelessTransmitterDevice(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+		super(world, entityliving, itemstack);
 	}
 
 	@Override

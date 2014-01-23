@@ -18,7 +18,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.core.lib.NBTLib;
 import wirelessredstone.data.WirelessCoordinates;
@@ -31,61 +30,50 @@ import wirelessredstone.data.WirelessCoordinates;
  */
 public abstract class WirelessDevice implements IWirelessDevice {
 
+	protected World				world;
+	protected EntityLivingBase	entityliving;
 	protected int				xCoord, yCoord, zCoord;
-	protected EntityLivingBase	owner;
-	protected String			freq;
+	protected Object			freq;
 	protected boolean			state;
-	protected int				dimension;
 
-	protected WirelessDevice(World world, EntityLivingBase entity) {
-		this.owner = entity;
+	protected WirelessDevice(World world, EntityLivingBase entity, ItemStack itemstack) {
+		this.world = world;
+		this.entityliving = entity;
 		this.setCoords(	(int) entity.posX,
 						(int) entity.posY,
 						(int) entity.posZ);
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
-		if (nbttagcompound == null) {
-			nbttagcompound = new NBTTagCompound();
+		if (itemstack != null && itemstack.hasTagCompound()) {
+			this.readFromNBT(itemstack.getTagCompound());
 		}
-		nbttagcompound.setInteger(	"x",
-									this.xCoord);
-		nbttagcompound.setInteger(	"y",
-									this.yCoord);
-		nbttagcompound.setInteger(	"z",
-									this.zCoord);
-		nbttagcompound.setString(	NBTLib.FREQUENCY,
-									this.freq);
-		nbttagcompound.setBoolean(	NBTLib.STATE,
-									this.state);
-		nbttagcompound.setInteger(	NBTLib.DIMENSION,
-									this.dimension);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		this.xCoord = nbttagcompound.getInteger("x");
-		this.yCoord = nbttagcompound.getInteger("y");
-		this.zCoord = nbttagcompound.getInteger("z");
 		this.freq = nbttagcompound.getString(NBTLib.FREQUENCY);
 		this.state = nbttagcompound.getBoolean(NBTLib.STATE);
-		this.dimension = nbttagcompound.getInteger(NBTLib.DIMENSION);
 	}
 
 	@Override
-	public EntityLivingBase getOwner() {
-		return this.owner;
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
+		nbttagcompound.setString(	NBTLib.FREQUENCY,
+									String.valueOf(this.freq));
+		nbttagcompound.setBoolean(	NBTLib.STATE,
+									this.state);
+	}
+
+	@Override
+	public void setFreq(Object freq) {
+		this.freq = freq;
+	}
+
+	@Override
+	public void setState(boolean state) {
+		this.state = state;
 	}
 
 	@Override
 	public void setOwner(EntityLiving entity) {
-		this.owner = entity;
-	}
-
-	@Override
-	public String getFreq() {
-		return this.freq;
+		this.entityliving = entity;
 	}
 
 	@Override
@@ -110,12 +98,22 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public World getWorld() {
-		return DimensionManager.getWorld(this.dimension);
+		return this.world;
 	}
 
 	@Override
-	public void setFreq(String freq) {
-		this.freq = freq;
+	public Object getFreq() {
+		return this.freq;
+	}
+
+	@Override
+	public boolean getState() {
+		return this.state;
+	}
+
+	@Override
+	public EntityLivingBase getOwner() {
+		return this.entityliving;
 	}
 
 	@Override
@@ -178,11 +176,19 @@ public abstract class WirelessDevice implements IWirelessDevice {
 
 	@Override
 	public void onInventoryChanged() {
+		ItemStack heldItem = this.entityliving.getHeldItem();
+		if (heldItem != null && heldItem.getItem() != null
+			&& heldItem.getItem() instanceof ItemWirelessDevice) {
+			if (!heldItem.hasTagCompound()) {
+				heldItem.stackTagCompound = new NBTTagCompound();
+			}
+			this.writeToNBT(heldItem.stackTagCompound);
+		}
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return false;
+		return true;
 	}
 
 	@Override

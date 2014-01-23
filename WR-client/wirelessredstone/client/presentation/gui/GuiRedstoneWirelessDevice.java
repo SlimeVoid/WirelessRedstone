@@ -16,7 +16,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.api.IWirelessDevice;
+import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.packets.PacketWirelessDevice;
 
 /**
  * Wireless Redstone GUI screen.
@@ -115,21 +117,25 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 
 			boolean prematureExit = false;
 			for (IGuiRedstoneWirelessOverride override : overrides) {
-				if (((IGuiRedstoneWirelessDeviceOverride) override).beforeFrequencyChange(	wirelessDevice,
+				if (((IGuiRedstoneWirelessDeviceOverride) override).beforeFrequencyChange(	this.world,
+																							this.wirelessDevice,
 																							oldFreq,
 																							freq)) prematureExit = true;
 			}
 			if (prematureExit) return;
 
-			if (oldFreq != freq) {
-				// PacketWirelessDevice packet = new PacketWirelessDevice();
-				// packet.setCommand(this.getCommand());
-				// packet.setFreq(freq - oldFreq);
-				// ClientPacketHandler.sendPacket(packet.getPacket());
-			}
+			notifyServer(freq - oldFreq);
+
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessDevice").writeStackTrace(e);
 		}
+	}
+
+	protected void notifyServer(Object freq) {
+		PacketWirelessDevice packet = new PacketWirelessDevice(this.wirelessDevice);
+		packet.setCommand(this.getCommand());
+		packet.setFreq(freq);
+		ClientPacketHandler.sendPacket(packet.getPacket());
 	}
 
 	protected abstract String getCommand();
@@ -150,7 +156,7 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	}
 
 	@Override
-	protected void setFreq(String freq) {
+	public void setFreq(Object freq) {
 		this.wirelessDevice.setFreq(freq);
 	}
 }

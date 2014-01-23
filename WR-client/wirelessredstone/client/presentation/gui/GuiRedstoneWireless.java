@@ -139,7 +139,7 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 	 * @param freq
 	 *            frequency.
 	 */
-	protected abstract void setFreq(String freq);
+	public abstract void setFreq(Object freq);
 
 	/**
 	 * Draws the entire GUI to the screen.

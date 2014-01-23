@@ -48,14 +48,28 @@ public interface IWirelessDevice extends IInventory {
 	 * @param freq
 	 *            Frequency
 	 */
-	void setFreq(String freq);
+	void setFreq(Object freq);
 
 	/**
 	 * Get the frequency of the wireless device.
 	 * 
 	 * @return Frequency
 	 */
-	String getFreq();
+	Object getFreq();
+
+	/**
+	 * Set the state of the wireless device
+	 * 
+	 * @param state
+	 */
+	void setState(boolean state);
+
+	/**
+	 * Get the state of the wireless device
+	 * 
+	 * @return State
+	 */
+	boolean getState();
 
 	/**
 	 * Get the device coordinates.
@@ -120,7 +134,7 @@ public interface IWirelessDevice extends IInventory {
 	 */
 	boolean isBeingHeld(EntityLivingBase entitylivingbase);
 
-	public void writeToNBT(NBTTagCompound nbttabcompound);
-
 	public void readFromNBT(NBTTagCompound nbttagcompound);
+
+	public void writeToNBT(NBTTagCompound nbttabcompound);
 }

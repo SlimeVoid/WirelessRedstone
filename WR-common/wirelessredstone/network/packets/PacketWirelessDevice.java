@@ -12,12 +12,21 @@
 package wirelessredstone.network.packets;
 
 import net.minecraft.world.World;
+import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.network.packets.core.PacketPayload;
 
 public class PacketWirelessDevice extends PacketWireless {
 
 	public PacketWirelessDevice() {
 		super(PacketIds.DEVICE);
+	}
+
+	public PacketWirelessDevice(IWirelessDevice device) {
+		this();
+		this.payload = new PacketPayload(0, 0, 1, 1);
+		this.setFreq(device.getFreq());
+		this.setState(device.getState());
 	}
 
 	@Override

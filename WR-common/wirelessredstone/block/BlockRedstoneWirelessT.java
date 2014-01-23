@@ -96,7 +96,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 	 * - Set transmitter state in the Ether.
 	 */
 	@Override
-	public void changeFreq(World world, int i, int j, int k, String oldFreq, String freq) {
+	public void changeFreq(World world, int i, int j, int k, Object oldFreq, Object freq) {
 		// Remove transmitter from current frequency on the ether.
 		RedstoneEther.getInstance().remTransmitter(	world,
 													i,

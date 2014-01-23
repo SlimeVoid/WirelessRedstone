@@ -21,7 +21,6 @@ import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.client.network.packets.executors.ClientRemoteChangeFreqExecutor;
-import wirelessredstone.addon.remote.client.overrides.ActivateGuiRemoteOverride;
 import wirelessredstone.addon.remote.client.overrides.GuiRedstoneWirelessRemoteOverride;
 import wirelessredstone.addon.remote.client.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.client.tickhandler.ClientTickHandler;
@@ -30,7 +29,6 @@ import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.addon.remote.proxy.WRemoteCommonProxy;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.client.network.ClientPacketHandler;
-import wirelessredstone.client.proxy.WRClientProxy;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
@@ -68,26 +66,16 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 		guiWirelessRemote = new GuiRedstoneWirelessRemote();
 		IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
 		guiWirelessRemote.addOverride(override);
-		WRClientProxy.addOverride(new ActivateGuiRemoteOverride());
 	}
 
 	@Override
 	public void registerRenderInformation() {
-		loadBlockTextures();
-	}
-
-	/**
-	 * Loads all Block textures from ModLoader override and stores the indices
-	 * into the sprite integers.
-	 */
-	public static void loadBlockTextures() {
-		// MinecraftForgeClient.preloadTexture("/WirelessSprites/terrain.png");
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == GuiLib.GUIID_DEVICE) {
-			guiWirelessRemote.assWirelessDevice(new WirelessRemoteDevice(world, player),
+			guiWirelessRemote.assWirelessDevice(new WirelessRemoteDevice(world, player, player.getHeldItem()),
 												player);
 			return guiWirelessRemote;
 		}

@@ -35,8 +35,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 	protected BlockRedstoneWireless								blockRedstoneWireless;
 	private boolean												state		= false;
 	public boolean												firstTick	= true;
-	public String												oldFreq;
-	public String												currentFreq;
+	public Object												oldFreq;
+	public Object												currentFreq;
 	protected boolean[]											powerRoute;
 	protected boolean[]											indirPower;
 	public HashMap<String, IRedstoneWirelessData>				tileData	= new HashMap<String, IRedstoneWirelessData>();
@@ -78,13 +78,13 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		return itemstack;
 	}
 
-	public String getFreq() {
+	public Object getFreq() {
 		return currentFreq;
 	}
 
-	public void setFreq(String i) {
+	public void setFreq(Object freq) {
 		try {
-			currentFreq = i;
+			currentFreq = freq;
 			updateEntity();
 		} catch (Exception e) {
 			LoggerRedstoneWireless.getInstance("WirelessRedstone: "
@@ -141,7 +141,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 			if (override.handleInventory()) {
 				itemstack = override.decrStackSize(	this,
 													i,
-													j, itemstack);
+													j,
+													itemstack);
 			}
 		}
 		return itemstack;

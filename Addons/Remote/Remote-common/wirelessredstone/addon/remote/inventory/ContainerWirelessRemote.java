@@ -12,7 +12,7 @@ public class ContainerWirelessRemote extends ContainerRedstoneDevice {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return this.redstoneDevice.isBeingHeld(entityplayer);
+		return true;
 	}
 
 }

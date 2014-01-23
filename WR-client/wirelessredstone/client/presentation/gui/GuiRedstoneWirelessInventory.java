@@ -179,7 +179,7 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	 *            frequency.
 	 */
 	@Override
-	protected void setFreq(String freq) {
+	public void setFreq(Object freq) {
 		inventory.setFreq(freq);
 	}
 }
