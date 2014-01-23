@@ -22,7 +22,6 @@ import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
-import wirelessredstone.core.lib.LocaleLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -108,8 +107,6 @@ public class WRCore {
 		proxy.addOverrides();
 
 		registerBlocks();
-
-		LocaleLib.registerLanguages();
 
 		proxy.registerRenderInformation();
 
