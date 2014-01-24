@@ -192,7 +192,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	@Override
 	public boolean isBeingHeld(EntityLivingBase entityliving) {
 		if (ItemLib.isWirelessRemote(entityliving.getHeldItem())) {
-			return ((ItemRedstoneWirelessRemote) entityliving.getHeldItem().getItem()).getFreq(entityliving.getHeldItem()).equals(this.freq);
+			return ItemRedstoneWirelessRemote.getFreq(entityliving.getHeldItem()).equals(this.freq);
 		}
 		return false;
 	}

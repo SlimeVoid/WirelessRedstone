@@ -13,6 +13,7 @@ package wirelessredstone.addon.remote.items;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,6 @@ import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.WirelessRemote;
 import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.core.lib.ItemLib;
-import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.NBTHelper;
@@ -110,11 +110,11 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 
 	@Override
 	public void onUsingItemTick(ItemStack itemstack, EntityPlayer player, int count) {
+		WirelessRemote.proxy.activateRemote(player.getEntityWorld(),
+											player,
+											itemstack);
 		if (!player.worldObj.isRemote) {
 			if (!getState(itemstack)) {
-				WirelessRemoteDevice.activateWirelessRemote(player.worldObj,
-															player,
-															itemstack);
 				setState(	itemstack,
 							true);
 			}
@@ -122,10 +122,10 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 	}
 
 	public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int itemInUseCount) {
+		WirelessRemote.proxy.deactivateRemote(	world,
+												entityplayer,
+												itemstack);
 		if (!world.isRemote) {
-			WirelessRemoteDevice.deactivateWirelessRemote(	world,
-															entityplayer,
-															itemstack);
 			setState(	itemstack,
 						false);
 		}
@@ -151,16 +151,19 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 				getState(itemstack);
 			}
 		}
-		// if (entity instanceof EntityLivingBase) {
-		// EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
-		// String freq = NBTLib.getDeviceFreq(itemstack);
-		// if (!isHeld
-		// || (!WirelessRemote.proxy.isRemoteOn( world,
-		// entitylivingbase,
-		// freq) && !WirelessRemote.proxy.deactivateRemote(world,
-		// entitylivingbase))) {
-		// }
-		// }
+		if (entity instanceof EntityLivingBase) {
+			EntityLivingBase entityliving = (EntityLivingBase) entity;
+			String freq = getFreq(itemstack);
+			if (!isHeld) {
+				WirelessRemote.proxy.deactivateRemote(	world,
+														entityliving,
+														itemstack);
+				if (!world.isRemote) {
+					setState(	itemstack,
+								false);
+				}
+			}
+		}
 	}
 
 	public static String getFreq(ItemStack itemstack) {
