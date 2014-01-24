@@ -17,6 +17,7 @@ import java.util.TreeMap;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
@@ -104,15 +105,17 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 	}
 
 	@Override
-	public void activateRemote(World world, EntityLivingBase entityliving) {
+	public void activateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		WirelessRemoteDevice.activateWirelessRemote(world,
-													entityliving);
+													entityliving,
+													itemstack);
 	}
 
 	@Override
-	public boolean deactivateRemote(World world, EntityLivingBase entityliving) {
+	public boolean deactivateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		return WirelessRemoteDevice.deactivateWirelessRemote(	world,
-																entityliving);
+																entityliving,
+																itemstack);
 	}
 
 	@Override

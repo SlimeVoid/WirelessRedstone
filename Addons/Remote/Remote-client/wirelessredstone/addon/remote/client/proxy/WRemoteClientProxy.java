@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.NetClientHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
@@ -120,18 +121,20 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	}
 
 	@Override
-	public void activateRemote(World world, EntityLivingBase entityliving) {
+	public void activateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		if (!world.isRemote) {
 			super.activateRemote(	world,
-									entityliving);
+									entityliving,
+									itemstack);
 		}
 	}
 
 	@Override
-	public boolean deactivateRemote(World world, EntityLivingBase entityliving) {
+	public boolean deactivateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		if (!world.isRemote) {
 			return super.deactivateRemote(	world,
-											entityliving);
+											entityliving,
+											itemstack);
 		}
 		return WirelessRemoteDevice.deactivatePlayerWirelessRemote(	world,
 																	entityliving);

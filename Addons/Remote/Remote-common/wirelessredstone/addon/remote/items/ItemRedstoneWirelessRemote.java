@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import wirelessredstone.addon.remote.core.WirelessRemote;
 import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.core.lib.ItemLib;
+import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.NBTHelper;
@@ -82,6 +83,16 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 	// }
 
 	@Override
+	public int getMaxItemUseDuration(ItemStack itemstack) {
+		return 32000;
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack itemstack) {
+		return EnumAction.none;
+	}
+
+	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		if (entityplayer.isSneaking()) {
 			entityplayer.openGui(	WirelessRemote.instance,
@@ -90,8 +101,34 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 									(int) Math.floor(entityplayer.posX),
 									(int) Math.floor(entityplayer.posY),
 									(int) Math.floor(entityplayer.posZ));
+		} else {
+			entityplayer.setItemInUse(	itemstack,
+										this.getMaxItemUseDuration(itemstack));
 		}
 		return itemstack;
+	}
+
+	@Override
+	public void onUsingItemTick(ItemStack itemstack, EntityPlayer player, int count) {
+		if (!player.worldObj.isRemote) {
+			if (!getState(itemstack)) {
+				WirelessRemoteDevice.activateWirelessRemote(player.worldObj,
+															player,
+															itemstack);
+				setState(	itemstack,
+							true);
+			}
+		}
+	}
+
+	public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int itemInUseCount) {
+		if (!world.isRemote) {
+			WirelessRemoteDevice.deactivateWirelessRemote(	world,
+															entityplayer,
+															itemstack);
+			setState(	itemstack,
+						false);
+		}
 	}
 
 	@Override
@@ -124,11 +161,6 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		// entitylivingbase))) {
 		// }
 		// }
-	}
-
-	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
 	}
 
 	public static String getFreq(ItemStack itemstack) {

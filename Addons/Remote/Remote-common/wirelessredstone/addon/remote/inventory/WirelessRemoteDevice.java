@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -73,7 +72,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
 	@Override
 	public void activate(World world, Entity entity) {
-		if (entity instanceof EntityLiving) {
+		if (entity instanceof EntityLivingBase) {
 			super.activate(	world,
 							entity);
 		}
@@ -81,14 +80,15 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
 	@Override
 	public void deactivate(World world, Entity entity, boolean isForced) {
-		if (entity instanceof EntityLiving) {
+		if (entity instanceof EntityLivingBase) {
 			super.deactivate(	world,
 								entity,
 								false);
 			if (!world.isRemote && isForced
 				&& remoteTransmitters.containsKey(entity)) {
 				deactivateWirelessRemote(	world,
-											(EntityLiving) entity);
+											(EntityLivingBase) entity,
+											((EntityLivingBase) entity).getHeldItem());
 			}
 		}
 	}
@@ -137,16 +137,17 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 		return false;
 	}
 
-	public static void activateWirelessRemote(World world, EntityLivingBase entityliving) {
+	public static void activateWirelessRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		if (remoteTransmitters.containsKey(entityliving)) {
 			IWirelessDevice remote = remoteTransmitters.get(entityliving);
 			if (((WirelessRemoteDevice) remote).isBeingHeld(entityliving)) {
 				return;
 			}
 			deactivateWirelessRemote(	world,
-										entityliving);
+										entityliving,
+										itemstack);
 		}
-		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world, entityliving, entityliving.getHeldItem());
+		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world, entityliving, itemstack);
 		remoteTransmitters.put(	entityliving,
 								remoteTransmitter);
 		if (remoteTransmitters.containsKey(entityliving)) {
@@ -157,7 +158,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 		}
 	}
 
-	public static boolean deactivateWirelessRemote(World world, EntityLivingBase entityliving) {
+	public static boolean deactivateWirelessRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		if (remoteTransmitters.containsKey(entityliving)) {
 			IWirelessDevice remote = remoteTransmitters.get(entityliving);
 			if (remoteWirelessCoords.containsKey(remote.getCoords())) {

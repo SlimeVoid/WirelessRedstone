@@ -12,13 +12,14 @@
 package wirelessredstone.addon.remote.api;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
 
 public interface IRemoteCommonProxy extends ICommonProxy {
-	public void activateRemote(World world, EntityLivingBase entitylivingbase);
+	public void activateRemote(World world, EntityLivingBase entitylivingbase, ItemStack itemstack);
 
-	public boolean deactivateRemote(World world, EntityLivingBase entitylivingbase);
+	public boolean deactivateRemote(World world, EntityLivingBase entitylivingbase, ItemStack itemstack);
 
 	public boolean isRemoteOn(World world, EntityLivingBase entitylivingbase, String freq);
 }

@@ -44,4 +44,8 @@ public class GuiRedstoneWirelessCamouflager extends
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
 	}
+
+	@Override
+	protected void drawForegroundObjects(int i, int k) {
+	}
 }
