@@ -34,8 +34,7 @@ public class RemoteChangeFreqExecutor implements IDevicePacketExecutor {
 												Integer.toString(oldFreq + freq));
 			// device.onInventoryChanged();
 			String newFreq = ItemRedstoneWirelessRemote.getFreq(itemstack);
-			boolean state = ItemRedstoneWirelessRemote.getState(itemstack);
-			PacketWirelessDevice remotePacket = new PacketWirelessDevice(newFreq, state);
+			PacketWirelessDevice remotePacket = new PacketWirelessDevice(newFreq, false);
 			remotePacket.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
 			ServerPacketHandler.broadcastPacket(remotePacket.getPacket());
 		}
