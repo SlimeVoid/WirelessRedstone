@@ -63,16 +63,16 @@ public class ClientTickHandler implements ITickHandler {
 
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		checkMouseClicks();
+		// checkMouseClicks();
 	}
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		if (mc.theWorld != null && mc.theWorld.isRemote) {
-			processRemote(	mc.theWorld,
-							mc.thePlayer,
-							mc.currentScreen,
-							mc.objectMouseOver);
+			// processRemote( mc.theWorld,
+			// mc.thePlayer,
+			// mc.currentScreen,
+			// mc.objectMouseOver);
 		}
 	}
 

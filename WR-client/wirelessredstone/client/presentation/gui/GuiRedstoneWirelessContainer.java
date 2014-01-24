@@ -167,7 +167,11 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
 		this.drawGuiName();
+		this.drawForegroundObjects(	i,
+									j);
 	}
+
+	protected abstract void drawForegroundObjects(int i, int k);
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {

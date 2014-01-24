@@ -101,7 +101,7 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 
 	@Override
 	public Icon getIcon(ItemStack itemstack, int pass) {
-		if (!this.getState(itemstack)) return iconList[0];
+		if (!getState(itemstack)) return iconList[0];
 		return iconList[1];
 	}
 
@@ -110,8 +110,8 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			if (!itemstack.hasTagCompound()) {
 				itemstack.stackTagCompound = new NBTTagCompound();
-				this.getFreq(itemstack);
-				this.getState(itemstack);
+				getFreq(itemstack);
+				getState(itemstack);
 			}
 		}
 		// if (entity instanceof EntityLivingBase) {
@@ -131,7 +131,7 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		return EnumAction.bow;
 	}
 
-	public String getFreq(ItemStack itemstack) {
+	public static String getFreq(ItemStack itemstack) {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			return NBTHelper.getString(	itemstack,
 										NBTLib.FREQUENCY,
@@ -140,12 +140,28 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		return "0";
 	}
 
-	public boolean getState(ItemStack itemstack) {
+	public static boolean getState(ItemStack itemstack) {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			return NBTHelper.getBoolean(itemstack,
 										NBTLib.STATE,
 										false);
 		}
 		return false;
+	}
+
+	public static void setFreq(ItemStack itemstack, Object freq) {
+		if (ItemLib.isWirelessRemote(itemstack)) {
+			NBTHelper.setString(itemstack,
+								NBTLib.FREQUENCY,
+								String.valueOf(freq));
+		}
+	}
+
+	public static void setState(ItemStack itemstack, boolean state) {
+		if (ItemLib.isWirelessRemote(itemstack)) {
+			NBTHelper.setBoolean(	itemstack,
+									NBTLib.STATE,
+									state);
+		}
 	}
 }

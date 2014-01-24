@@ -25,6 +25,7 @@ import wirelessredstone.addon.camouflager.overrides.BlockCamouflageOverride;
 import wirelessredstone.addon.camouflager.overrides.TileEntityCamouflageOverride;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
@@ -40,9 +41,16 @@ public class CamouCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new ContainerCamouflagedRedstoneWireless(player.inventory, world.getBlockTileEntity(	x,
-																									y,
-																									z));
+		if (ID == GuiLib.GUIID_DEVICE) {
+			TileEntity tileentity = world.getBlockTileEntity(	x,
+																y,
+																z);
+			if (tileentity != null
+				&& tileentity instanceof TileEntityRedstoneWireless) {
+				return new ContainerCamouflagedRedstoneWireless(player.inventory, (TileEntityRedstoneWireless) tileentity);
+			}
+		}
+		return null;
 	}
 
 	@Override

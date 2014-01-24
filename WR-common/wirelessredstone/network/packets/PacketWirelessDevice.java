@@ -29,6 +29,13 @@ public class PacketWirelessDevice extends PacketWireless {
 		this.setState(device.getState());
 	}
 
+	public PacketWirelessDevice(String freq, boolean state) {
+		this();
+		this.payload = new PacketPayload(0, 0, 1, 1);
+		this.setFreq(freq);
+		this.setState(state);
+	}
+
 	@Override
 	public boolean targetExists(World world) {
 		return true;

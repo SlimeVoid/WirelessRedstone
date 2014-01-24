@@ -52,7 +52,7 @@ public class CamouClientProxy extends CamouCommonProxy {
 															y,
 															z);
 		if (tileentity instanceof TileEntityRedstoneWireless) {
-			return new GuiRedstoneWirelessCamouflager(new ContainerCamouflagedRedstoneWireless(player.inventory, tileentity));
+			return new GuiRedstoneWirelessCamouflager(new ContainerCamouflagedRedstoneWireless(player.inventory, (TileEntityRedstoneWireless) tileentity));
 		}
 		return null;
 	}

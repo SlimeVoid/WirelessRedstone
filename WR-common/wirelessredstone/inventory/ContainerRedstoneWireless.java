@@ -1,19 +1,16 @@
 package wirelessredstone.inventory;
 
-import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.inventory.IInventory;
 
 public class ContainerRedstoneWireless extends Container {
 
-	public TileEntityRedstoneWireless	redstoneWireless;
+	public IInventory	redstoneWireless;
 
-	public ContainerRedstoneWireless(TileEntity tileentity) {
+	public ContainerRedstoneWireless(IInventory inventory) {
 		super();
-		if (tileentity instanceof TileEntityRedstoneWireless) {
-			this.redstoneWireless = (TileEntityRedstoneWireless) tileentity;
-		}
+		this.redstoneWireless = inventory;
 	}
 
 	@Override

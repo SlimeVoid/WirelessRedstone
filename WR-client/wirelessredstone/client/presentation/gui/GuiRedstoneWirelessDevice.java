@@ -13,11 +13,13 @@ package wirelessredstone.client.presentation.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.inventory.ContainerRedstoneDevice;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 
 /**
@@ -25,34 +27,22 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
  * 
  * @author Eurymachus
  */
-public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
-	/**
-	 * Associated Wireless Device
-	 */
-	protected IWirelessDevice	wirelessDevice;
+public abstract class GuiRedstoneWirelessDevice extends
+		GuiRedstoneWirelessContainer {
+
+	IWirelessDevice	wirelessDevice;
 
 	/**
 	 * Constructor.<br>
 	 * Sets default width and height.
 	 */
-	public GuiRedstoneWirelessDevice() {
-		super();
-		// this.entityplayer = WirelessRedstone.getPlayer();
-		// this.world = this.entityplayer.worldObj;
+	public GuiRedstoneWirelessDevice(World world, EntityPlayer entityplayer, ContainerRedstoneDevice device) {
+		super(device);
+		this.wirelessDevice = device.getDevice();
+		this.entityplayer = entityplayer;
+		this.world = world;
 		this.xSize = 177;
 		this.ySize = 166;
-	}
-
-	/**
-	 * Associates a wireless device
-	 * 
-	 * @param device
-	 *            WirelessDeviceData to be associated
-	 */
-	public void assWirelessDevice(IWirelessDevice device, EntityPlayer owner) {
-		wirelessDevice = device;
-		entityplayer = owner;
-		world = owner.worldObj;
 	}
 
 	@Override
@@ -141,6 +131,60 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 	protected abstract String getCommand();
 
 	/**
+	 * Draws the frequency at a distance at Y from the centred value
+	 * 
+	 * @param y
+	 */
+	protected void drawFrequency(int y) {
+		fontRenderer.drawString(this.getFreq() + "",
+								(xSize / 2)
+										- (fontRenderer.getStringWidth(this.getFreq()
+																		+ "") / 2),
+								(ySize / 2) + y,
+								0x404040);
+	}
+
+	/**
+	 * Draws the frequency with a border at a distance at Y from the centred
+	 * value
+	 * 
+	 * Y the Y position of the text
+	 */
+	protected void drawFrequencyAndBox(int y) {
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth(getFreq()
+																	+ "") / 2),
+							(ySize / 2) + y,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth(getFreq()
+																	+ "") / 2));
+		drawFrequency(y);
+	}
+
+	protected void drawFrequencyLabel(int y) {
+		fontRenderer.drawString("Frequency",
+								(xSize / 2)
+										- (fontRenderer.getStringWidth("Frequency") / 2),
+								y,
+								0x404040);
+	}
+
+	protected void drawFrequencyLabelAndBox(int y) {
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth("Frequency") / 2),
+							y,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth("Frequency") / 2));
+		drawFrequencyLabel(y);
+	}
+
+	@Override
+	protected void drawForegroundObjects(int i, int j) {
+		drawFrequencyLabelAndBox(32);
+		drawFrequencyAndBox(-35);
+	}
+
+	/**
 	 * WirelessDeviceData name.
 	 * 
 	 * @return Name.
@@ -150,12 +194,10 @@ public abstract class GuiRedstoneWirelessDevice extends GuiRedstoneWireless {
 		return this.wirelessDevice.getInvName();
 	}
 
-	@Override
 	protected Object getFreq() {
 		return this.wirelessDevice.getFreq();
 	}
 
-	@Override
 	public void setFreq(Object freq) {
 		this.wirelessDevice.setFreq(freq);
 	}

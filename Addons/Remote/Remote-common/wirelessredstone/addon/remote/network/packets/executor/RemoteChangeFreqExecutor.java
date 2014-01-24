@@ -12,11 +12,11 @@
 package wirelessredstone.addon.remote.network.packets.executor;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
+import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.api.IDevicePacketExecutor;
-import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessDevice;
@@ -27,12 +27,15 @@ public class RemoteChangeFreqExecutor implements IDevicePacketExecutor {
 	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
 		if (p instanceof PacketWirelessDevice) {
 			PacketWirelessDevice packet = (PacketWirelessDevice) p;
-			IWirelessDevice device = new WirelessRemoteDevice(world, entityplayer, entityplayer.getHeldItem());
+			ItemStack itemstack = entityplayer.getHeldItem();
 			int freq = Integer.parseInt(packet.getFreq());
-			int oldFreq = Integer.parseInt(String.valueOf(device.getFreq()));
-			device.setFreq(Integer.toString(oldFreq + freq));
-			device.onInventoryChanged();
-			PacketWirelessDevice remotePacket = new PacketWirelessDevice(device);
+			int oldFreq = Integer.parseInt(String.valueOf(ItemRedstoneWirelessRemote.getFreq(itemstack)));
+			ItemRedstoneWirelessRemote.setFreq(	itemstack,
+												Integer.toString(oldFreq + freq));
+			// device.onInventoryChanged();
+			String newFreq = ItemRedstoneWirelessRemote.getFreq(itemstack);
+			boolean state = ItemRedstoneWirelessRemote.getState(itemstack);
+			PacketWirelessDevice remotePacket = new PacketWirelessDevice(newFreq, state);
 			remotePacket.setCommand(PacketRemoteCommands.remoteCommands.changeFreq.toString());
 			ServerPacketHandler.broadcastPacket(remotePacket.getPacket());
 		}

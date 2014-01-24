@@ -6,29 +6,50 @@ import net.minecraft.nbt.NBTTagCompound;
 public class NBTHelper {
 
 	public static String getString(ItemStack itemstack, String key, String defaultValue) {
-		if (itemstack != null && itemstack.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
-			if (nbttagcompound.hasKey(key)) {
-				return nbttagcompound.getString(key);
-			} else {
-				nbttagcompound.setString(	key,
-											defaultValue);
+		if (itemstack != null) {
+			if (!itemstack.hasTagCompound()
+				|| !itemstack.getTagCompound().hasKey(key)) {
+				setString(	itemstack,
+							key,
+							defaultValue);
 			}
+			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+			return nbttagcompound.getString(key);
 		}
 		return defaultValue;
 	}
 
 	public static boolean getBoolean(ItemStack itemstack, String key, boolean defaultValue) {
-		if (itemstack != null && itemstack.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
-			if (nbttagcompound.hasKey(key)) {
-				return nbttagcompound.getBoolean(key);
-			} else {
-				nbttagcompound.setBoolean(	key,
-											defaultValue);
+		if (itemstack != null) {
+			if (!itemstack.hasTagCompound()
+				|| !itemstack.getTagCompound().hasKey(key)) {
+				setBoolean(	itemstack,
+							key,
+							defaultValue);
 			}
+			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+			return nbttagcompound.getBoolean(key);
 		}
 		return defaultValue;
 	}
 
+	public static void setString(ItemStack itemstack, String key, String value) {
+		if (itemstack != null) {
+			if (!itemstack.hasTagCompound()) {
+				itemstack.stackTagCompound = new NBTTagCompound();
+			}
+			itemstack.stackTagCompound.setString(	key,
+													value);
+		}
+	}
+
+	public static void setBoolean(ItemStack itemstack, String key, boolean value) {
+		if (itemstack != null) {
+			if (!itemstack.hasTagCompound()) {
+				itemstack.stackTagCompound = new NBTTagCompound();
+			}
+			itemstack.stackTagCompound.setBoolean(	key,
+													value);
+		}
+	}
 }

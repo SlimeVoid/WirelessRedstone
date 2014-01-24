@@ -2,9 +2,9 @@ package wirelessredstone.addon.camouflager.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import wirelessredstone.addon.camouflager.core.lib.CamouLib;
 import wirelessredstone.addon.camouflager.inventory.slot.SlotBlock;
 import wirelessredstone.core.WRCore;
@@ -15,7 +15,7 @@ public class ContainerCamouflagedRedstoneWireless extends
 
 	InventoryPlayer	playerInventory;
 
-	public ContainerCamouflagedRedstoneWireless(InventoryPlayer playerInventory, TileEntity tileentity) {
+	public ContainerCamouflagedRedstoneWireless(InventoryPlayer playerInventory, IInventory tileentity) {
 		super(tileentity);
 		this.playerInventory = playerInventory;
 		this.bindLocalInventory();

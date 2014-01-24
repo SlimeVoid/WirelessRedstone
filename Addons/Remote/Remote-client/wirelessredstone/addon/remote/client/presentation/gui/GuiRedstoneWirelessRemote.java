@@ -11,15 +11,22 @@
  */
 package wirelessredstone.addon.remote.client.presentation.gui;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import wirelessredstone.addon.remote.client.overrides.GuiRedstoneWirelessRemoteOverride;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
+import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessDevice;
 import wirelessredstone.core.lib.GuiLib;
+import wirelessredstone.inventory.ContainerRedstoneDevice;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
-	public GuiRedstoneWirelessRemote() {
-		super();
+	public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer, ContainerRedstoneDevice device) {
+		super(world, entityplayer, device);
+		IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
+		this.addOverride(override);
 	}
 
 	@Override

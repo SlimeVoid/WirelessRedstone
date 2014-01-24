@@ -21,13 +21,12 @@ import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.addon.remote.client.network.packets.executors.ClientRemoteChangeFreqExecutor;
-import wirelessredstone.addon.remote.client.overrides.GuiRedstoneWirelessRemoteOverride;
 import wirelessredstone.addon.remote.client.presentation.gui.GuiRedstoneWirelessRemote;
 import wirelessredstone.addon.remote.client.tickhandler.ClientTickHandler;
+import wirelessredstone.addon.remote.inventory.ContainerWirelessRemote;
 import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.addon.remote.proxy.WRemoteCommonProxy;
-import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.network.packets.PacketRedstoneEther;
@@ -49,7 +48,7 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	/**
 	 * Wireless Remote GUI
 	 */
-	public static GuiRedstoneWirelessRemote	guiWirelessRemote;
+	// public static GuiRedstoneWirelessRemote guiWirelessRemote;
 
 	@Override
 	public void init() {
@@ -63,9 +62,6 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	 * Initializes GUI objects.
 	 */
 	public static void initGUIs() {
-		guiWirelessRemote = new GuiRedstoneWirelessRemote();
-		IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
-		guiWirelessRemote.addOverride(override);
 	}
 
 	@Override
@@ -75,9 +71,10 @@ public class WRemoteClientProxy extends WRemoteCommonProxy {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == GuiLib.GUIID_DEVICE) {
-			guiWirelessRemote.assWirelessDevice(new WirelessRemoteDevice(world, player, player.getHeldItem()),
-												player);
-			return guiWirelessRemote;
+			WirelessRemoteDevice remote = new WirelessRemoteDevice(world, player, player.getHeldItem());
+			// guiWirelessRemote.assWirelessDevice(remote,
+			// player);
+			return new GuiRedstoneWirelessRemote(world, player, new ContainerWirelessRemote(remote));
 		}
 		return null;
 	}

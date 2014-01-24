@@ -25,9 +25,11 @@ import wirelessredstone.addon.powerdirector.network.packets.executors.PacketPowe
 import wirelessredstone.addon.powerdirector.overrides.BlockRedstoneWirelessROverridePC;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.core.PacketIds;
+import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class PowerDirectorCommonProxy implements ICommonProxy {
@@ -42,9 +44,16 @@ public class PowerDirectorCommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new ContainerRedstoneWireless(world.getBlockTileEntity(	x,
-																		y,
-																		z));
+		if (ID == GuiLib.GUIID_DEVICE) {
+			TileEntity tileentity = world.getBlockTileEntity(	x,
+																y,
+																z);
+			if (tileentity != null
+				&& tileentity instanceof TileEntityRedstoneWireless) {
+				return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
+			}
+		}
+		return null;
 	}
 
 	@Override
