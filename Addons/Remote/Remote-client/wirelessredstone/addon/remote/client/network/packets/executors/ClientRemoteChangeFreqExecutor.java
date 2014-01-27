@@ -13,7 +13,9 @@ package wirelessredstone.addon.remote.client.network.packets.executors;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import wirelessredstone.addon.remote.core.lib.ItemLib;
 import wirelessredstone.addon.remote.items.ItemRedstoneWirelessRemote;
 import wirelessredstone.api.IDevicePacketExecutor;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessDevice;
@@ -28,13 +30,16 @@ public class ClientRemoteChangeFreqExecutor implements IDevicePacketExecutor {
 		if (p instanceof PacketWirelessDevice) {
 			Gui currentScreen = FMLClientHandler.instance().getClient().currentScreen;
 			if (currentScreen instanceof GuiRedstoneWirelessDevice) {
-				GuiRedstoneWirelessDevice gui = (GuiRedstoneWirelessDevice) currentScreen;
-				gui.setFreq(p.getFreq());
-				ItemRedstoneWirelessRemote.setFreq(	entityplayer.getHeldItem(),
-													p.getFreq());
-				ItemRedstoneWirelessRemote.setState(entityplayer.getHeldItem(),
-													p.getState());
-				gui.refreshGui();
+				ItemStack heldItem = entityplayer.getHeldItem();
+				if (ItemLib.isWirelessRemote(heldItem)) {
+					GuiRedstoneWirelessDevice gui = (GuiRedstoneWirelessDevice) currentScreen;
+					gui.setFreq(p.getFreq());
+					((ItemRedstoneWirelessRemote) heldItem.getItem()).setFreq(	heldItem,
+																				p.getFreq());
+					((ItemRedstoneWirelessRemote) heldItem.getItem()).setState(	heldItem,
+																				p.getState());
+					gui.refreshGui();
+				}
 			}
 		}
 	}

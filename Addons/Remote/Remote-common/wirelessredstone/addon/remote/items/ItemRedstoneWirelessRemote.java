@@ -27,7 +27,6 @@ import wirelessredstone.addon.remote.core.lib.IconLib;
 import wirelessredstone.addon.remote.core.lib.ItemLib;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
-import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.NBTHelper;
 import wirelessredstone.core.lib.NBTLib;
@@ -36,19 +35,16 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 
-	protected Icon[]	iconList;
-
-	@Override
-	public void registerIcons(IconRegister iconRegister) {
-		iconList = new Icon[2];
-		iconList[0] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_OFF);
-		iconList[1] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_ON);
-	}
-
 	public ItemRedstoneWirelessRemote(int i) {
 		super(i);
-		setCreativeTab(WRCore.wirelessRedstone);
 		maxStackSize = 1;
+	}
+
+	@Override
+	protected void registerIconList(IconRegister iconRegister) {
+		this.iconList = new Icon[2];
+		this.iconList[0] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_OFF);
+		this.iconList[1] = iconRegister.registerIcon(IconLib.WIRELESS_REMOTE_ON);
 	}
 
 	@Override
@@ -78,7 +74,7 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 																					((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(0),
 																					((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(1),
 																					((TileEntityRedstoneWirelessR) tileentity).getBlockCoord(2),
-																					0,
+																					this.getFreq(itemstack),
 																					false);
 					}
 					return true;
@@ -147,33 +143,19 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		WirelessRemote.proxy.activateRemote(player.getEntityWorld(),
 											player,
 											itemstack);
-		// if (!player.worldObj.isRemote) {
 		if (!getState(itemstack)) {
 			setState(	itemstack,
 						true);
 		}
-		// }
 	}
 
+	@Override
 	public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int itemInUseCount) {
 		WirelessRemote.proxy.deactivateRemote(	world,
 												entityplayer,
 												itemstack);
-		// if (!world.isRemote) {
 		setState(	itemstack,
 					false);
-		// }
-	}
-
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
-	public Icon getIcon(ItemStack itemstack, int pass) {
-		if (!getState(itemstack)) return iconList[0];
-		return iconList[1];
 	}
 
 	@Override
@@ -187,20 +169,18 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		}
 		if (entity instanceof EntityLivingBase) {
 			EntityLivingBase entityliving = (EntityLivingBase) entity;
-			String freq = getFreq(itemstack);
 			if (!isHeld) {
 				WirelessRemote.proxy.deactivateRemote(	world,
 														entityliving,
 														itemstack);
-				// if (!world.isRemote) {
 				setState(	itemstack,
 							false);
-				// }
 			}
 		}
 	}
 
-	public static String getFreq(ItemStack itemstack) {
+	@Override
+	public Object getFreq(ItemStack itemstack) {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			return NBTHelper.getString(	itemstack,
 										NBTLib.FREQUENCY,
@@ -209,7 +189,8 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		return "0";
 	}
 
-	public static boolean getState(ItemStack itemstack) {
+	@Override
+	public boolean getState(ItemStack itemstack) {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			return NBTHelper.getBoolean(itemstack,
 										NBTLib.STATE,
@@ -218,7 +199,8 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		return false;
 	}
 
-	public static void setFreq(ItemStack itemstack, Object freq) {
+	@Override
+	public void setFreq(ItemStack itemstack, Object freq) {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			NBTHelper.setString(itemstack,
 								NBTLib.FREQUENCY,
@@ -226,11 +208,19 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 		}
 	}
 
-	public static void setState(ItemStack itemstack, boolean state) {
+	@Override
+	public void setState(ItemStack itemstack, boolean state) {
 		if (ItemLib.isWirelessRemote(itemstack)) {
 			NBTHelper.setBoolean(	itemstack,
 									NBTLib.STATE,
 									state);
 		}
+	}
+
+	@Override
+	protected void doDroppedByPlayer(ItemStack itemstack, EntityPlayer entityplayer) {
+		WirelessRemote.proxy.deactivateRemote(	entityplayer.getEntityWorld(),
+												entityplayer,
+												itemstack);
 	}
 }

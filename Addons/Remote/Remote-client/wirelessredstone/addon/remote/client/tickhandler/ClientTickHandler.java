@@ -34,11 +34,9 @@ public class ClientTickHandler implements ITickHandler {
 
 	public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop) {
 		if (world.isRemote) {
-			if (WirelessRemoteDevice.remoteTransmitter != null && !mouseDown
-				&& !remotePulsing) {
-				// ThreadWirelessRemote.pulse(entityplayer, "hold");
-				WirelessRemoteDevice.deactivatePlayerWirelessRemote(world,
-																	entityplayer);
+			if (WirelessRemoteDevice.remoteTransmitter != null && !mouseDown) {
+				WirelessRemoteDevice.sendDeactivateRemote(	world,
+															entityplayer);
 			}
 
 			if (mouseClicked()

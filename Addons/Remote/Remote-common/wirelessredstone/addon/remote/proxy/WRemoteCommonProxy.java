@@ -28,7 +28,9 @@ import wirelessredstone.addon.remote.core.WirelessRemote;
 import wirelessredstone.addon.remote.inventory.ContainerWirelessRemote;
 import wirelessredstone.addon.remote.inventory.WirelessRemoteDevice;
 import wirelessredstone.addon.remote.network.packets.PacketRemoteCommands;
+import wirelessredstone.addon.remote.network.packets.executor.ReceiverChangeFreqExecutor;
 import wirelessredstone.addon.remote.network.packets.executor.RemoteChangeFreqExecutor;
+import wirelessredstone.addon.remote.network.packets.executor.RemoteDeactivateExecutor;
 import wirelessredstone.addon.remote.overrides.RedstoneEtherOverrideRemote;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.core.lib.GuiLib;
@@ -96,6 +98,12 @@ public class WRemoteCommonProxy implements IRemoteCommonProxy {
 		// ///////////////////
 		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.changeFreq.toString(),
 																						new RemoteChangeFreqExecutor());
+
+		ServerPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.deactivate.toString(),
+																						new RemoteDeactivateExecutor());
+
+		ServerPacketHandler.getPacketHandler(PacketIds.ETHER).registerPacketHandler(PacketRemoteCommands.remoteCommands.updateReceiver.toString(),
+																					new ReceiverChangeFreqExecutor());
 	}
 
 	@Override

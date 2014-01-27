@@ -26,6 +26,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 /**
  * A server-side RedstoneEther packet sub-handler.
@@ -59,6 +60,35 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 
 		// Broadcast packet.
 		ServerPacketHandler.broadcastPacket(packet.getPacket());
+	}
+
+	/**
+	 * Broadcasts an ether tile to all clients.
+	 * 
+	 * @param entity
+	 *            The ether tile.
+	 * @param world
+	 *            The world object.
+	 */
+	public static void sendEtherTileToAllInRange(TileEntityRedstoneWireless entity, World world, int range) {
+		// Assemble packet.
+		PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
+
+		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	world.isRemote,
+																						"sendEtherTileToAllInRange("
+																								+ packet.toString()
+																								+ ", "
+																								+ range
+																								+ ")",
+																						LoggerRedstoneWireless.LogLevel.DEBUG);
+
+		// Broadcast packet.
+		PacketDispatcher.sendPacketToAllAround(	entity.xCoord,
+												entity.yCoord,
+												entity.zCoord,
+												range,
+												world.provider.dimensionId,
+												packet.getPacket());
 	}
 
 	/**

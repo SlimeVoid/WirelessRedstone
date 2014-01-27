@@ -28,6 +28,8 @@ import wirelessredstone.addon.remote.overrides.RedstoneWirelessRemoteOverride;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.data.WirelessCoordinates;
 import wirelessredstone.device.WirelessTransmitterDevice;
+import wirelessredstone.network.packets.PacketWirelessDevice;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -191,9 +193,17 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
 	@Override
 	public boolean isBeingHeld(EntityLivingBase entityliving) {
-		if (ItemLib.isWirelessRemote(entityliving.getHeldItem())) {
-			return ItemRedstoneWirelessRemote.getFreq(entityliving.getHeldItem()).equals(this.freq);
+		ItemStack heldItem = entityliving.getHeldItem();
+		if (ItemLib.isWirelessRemote(heldItem)) {
+			return ((ItemRedstoneWirelessRemote) heldItem.getItem()).getFreq(heldItem).equals(this.freq);
 		}
 		return false;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void sendDeactivateRemote(World world, EntityPlayer entityplayer) {
+		PacketWirelessDevice packet = new PacketWirelessDevice();
+		packet.setCommand(PacketRemoteCommands.remoteCommands.deactivate.toString());
+		PacketDispatcher.sendPacketToServer(packet.getPacket());
 	}
 }
