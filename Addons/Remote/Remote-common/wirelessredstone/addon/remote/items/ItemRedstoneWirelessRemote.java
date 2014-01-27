@@ -11,6 +11,7 @@
  */
 package wirelessredstone.addon.remote.items;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -52,9 +53,16 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
-		entityplayer.setItemInUse(	itemstack,
-									this.getMaxItemUseDuration(itemstack));
-		return false;
+		return this.onItemUseFirst(	itemstack,
+									entityplayer,
+									world,
+									i,
+									j,
+									k,
+									l,
+									a,
+									b,
+									c);
 	}
 
 	@Override
@@ -76,13 +84,37 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 					return true;
 				}
 			}
+
+			entityplayer.openGui(	WirelessRemote.instance,
+									GuiLib.GUIID_DEVICE,
+									world,
+									(int) Math.round(entityplayer.posX),
+									(int) Math.round(entityplayer.posY),
+									(int) Math.round(entityplayer.posZ));
+			return false;
+		}
+		Block block = Block.blocksList[world.getBlockId(i,
+														j,
+														k)];
+		if (!block.onBlockActivated(world,
+									i,
+									j,
+									k,
+									entityplayer,
+									l,
+									a,
+									b,
+									c)) {
+			this.onItemRightClick(	itemstack,
+									world,
+									entityplayer);
 		}
 		return false;
 	}
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack itemstack) {
-		return 32000;
+		return 72000;
 	}
 
 	@Override
@@ -92,13 +124,20 @@ public class ItemRedstoneWirelessRemote extends ItemWirelessDevice {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		if (entityplayer.isSneaking()) {
-			entityplayer.openGui(	WirelessRemote.instance,
-									GuiLib.GUIID_DEVICE,
-									world,
-									(int) Math.floor(entityplayer.posX),
-									(int) Math.floor(entityplayer.posY),
-									(int) Math.floor(entityplayer.posZ));
+		if (!entityplayer.isSneaking()) {
+			entityplayer.setItemInUse(	itemstack,
+										this.getMaxItemUseDuration(itemstack));
+		} else {
+			this.onItemUseFirst(itemstack,
+								entityplayer,
+								world,
+								(int) Math.round(entityplayer.posX),
+								(int) Math.round(entityplayer.posY),
+								(int) Math.round(entityplayer.posZ),
+								0,
+								0,
+								0,
+								0);
 		}
 		return itemstack;
 	}
