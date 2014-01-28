@@ -33,6 +33,12 @@ public abstract class ItemWirelessDevice extends Item {
 	protected abstract void registerIconList(IconRegister iconRegister);
 
 	@Override
+	public Icon getIconIndex(ItemStack itemstack) {
+		return this.getIcon(itemstack,
+							0);
+	}
+
+	@Override
 	public Icon getIcon(ItemStack itemstack, int pass) {
 		if (!getState(itemstack)) return iconList[0];
 		return iconList[1];
