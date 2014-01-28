@@ -16,7 +16,11 @@ import java.util.Map;
 
 public class PacketRemoteCommands {
 	public enum remoteCommands {
-		activate, deactivate, changeFreq, updateReceiver, openGui;
+		activate,
+		deactivate,
+		changeFreq,
+		updateReceiver,
+		openGui;
 
 		private int		value;
 		private String	name;

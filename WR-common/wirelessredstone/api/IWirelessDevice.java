@@ -134,7 +134,7 @@ public interface IWirelessDevice extends IInventory {
 	 */
 	boolean isBeingHeld(EntityLivingBase entitylivingbase);
 
-	public void readFromNBT(NBTTagCompound nbttagcompound);
+	void readFromNBT(NBTTagCompound nbttagcompound);
 
-	public void writeToNBT(NBTTagCompound nbttabcompound);
+	void writeToNBT(NBTTagCompound nbttabcompound);
 }

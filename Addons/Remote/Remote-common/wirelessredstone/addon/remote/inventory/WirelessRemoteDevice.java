@@ -46,7 +46,7 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	public static HashMap<EntityLivingBase, IWirelessDevice>	remoteTransmitters;
 	public static TreeMap<WirelessCoordinates, IWirelessDevice>	remoteWirelessCoords;
 
-	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList();
+	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList<RedstoneWirelessRemoteOverride>();
 
 	public WirelessRemoteDevice(World world, EntityLivingBase entity, ItemStack itemstack) {
 		super(world, entity, itemstack);
@@ -60,16 +60,6 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 	 */
 	public static void addOverride(RedstoneWirelessRemoteOverride override) {
 		overrides.add(override);
-	}
-
-	@Override
-	public void doActivateCommand() {
-		super.doActivateCommand();
-	}
-
-	@Override
-	public void doDeactivateCommand() {
-		super.doDeactivateCommand();
 	}
 
 	@Override
@@ -120,15 +110,6 @@ public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 			if (remoteTransmitter == null) {
 				return false;
 			} else {
-				// PacketWirelessDevice packet = new
-				// PacketWirelessDevice(remoteTransmitter.data);
-				// packet.setPosition( remoteTransmitter.xCoord,
-				// remoteTransmitter.yCoord,
-				// remoteTransmitter.zCoord,
-				// 0);
-				// packet.setCommand("deactivateRemote");
-				// packet.isForced(true);
-				// ClientPacketHandler.sendPacket(packet.getPacket());
 				remoteTransmitter.deactivate(	world,
 												entityplayer,
 												false);
