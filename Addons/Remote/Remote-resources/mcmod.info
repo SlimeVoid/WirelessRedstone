@@ -5,7 +5,7 @@
 			"modid": "WirelessRemote",
 			"name": "Wireless Redstone - Wireless Remote",
 			"description": "The Wireless Remote allows you to send signals to the ether on a set frequency from the palm of your hand.",
-			"version": "2.2",
+			"version": "2.3",
 			"mcversion": "1.6.4",
 			"url": "www.slimevoid.net/wireless-redstone",
 			"authorList": [

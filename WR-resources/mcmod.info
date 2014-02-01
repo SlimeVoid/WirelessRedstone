@@ -5,7 +5,7 @@
 			"modid": "WirelessRedstone",
 			"name": "Wireless Redstone",
 			"description": "Wireless Redstone allows you to transmit and receive redstone signals without wires.",
-			"version": "1.7.2.0",
+			"version": "1.7.2.1",
 			"mcversion": "1.6.4",
 			"url": "www.slimevoid.net/wireless-redstone",
 			"authorList": [

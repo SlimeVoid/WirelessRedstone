@@ -3,11 +3,11 @@ rem @echo off
 set programdir=%CD%\..\..
 set packagedir=%programdir%\Packages
 set repodir=%programdir%\Git
-set forgedir=%programdir%\Forge
+set forgedir=%programdir%\forge
 set mcpdir=%forgedir%\mcp
 cd %mcpdir%
 set wirelessredstone=%repodir%\WirelessRedstone-FML
-set powerconfig="%wirelessredstone%\addons\powerconfig"
+set powerconfig=%wirelessredstone%\addons\powerconfig
 
 if not exist %wirelessredstone% GOTO :WRFAIL
 if exist %powerconfig% GOTO :WIRE
@@ -30,8 +30,8 @@ GOTO :WRFAIL
 :COPYWR
 xcopy "%wirelessredstone%\WR-common\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%wirelessredstone%\WR-client\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%powerconfig%\PowerConfig-common\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%powerconfig%\PowerConfig-client\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%powerconfig%\PowerDirector-common\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%powerconfig%\PowerDirector-client\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat
@@ -40,13 +40,13 @@ pause
 
 :REPACKAGE
 if not exist "%mcpdir%\reobf" GOTO :WRFAIL
-if exist "%packagedir%\WirelessRedstone-PowerConfig" (
-del "%packagedir%\WirelessRedstone-PowerConfig\*.*" /S /Q
-rmdir "%packagedir%\WirelessRedstone-PowerConfig" /S /Q
+if exist "%packagedir%\WirelessRedstone-PowerDirector" (
+del "%packagedir%\WirelessRedstone-PowerDirector\*.*" /S /Q
+rmdir "%packagedir%\WirelessRedstone-PowerDirector" /S /Q
 )
-mkdir "%packagedir%\WirelessRedstone-PowerConfig\wirelessredstone\addon"
-xcopy "%mcpdir%\reobf\minecraft\wirelessredstone\addon\*.*" "%packagedir%\WirelessRedstone-PowerConfig\wirelessredstone\addon\" /S
-xcopy "%powerconfig%\PowerConfig-Resources\*.*" "%packagedir%\WirelessRedstone-PowerConfig\" /S
+mkdir "%packagedir%\WirelessRedstone-PowerDirector\wirelessredstone\addon"
+xcopy "%mcpdir%\reobf\minecraft\wirelessredstone\addon\*.*" "%packagedir%\WirelessRedstone-PowerDirector\wirelessredstone\addon\" /S
+xcopy "%powerconfig%\PowerDirector-Resources\*.*" "%packagedir%\WirelessRedstone-PowerDirector\" /S
 echo "Power Configurator Packaged Successfully
 pause
 
@@ -62,12 +62,12 @@ if exist "%mcpdir%\src-old" rmdir "%mcpdir%\src-old" /S /Q
 GOTO :WRCOMPLETE
 
 :WRFAIL
-echo Could not compile Wireless Redstone - PowerConfig
+echo Could not compile Wireless Redstone - PowerDirector
 pause
 GOTO :EOF
 
 :WRCOMPLETE
-echo Wireless Redstone - PowerConfig completed compile successfully
+echo Wireless Redstone - PowerDirector completed compile successfully
 pause
 GOTO :EOF
 
