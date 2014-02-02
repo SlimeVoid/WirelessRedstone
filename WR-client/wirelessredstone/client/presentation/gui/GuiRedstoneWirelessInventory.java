@@ -16,6 +16,7 @@ import wirelessredstone.api.IGuiRedstoneWirelessInventoryOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
 import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -24,7 +25,8 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * 
  * @author ali4z & Eurymachus
  */
-public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
+public abstract class GuiRedstoneWirelessInventory extends
+		GuiRedstoneWirelessContainer {
 	/**
 	 * Associated TileEntity
 	 */
@@ -34,10 +36,65 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	 * Constructor.<br>
 	 * Sets default width and height.
 	 */
-	public GuiRedstoneWirelessInventory() {
-		super();
+	public GuiRedstoneWirelessInventory(ContainerRedstoneWireless container) {
+		super(container);
+		this.inventory = (TileEntityRedstoneWireless) container.redstoneWireless;
 		this.xSize = 177;
 		this.ySize = 166;
+	}
+
+	@Override
+	protected void drawForegroundObjects(int i, int k) {
+		drawFrequencyLabelAndBox(32);
+		drawFrequencyAndBox(-35);
+	}
+
+	/**
+	 * Draws the frequency at a distance at Y from the centred value
+	 * 
+	 * @param y
+	 */
+	protected void drawFrequency(int y) {
+		fontRenderer.drawString(this.getFreq() + "",
+								(xSize / 2)
+										- (fontRenderer.getStringWidth(this.getFreq()
+																		+ "") / 2),
+								(ySize / 2) + y,
+								0x404040);
+	}
+
+	/**
+	 * Draws the frequency with a border at a distance at Y from the centred
+	 * value
+	 * 
+	 * Y the Y position of the text
+	 */
+	protected void drawFrequencyAndBox(int y) {
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth(getFreq()
+																	+ "") / 2),
+							(ySize / 2) + y,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth(getFreq()
+																	+ "") / 2));
+		drawFrequency(y);
+	}
+
+	protected void drawFrequencyLabel(int y) {
+		fontRenderer.drawString("Frequency",
+								(xSize / 2)
+										- (fontRenderer.getStringWidth("Frequency") / 2),
+								y,
+								0x404040);
+	}
+
+	protected void drawFrequencyLabelAndBox(int y) {
+		drawStringBorder(	(xSize / 2)
+									- (fontRenderer.getStringWidth("Frequency") / 2),
+							y,
+							(xSize / 2)
+									+ (fontRenderer.getStringWidth("Frequency") / 2));
+		drawFrequencyLabel(y);
 	}
 
 	/**
@@ -167,7 +224,6 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	 * 
 	 * @return Frequency.
 	 */
-	@Override
 	protected Object getFreq() {
 		return inventory.getFreq();
 	}
@@ -178,7 +234,6 @@ public abstract class GuiRedstoneWirelessInventory extends GuiRedstoneWireless {
 	 * @param freq
 	 *            frequency.
 	 */
-	@Override
 	public void setFreq(Object freq) {
 		inventory.setFreq(freq);
 	}

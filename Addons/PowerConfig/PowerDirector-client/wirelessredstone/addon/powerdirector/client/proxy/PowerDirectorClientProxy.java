@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.addon.powerdirector.client.presentation.gui.GuiRedstoneWirelessPowerDirector;
 import wirelessredstone.addon.powerdirector.proxy.PowerDirectorCommonProxy;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
@@ -48,7 +49,7 @@ public class PowerDirectorClientProxy extends PowerDirectorCommonProxy {
 	 * Initializes GUI objects.
 	 */
 	public static void initGUIs() {
-		guiPowerD = new GuiRedstoneWirelessPowerDirector();
+		// guiPowerD = new GuiRedstoneWirelessPowerDirector();
 		// TODO :: Overrides
 	}
 
@@ -62,8 +63,8 @@ public class PowerDirectorClientProxy extends PowerDirectorCommonProxy {
 															y,
 															z);
 		if (tileentity instanceof TileEntityRedstoneWireless) {
-			guiPowerD.assTileEntity((TileEntityRedstoneWireless) tileentity);
-			return guiPowerD;
+			// guiPowerD.assTileEntity((TileEntityRedstoneWireless) tileentity);
+			return new GuiRedstoneWirelessPowerDirector(new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity));// guiPowerD;
 		}
 		return null;
 	}

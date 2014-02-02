@@ -13,6 +13,7 @@ package wirelessredstone.client.presentation.gui;
 
 import net.minecraft.util.ResourceLocation;
 import wirelessredstone.core.lib.GuiLib;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 
 /**
  * Wireless Transmitter GUI screen.
@@ -20,8 +21,8 @@ import wirelessredstone.core.lib.GuiLib;
  * @author ali4z
  */
 public class GuiRedstoneWirelessT extends GuiRedstoneWirelessInventory {
-	public GuiRedstoneWirelessT() {
-		super();
+	public GuiRedstoneWirelessT(ContainerRedstoneWireless container) {
+		super(container);
 	}
 
 	@Override

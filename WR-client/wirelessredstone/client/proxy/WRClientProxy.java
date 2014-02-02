@@ -36,12 +36,11 @@ import wirelessredstone.client.overrides.RedstoneEtherOverrideSMP;
 import wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
-import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
-import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessR;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessT;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.network.packets.PacketRedstoneEther;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.core.PacketIds;
@@ -65,11 +64,11 @@ public class WRClientProxy extends WRCommonProxy {
 	/**
 	 * Wireless Receiver GUI
 	 */
-	public static GuiRedstoneWirelessInventory	guiWirelessR;
+	// public static GuiRedstoneWirelessInventory guiWirelessR;
 	/**
 	 * Wireless Transmitter GUI
 	 */
-	public static GuiRedstoneWirelessInventory	guiWirelessT;
+	// public static GuiRedstoneWirelessInventory guiWirelessT;
 
 	private static List<IActivateGuiOverride>	overrides;
 
@@ -83,8 +82,8 @@ public class WRClientProxy extends WRCommonProxy {
 	 * Initializes GUI objects.
 	 */
 	public static void initGUIs() {
-		guiWirelessR = new GuiRedstoneWirelessR();
-		guiWirelessT = new GuiRedstoneWirelessT();
+		// guiWirelessR = new GuiRedstoneWirelessR();
+		// guiWirelessT = new GuiRedstoneWirelessT();
 	}
 
 	/**
@@ -96,11 +95,12 @@ public class WRClientProxy extends WRCommonProxy {
 	public static void addGuiOverrideToReceiver(IGuiRedstoneWirelessOverride override) {
 		LoggerRedstoneWireless.getInstance("WRClientProxy").write(	true,
 																	"Override added to "
-																			+ LoggerRedstoneWireless.filterClassName(guiWirelessR.getClass().toString())
+																			// +
+																			// LoggerRedstoneWireless.filterClassName(guiWirelessR.getClass().toString())
 																			+ " - "
 																			+ LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
 																	LoggerRedstoneWireless.LogLevel.DEBUG);
-		guiWirelessR.addOverride(override);
+		// guiWirelessR.addOverride(override);
 	}
 
 	/**
@@ -112,11 +112,12 @@ public class WRClientProxy extends WRCommonProxy {
 	public static void addGuiOverrideToTransmitter(IGuiRedstoneWirelessOverride override) {
 		LoggerRedstoneWireless.getInstance("WRClientProxy").write(	true,
 																	"Override added to "
-																			+ LoggerRedstoneWireless.filterClassName(guiWirelessT.getClass().toString())
+																			// +
+																			// LoggerRedstoneWireless.filterClassName(guiWirelessT.getClass().toString())
 																			+ " - "
 																			+ LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
 																	LoggerRedstoneWireless.LogLevel.DEBUG);
-		guiWirelessT.addOverride(override);
+		// guiWirelessT.addOverride(override);
 	}
 
 	@Override
@@ -133,12 +134,15 @@ public class WRClientProxy extends WRCommonProxy {
 																z);
 			if (tileentity != null) {
 				if (tileentity instanceof TileEntityRedstoneWirelessT) {
-					guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT) tileentity);
-					return guiWirelessT;
+					// guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT)
+					// tileentity);
+					return new GuiRedstoneWirelessT(new ContainerRedstoneWireless(((TileEntityRedstoneWirelessT) tileentity)));
 				}
 				if (tileentity instanceof TileEntityRedstoneWirelessR) {
-					guiWirelessR.assTileEntity((TileEntityRedstoneWirelessR) tileentity);
-					return guiWirelessR;
+					// guiWirelessR.assTileEntity((TileEntityRedstoneWirelessR)
+					// tileentity);
+					// return guiWirelessR;
+					return new GuiRedstoneWirelessT(new ContainerRedstoneWireless(((TileEntityRedstoneWirelessR) tileentity)));
 				}
 			}
 		}

@@ -23,6 +23,7 @@ import wirelessredstone.client.presentation.gui.GuiButtonBoolean;
 import wirelessredstone.client.presentation.gui.GuiButtonWirelessExit;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.core.lib.GuiLib;
+import wirelessredstone.inventory.ContainerRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -30,8 +31,8 @@ public class GuiRedstoneWirelessPowerDirector extends
 		GuiRedstoneWirelessInventory {
 	protected List<IGuiRedstoneWirelessOverride>	powerOverrides;
 
-	public GuiRedstoneWirelessPowerDirector() {
-		super();
+	public GuiRedstoneWirelessPowerDirector(ContainerRedstoneWireless container) {
+		super(container);
 		powerOverrides = new ArrayList<IGuiRedstoneWirelessOverride>();
 	}
 
@@ -132,7 +133,7 @@ public class GuiRedstoneWirelessPowerDirector extends
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
+	protected void drawForegroundObjects(int i, int j) {
 		drawStringBorder(	(xSize / 2)
 									- (fontRenderer.getStringWidth("Power Direction") / 2),
 							28,
