@@ -15,7 +15,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import wirelessredstone.client.presentation.gui.GuiRedstoneWireless;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.handlers.SubPacketHandler;
@@ -55,9 +54,10 @@ public class ClientTilePacketHandler extends SubPacketHandler {
 
             GuiScreen screen = FMLClientHandler.instance().getClient().currentScreen;
             if (screen != null
-                && screen instanceof GuiRedstoneWireless
                 && screen instanceof GuiRedstoneWirelessInventory
-                && ((GuiRedstoneWirelessInventory) screen).compareInventory(tileentityredstonewireless)) ((GuiRedstoneWireless) screen).refreshGui();
+                && ((GuiRedstoneWirelessInventory) screen).compareInventory(tileentityredstonewireless)) {
+                ((GuiRedstoneWirelessInventory) screen).refreshGui();
+            }
         }
     }
 }
