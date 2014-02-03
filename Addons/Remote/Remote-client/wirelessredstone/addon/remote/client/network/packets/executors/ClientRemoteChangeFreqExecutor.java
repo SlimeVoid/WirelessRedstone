@@ -25,22 +25,22 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class ClientRemoteChangeFreqExecutor implements IDevicePacketExecutor {
 
-	@Override
-	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
-		if (p instanceof PacketWirelessDevice) {
-			Gui currentScreen = FMLClientHandler.instance().getClient().currentScreen;
-			if (currentScreen instanceof GuiRedstoneWirelessDevice) {
-				ItemStack heldItem = entityplayer.getHeldItem();
-				if (ItemLib.isWirelessRemote(heldItem)) {
-					GuiRedstoneWirelessDevice gui = (GuiRedstoneWirelessDevice) currentScreen;
-					gui.setFreq(p.getFreq());
-					((ItemRedstoneWirelessRemote) heldItem.getItem()).setFreq(	heldItem,
-																				p.getFreq());
-					((ItemRedstoneWirelessRemote) heldItem.getItem()).setState(	heldItem,
-																				p.getState());
-					gui.refreshGui();
-				}
-			}
-		}
-	}
+    @Override
+    public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
+        if (p instanceof PacketWirelessDevice) {
+            Gui currentScreen = FMLClientHandler.instance().getClient().currentScreen;
+            if (currentScreen instanceof GuiRedstoneWirelessDevice) {
+                ItemStack heldItem = entityplayer.getHeldItem();
+                if (ItemLib.isWirelessRemote(heldItem)) {
+                    GuiRedstoneWirelessDevice gui = (GuiRedstoneWirelessDevice) currentScreen;
+                    gui.setFreq(p.getFreq());
+                    ((ItemRedstoneWirelessRemote) heldItem.getItem()).setFreq(heldItem,
+                                                                              p.getFreq());
+                    ((ItemRedstoneWirelessRemote) heldItem.getItem()).setState(heldItem,
+                                                                               p.getState());
+                    gui.refreshGui();
+                }
+            }
+        }
+    }
 }

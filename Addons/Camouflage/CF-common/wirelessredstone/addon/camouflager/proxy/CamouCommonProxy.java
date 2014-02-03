@@ -31,74 +31,74 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class CamouCommonProxy implements ICommonProxy {
 
-	@Override
-	public void registerRenderInformation() {
-	}
+    @Override
+    public void registerRenderInformation() {
+    }
 
-	@Override
-	public void registerConfiguration(File configFile) {
-	}
+    @Override
+    public void registerConfiguration(File configFile) {
+    }
 
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == GuiLib.GUIID_DEVICE) {
-			TileEntity tileentity = world.getBlockTileEntity(	x,
-																y,
-																z);
-			if (tileentity != null
-				&& tileentity instanceof TileEntityRedstoneWireless) {
-				return new ContainerCamouflagedRedstoneWireless(player.inventory, (TileEntityRedstoneWireless) tileentity);
-			}
-		}
-		return null;
-	}
+    @Override
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == GuiLib.GUIID_DEVICE) {
+            TileEntity tileentity = world.getBlockTileEntity(x,
+                                                             y,
+                                                             z);
+            if (tileentity != null
+                && tileentity instanceof TileEntityRedstoneWireless) {
+                return new ContainerCamouflagedRedstoneWireless(player.inventory, (TileEntityRedstoneWireless) tileentity);
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        return null;
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return ".";
-	}
+    @Override
+    public String getMinecraftDir() {
+        return ".";
+    }
 
-	@Override
-	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
+    @Override
+    public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 
-	}
+    }
 
-	@Override
-	public void init() {
-		NetworkRegistry.instance().registerGuiHandler(	WirelessCamouflager.instance,
-														WirelessCamouflager.proxy);
-	}
+    @Override
+    public void init() {
+        NetworkRegistry.instance().registerGuiHandler(WirelessCamouflager.instance,
+                                                      WirelessCamouflager.proxy);
+    }
 
-	@Override
-	public World getWorld(NetHandler handler) {
-		return null;
-	}
+    @Override
+    public World getWorld(NetHandler handler) {
+        return null;
+    }
 
-	@Override
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-	}
+    @Override
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+    }
 
-	@Override
-	public void initPacketHandlers() {
-		// ///////////////////
-		// Server Executor //
-		// ///////////////////
-	}
+    @Override
+    public void initPacketHandlers() {
+        // ///////////////////
+        // Server Executor //
+        // ///////////////////
+    }
 
-	@Override
-	public void connectionClosed(INetworkManager manager) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void connectionClosed(INetworkManager manager) {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void addOverrides() {
-		WRCore.addOverrideToTransmitter(new BlockCamouflageOverride());
-		WRCore.addOverrideToReceiver(new BlockCamouflageOverride());
-		TileEntityRedstoneWireless.addOverride(new TileEntityCamouflageOverride());
-	}
+    @Override
+    public void addOverrides() {
+        WRCore.addOverrideToTransmitter(new BlockCamouflageOverride());
+        WRCore.addOverrideToReceiver(new BlockCamouflageOverride());
+        TileEntityRedstoneWireless.addOverride(new TileEntityCamouflageOverride());
+    }
 }

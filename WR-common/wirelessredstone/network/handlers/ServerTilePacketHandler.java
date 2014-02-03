@@ -26,28 +26,28 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public class ServerTilePacketHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketWireless createNewPacketWireless() {
-		return null;
-	}
+    @Override
+    protected PacketWireless createNewPacketWireless() {
+        return null;
+    }
 
-	/**
-	 * Broadcast a wireless tile.
-	 * 
-	 * @param tileentity
-	 *            The tile to broadcast.
-	 * @param world
-	 *            The world object.
-	 */
-	public static void sendWirelessTileToAll(TileEntityRedstoneWireless tileentity, World world) {
-		LoggerRedstoneWireless.getInstance("ServerTilePacketHandler").write(world.isRemote,
-																			"sendWirelessTileToAll()",
-																			LoggerRedstoneWireless.LogLevel.DEBUG);
+    /**
+     * Broadcast a wireless tile.
+     * 
+     * @param tileentity
+     *            The tile to broadcast.
+     * @param world
+     *            The world object.
+     */
+    public static void sendWirelessTileToAll(TileEntityRedstoneWireless tileentity, World world) {
+        LoggerRedstoneWireless.getInstance("ServerTilePacketHandler").write(world.isRemote,
+                                                                            "sendWirelessTileToAll()",
+                                                                            LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Assemble packet.
-		PacketWirelessTile packet = new PacketWirelessTile(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(), tileentity);
+        // Assemble packet.
+        PacketWirelessTile packet = new PacketWirelessTile(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString(), tileentity);
 
-		// Broadcast packet.
-		ServerPacketHandler.broadcastPacket(packet.getPacket());
-	}
+        // Broadcast packet.
+        ServerPacketHandler.broadcastPacket(packet.getPacket());
+    }
 }

@@ -33,255 +33,255 @@ import wirelessredstone.inventory.ContainerRedstoneWireless;
  * @author Eurymachus
  */
 public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
-	/**
-	 * Current World
-	 */
-	protected World									world;
-	/**
-	 * Current Player
-	 */
-	protected EntityPlayer							entityplayer;
-	/**
-	 * Width
-	 */
-	protected int									xSize;
-	/**
-	 * Height
-	 */
-	protected int									ySize;
-	/**
-	 * GUI overrides.
-	 */
-	protected List<IGuiRedstoneWirelessOverride>	overrides;
+    /**
+     * Current World
+     */
+    protected World                              world;
+    /**
+     * Current Player
+     */
+    protected EntityPlayer                       entityplayer;
+    /**
+     * Width
+     */
+    protected int                                xSize;
+    /**
+     * Height
+     */
+    protected int                                ySize;
+    /**
+     * GUI overrides.
+     */
+    protected List<IGuiRedstoneWirelessOverride> overrides;
 
-	/**
-	 * Constructor.<br>
-	 * Sets default width,height and initializes override list object.
-	 */
-	public GuiRedstoneWirelessContainer(ContainerRedstoneWireless container) {
-		super(container);
-		this.xSize = 177;
-		this.ySize = 166;
-		this.overrides = new ArrayList<IGuiRedstoneWirelessOverride>();
-	}
+    /**
+     * Constructor.<br>
+     * Sets default width,height and initializes override list object.
+     */
+    public GuiRedstoneWirelessContainer(ContainerRedstoneWireless container) {
+        super(container);
+        this.xSize = 177;
+        this.ySize = 166;
+        this.overrides = new ArrayList<IGuiRedstoneWirelessOverride>();
+    }
 
-	/**
-	 * Adds a GUI override to the GUI screen.
-	 * 
-	 * @param override
-	 *            GUI override.
-	 */
-	public void addOverride(IGuiRedstoneWirelessOverride override) {
-		this.overrides.add(override);
-	}
+    /**
+     * Adds a GUI override to the GUI screen.
+     * 
+     * @param override
+     *            GUI override.
+     */
+    public void addOverride(IGuiRedstoneWirelessOverride override) {
+        this.overrides.add(override);
+    }
 
-	/**
-	 * Adds a selection of controls to be used in the GUI
-	 * 
-	 * Override to replace control set use super.addControls() if adding to
-	 * control set
-	 */
-	protected abstract void addControls();
+    /**
+     * Adds a selection of controls to be used in the GUI
+     * 
+     * Override to replace control set use super.addControls() if adding to
+     * control set
+     */
+    protected abstract void addControls();
 
-	/**
-	 * Initializes the GUI.<br>
-	 * Adds buttons.
-	 */
-	@Override
-	public void initGui() {
-		addControls();
-		super.initGui();
-	}
+    /**
+     * Initializes the GUI.<br>
+     * Adds buttons.
+     */
+    @Override
+    public void initGui() {
+        addControls();
+        super.initGui();
+    }
 
-	/**
-	 * Check is Mouse pointer is within the bounds of a given GuiButtonWireless
-	 * 
-	 * @param button
-	 *            A GuiButtonWireless
-	 * @param i
-	 *            mouse X coordinate
-	 * @param j
-	 *            mouse Y coordinate
-	 * @return
-	 */
-	private boolean isMouseOverButton(GuiButtonWireless button, int i, int j) {
-		if (button != null) return button.inBounds(	i,
-													j);
-		return false;
-	}
+    /**
+     * Check is Mouse pointer is within the bounds of a given GuiButtonWireless
+     * 
+     * @param button
+     *            A GuiButtonWireless
+     * @param i
+     *            mouse X coordinate
+     * @param j
+     *            mouse Y coordinate
+     * @return
+     */
+    private boolean isMouseOverButton(GuiButtonWireless button, int i, int j) {
+        if (button != null) return button.inBounds(i,
+                                                   j);
+        return false;
+    }
 
-	/**
-	 * Fetches the Background Image to be used
-	 * 
-	 * @return Background Image
-	 */
-	protected abstract ResourceLocation getBackgroundImage();
+    /**
+     * Fetches the Background Image to be used
+     * 
+     * @return Background Image
+     */
+    protected abstract ResourceLocation getBackgroundImage();
 
-	/**
-	 * Fetches the Gui Name to display at the top of the Gui
-	 * 
-	 * @return Gui Name
-	 */
-	protected abstract String getGuiName();
+    /**
+     * Fetches the Gui Name to display at the top of the Gui
+     * 
+     * @return Gui Name
+     */
+    protected abstract String getGuiName();
 
-	/**
-	 * Draw a bordered box around a string.<br>
-	 * Outer height is always 10, inner 8.
-	 * 
-	 * @param x1
-	 *            screen X coordinate, top left
-	 * @param y1
-	 *            screen Y coordinate, top left
-	 * @param x2
-	 *            screen X coordinate, bottom right
-	 */
-	protected void drawStringBorder(int x1, int y1, int x2) {
-		drawRect(	x1 - 3,
-					y1 - 3,
-					x2 + 3,
-					y1 + 10,
-					0xff000000);
-		drawRect(	x1 - 2,
-					y1 - 2,
-					x2 + 2,
-					y1 + 9,
-					0xffffffff);
-	}
+    /**
+     * Draw a bordered box around a string.<br>
+     * Outer height is always 10, inner 8.
+     * 
+     * @param x1
+     *            screen X coordinate, top left
+     * @param y1
+     *            screen Y coordinate, top left
+     * @param x2
+     *            screen X coordinate, bottom right
+     */
+    protected void drawStringBorder(int x1, int y1, int x2) {
+        drawRect(x1 - 3,
+                 y1 - 3,
+                 x2 + 3,
+                 y1 + 10,
+                 0xff000000);
+        drawRect(x1 - 2,
+                 y1 - 2,
+                 x2 + 2,
+                 y1 + 9,
+                 0xffffffff);
+    }
 
-	/**
-	 * Draws the Name of the Gui at the top of the Gui
-	 */
-	protected void drawGuiName() {
-		drawStringBorder(	(xSize / 2)
-									- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
-							7,
-							(xSize / 2)
-									+ (fontRenderer.getStringWidth(this.getGuiName()) / 2));
-		fontRenderer.drawString(getGuiName(),
-								(xSize / 2)
-										- (fontRenderer.getStringWidth(this.getGuiName()) / 2),
-								7,
-								0x404040);
-	}
+    /**
+     * Draws the Name of the Gui at the top of the Gui
+     */
+    protected void drawGuiName() {
+        drawStringBorder((xSize / 2)
+                                 - (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+                         7,
+                         (xSize / 2)
+                                 + (fontRenderer.getStringWidth(this.getGuiName()) / 2));
+        fontRenderer.drawString(getGuiName(),
+                                (xSize / 2)
+                                        - (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+                                7,
+                                0x404040);
+    }
 
-	@Override
-	protected void drawGuiContainerForegroundLayer(int i, int j) {
-		this.drawGuiName();
-		this.drawForegroundObjects(	i,
-									j);
-	}
+    @Override
+    protected void drawGuiContainerForegroundLayer(int i, int j) {
+        this.drawGuiName();
+        this.drawForegroundObjects(i,
+                                   j);
+    }
 
-	protected abstract void drawForegroundObjects(int i, int k);
+    protected abstract void drawForegroundObjects(int i, int k);
 
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-		GL11.glColor4f(	1.0F,
-						1.0F,
-						1.0F,
-						1.0F);
-		mc.renderEngine.bindTexture(this.getBackgroundImage());
-		int sizeX = (width - xSize) / 2;
-		int sizeY = (height - ySize) / 2;
-		drawTexturedModalRect(	sizeX,
-								sizeY,
-								0,
-								0,
-								xSize,
-								ySize);
-	}
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+        GL11.glColor4f(1.0F,
+                       1.0F,
+                       1.0F,
+                       1.0F);
+        mc.renderEngine.bindTexture(this.getBackgroundImage());
+        int sizeX = (width - xSize) / 2;
+        int sizeY = (height - ySize) / 2;
+        drawTexturedModalRect(sizeX,
+                              sizeY,
+                              0,
+                              0,
+                              xSize,
+                              ySize);
+    }
 
-	/**
-	 * Draws the tooltips of a button when Mouse is hovered
-	 * 
-	 * @param i
-	 *            x Coordinate
-	 * @param j
-	 *            y Coordinate
-	 * @param f
-	 *            tick partial
-	 */
-	private void drawTooltips(int i, int j, float f) {
-		// this.mc.renderEngine.resetBoundTexture();
-		for (Object button : this.buttonList) {
-			if (button instanceof GuiButtonWireless) {
-				GuiButtonWireless guibutton = (GuiButtonWireless) button;
-				if (this.isMouseOverButton(	guibutton,
-											i,
-											j)) {
-					guibutton.drawToolTip(	this.mc,
-											i,
-											j);
-				}
-			}
-		}
-	}
+    /**
+     * Draws the tooltips of a button when Mouse is hovered
+     * 
+     * @param i
+     *            x Coordinate
+     * @param j
+     *            y Coordinate
+     * @param f
+     *            tick partial
+     */
+    private void drawTooltips(int i, int j, float f) {
+        // this.mc.renderEngine.resetBoundTexture();
+        for (Object button : this.buttonList) {
+            if (button instanceof GuiButtonWireless) {
+                GuiButtonWireless guibutton = (GuiButtonWireless) button;
+                if (this.isMouseOverButton(guibutton,
+                                           i,
+                                           j)) {
+                    guibutton.drawToolTip(this.mc,
+                                          i,
+                                          j);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Handles keyboard input.<br>
-	 * If inventory key is pressed or ESC, close the GUI.
-	 */
-	@Override
-	public void handleKeyboardInput() {
-		try {
-			super.handleKeyboardInput();
+    /**
+     * Handles keyboard input.<br>
+     * If inventory key is pressed or ESC, close the GUI.
+     */
+    @Override
+    public void handleKeyboardInput() {
+        try {
+            super.handleKeyboardInput();
 
-			if (Keyboard.getEventKeyState()) {
-				int inventoryKey = 0;
-				for (Object o : KeyBinding.keybindArray) {
-					if (((KeyBinding) o).keyDescription.equals("key.inventory")) {
-						inventoryKey = ((KeyBinding) o).keyCode;
-						break;
-					}
-				}
-				if (Keyboard.getEventKey() == inventoryKey
-					|| Keyboard.getEventKey() == 28) {
-					close();
-					return;
-				}
-			}
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessContainer").writeStackTrace(e);
-		}
-	}
+            if (Keyboard.getEventKeyState()) {
+                int inventoryKey = 0;
+                for (Object o : KeyBinding.keybindArray) {
+                    if (((KeyBinding) o).keyDescription.equals("key.inventory")) {
+                        inventoryKey = ((KeyBinding) o).keyCode;
+                        break;
+                    }
+                }
+                if (Keyboard.getEventKey() == inventoryKey
+                    || Keyboard.getEventKey() == 28) {
+                    close();
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessContainer").writeStackTrace(e);
+        }
+    }
 
-	/**
-	 * Closes the GUI.
-	 */
-	public void close() {
-		try {
-			mc.displayGuiScreen(null);
-			mc.setIngameFocus();
-		} catch (Exception e) {
-			LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessContainer").writeStackTrace(e);
-		}
-	}
+    /**
+     * Closes the GUI.
+     */
+    public void close() {
+        try {
+            mc.displayGuiScreen(null);
+            mc.setIngameFocus();
+        } catch (Exception e) {
+            LoggerRedstoneWireless.getInstance("GuiRedstoneWirelessContainer").writeStackTrace(e);
+        }
+    }
 
-	/**
-	 * Always returns false, prevents game from pausing when GUI is open.
-	 * 
-	 * @return false
-	 */
-	@Override
-	public boolean doesGuiPauseGame() {
-		return false;
-	}
+    /**
+     * Always returns false, prevents game from pausing when GUI is open.
+     * 
+     * @return false
+     */
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
 
-	/**
-	 * Refresh the current GUI
-	 * 
-	 * Removing and re-adding all listed controls
-	 */
-	public void refreshGui() {
-		this.removeControls();
-		this.addControls();
-	}
+    /**
+     * Refresh the current GUI
+     * 
+     * Removing and re-adding all listed controls
+     */
+    public void refreshGui() {
+        this.removeControls();
+        this.addControls();
+    }
 
-	/**
-	 * Clears the control list
-	 * 
-	 * Used in refreshGui()
-	 */
-	private void removeControls() {
-		this.buttonList.clear();
-	}
+    /**
+     * Clears the control list
+     * 
+     * Used in refreshGui()
+     */
+    private void removeControls() {
+        this.buttonList.clear();
+    }
 }

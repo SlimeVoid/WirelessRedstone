@@ -25,31 +25,31 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public class ServerGuiPacketHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketWireless createNewPacketWireless() {
-		return new PacketRedstoneWirelessOpenGuiInventory();
-	}
+    @Override
+    protected PacketWireless createNewPacketWireless() {
+        return new PacketRedstoneWirelessOpenGuiInventory();
+    }
 
-	/**
-	 * Send a GUI packet to specified player.
-	 * 
-	 * @param player
-	 *            Receiving player.
-	 * @param data
-	 *            the packet to send.
-	 */
-	public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless data) {
-		// Assemble a OpenGUI packet.
+    /**
+     * Send a GUI packet to specified player.
+     * 
+     * @param player
+     *            Receiving player.
+     * @param data
+     *            the packet to send.
+     */
+    public static void sendGuiPacketTo(EntityPlayerMP player, TileEntityRedstoneWireless data) {
+        // Assemble a OpenGUI packet.
 
-		LoggerRedstoneWireless.getInstance("ServerGuiPacketHandler").write(	false,
-																			"sendGuiPacketTo("
-																					+ player.username
-																					+ ", entity)",
-																			LoggerRedstoneWireless.LogLevel.DEBUG);
+        LoggerRedstoneWireless.getInstance("ServerGuiPacketHandler").write(false,
+                                                                           "sendGuiPacketTo("
+                                                                                   + player.username
+                                                                                   + ", entity)",
+                                                                           LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(data);
-		// Send the packet.
-		ServerPacketHandler.sendPacketTo(	player,
-											packet.getPacket());
-	}
+        PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(data);
+        // Send the packet.
+        ServerPacketHandler.sendPacketTo(player,
+                                         packet.getPacket());
+    }
 }

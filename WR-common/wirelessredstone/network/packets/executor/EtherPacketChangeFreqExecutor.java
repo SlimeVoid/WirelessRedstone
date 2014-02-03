@@ -29,29 +29,29 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
 
-	@Override
-	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		// Fetch the tile from the packet
-		TileEntity entity = packet.getTarget(world);
+    @Override
+    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
+        // Fetch the tile from the packet
+        TileEntity entity = packet.getTarget(world);
 
-		if (entity instanceof TileEntityRedstoneWireless) {
-			// Assemble frequencies.
-			int dFreq = Integer.parseInt(packet.getFreq());
-			int oldFreq = Integer.parseInt(((TileEntityRedstoneWireless) entity).getFreq().toString());
+        if (entity instanceof TileEntityRedstoneWireless) {
+            // Assemble frequencies.
+            int dFreq = Integer.parseInt(packet.getFreq());
+            int oldFreq = Integer.parseInt(((TileEntityRedstoneWireless) entity).getFreq().toString());
 
-			// Set the frequency to the tile
-			((TileEntityRedstoneWireless) entity).setFreq(Integer.toString(oldFreq
-																			+ dFreq));
-			entity.onInventoryChanged();
+            // Set the frequency to the tile
+            ((TileEntityRedstoneWireless) entity).setFreq(Integer.toString(oldFreq
+                                                                           + dFreq));
+            entity.onInventoryChanged();
 
-			// Makr the block for update with the world.
-			world.markBlockForRenderUpdate(	packet.xPosition,
-											packet.yPosition,
-											packet.zPosition);
+            // Makr the block for update with the world.
+            world.markBlockForRenderUpdate(packet.xPosition,
+                                           packet.yPosition,
+                                           packet.zPosition);
 
-			// Broadcast change to all clients.
-			ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
-																world);
-		}
-	}
+            // Broadcast change to all clients.
+            ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+                                                                world);
+        }
+    }
 }

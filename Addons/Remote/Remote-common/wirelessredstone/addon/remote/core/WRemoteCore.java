@@ -24,97 +24,97 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class WRemoteCore {
-	public static boolean	isLoaded		= false;
-	public static Item		itemRemote;
-	public static int		remoteID		= 6245;
+    public static boolean isLoaded        = false;
+    public static Item    itemRemote;
+    public static int     remoteID        = 6245;
 
-	@SideOnly(Side.CLIENT)
-	public static boolean	mouseDown, wasMouseDown, remotePulsing;
+    @SideOnly(Side.CLIENT)
+    public static boolean mouseDown, wasMouseDown, remotePulsing;
 
-	public static long		pulseTime		= 2500;
-	public static boolean	duraTogg		= true;
-	public static int		maxPulseThreads	= 2;
-	public static int		remoteoff		= 0;
-	public static int		remoteon		= 1;
+    public static long    pulseTime       = 2500;
+    public static boolean duraTogg        = true;
+    public static int     maxPulseThreads = 2;
+    public static int     remoteoff       = 0;
+    public static int     remoteon        = 1;
 
-	/**
-	 * Fires off all the canons.<br>
-	 * Loads configurations and initializes objects. Loads ModLoader related
-	 * stuff.
-	 */
-	public static boolean initialize() {
+    /**
+     * Fires off all the canons.<br>
+     * Loads configurations and initializes objects. Loads ModLoader related
+     * stuff.
+     */
+    public static boolean initialize() {
 
-		loadConfig();
+        loadConfig();
 
-		WirelessRemote.proxy.init();
+        WirelessRemote.proxy.init();
 
-		WirelessRemote.proxy.initPacketHandlers();
+        WirelessRemote.proxy.initPacketHandlers();
 
-		registerItems();
+        registerItems();
 
-		WirelessRemote.proxy.addOverrides();
+        WirelessRemote.proxy.addOverrides();
 
-		WirelessRemote.proxy.registerRenderInformation();
+        WirelessRemote.proxy.registerRenderInformation();
 
-		registerRecipes();
+        registerRecipes();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Loads configurations from the properties file.<br>
-	 * - Remote item ID: (Remote.ID)<br>
-	 */
-	private static void loadConfig() {
-		Configuration wirelessconfig = ConfigurationLib.getConfig();
+    /**
+     * Loads configurations from the properties file.<br>
+     * - Remote item ID: (Remote.ID)<br>
+     */
+    private static void loadConfig() {
+        Configuration wirelessconfig = ConfigurationLib.getConfig();
 
-		wirelessconfig.load();
+        wirelessconfig.load();
 
-		remoteID = wirelessconfig.get(	Configuration.CATEGORY_ITEM,
-										ItemLib.REMOTE,
-										remoteID).getInt();
-		duraTogg = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
-										"Duration Toggle",
-										duraTogg).getBoolean(duraTogg);
-		pulseTime = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
-										"Pulse Time",
-										pulseTime).getInt();
-		maxPulseThreads = wirelessconfig.get(	Configuration.CATEGORY_GENERAL,
-												"Max Threads",
-												maxPulseThreads).getInt();
-		wirelessconfig.save();
-	}
+        remoteID = wirelessconfig.get(Configuration.CATEGORY_ITEM,
+                                      ItemLib.REMOTE,
+                                      remoteID).getInt();
+        duraTogg = wirelessconfig.get(Configuration.CATEGORY_GENERAL,
+                                      "Duration Toggle",
+                                      duraTogg).getBoolean(duraTogg);
+        pulseTime = wirelessconfig.get(Configuration.CATEGORY_GENERAL,
+                                       "Pulse Time",
+                                       pulseTime).getInt();
+        maxPulseThreads = wirelessconfig.get(Configuration.CATEGORY_GENERAL,
+                                             "Max Threads",
+                                             maxPulseThreads).getInt();
+        wirelessconfig.save();
+    }
 
-	/**
-	 * Initializes Item objects.
-	 */
-	private static void registerItems() {
-		itemRemote = (new ItemRedstoneWirelessRemote(remoteID)).setUnlocalizedName(ItemLib.REMOTE);
-	}
+    /**
+     * Initializes Item objects.
+     */
+    private static void registerItems() {
+        itemRemote = (new ItemRedstoneWirelessRemote(remoteID)).setUnlocalizedName(ItemLib.REMOTE);
+    }
 
-	/**
-	 * Registers the item names
-	 */
-	// private static void registerItems() {
-	// LanguageRegistry.addName( itemRemote,
-	// "Wireless Remote");
-	// LanguageRegistry.instance().addNameForObject( itemRemote,
-	// "de_DE",
-	// "Drahtloser Funkfernbedienung");
-	// }
+    /**
+     * Registers the item names
+     */
+    // private static void registerItems() {
+    // LanguageRegistry.addName( itemRemote,
+    // "Wireless Remote");
+    // LanguageRegistry.instance().addNameForObject( itemRemote,
+    // "de_DE",
+    // "Drahtloser Funkfernbedienung");
+    // }
 
-	/**
-	 * Registers recipes with ModLoader<br>
-	 * - Recipe for Remote.
-	 */
-	private static void registerRecipes() {
-		GameRegistry.addRecipe(	new ItemStack(itemRemote, 1),
-								new Object[] {
-										"I",
-										"T",
-										Character.valueOf('I'),
-										Block.torchRedstoneActive,
-										Character.valueOf('T'),
-										WRCore.blockWirelessT });
-	}
+    /**
+     * Registers recipes with ModLoader<br>
+     * - Recipe for Remote.
+     */
+    private static void registerRecipes() {
+        GameRegistry.addRecipe(new ItemStack(itemRemote, 1),
+                               new Object[] {
+                                       "I",
+                                       "T",
+                                       Character.valueOf('I'),
+                                       Block.torchRedstoneActive,
+                                       Character.valueOf('T'),
+                                       WRCore.blockWirelessT });
+    }
 }

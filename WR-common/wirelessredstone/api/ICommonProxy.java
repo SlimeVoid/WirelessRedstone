@@ -33,76 +33,76 @@ import cpw.mods.fml.common.network.IGuiHandler;
  */
 public interface ICommonProxy extends IGuiHandler {
 
-	/**
-	 * Registers rendering information. Called in the core before registering
-	 * tileentity special renderers.
-	 */
-	public void registerRenderInformation();
+    /**
+     * Registers rendering information. Called in the core before registering
+     * tileentity special renderers.
+     */
+    public void registerRenderInformation();
 
-	/**
-	 * Returns the minecraft directory
-	 * 
-	 * @return Directory path of the minecraft installation.
-	 */
-	public String getMinecraftDir();
+    /**
+     * Returns the minecraft directory
+     * 
+     * @return Directory path of the minecraft installation.
+     */
+    public String getMinecraftDir();
 
-	/**
-	 * Registers special renderers for TileEntities.
-	 * 
-	 * @param clazz
-	 *            A TileEntity child class.
-	 */
-	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz);
+    /**
+     * Registers special renderers for TileEntities.
+     * 
+     * @param clazz
+     *            A TileEntity child class.
+     */
+    public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz);
 
-	/**
-	 * Adds all overrides.
-	 */
-	public void addOverrides();
+    /**
+     * Adds all overrides.
+     */
+    public void addOverrides();
 
-	/**
-	 * Fetches the current minecraft world object relating to the NetHandler.
-	 * 
-	 * handler the NetHandler (Server or Client)
-	 * 
-	 * @return Minecraft world object.
-	 */
-	public World getWorld(NetHandler handler);
+    /**
+     * Fetches the current minecraft world object relating to the NetHandler.
+     * 
+     * handler the NetHandler (Server or Client)
+     * 
+     * @return Minecraft world object.
+     */
+    public World getWorld(NetHandler handler);
 
-	/**
-	 * Called on initialization.
-	 */
-	public void init();
+    /**
+     * Called on initialization.
+     */
+    public void init();
 
-	/**
-	 * Initializes packet handlers.<br>
-	 * - Ether<br>
-	 * - Gui<br>
-	 * - Tile<br>
-	 * For Server and Client.
-	 */
-	public void initPacketHandlers();
+    /**
+     * Initializes packet handlers.<br>
+     * - Ether<br>
+     * - Gui<br>
+     * - Tile<br>
+     * For Server and Client.
+     */
+    public void initPacketHandlers();
 
-	/**
-	 * Called on player/client login
-	 * 
-	 * @param handler
-	 * @param manager
-	 * @param login
-	 */
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login);
+    /**
+     * Called on player/client login
+     * 
+     * @param handler
+     * @param manager
+     * @param login
+     */
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login);
 
-	/**
-	 * Called when a connection to a server is closed
-	 * 
-	 * @param manager
-	 */
-	public void connectionClosed(INetworkManager manager);
+    /**
+     * Called when a connection to a server is closed
+     * 
+     * @param manager
+     */
+    public void connectionClosed(INetworkManager manager);
 
-	/**
-	 * Registers a configuration file allows sided properties
-	 * 
-	 * @param configFile
-	 *            usually the suggested Configuration File
-	 */
-	public void registerConfiguration(File configFile);
+    /**
+     * Registers a configuration file allows sided properties
+     * 
+     * @param configFile
+     *            usually the suggested Configuration File
+     */
+    public void registerConfiguration(File configFile);
 }

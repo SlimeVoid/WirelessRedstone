@@ -9,39 +9,39 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class SlotBlock extends Slot {
 
-	public SlotBlock(IInventory inventory, int i, int j, int k) {
-		super(inventory, i, j, k);
-	}
+    public SlotBlock(IInventory inventory, int i, int j, int k) {
+        super(inventory, i, j, k);
+    }
 
-	@Override
-	// isItemValid
-	public boolean isItemValid(ItemStack itemstack) {
-		return CamouLib.isValidStack(itemstack);
-	}
+    @Override
+    // isItemValid
+    public boolean isItemValid(ItemStack itemstack) {
+        return CamouLib.isValidStack(itemstack);
+    }
 
-	@Override
-	public int getSlotStackLimit() {
-		return 1;
-	}
+    @Override
+    public int getSlotStackLimit() {
+        return 1;
+    }
 
-	@Override
-	public void onSlotChanged() {
-		super.onSlotChanged();
-		if (this.inventory instanceof TileEntity) {
-			TileEntity tileentity = ((TileEntity) this.inventory);
-			tileentity.worldObj.markBlockForUpdate(	tileentity.xCoord,
-													tileentity.yCoord,
-													tileentity.zCoord);
-		}
-	}
+    @Override
+    public void onSlotChanged() {
+        super.onSlotChanged();
+        if (this.inventory instanceof TileEntity) {
+            TileEntity tileentity = ((TileEntity) this.inventory);
+            tileentity.worldObj.markBlockForUpdate(tileentity.xCoord,
+                                                   tileentity.yCoord,
+                                                   tileentity.zCoord);
+        }
+    }
 
-	@Override
-	public void putStack(ItemStack itemstack) {
-		if (this.inventory instanceof TileEntityRedstoneWireless) {
-			TileEntityRedstoneWireless tRW = (TileEntityRedstoneWireless) this.inventory;
-			CamouLib.setBlockRef(	tRW.getWorldObj(),
-									tRW,
-									itemstack);
-		}
-	}
+    @Override
+    public void putStack(ItemStack itemstack) {
+        if (this.inventory instanceof TileEntityRedstoneWireless) {
+            TileEntityRedstoneWireless tRW = (TileEntityRedstoneWireless) this.inventory;
+            CamouLib.setBlockRef(tRW.getWorldObj(),
+                                 tRW,
+                                 itemstack);
+        }
+    }
 }

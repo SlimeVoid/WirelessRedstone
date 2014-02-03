@@ -16,10 +16,10 @@ import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IWirelessDevice;
 
 public class GuiRedstoneWirelessRemoteOverride implements
-		IGuiRedstoneWirelessDeviceOverride {
+        IGuiRedstoneWirelessDeviceOverride {
 
-	@Override
-	public boolean beforeFrequencyChange(World world, IWirelessDevice device, Object oldFreq, Object newFreq) {
-		return false;
-	}
+    @Override
+    public boolean beforeFrequencyChange(World world, IWirelessDevice device, Object oldFreq, Object newFreq) {
+        return false;
+    }
 }

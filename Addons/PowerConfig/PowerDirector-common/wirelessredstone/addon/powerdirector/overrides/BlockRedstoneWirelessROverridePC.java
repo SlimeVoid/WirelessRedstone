@@ -21,67 +21,67 @@ import wirelessredstone.addon.powerdirector.core.PDCore;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 
 public class BlockRedstoneWirelessROverridePC implements
-		IBlockRedstoneWirelessOverride {
+        IBlockRedstoneWirelessOverride {
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
-		return false;
-	}
+    @Override
+    public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+        return false;
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+    }
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
-		return false;
-	}
+    @Override
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
+        return false;
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+    }
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+    @Override
+    public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
 
-		if (entityplayer.getCurrentEquippedItem() != null
-			&& entityplayer.getCurrentEquippedItem().itemID == PDCore.itemPowDir.itemID) {
-			return true;
-		}
+        if (entityplayer.getCurrentEquippedItem() != null
+            && entityplayer.getCurrentEquippedItem().itemID == PDCore.itemPowDir.itemID) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+    }
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-		return false;
-	}
+    @Override
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+        return false;
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+    }
 
-	@Override
-	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
-		return false;
-	}
+    @Override
+    public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+        return false;
+    }
 
-	@Override
-	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
-	}
+    @Override
+    public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+    }
 
-	@Override
-	public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
-		return false;
-	}
+    @Override
+    public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
+        return false;
+    }
 
-	@Override
-	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output) {
-		return null;
-	}
+    @Override
+    public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output) {
+        return null;
+    }
 
 }

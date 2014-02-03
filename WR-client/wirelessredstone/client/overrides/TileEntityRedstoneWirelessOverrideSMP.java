@@ -22,102 +22,102 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class TileEntityRedstoneWirelessOverrideSMP implements
-		ITileEntityRedstoneWirelessOverride {
-	@Override
-	public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
-		return tileentity.worldObj.isRemote;
-	}
+        ITileEntityRedstoneWirelessOverride {
+    @Override
+    public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
+        return tileentity.worldObj.isRemote;
+    }
 
-	@Override
-	public void afterUpdateEntity(TileEntityRedstoneWireless tileentity) {
-	}
+    @Override
+    public void afterUpdateEntity(TileEntityRedstoneWireless tileentity) {
+    }
 
-	@Override
-	public boolean beforeHandleData(TileEntityRedstoneWireless tileentityredstonewireless, IWirelessData data) {
-		if (data != null && tileentityredstonewireless != null) {
-			if (data instanceof PacketWirelessTile) {
-				PacketWirelessTile packetData = (PacketWirelessTile) data;
-				if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
-					TileEntityRedstoneWirelessT teRWT = (TileEntityRedstoneWirelessT) tileentityredstonewireless;
-					teRWT.setFreq(packetData.getFreq().toString());
-					teRWT.onInventoryChanged();
-					teRWT.worldObj.markBlockForRenderUpdate(packetData.xPosition,
-															packetData.yPosition,
-															packetData.zPosition);
-				}
+    @Override
+    public boolean beforeHandleData(TileEntityRedstoneWireless tileentityredstonewireless, IWirelessData data) {
+        if (data != null && tileentityredstonewireless != null) {
+            if (data instanceof PacketWirelessTile) {
+                PacketWirelessTile packetData = (PacketWirelessTile) data;
+                if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
+                    TileEntityRedstoneWirelessT teRWT = (TileEntityRedstoneWirelessT) tileentityredstonewireless;
+                    teRWT.setFreq(packetData.getFreq().toString());
+                    teRWT.onInventoryChanged();
+                    teRWT.worldObj.markBlockForRenderUpdate(packetData.xPosition,
+                                                            packetData.yPosition,
+                                                            packetData.zPosition);
+                }
 
-				if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
-					TileEntityRedstoneWirelessR teRWR = (TileEntityRedstoneWirelessR) tileentityredstonewireless;
-					teRWR.setFreq(packetData.getFreq().toString());
-					teRWR.setInDirectlyPowering(packetData.getInDirectlyPowering());
-					teRWR.setPowerDirections(packetData.getPowerDirections());
-					teRWR.onInventoryChanged();
-					teRWR.worldObj.markBlockForRenderUpdate(packetData.xPosition,
-															packetData.yPosition,
-															packetData.zPosition);
-				}
-			}
-		}
-		return false;
-	}
+                if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
+                    TileEntityRedstoneWirelessR teRWR = (TileEntityRedstoneWirelessR) tileentityredstonewireless;
+                    teRWR.setFreq(packetData.getFreq().toString());
+                    teRWR.setInDirectlyPowering(packetData.getInDirectlyPowering());
+                    teRWR.setPowerDirections(packetData.getPowerDirections());
+                    teRWR.onInventoryChanged();
+                    teRWR.worldObj.markBlockForRenderUpdate(packetData.xPosition,
+                                                            packetData.yPosition,
+                                                            packetData.zPosition);
+                }
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer) {
-		return false;
-	}
+    @Override
+    public boolean beforeIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer) {
+        return false;
+    }
 
-	@Override
-	public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean returnState) {
-		return returnState;
-	}
+    @Override
+    public boolean afterIsUseableByPlayer(TileEntityRedstoneWireless tileEntityRedstoneWireless, EntityPlayer entityplayer, boolean returnState) {
+        return returnState;
+    }
 
-	@Override
-	public boolean handlesExtraNBTTags() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean handlesExtraNBTTags() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public void writeToNBT(TileEntityRedstoneWireless tRW, NBTTagCompound nbttagcompound) {
-	}
+    @Override
+    public void writeToNBT(TileEntityRedstoneWireless tRW, NBTTagCompound nbttagcompound) {
+    }
 
-	@Override
-	public void readFromNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound) {
-	}
+    @Override
+    public void readFromNBT(TileEntityRedstoneWireless tileEntityRedstoneWireless, NBTTagCompound nbttagcompound) {
+    }
 
-	@Override
-	public boolean handleInventory() {
-		return false;
-	}
+    @Override
+    public boolean handleInventory() {
+        return false;
+    }
 
-	@Override
-	public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
-		return itemstack;
-	}
+    @Override
+    public ItemStack getStackInSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
+        return itemstack;
+    }
 
-	@Override
-	public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j, ItemStack itemstack) {
-		return itemstack;
-	}
+    @Override
+    public ItemStack decrStackSize(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, int j, ItemStack itemstack) {
+        return itemstack;
+    }
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
-		return itemstack;
-	}
+    @Override
+    public ItemStack getStackInSlotOnClosing(TileEntityRedstoneWireless tileEntityRedstoneWireless, int i, ItemStack itemstack) {
+        return itemstack;
+    }
 
-	@Override
-	public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
-		return false;
-	}
+    @Override
+    public boolean setInventorySlotContents(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack) {
+        return false;
+    }
 
-	@Override
-	public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
-		return result;
-	}
+    @Override
+    public boolean isStackValidForSlot(TileEntityRedstoneWireless tileEntityRedstoneWireless, int slot, ItemStack itemstack, boolean result) {
+        return result;
+    }
 
-	@Override
-	public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
-		// TODO Auto-generated method stub
+    @Override
+    public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 }

@@ -26,13 +26,13 @@ import wirelessredstone.network.packets.PacketWireless;
  */
 public class EtherPacketTXAddExecutor implements IEtherPacketExecutor {
 
-	@Override
-	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		RedstoneEther.getInstance().addTransmitter(	world,
-													packet.xPosition,
-													packet.yPosition,
-													packet.zPosition,
-													packet.getFreq());
-	}
+    @Override
+    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
+        RedstoneEther.getInstance().addTransmitter(world,
+                                                   packet.xPosition,
+                                                   packet.yPosition,
+                                                   packet.zPosition,
+                                                   packet.getFreq());
+    }
 
 }

@@ -19,37 +19,37 @@ import wirelessredstone.ether.RedstoneEther;
 
 public abstract class WirelessTransmitterDevice extends WirelessDevice {
 
-	public WirelessTransmitterDevice(World world, EntityLivingBase entityliving, ItemStack itemstack) {
-		super(world, entityliving, itemstack);
-	}
+    public WirelessTransmitterDevice(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+        super(world, entityliving, itemstack);
+    }
 
-	@Override
-	public String getInvName() {
-		return DeviceLib.TRANSMITTER;
-	}
+    @Override
+    public String getInvName() {
+        return DeviceLib.TRANSMITTER;
+    }
 
-	@Override
-	public void doActivateCommand() {
-		RedstoneEther.getInstance().addTransmitter(	this.getWorld(),
-													this.xCoord,
-													this.yCoord,
-													this.zCoord,
-													this.getFreq());
-		RedstoneEther.getInstance().setTransmitterState(this.getWorld(),
-														this.xCoord,
-														this.yCoord,
-														this.zCoord,
-														this.getFreq(),
-														true);
-	}
+    @Override
+    public void doActivateCommand() {
+        RedstoneEther.getInstance().addTransmitter(this.getWorld(),
+                                                   this.xCoord,
+                                                   this.yCoord,
+                                                   this.zCoord,
+                                                   this.getFreq());
+        RedstoneEther.getInstance().setTransmitterState(this.getWorld(),
+                                                        this.xCoord,
+                                                        this.yCoord,
+                                                        this.zCoord,
+                                                        this.getFreq(),
+                                                        true);
+    }
 
-	@Override
-	public void doDeactivateCommand() {
-		RedstoneEther.getInstance().remTransmitter(	this.getWorld(),
-													this.xCoord,
-													this.yCoord,
-													this.zCoord,
-													this.getFreq());
-	}
+    @Override
+    public void doDeactivateCommand() {
+        RedstoneEther.getInstance().remTransmitter(this.getWorld(),
+                                                   this.xCoord,
+                                                   this.yCoord,
+                                                   this.zCoord,
+                                                   this.getFreq());
+    }
 
 }

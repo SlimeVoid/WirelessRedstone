@@ -22,54 +22,54 @@ import wirelessredstone.core.lib.ConfigurationLib;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PDCore {
-	public static boolean	isLoaded	= false;
-	public static Item		itemPowDir;
-	public static int		pdID		= 6243;
+    public static boolean isLoaded = false;
+    public static Item    itemPowDir;
+    public static int     pdID     = 6243;
 
-	public static boolean initialize() {
+    public static boolean initialize() {
 
-		loadConfig();
+        loadConfig();
 
-		PowerDirector.proxy.init();
+        PowerDirector.proxy.init();
 
-		PowerDirector.proxy.initPacketHandlers();
+        PowerDirector.proxy.initPacketHandlers();
 
-		registerItems();
+        registerItems();
 
-		PowerDirector.proxy.addOverrides();
+        PowerDirector.proxy.addOverrides();
 
-		PowerDirector.proxy.registerRenderInformation();
+        PowerDirector.proxy.registerRenderInformation();
 
-		registerRecipes();
+        registerRecipes();
 
-		return true;
-	}
+        return true;
+    }
 
-	private static void loadConfig() {
-		Configuration wirelessconfig = ConfigurationLib.getConfig();
+    private static void loadConfig() {
+        Configuration wirelessconfig = ConfigurationLib.getConfig();
 
-		wirelessconfig.load();
+        wirelessconfig.load();
 
-		pdID = wirelessconfig.get(	Configuration.CATEGORY_ITEM,
-									ItemLib.POWER_DIR,
-									6243).getInt();
+        pdID = wirelessconfig.get(Configuration.CATEGORY_ITEM,
+                                  ItemLib.POWER_DIR,
+                                  6243).getInt();
 
-		wirelessconfig.save();
-	}
+        wirelessconfig.save();
+    }
 
-	private static void registerItems() {
-		itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID)).setUnlocalizedName(ItemLib.POWER_DIR).setTextureName(IconLib.POWER_DIR);
-	}
+    private static void registerItems() {
+        itemPowDir = (new ItemRedstoneWirelessPowerDirector(pdID)).setUnlocalizedName(ItemLib.POWER_DIR).setTextureName(IconLib.POWER_DIR);
+    }
 
-	private static void registerRecipes() {
-		GameRegistry.addRecipe(	new ItemStack(itemPowDir, 1),
-								new Object[] {
-										"R R",
-										" X ",
-										"R R",
-										Character.valueOf('X'),
-										WRCore.blockWirelessR,
-										Character.valueOf('R'),
-										Item.redstone });
-	}
+    private static void registerRecipes() {
+        GameRegistry.addRecipe(new ItemStack(itemPowDir, 1),
+                               new Object[] {
+                                       "R R",
+                                       " X ",
+                                       "R R",
+                                       Character.valueOf('X'),
+                                       WRCore.blockWirelessR,
+                                       Character.valueOf('R'),
+                                       Item.redstone });
+    }
 }

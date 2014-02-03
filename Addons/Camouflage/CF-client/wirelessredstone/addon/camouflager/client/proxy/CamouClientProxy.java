@@ -36,66 +36,66 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public class CamouClientProxy extends CamouCommonProxy {
 
-	@Override
-	public void init() {
-		super.init();
-	}
+    @Override
+    public void init() {
+        super.init();
+    }
 
-	@Override
-	public void registerRenderInformation() {
-		BlockRedstoneWirelessRenderer.addOverride(new BlockWirelessCamouRenderer());
-	}
+    @Override
+    public void registerRenderInformation() {
+        BlockRedstoneWirelessRenderer.addOverride(new BlockWirelessCamouRenderer());
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tileentity = world.getBlockTileEntity(	x,
-															y,
-															z);
-		if (tileentity instanceof TileEntityRedstoneWireless) {
-			return new GuiRedstoneWirelessCamouflager(new ContainerCamouflagedRedstoneWireless(player.inventory, (TileEntityRedstoneWireless) tileentity));
-		}
-		return null;
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        TileEntity tileentity = world.getBlockTileEntity(x,
+                                                         y,
+                                                         z);
+        if (tileentity instanceof TileEntityRedstoneWireless) {
+            return new GuiRedstoneWirelessCamouflager(new ContainerCamouflagedRedstoneWireless(player.inventory, (TileEntityRedstoneWireless) tileentity));
+        }
+        return null;
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return Minecraft.getMinecraft().mcDataDir.getPath();
-	}
+    @Override
+    public String getMinecraftDir() {
+        return Minecraft.getMinecraft().mcDataDir.getPath();
+    }
 
-	@Override
-	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-	}
+    @Override
+    public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
+    }
 
-	/**
-	 * Retrieves the world object with NetHandler parameters.
-	 * 
-	 * @return Minecraft world object.
-	 */
-	@Override
-	public World getWorld(NetHandler handler) {
-		if (handler instanceof NetClientHandler) {
-			return ((NetClientHandler) handler).getPlayer().worldObj;
-		}
-		return null;
-	}
+    /**
+     * Retrieves the world object with NetHandler parameters.
+     * 
+     * @return Minecraft world object.
+     */
+    @Override
+    public World getWorld(NetHandler handler) {
+        if (handler instanceof NetClientHandler) {
+            return ((NetClientHandler) handler).getPlayer().worldObj;
+        }
+        return null;
+    }
 
-	@Override
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-		World world = getWorld(handler);
-		if (world != null) {
-			// ClientPacketHandler.sendPacket(((new
-			// PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
-		}
-	}
+    @Override
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+        World world = getWorld(handler);
+        if (world != null) {
+            // ClientPacketHandler.sendPacket(((new
+            // PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
+        }
+    }
 
-	@Override
-	public void initPacketHandlers() {
-		super.initPacketHandlers();
-		// ///////////////////
-		// Client Handlers //
-		// ///////////////////
-		// ClientPacketHandler.getPacketHandler(PacketIds.GUI).registerPacketHandler(
-		// PacketPowerConfigCommands.powerConfigCommands.openGui.toString(),
-		// new ClientRemoteOpenGui());
-	}
+    @Override
+    public void initPacketHandlers() {
+        super.initPacketHandlers();
+        // ///////////////////
+        // Client Handlers //
+        // ///////////////////
+        // ClientPacketHandler.getPacketHandler(PacketIds.GUI).registerPacketHandler(
+        // PacketPowerConfigCommands.powerConfigCommands.openGui.toString(),
+        // new ClientRemoteOpenGui());
+    }
 }

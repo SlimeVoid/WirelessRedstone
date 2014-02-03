@@ -5,8 +5,8 @@ import net.minecraft.world.World;
 
 public interface IPacketWirelessOverride {
 
-	boolean shouldSkipDefault();
+    boolean shouldSkipDefault();
 
-	TileEntity getTarget(World world, int xPosition, int yPosition, int zPosition, TileEntity tileentity);
+    TileEntity getTarget(World world, int xPosition, int yPosition, int zPosition, TileEntity tileentity);
 
 }

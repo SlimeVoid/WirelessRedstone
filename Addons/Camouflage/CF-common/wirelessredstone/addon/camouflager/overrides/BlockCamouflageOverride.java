@@ -25,87 +25,87 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class BlockCamouflageOverride implements IBlockRedstoneWirelessOverride {
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
-		return (world.isRemote);
-	}
+    @Override
+    public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+        return (world.isRemote);
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+    }
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
-		TileEntity tileentity = world.getBlockTileEntity(	i,
-															j,
-															k);
-		if (tileentity instanceof TileEntityRedstoneWireless) {
-			((TileEntityRedstoneWireless) tileentity).onBlockRemoval(	l,
-																		m);
-		}
-		return (world.isRemote);
-	}
+    @Override
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m) {
+        TileEntity tileentity = world.getBlockTileEntity(i,
+                                                         j,
+                                                         k);
+        if (tileentity instanceof TileEntityRedstoneWireless) {
+            ((TileEntityRedstoneWireless) tileentity).onBlockRemoval(l,
+                                                                     m);
+        }
+        return (world.isRemote);
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+    }
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-		if (entityplayer.getCurrentEquippedItem() != null
-			&& entityplayer.getCurrentEquippedItem().itemID == CamouCore.itemCamouflager.itemID) {
-			return true;
-		}
+    @Override
+    public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+        if (entityplayer.getCurrentEquippedItem() != null
+            && entityplayer.getCurrentEquippedItem().itemID == CamouCore.itemCamouflager.itemID) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+    }
 
-	@Override
-	public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-		return (world.isRemote);
-	}
+    @Override
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+        return (world.isRemote);
+    }
 
-	@Override
-	public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-	}
+    @Override
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
+    }
 
-	@Override
-	public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
-		return (world.isRemote);
-	}
+    @Override
+    public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+        return (world.isRemote);
+    }
 
-	@Override
-	public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
-	}
+    @Override
+    public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+    }
 
-	@Override
-	public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
-		TileEntity tileentity = iblockaccess.getBlockTileEntity(i,
-																j,
-																k);
-		if (tileentity != null
-			&& tileentity instanceof TileEntityRedstoneWireless) {
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
+        TileEntity tileentity = iblockaccess.getBlockTileEntity(i,
+                                                                j,
+                                                                k);
+        if (tileentity != null
+            && tileentity instanceof TileEntityRedstoneWireless) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output) {
-		TileEntity tileentity = iblockaccess.getBlockTileEntity(i,
-																j,
-																k);
-		if (tileentity != null
-			&& tileentity instanceof TileEntityRedstoneWireless) {
-			TileEntityRedstoneWireless tRW = (TileEntityRedstoneWireless) tileentity;
-			output = CamouLib.getIconForTile(	tRW,
-												side,
-												output);
-		}
-		return output;
-	}
+    @Override
+    public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output) {
+        TileEntity tileentity = iblockaccess.getBlockTileEntity(i,
+                                                                j,
+                                                                k);
+        if (tileentity != null
+            && tileentity instanceof TileEntityRedstoneWireless) {
+            TileEntityRedstoneWireless tRW = (TileEntityRedstoneWireless) tileentity;
+            output = CamouLib.getIconForTile(tRW,
+                                             side,
+                                             output);
+        }
+        return output;
+    }
 }

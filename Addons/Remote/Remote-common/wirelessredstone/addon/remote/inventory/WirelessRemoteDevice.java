@@ -40,151 +40,151 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class WirelessRemoteDevice extends WirelessTransmitterDevice {
 
-	@SideOnly(Side.CLIENT)
-	public static WirelessRemoteDevice							remoteTransmitter;
+    @SideOnly(Side.CLIENT)
+    public static WirelessRemoteDevice                          remoteTransmitter;
 
-	public static HashMap<EntityLivingBase, IWirelessDevice>	remoteTransmitters;
-	public static TreeMap<WirelessCoordinates, IWirelessDevice>	remoteWirelessCoords;
+    public static HashMap<EntityLivingBase, IWirelessDevice>    remoteTransmitters;
+    public static TreeMap<WirelessCoordinates, IWirelessDevice> remoteWirelessCoords;
 
-	protected static List<RedstoneWirelessRemoteOverride>		overrides	= new ArrayList<RedstoneWirelessRemoteOverride>();
+    protected static List<RedstoneWirelessRemoteOverride>       overrides = new ArrayList<RedstoneWirelessRemoteOverride>();
 
-	public WirelessRemoteDevice(World world, EntityLivingBase entity, ItemStack itemstack) {
-		super(world, entity, itemstack);
-	}
+    public WirelessRemoteDevice(World world, EntityLivingBase entity, ItemStack itemstack) {
+        super(world, entity, itemstack);
+    }
 
-	/**
-	 * Adds a Remote override to the Remote.
-	 * 
-	 * @param override
-	 *            Remote override.
-	 */
-	public static void addOverride(RedstoneWirelessRemoteOverride override) {
-		overrides.add(override);
-	}
+    /**
+     * Adds a Remote override to the Remote.
+     * 
+     * @param override
+     *            Remote override.
+     */
+    public static void addOverride(RedstoneWirelessRemoteOverride override) {
+        overrides.add(override);
+    }
 
-	@Override
-	public void activate(World world, Entity entity) {
-		if (entity instanceof EntityLivingBase) {
-			super.activate(	world,
-							entity);
-		}
-	}
+    @Override
+    public void activate(World world, Entity entity) {
+        if (entity instanceof EntityLivingBase) {
+            super.activate(world,
+                           entity);
+        }
+    }
 
-	@Override
-	public void deactivate(World world, Entity entity, boolean isForced) {
-		if (entity instanceof EntityLivingBase) {
-			super.deactivate(	world,
-								entity,
-								false);
-			if (!world.isRemote && isForced
-				&& remoteTransmitters.containsKey(entity)) {
-				deactivateWirelessRemote(	world,
-											(EntityLivingBase) entity,
-											((EntityLivingBase) entity).getHeldItem());
-			}
-		}
-	}
+    @Override
+    public void deactivate(World world, Entity entity, boolean isForced) {
+        if (entity instanceof EntityLivingBase) {
+            super.deactivate(world,
+                             entity,
+                             false);
+            if (!world.isRemote && isForced
+                && remoteTransmitters.containsKey(entity)) {
+                deactivateWirelessRemote(world,
+                                         (EntityLivingBase) entity,
+                                         ((EntityLivingBase) entity).getHeldItem());
+            }
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	public static void activatePlayerWirelessRemote(World world, EntityLivingBase entityliving) {
-		if (entityliving instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) entityliving;
-			if (remoteTransmitter != null) {
-				boolean isHeld = remoteTransmitter.isBeingHeld(entityliving);
-				if (isHeld) {
-					return;
-				}
-				deactivatePlayerWirelessRemote(	world,
-												entityplayer);
-			}
-			remoteTransmitter = new WirelessRemoteDevice(world, entityliving, entityliving.getHeldItem());
-			remoteTransmitter.activate(	world,
-										entityplayer);
-		}
-	}
+    @SideOnly(Side.CLIENT)
+    public static void activatePlayerWirelessRemote(World world, EntityLivingBase entityliving) {
+        if (entityliving instanceof EntityPlayer) {
+            EntityPlayer entityplayer = (EntityPlayer) entityliving;
+            if (remoteTransmitter != null) {
+                boolean isHeld = remoteTransmitter.isBeingHeld(entityliving);
+                if (isHeld) {
+                    return;
+                }
+                deactivatePlayerWirelessRemote(world,
+                                               entityplayer);
+            }
+            remoteTransmitter = new WirelessRemoteDevice(world, entityliving, entityliving.getHeldItem());
+            remoteTransmitter.activate(world,
+                                       entityplayer);
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	public static boolean deactivatePlayerWirelessRemote(World world, EntityLivingBase entityliving) {
-		if (entityliving instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) entityliving;
-			if (remoteTransmitter == null) {
-				return false;
-			} else {
-				remoteTransmitter.deactivate(	world,
-												entityplayer,
-												false);
-				remoteTransmitter = null;
-				return true;
-			}
-		}
-		return false;
-	}
+    @SideOnly(Side.CLIENT)
+    public static boolean deactivatePlayerWirelessRemote(World world, EntityLivingBase entityliving) {
+        if (entityliving instanceof EntityPlayer) {
+            EntityPlayer entityplayer = (EntityPlayer) entityliving;
+            if (remoteTransmitter == null) {
+                return false;
+            } else {
+                remoteTransmitter.deactivate(world,
+                                             entityplayer,
+                                             false);
+                remoteTransmitter = null;
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public static void activateWirelessRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
-		if (remoteTransmitters.containsKey(entityliving)) {
-			IWirelessDevice remote = remoteTransmitters.get(entityliving);
-			if (((WirelessRemoteDevice) remote).isBeingHeld(entityliving)) {
-				return;
-			}
-			deactivateWirelessRemote(	world,
-										entityliving,
-										itemstack);
-		}
-		WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world, entityliving, itemstack);
-		remoteTransmitters.put(	entityliving,
-								remoteTransmitter);
-		if (remoteTransmitters.containsKey(entityliving)) {
-			remoteWirelessCoords.put(	remoteTransmitter.getCoords(),
-										remoteTransmitter);
-			remoteTransmitter.activate(	world,
-										entityliving);
-		}
-	}
+    public static void activateWirelessRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+        if (remoteTransmitters.containsKey(entityliving)) {
+            IWirelessDevice remote = remoteTransmitters.get(entityliving);
+            if (((WirelessRemoteDevice) remote).isBeingHeld(entityliving)) {
+                return;
+            }
+            deactivateWirelessRemote(world,
+                                     entityliving,
+                                     itemstack);
+        }
+        WirelessRemoteDevice remoteTransmitter = new WirelessRemoteDevice(world, entityliving, itemstack);
+        remoteTransmitters.put(entityliving,
+                               remoteTransmitter);
+        if (remoteTransmitters.containsKey(entityliving)) {
+            remoteWirelessCoords.put(remoteTransmitter.getCoords(),
+                                     remoteTransmitter);
+            remoteTransmitter.activate(world,
+                                       entityliving);
+        }
+    }
 
-	public static boolean deactivateWirelessRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
-		if (remoteTransmitters.containsKey(entityliving)) {
-			IWirelessDevice remote = remoteTransmitters.get(entityliving);
-			if (remoteWirelessCoords.containsKey(remote.getCoords())) {
-				remoteWirelessCoords.remove(remote.getCoords());
-			}
-			remoteTransmitters.remove(entityliving);
-			remote.deactivate(	world,
-								entityliving,
-								false);
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static boolean deactivateWirelessRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+        if (remoteTransmitters.containsKey(entityliving)) {
+            IWirelessDevice remote = remoteTransmitters.get(entityliving);
+            if (remoteWirelessCoords.containsKey(remote.getCoords())) {
+                remoteWirelessCoords.remove(remote.getCoords());
+            }
+            remoteTransmitters.remove(entityliving);
+            remote.deactivate(world,
+                              entityliving,
+                              false);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	@Override
-	protected String getActivateCommand() {
-		return PacketRemoteCommands.remoteCommands.activate.toString();
-	}
+    @Override
+    protected String getActivateCommand() {
+        return PacketRemoteCommands.remoteCommands.activate.toString();
+    }
 
-	@Override
-	protected String getDeactivateCommand() {
-		return PacketRemoteCommands.remoteCommands.deactivate.toString();
-	}
+    @Override
+    protected String getDeactivateCommand() {
+        return PacketRemoteCommands.remoteCommands.deactivate.toString();
+    }
 
-	@Override
-	public String getInvName() {
-		return ItemLib.REMOTE;
-	}
+    @Override
+    public String getInvName() {
+        return ItemLib.REMOTE;
+    }
 
-	@Override
-	public boolean isBeingHeld(EntityLivingBase entityliving) {
-		ItemStack heldItem = entityliving.getHeldItem();
-		if (ItemLib.isWirelessRemote(heldItem)) {
-			return ((ItemRedstoneWirelessRemote) heldItem.getItem()).getFreq(heldItem).equals(this.freq);
-		}
-		return false;
-	}
+    @Override
+    public boolean isBeingHeld(EntityLivingBase entityliving) {
+        ItemStack heldItem = entityliving.getHeldItem();
+        if (ItemLib.isWirelessRemote(heldItem)) {
+            return ((ItemRedstoneWirelessRemote) heldItem.getItem()).getFreq(heldItem).equals(this.freq);
+        }
+        return false;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public static void sendDeactivateRemote(World world, EntityPlayer entityplayer) {
-		PacketWirelessDevice packet = new PacketWirelessDevice();
-		packet.setCommand(PacketRemoteCommands.remoteCommands.deactivate.toString());
-		PacketDispatcher.sendPacketToServer(packet.getPacket());
-	}
+    @SideOnly(Side.CLIENT)
+    public static void sendDeactivateRemote(World world, EntityPlayer entityplayer) {
+        PacketWirelessDevice packet = new PacketWirelessDevice();
+        packet.setCommand(PacketRemoteCommands.remoteCommands.deactivate.toString());
+        PacketDispatcher.sendPacketToServer(packet.getPacket());
+    }
 }

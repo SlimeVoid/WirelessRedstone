@@ -23,19 +23,19 @@ import net.minecraft.world.World;
  * 
  */
 public interface IGuiRedstoneWirelessDeviceOverride extends
-		IGuiRedstoneWirelessOverride {
-	/**
-	 * Triggers before the frequency is changed.
-	 * 
-	 * @param world
-	 * 
-	 * @param wirelessDeviceData
-	 *            WirelessDeviceData
-	 * @param oldFreq
-	 *            Old frequency
-	 * @param newFreq
-	 *            New frequency
-	 * @return Exits prematurely if true, skipping existing code.
-	 */
-	public boolean beforeFrequencyChange(World world, IWirelessDevice wirelessDevice, Object oldFreq, Object newFreq);
+        IGuiRedstoneWirelessOverride {
+    /**
+     * Triggers before the frequency is changed.
+     * 
+     * @param world
+     * 
+     * @param wirelessDeviceData
+     *            WirelessDeviceData
+     * @param oldFreq
+     *            Old frequency
+     * @param newFreq
+     *            New frequency
+     * @return Exits prematurely if true, skipping existing code.
+     */
+    public boolean beforeFrequencyChange(World world, IWirelessDevice wirelessDevice, Object oldFreq, Object newFreq);
 }

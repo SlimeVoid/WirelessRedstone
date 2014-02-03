@@ -15,16 +15,16 @@ import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.core.WRCore;
 
 public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
-	public TileEntityRedstoneWirelessT() {
-		super((BlockRedstoneWireless) WRCore.blockWirelessT);
-	}
+    public TileEntityRedstoneWirelessT() {
+        super((BlockRedstoneWireless) WRCore.blockWirelessT);
+    }
 
-	@Override
-	public String getInvName() {
-		return "Wireless Transmitter";
-	}
+    @Override
+    public String getInvName() {
+        return "Wireless Transmitter";
+    }
 
-	@Override
-	protected void onUpdateEntity() {
-	}
+    @Override
+    protected void onUpdateEntity() {
+    }
 }

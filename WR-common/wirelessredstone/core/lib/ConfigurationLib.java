@@ -12,47 +12,47 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConfigurationLib {
 
-	private static File				configurationFile;
-	private static Configuration	configuration;
+    private static File          configurationFile;
+    private static Configuration configuration;
 
-	@SideOnly(Side.CLIENT)
-	public static void ClientConfig(File configFile) {
-		if (configurationFile == null) {
-			configurationFile = configFile;
-			configuration = new Configuration(configFile);
-		}
-	}
+    @SideOnly(Side.CLIENT)
+    public static void ClientConfig(File configFile) {
+        if (configurationFile == null) {
+            configurationFile = configFile;
+            configuration = new Configuration(configFile);
+        }
+    }
 
-	public static void CommonConfig(File configFile) {
-		if (configurationFile == null) {
-			configurationFile = configFile;
-			configuration = new Configuration(configFile);
-		}
+    public static void CommonConfig(File configFile) {
+        if (configurationFile == null) {
+            configurationFile = configFile;
+            configuration = new Configuration(configFile);
+        }
 
-		configuration.load();
+        configuration.load();
 
-		WRCore.txID = configuration.get(Configuration.CATEGORY_BLOCK,
-										BlockLib.WIRELESS_TRANSMITTER,
-										1750).getInt();
-		WRCore.rxID = configuration.get(Configuration.CATEGORY_BLOCK,
-										BlockLib.WIRELESS_RECEIVER,
-										1751).getInt();
+        WRCore.txID = configuration.get(Configuration.CATEGORY_BLOCK,
+                                        BlockLib.WIRELESS_TRANSMITTER,
+                                        1750).getInt();
+        WRCore.rxID = configuration.get(Configuration.CATEGORY_BLOCK,
+                                        BlockLib.WIRELESS_RECEIVER,
+                                        1751).getInt();
 
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").setFilterLevel(configuration.get(	Configuration.CATEGORY_GENERAL,
-																									"Log Level",
-																									"INFO").getString());
+        LoggerRedstoneWireless.getInstance("Wireless Redstone").setFilterLevel(configuration.get(Configuration.CATEGORY_GENERAL,
+                                                                                                 "Log Level",
+                                                                                                 "INFO").getString());
 
-		configuration.save();
+        configuration.save();
 
-		WRCore.wirelessRedstone = new CreativeTabs(CoreLib.MOD_RESOURCES) {
-			public ItemStack getIconItemStack() {
-				return new ItemStack(WRCore.blockWirelessT, 1, 0);
-			}
+        WRCore.wirelessRedstone = new CreativeTabs(CoreLib.MOD_RESOURCES) {
+            public ItemStack getIconItemStack() {
+                return new ItemStack(WRCore.blockWirelessT, 1, 0);
+            }
 
-		};
-	}
+        };
+    }
 
-	public static Configuration getConfig() {
-		return configuration;
-	}
+    public static Configuration getConfig() {
+        return configuration;
+    }
 }

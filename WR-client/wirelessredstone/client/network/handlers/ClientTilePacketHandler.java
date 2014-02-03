@@ -27,37 +27,37 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class ClientTilePacketHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketWireless createNewPacketWireless() {
-		return new PacketWirelessTile();
-	}
+    @Override
+    protected PacketWireless createNewPacketWireless() {
+        return new PacketWirelessTile();
+    }
 
-	@Override
-	protected void handlePacket(PacketWireless packet, World world, EntityPlayer player) {
-		LoggerRedstoneWireless.getInstance("ClientTilePacketHandler").write(world.isRemote,
-																			"handlePacket("
-																					+ packet.toString()
-																					+ ")",
-																			LoggerRedstoneWireless.LogLevel.DEBUG);
+    @Override
+    protected void handlePacket(PacketWireless packet, World world, EntityPlayer player) {
+        LoggerRedstoneWireless.getInstance("ClientTilePacketHandler").write(world.isRemote,
+                                                                            "handlePacket("
+                                                                                    + packet.toString()
+                                                                                    + ")",
+                                                                            LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		TileEntity tileentity = packet.getTarget(world);
-		if (packet.getCommand().equals(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString())) {
-			handleFetchTile(packet,
-							tileentity);
-		}
-	}
+        TileEntity tileentity = packet.getTarget(world);
+        if (packet.getCommand().equals(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString())) {
+            handleFetchTile(packet,
+                            tileentity);
+        }
+    }
 
-	private void handleFetchTile(PacketWireless packet, TileEntity tileentity) {
-		if (tileentity != null
-			&& tileentity instanceof TileEntityRedstoneWireless) {
-			TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
-			tileentityredstonewireless.handleData((PacketWirelessTile) packet);
+    private void handleFetchTile(PacketWireless packet, TileEntity tileentity) {
+        if (tileentity != null
+            && tileentity instanceof TileEntityRedstoneWireless) {
+            TileEntityRedstoneWireless tileentityredstonewireless = (TileEntityRedstoneWireless) tileentity;
+            tileentityredstonewireless.handleData((PacketWirelessTile) packet);
 
-			GuiScreen screen = FMLClientHandler.instance().getClient().currentScreen;
-			if (screen != null
-				&& screen instanceof GuiRedstoneWireless
-				&& screen instanceof GuiRedstoneWirelessInventory
-				&& ((GuiRedstoneWirelessInventory) screen).compareInventory(tileentityredstonewireless)) ((GuiRedstoneWireless) screen).refreshGui();
-		}
-	}
+            GuiScreen screen = FMLClientHandler.instance().getClient().currentScreen;
+            if (screen != null
+                && screen instanceof GuiRedstoneWireless
+                && screen instanceof GuiRedstoneWirelessInventory
+                && ((GuiRedstoneWirelessInventory) screen).compareInventory(tileentityredstonewireless)) ((GuiRedstoneWireless) screen).refreshGui();
+        }
+    }
 }

@@ -27,29 +27,29 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * 
  */
 public interface IActivateGuiOverride {
-	/**
-	 * Called before a GUI is opened. Block specific.
-	 * 
-	 * @param world
-	 *            The world object
-	 * @param entityplayer
-	 *            The player opening the GUI
-	 * @param tileentityredstonewireless
-	 *            Block's TileEntity.
-	 * @return Exits prematurely if true, skipping existing code.
-	 */
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless);
+    /**
+     * Called before a GUI is opened. Block specific.
+     * 
+     * @param world
+     *            The world object
+     * @param entityplayer
+     *            The player opening the GUI
+     * @param tileentityredstonewireless
+     *            Block's TileEntity.
+     * @return Exits prematurely if true, skipping existing code.
+     */
+    public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless);
 
-	/**
-	 * Called before a GUI is opened. Item specific.
-	 * 
-	 * @param world
-	 *            The world object
-	 * @param entityplayer
-	 *            The player opening the GUI
-	 * @param data
-	 *            The world saved data.
-	 * @return Exits prematurely if true, skipping existing code.
-	 */
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDevice wirelessDevice);
+    /**
+     * Called before a GUI is opened. Item specific.
+     * 
+     * @param world
+     *            The world object
+     * @param entityplayer
+     *            The player opening the GUI
+     * @param data
+     *            The world saved data.
+     * @return Exits prematurely if true, skipping existing code.
+     */
+    public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDevice wirelessDevice);
 }

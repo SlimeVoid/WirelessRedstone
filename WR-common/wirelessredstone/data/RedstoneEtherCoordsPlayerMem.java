@@ -25,96 +25,96 @@ import net.minecraft.world.World;
  * 
  */
 public class RedstoneEtherCoordsPlayerMem {
-	private static RedstoneEtherCoordsPlayerMem		instance;
-	private Map<String, PlayerEtherCoordsMemNode>	coords;
-	private World									world;
+    private static RedstoneEtherCoordsPlayerMem   instance;
+    private Map<String, PlayerEtherCoordsMemNode> coords;
+    private World                                 world;
 
-	private RedstoneEtherCoordsPlayerMem(World world) {
-		coords = new HashMap<String, PlayerEtherCoordsMemNode>();
-		this.world = world;
-	}
+    private RedstoneEtherCoordsPlayerMem(World world) {
+        coords = new HashMap<String, PlayerEtherCoordsMemNode>();
+        this.world = world;
+    }
 
-	/**
-	 * Get the singleton instance.
-	 * 
-	 * @param world
-	 *            World object
-	 * @return Instance
-	 */
-	public static RedstoneEtherCoordsPlayerMem getInstance(World world) {
-		if (instance == null || instance.world.hashCode() != world.hashCode()) instance = new RedstoneEtherCoordsPlayerMem(world);
+    /**
+     * Get the singleton instance.
+     * 
+     * @param world
+     *            World object
+     * @return Instance
+     */
+    public static RedstoneEtherCoordsPlayerMem getInstance(World world) {
+        if (instance == null || instance.world.hashCode() != world.hashCode()) instance = new RedstoneEtherCoordsPlayerMem(world);
 
-		return instance;
-	}
+        return instance;
+    }
 
-	/**
-	 * Add a player coordinate to the memory.
-	 * 
-	 * @param entityplayer
-	 *            The player.
-	 * @param newcoords
-	 *            Coordinates.
-	 */
-	public void addMem(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
-		PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
-		coords.put(	entityplayer.username,
-					memnode);
-	}
+    /**
+     * Add a player coordinate to the memory.
+     * 
+     * @param entityplayer
+     *            The player.
+     * @param newcoords
+     *            Coordinates.
+     */
+    public void addMem(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
+        PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
+        coords.put(entityplayer.username,
+                   memnode);
+    }
 
-	/**
-	 * Remove a player coordinate from the memory.
-	 * 
-	 * @param username
-	 *            The player's username.
-	 */
-	public void remMem(String username) {
-		coords.remove(username);
-	}
+    /**
+     * Remove a player coordinate from the memory.
+     * 
+     * @param username
+     *            The player's username.
+     */
+    public void remMem(String username) {
+        coords.remove(username);
+    }
 
-	/**
-	 * Alias for addMem()
-	 * 
-	 * @param entityplayer
-	 *            The player.
-	 * @param newcoords
-	 *            Coordinates.
-	 */
-	public void setCoords(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
-		addMem(	entityplayer,
-				newcoords);
-	}
+    /**
+     * Alias for addMem()
+     * 
+     * @param entityplayer
+     *            The player.
+     * @param newcoords
+     *            Coordinates.
+     */
+    public void setCoords(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
+        addMem(entityplayer,
+               newcoords);
+    }
 
-	/**
-	 * Fetch coordinates for a given player.
-	 * 
-	 * @param entityplayer
-	 *            The player
-	 * @return coordinates
-	 */
-	public WirelessCoordinates getCoords(EntityPlayer entityplayer) {
-		PlayerEtherCoordsMemNode node = coords.get(entityplayer.username);
-		if (node == null) {
-			addMem(	entityplayer,
-					null);
-			return null;
-		} else {
-			return node.coords;
-		}
-	}
+    /**
+     * Fetch coordinates for a given player.
+     * 
+     * @param entityplayer
+     *            The player
+     * @return coordinates
+     */
+    public WirelessCoordinates getCoords(EntityPlayer entityplayer) {
+        PlayerEtherCoordsMemNode node = coords.get(entityplayer.username);
+        if (node == null) {
+            addMem(entityplayer,
+                   null);
+            return null;
+        } else {
+            return node.coords;
+        }
+    }
 
-	/**
-	 * A memory node. Contains the player object and coordinates.
-	 * 
-	 * @author ali4z
-	 * 
-	 */
-	public class PlayerEtherCoordsMemNode {
-		EntityPlayer		entityplayer;
-		WirelessCoordinates	coords;
+    /**
+     * A memory node. Contains the player object and coordinates.
+     * 
+     * @author ali4z
+     * 
+     */
+    public class PlayerEtherCoordsMemNode {
+        EntityPlayer        entityplayer;
+        WirelessCoordinates coords;
 
-		public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, WirelessCoordinates coords) {
-			this.entityplayer = entityplayer;
-			this.coords = coords;
-		}
-	}
+        public PlayerEtherCoordsMemNode(EntityPlayer entityplayer, WirelessCoordinates coords) {
+            this.entityplayer = entityplayer;
+            this.coords = coords;
+        }
+    }
 }

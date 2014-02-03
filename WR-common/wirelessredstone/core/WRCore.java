@@ -38,250 +38,250 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 
  */
 public class WRCore {
-	/**
-	 * Wireless Receiver Block
-	 */
-	public static Block			blockWirelessR;
-	/**
-	 * Wireless Transmitter Block
-	 */
-	public static Block			blockWirelessT;
+    /**
+     * Wireless Receiver Block
+     */
+    public static Block        blockWirelessR;
+    /**
+     * Wireless Transmitter Block
+     */
+    public static Block        blockWirelessT;
 
-	/**
-	 * Wireless Receiver Block ID
-	 */
-	public static int			rxID;
-	/**
-	 * Wireless Transmitter Block ID
-	 */
-	public static int			txID;
+    /**
+     * Wireless Receiver Block ID
+     */
+    public static int          rxID;
+    /**
+     * Wireless Transmitter Block ID
+     */
+    public static int          txID;
 
-	/**
-	 * Wireless Transmitter Item texture.
-	 */
-	public static int			spriteTItem;
-	/**
-	 * Wireless Receiver Item texture.
-	 */
-	public static int			spriteRItem;
-	/**
-	 * Wireless Redstone Ether maximum nodes
-	 */
-	public static int			maxEtherFrequencies	= 10000;
-	/**
-	 * Wireless Redstone load state
-	 */
-	public static boolean		isLoaded			= false;
+    /**
+     * Wireless Transmitter Item texture.
+     */
+    public static int          spriteTItem;
+    /**
+     * Wireless Receiver Item texture.
+     */
+    public static int          spriteRItem;
+    /**
+     * Wireless Redstone Ether maximum nodes
+     */
+    public static int          maxEtherFrequencies = 10000;
+    /**
+     * Wireless Redstone load state
+     */
+    public static boolean      isLoaded            = false;
 
-	/**
-	 * Wireless Redstone Creative Tab
-	 */
-	public static CreativeTabs	wirelessRedstone;
+    /**
+     * Wireless Redstone Creative Tab
+     */
+    public static CreativeTabs wirelessRedstone;
 
-	/**
-	 * Fires off all the canons.<br>
-	 * Loads configurations and initializes objects. Loads ModLoader related
-	 * stuff.
-	 */
-	public static boolean initialize() {
+    /**
+     * Fires off all the canons.<br>
+     * Loads configurations and initializes objects. Loads ModLoader related
+     * stuff.
+     */
+    public static boolean initialize() {
 
-		// loadConfig();
+        // loadConfig();
 
-		WirelessRedstone.proxy.init();
+        WirelessRedstone.proxy.init();
 
-		PacketRedstoneWirelessCommands.registerCommands();
+        PacketRedstoneWirelessCommands.registerCommands();
 
-		// PacketWirelessDeviceCommands.registerCommands();
+        // PacketWirelessDeviceCommands.registerCommands();
 
-		WirelessRedstone.proxy.initPacketHandlers();
+        WirelessRedstone.proxy.initPacketHandlers();
 
-		initBlocks();
+        initBlocks();
 
-		WirelessRedstone.proxy.addOverrides();
+        WirelessRedstone.proxy.addOverrides();
 
-		registerBlocks();
+        registerBlocks();
 
-		WirelessRedstone.proxy.registerRenderInformation();
+        WirelessRedstone.proxy.registerRenderInformation();
 
-		WirelessRedstone.proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
+        WirelessRedstone.proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
 
-		addRecipes();
+        addRecipes();
 
-		return true;
+        return true;
 
-	}
+    }
 
-	/**
-	 * Initializes Block objects.
-	 */
-	private static void initBlocks() {
-		blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.receiver");
-		blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.transmitter");
-	}
+    /**
+     * Initializes Block objects.
+     */
+    private static void initBlocks() {
+        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.receiver");
+        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.transmitter");
+    }
 
-	/**
-	 * Registers the Blocks, block names and TileEntities
-	 */
-	private static void registerBlocks() {
-		GameRegistry.registerBlock(	blockWirelessR,
-									BlockLib.WIRELESS_RECEIVER);
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityRedstoneWirelessR.class,
-														BlockLib.WIRELESS_RECEIVER,
-														BlockLib.WIRELESS_RECEIVER_ALT);
-		GameRegistry.registerBlock(	blockWirelessT,
-									BlockLib.WIRELESS_TRANSMITTER);
-		GameRegistry.registerTileEntityWithAlternatives(TileEntityRedstoneWirelessT.class,
-														BlockLib.WIRELESS_TRANSMITTER,
-														BlockLib.WIRELESS_TRANSMITTER_ALT);
-	}
+    /**
+     * Registers the Blocks, block names and TileEntities
+     */
+    private static void registerBlocks() {
+        GameRegistry.registerBlock(blockWirelessR,
+                                   BlockLib.WIRELESS_RECEIVER);
+        GameRegistry.registerTileEntityWithAlternatives(TileEntityRedstoneWirelessR.class,
+                                                        BlockLib.WIRELESS_RECEIVER,
+                                                        BlockLib.WIRELESS_RECEIVER_ALT);
+        GameRegistry.registerBlock(blockWirelessT,
+                                   BlockLib.WIRELESS_TRANSMITTER);
+        GameRegistry.registerTileEntityWithAlternatives(TileEntityRedstoneWirelessT.class,
+                                                        BlockLib.WIRELESS_TRANSMITTER,
+                                                        BlockLib.WIRELESS_TRANSMITTER_ALT);
+    }
 
-	/**
-	 * Registers receipts with ModLoader<br>
-	 * - Receipt for Receiver.<br>
-	 * - Receipt for Transmitter.
-	 */
-	private static void addRecipes() {
-		GameRegistry.addRecipe(	new ItemStack(blockWirelessR, 1),
-								new Object[] {
-										"IRI",
-										"RLR",
-										"IRI",
-										Character.valueOf('I'),
-										Item.ingotIron,
-										Character.valueOf('R'),
-										Item.redstone,
-										Character.valueOf('L'),
-										Block.lever });
-		GameRegistry.addRecipe(	new ItemStack(blockWirelessT, 1),
-								new Object[] {
-										"IRI",
-										"RTR",
-										"IRI",
-										Character.valueOf('I'),
-										Item.ingotIron,
-										Character.valueOf('R'),
-										Item.redstone,
-										Character.valueOf('T'),
-										Block.torchRedstoneActive });
-	}
+    /**
+     * Registers receipts with ModLoader<br>
+     * - Receipt for Receiver.<br>
+     * - Receipt for Transmitter.
+     */
+    private static void addRecipes() {
+        GameRegistry.addRecipe(new ItemStack(blockWirelessR, 1),
+                               new Object[] {
+                                       "IRI",
+                                       "RLR",
+                                       "IRI",
+                                       Character.valueOf('I'),
+                                       Item.ingotIron,
+                                       Character.valueOf('R'),
+                                       Item.redstone,
+                                       Character.valueOf('L'),
+                                       Block.lever });
+        GameRegistry.addRecipe(new ItemStack(blockWirelessT, 1),
+                               new Object[] {
+                                       "IRI",
+                                       "RTR",
+                                       "IRI",
+                                       Character.valueOf('I'),
+                                       Item.ingotIron,
+                                       Character.valueOf('R'),
+                                       Item.redstone,
+                                       Character.valueOf('T'),
+                                       Block.torchRedstoneActive });
+    }
 
-	/**
-	 * Adds a Block override to the Receiver.
-	 * 
-	 * @param override
-	 *            Block override
-	 */
-	public static void addOverrideToReceiver(IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(	true,
-																		"Override added to "
-																				+ LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessR.getClass().toString())
-																				+ " - "
-																				+ LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
-																		LoggerRedstoneWireless.LogLevel.DEBUG);
+    /**
+     * Adds a Block override to the Receiver.
+     * 
+     * @param override
+     *            Block override
+     */
+    public static void addOverrideToReceiver(IBlockRedstoneWirelessOverride override) {
+        LoggerRedstoneWireless.getInstance("Wireless Redstone").write(true,
+                                                                      "Override added to "
+                                                                              + LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessR.getClass().toString())
+                                                                              + " - "
+                                                                              + LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		((BlockRedstoneWireless) WRCore.blockWirelessR).addOverride(override);
-	}
+        ((BlockRedstoneWireless) WRCore.blockWirelessR).addOverride(override);
+    }
 
-	/**
-	 * Adds a Block override to the Transmitter.
-	 * 
-	 * @param override
-	 *            Block override
-	 */
-	public static void addOverrideToTransmitter(IBlockRedstoneWirelessOverride override) {
-		LoggerRedstoneWireless.getInstance("Wireless Redstone").write(	true,
-																		"Override added to "
-																				+ LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessT.getClass().toString())
-																				+ " - "
-																				+ LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
-																		LoggerRedstoneWireless.LogLevel.DEBUG);
+    /**
+     * Adds a Block override to the Transmitter.
+     * 
+     * @param override
+     *            Block override
+     */
+    public static void addOverrideToTransmitter(IBlockRedstoneWirelessOverride override) {
+        LoggerRedstoneWireless.getInstance("Wireless Redstone").write(true,
+                                                                      "Override added to "
+                                                                              + LoggerRedstoneWireless.filterClassName(WRCore.blockWirelessT.getClass().toString())
+                                                                              + " - "
+                                                                              + LoggerRedstoneWireless.filterClassName(override.getClass().toString()),
+                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
-	}
+        ((BlockRedstoneWireless) WRCore.blockWirelessT).addOverride(override);
+    }
 
-	public static boolean mergeItemStack(Container container, ItemStack stackToMerge, int slotStart, int slotEnd, boolean reverseOrder) {
-		boolean stackMerged = false;
-		int realSlotStart = slotStart;
+    public static boolean mergeItemStack(Container container, ItemStack stackToMerge, int slotStart, int slotEnd, boolean reverseOrder) {
+        boolean stackMerged = false;
+        int realSlotStart = slotStart;
 
-		if (reverseOrder) {
-			realSlotStart = slotEnd - 1;
-		}
+        if (reverseOrder) {
+            realSlotStart = slotEnd - 1;
+        }
 
-		Slot slot;
-		ItemStack stackInSlot;
+        Slot slot;
+        ItemStack stackInSlot;
 
-		if (stackToMerge.isStackable()) {
-			while (stackToMerge.stackSize > 0
-					&& (!reverseOrder && realSlotStart < slotEnd || reverseOrder
-																	&& realSlotStart >= slotStart)) {
-				slot = (Slot) container.inventorySlots.get(realSlotStart);
-				stackInSlot = slot.getStack();
+        if (stackToMerge.isStackable()) {
+            while (stackToMerge.stackSize > 0
+                   && (!reverseOrder && realSlotStart < slotEnd || reverseOrder
+                                                                   && realSlotStart >= slotStart)) {
+                slot = (Slot) container.inventorySlots.get(realSlotStart);
+                stackInSlot = slot.getStack();
 
-				if (stackInSlot != null
-					&& stackInSlot.itemID == stackToMerge.itemID
-					&& (!stackToMerge.getHasSubtypes() || stackToMerge.getItemDamage() == stackInSlot.getItemDamage())
-					&& ItemStack.areItemStackTagsEqual(	stackToMerge,
-														stackInSlot)) {
-					int totalStackSize = stackInSlot.stackSize
-											+ stackToMerge.stackSize;
+                if (stackInSlot != null
+                    && stackInSlot.itemID == stackToMerge.itemID
+                    && (!stackToMerge.getHasSubtypes() || stackToMerge.getItemDamage() == stackInSlot.getItemDamage())
+                    && ItemStack.areItemStackTagsEqual(stackToMerge,
+                                                       stackInSlot)) {
+                    int totalStackSize = stackInSlot.stackSize
+                                         + stackToMerge.stackSize;
 
-					if (totalStackSize <= stackToMerge.getMaxStackSize()
-						&& totalStackSize <= slot.getSlotStackLimit()) {
-						stackToMerge.stackSize = 0;
-						stackInSlot.stackSize = totalStackSize;
-						slot.onSlotChanged();
-						stackMerged = true;
-					} else if (stackInSlot.stackSize < stackToMerge.getMaxStackSize()
-								&& stackInSlot.stackSize < slot.getSlotStackLimit()) {
-						stackToMerge.stackSize -= stackToMerge.getMaxStackSize()
-													- stackInSlot.stackSize;
-						stackInSlot.stackSize = stackToMerge.getMaxStackSize();
-						slot.onSlotChanged();
-						stackMerged = true;
-					}
-				}
+                    if (totalStackSize <= stackToMerge.getMaxStackSize()
+                        && totalStackSize <= slot.getSlotStackLimit()) {
+                        stackToMerge.stackSize = 0;
+                        stackInSlot.stackSize = totalStackSize;
+                        slot.onSlotChanged();
+                        stackMerged = true;
+                    } else if (stackInSlot.stackSize < stackToMerge.getMaxStackSize()
+                               && stackInSlot.stackSize < slot.getSlotStackLimit()) {
+                        stackToMerge.stackSize -= stackToMerge.getMaxStackSize()
+                                                  - stackInSlot.stackSize;
+                        stackInSlot.stackSize = stackToMerge.getMaxStackSize();
+                        slot.onSlotChanged();
+                        stackMerged = true;
+                    }
+                }
 
-				if (reverseOrder) {
-					--realSlotStart;
-				} else {
-					++realSlotStart;
-				}
-			}
-		}
+                if (reverseOrder) {
+                    --realSlotStart;
+                } else {
+                    ++realSlotStart;
+                }
+            }
+        }
 
-		if (stackToMerge.stackSize > 0) {
-			if (reverseOrder) {
-				realSlotStart = slotEnd - 1;
-			} else {
-				realSlotStart = slotStart;
-			}
+        if (stackToMerge.stackSize > 0) {
+            if (reverseOrder) {
+                realSlotStart = slotEnd - 1;
+            } else {
+                realSlotStart = slotStart;
+            }
 
-			while (!reverseOrder && realSlotStart < slotEnd || reverseOrder
-					&& realSlotStart >= slotStart) {
-				slot = (Slot) container.inventorySlots.get(realSlotStart);
-				stackInSlot = slot.getStack();
+            while (!reverseOrder && realSlotStart < slotEnd || reverseOrder
+                   && realSlotStart >= slotStart) {
+                slot = (Slot) container.inventorySlots.get(realSlotStart);
+                stackInSlot = slot.getStack();
 
-				if (stackInSlot == null) {
-					slot.putStack(stackToMerge.copy());
-					if (stackToMerge.stackSize > slot.getSlotStackLimit()) {
-						slot.getStack().stackSize = slot.getSlotStackLimit();
-						stackToMerge.stackSize -= slot.getSlotStackLimit();
-					} else {
-						stackToMerge.stackSize = 0;
-						stackMerged = true;
-					}
-					slot.onSlotChanged();
-					break;
-				}
+                if (stackInSlot == null) {
+                    slot.putStack(stackToMerge.copy());
+                    if (stackToMerge.stackSize > slot.getSlotStackLimit()) {
+                        slot.getStack().stackSize = slot.getSlotStackLimit();
+                        stackToMerge.stackSize -= slot.getSlotStackLimit();
+                    } else {
+                        stackToMerge.stackSize = 0;
+                        stackMerged = true;
+                    }
+                    slot.onSlotChanged();
+                    break;
+                }
 
-				if (reverseOrder) {
-					--realSlotStart;
-				} else {
-					++realSlotStart;
-				}
-			}
-		}
+                if (reverseOrder) {
+                    --realSlotStart;
+                } else {
+                    ++realSlotStart;
+                }
+            }
+        }
 
-		return stackMerged;
-	}
+        return stackMerged;
+    }
 }

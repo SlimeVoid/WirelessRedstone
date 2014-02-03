@@ -26,63 +26,63 @@ import wirelessredstone.core.lib.GuiLib;
  * 
  */
 public class GuiButtonWirelessExit extends GuiButtonWireless {
-	/**
-	 * Constructor.<br>
-	 * Height and Width is always 13, text is empty.
-	 * 
-	 * @param i
-	 *            button index handle
-	 * @param j
-	 *            screen X coordinate
-	 * @param k
-	 *            screen Y coordinate
-	 */
-	public GuiButtonWirelessExit(int i, int j, int k) {
-		super(i, j, k, 13, 13, "");
-	}
+    /**
+     * Constructor.<br>
+     * Height and Width is always 13, text is empty.
+     * 
+     * @param i
+     *            button index handle
+     * @param j
+     *            screen X coordinate
+     * @param k
+     *            screen Y coordinate
+     */
+    public GuiButtonWirelessExit(int i, int j, int k) {
+        super(i, j, k, 13, 13, "");
+    }
 
-	/**
-	 * Renders the button to the screen.<br>
-	 * Uses gui/wifi_exit.png
-	 * 
-	 * @param minecraft
-	 *            minecraft instance
-	 * @param i
-	 *            mouse X coordinate
-	 * @param j
-	 *            mouse Y coordinate
-	 */
-	@Override
-	public void drawButton(Minecraft minecraft, int i, int j) {
-		FontRenderer fontrenderer = minecraft.fontRenderer;
+    /**
+     * Renders the button to the screen.<br>
+     * Uses gui/wifi_exit.png
+     * 
+     * @param minecraft
+     *            minecraft instance
+     * @param i
+     *            mouse X coordinate
+     * @param j
+     *            mouse Y coordinate
+     */
+    @Override
+    public void drawButton(Minecraft minecraft, int i, int j) {
+        FontRenderer fontrenderer = minecraft.fontRenderer;
 
-		minecraft.getTextureManager().bindTexture(this.getButtonTexture(false));
-		GL11.glColor4f(	1.0F,
-						1.0F,
-						1.0F,
-						1.0F);
-		boolean flag = i >= xPosition && j >= yPosition
-						&& i < xPosition + width && j < yPosition + height;
-		int k = getHoverState(flag);
-		drawTexturedModalRect(	xPosition,
-								yPosition,
-								0,
-								((k - 1) * 13),
-								13,
-								13);
-		drawTexturedModalRect(	xPosition + width / 2,
-								yPosition,
-								200 - width / 2,
-								((k - 1) * 13),
-								width / 2,
-								height);
-		mouseDragged(	minecraft,
-						i,
-						j);
-	}
+        minecraft.getTextureManager().bindTexture(this.getButtonTexture(false));
+        GL11.glColor4f(1.0F,
+                       1.0F,
+                       1.0F,
+                       1.0F);
+        boolean flag = i >= xPosition && j >= yPosition
+                       && i < xPosition + width && j < yPosition + height;
+        int k = getHoverState(flag);
+        drawTexturedModalRect(xPosition,
+                              yPosition,
+                              0,
+                              ((k - 1) * 13),
+                              13,
+                              13);
+        drawTexturedModalRect(xPosition + width / 2,
+                              yPosition,
+                              200 - width / 2,
+                              ((k - 1) * 13),
+                              width / 2,
+                              height);
+        mouseDragged(minecraft,
+                     i,
+                     j);
+    }
 
-	@Override
-	protected ResourceLocation getButtonTexture(boolean state) {
-		return GuiLib.GUI_EXIT;
-	}
+    @Override
+    protected ResourceLocation getButtonTexture(boolean state) {
+        return GuiLib.GUI_EXIT;
+    }
 }

@@ -22,35 +22,35 @@ import wirelessredstone.core.lib.GuiLib;
 
 public class ItemRedstoneWirelessPowerDirector extends Item {
 
-	public ItemRedstoneWirelessPowerDirector(int i) {
-		super(i);
-		setCreativeTab(WRCore.wirelessRedstone);
-		maxStackSize = 1;
-		setMaxDamage(64);
-	}
+    public ItemRedstoneWirelessPowerDirector(int i) {
+        super(i);
+        setCreativeTab(WRCore.wirelessRedstone);
+        maxStackSize = 1;
+        setMaxDamage(64);
+    }
 
-	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
-		TileEntity tileentity = world.getBlockTileEntity(	i,
-															j,
-															k);
+    @Override
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
+        TileEntity tileentity = world.getBlockTileEntity(i,
+                                                         j,
+                                                         k);
 
-		if (tileentity != null) {
-			entityplayer.openGui(	PowerDirector.instance,
-									GuiLib.GUIID_DEVICE,
-									world,
-									i,
-									j,
-									k);
-			// TODO :: Open GUI
-			itemstack.damageItem(	1,
-									entityplayer);
-			return true;
-		}
-		return false;
-	}
+        if (tileentity != null) {
+            entityplayer.openGui(PowerDirector.instance,
+                                 GuiLib.GUIID_DEVICE,
+                                 world,
+                                 i,
+                                 j,
+                                 k);
+            // TODO :: Open GUI
+            itemstack.damageItem(1,
+                                 entityplayer);
+            return true;
+        }
+        return false;
+    }
 
-	public boolean isFull3D() {
-		return true;
-	}
+    public boolean isFull3D() {
+        return true;
+    }
 }

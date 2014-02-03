@@ -21,8 +21,8 @@ import wirelessredstone.network.packets.PacketWirelessAddon;
  */
 public class ServerAddonPacketHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketWireless createNewPacketWireless() {
-		return new PacketWirelessAddon();
-	}
+    @Override
+    protected PacketWireless createNewPacketWireless() {
+        return new PacketWirelessAddon();
+    }
 }

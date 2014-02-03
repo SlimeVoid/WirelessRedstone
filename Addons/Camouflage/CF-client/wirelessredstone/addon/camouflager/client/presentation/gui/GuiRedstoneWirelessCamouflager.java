@@ -18,34 +18,34 @@ import wirelessredstone.addon.camouflager.inventory.ContainerCamouflagedRedstone
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessContainer;
 
 public class GuiRedstoneWirelessCamouflager extends
-		GuiRedstoneWirelessContainer {
+        GuiRedstoneWirelessContainer {
 
-	public GuiRedstoneWirelessCamouflager(ContainerCamouflagedRedstoneWireless container) {
-		super(container);
-	}
+    public GuiRedstoneWirelessCamouflager(ContainerCamouflagedRedstoneWireless container) {
+        super(container);
+    }
 
-	@Override
-	public ResourceLocation getBackgroundImage() {
-		return GuiLib.GUI_CAMOU;
-	}
+    @Override
+    public ResourceLocation getBackgroundImage() {
+        return GuiLib.GUI_CAMOU;
+    }
 
-	protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
-	}
+    protected void drawGuiContainerForegroundLayer(int i, int j, float f) {
+    }
 
-	@Override
-	protected void addControls() {
-	}
+    @Override
+    protected void addControls() {
+    }
 
-	@Override
-	protected String getGuiName() {
-		return "Wireless Camouflager";
-	}
+    @Override
+    protected String getGuiName() {
+        return "Wireless Camouflager";
+    }
 
-	@Override
-	protected void actionPerformed(GuiButton guibutton) {
-	}
+    @Override
+    protected void actionPerformed(GuiButton guibutton) {
+    }
 
-	@Override
-	protected void drawForegroundObjects(int i, int k) {
-	}
+    @Override
+    protected void drawForegroundObjects(int i, int k) {
+    }
 }

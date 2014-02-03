@@ -34,76 +34,76 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class PowerDirectorCommonProxy implements ICommonProxy {
 
-	@Override
-	public void registerRenderInformation() {
-	}
+    @Override
+    public void registerRenderInformation() {
+    }
 
-	@Override
-	public void registerConfiguration(File configFile) {
-	}
+    @Override
+    public void registerConfiguration(File configFile) {
+    }
 
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == GuiLib.GUIID_DEVICE) {
-			TileEntity tileentity = world.getBlockTileEntity(	x,
-																y,
-																z);
-			if (tileentity != null
-				&& tileentity instanceof TileEntityRedstoneWireless) {
-				return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
-			}
-		}
-		return null;
-	}
+    @Override
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == GuiLib.GUIID_DEVICE) {
+            TileEntity tileentity = world.getBlockTileEntity(x,
+                                                             y,
+                                                             z);
+            if (tileentity != null
+                && tileentity instanceof TileEntityRedstoneWireless) {
+                return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        return null;
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return ".";
-	}
+    @Override
+    public String getMinecraftDir() {
+        return ".";
+    }
 
-	@Override
-	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
+    @Override
+    public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 
-	}
+    }
 
-	@Override
-	public void init() {
-		NetworkRegistry.instance().registerGuiHandler(	PowerDirector.instance,
-														PowerDirector.proxy);
-		PacketPowerDirectorCommands.registerCommands();
-	}
+    @Override
+    public void init() {
+        NetworkRegistry.instance().registerGuiHandler(PowerDirector.instance,
+                                                      PowerDirector.proxy);
+        PacketPowerDirectorCommands.registerCommands();
+    }
 
-	@Override
-	public World getWorld(NetHandler handler) {
-		return null;
-	}
+    @Override
+    public World getWorld(NetHandler handler) {
+        return null;
+    }
 
-	@Override
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-	}
+    @Override
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+    }
 
-	@Override
-	public void initPacketHandlers() {
-		// ///////////////////
-		// Server Executor //
-		// ///////////////////
-		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketPowerDirectorCommands.powerConfigCommands.setDirection.toString(),
-																					new PacketPowerDirectorSettingsExecutor());
-		ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketPowerDirectorCommands.powerConfigCommands.setInDirection.toString(),
-																					new PacketPowerDirectorSettingsExecutor());
-	}
+    @Override
+    public void initPacketHandlers() {
+        // ///////////////////
+        // Server Executor //
+        // ///////////////////
+        ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketPowerDirectorCommands.powerConfigCommands.setDirection.toString(),
+                                                                                    new PacketPowerDirectorSettingsExecutor());
+        ServerPacketHandler.getPacketHandler(PacketIds.ADDON).registerPacketHandler(PacketPowerDirectorCommands.powerConfigCommands.setInDirection.toString(),
+                                                                                    new PacketPowerDirectorSettingsExecutor());
+    }
 
-	@Override
-	public void connectionClosed(INetworkManager manager) {
-	}
+    @Override
+    public void connectionClosed(INetworkManager manager) {
+    }
 
-	@Override
-	public void addOverrides() {
-		WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
-	}
+    @Override
+    public void addOverrides() {
+        WRCore.addOverrideToReceiver(new BlockRedstoneWirelessROverridePC());
+    }
 }

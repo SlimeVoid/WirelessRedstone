@@ -20,10 +20,10 @@ import wirelessredstone.network.packets.PacketWireless;
 
 public class EtherPacketFetchEtherExecutor implements IEtherPacketExecutor {
 
-	@Override
-	public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-		if (entityplayer instanceof EntityPlayerMP) {
-			ServerRedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
-		}
-	}
+    @Override
+    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
+        if (entityplayer instanceof EntityPlayerMP) {
+            ServerRedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
+        }
+    }
 }

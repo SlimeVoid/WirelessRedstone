@@ -25,39 +25,39 @@ import cpw.mods.fml.common.network.NetworkMod;
  * @author Eurymachus
  */
 @Mod(
-		modid = CoreLib.MOD_ID,
-		name = CoreLib.MOD_NAME,
-		version = CoreLib.MOD_VERSION,
-		dependencies = CoreLib.MOD_DEPENDENCIES)
+        modid = CoreLib.MOD_ID,
+        name = CoreLib.MOD_NAME,
+        version = CoreLib.MOD_VERSION,
+        dependencies = CoreLib.MOD_DEPENDENCIES)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class WirelessSlimeVoid {
 
-	/**
-	 * Initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessSlimeVoidInit(FMLInitializationEvent event) {
+    /**
+     * Initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessSlimeVoidInit(FMLInitializationEvent event) {
 
-	}
+    }
 
-	/**
-	 * Pre-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessSlimeVoidPreInit(FMLPreInitializationEvent event) {
-	}
+    /**
+     * Pre-initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessSlimeVoidPreInit(FMLPreInitializationEvent event) {
+    }
 
-	/**
-	 * Post-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessSlimeVoidPostInit(FMLPostInitializationEvent event) {
-		WSlimeCore.initialize();
-	}
+    /**
+     * Post-initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessSlimeVoidPostInit(FMLPostInitializationEvent event) {
+        WSlimeCore.initialize();
+    }
 }

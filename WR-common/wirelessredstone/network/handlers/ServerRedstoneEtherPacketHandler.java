@@ -35,232 +35,232 @@ import cpw.mods.fml.common.network.PacketDispatcher;
  */
 public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketWireless createNewPacketWireless() {
-		return new PacketRedstoneEther();
-	}
+    @Override
+    protected PacketWireless createNewPacketWireless() {
+        return new PacketRedstoneEther();
+    }
 
-	/**
-	 * Broadcasts an ether tile to all clients.
-	 * 
-	 * @param entity
-	 *            The ether tile.
-	 * @param world
-	 *            The world object.
-	 */
-	public static void sendEtherTileToAll(TileEntityRedstoneWireless entity, World world) {
-		// Assemble packet.
-		PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
+    /**
+     * Broadcasts an ether tile to all clients.
+     * 
+     * @param entity
+     *            The ether tile.
+     * @param world
+     *            The world object.
+     */
+    public static void sendEtherTileToAll(TileEntityRedstoneWireless entity, World world) {
+        // Assemble packet.
+        PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
 
-		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	world.isRemote,
-																						"sendEtherTileToAll("
-																								+ packet.toString()
-																								+ ")",
-																						LoggerRedstoneWireless.LogLevel.DEBUG);
+        LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(world.isRemote,
+                                                                                     "sendEtherTileToAll("
+                                                                                             + packet.toString()
+                                                                                             + ")",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Broadcast packet.
-		ServerPacketHandler.broadcastPacket(packet.getPacket());
-	}
+        // Broadcast packet.
+        ServerPacketHandler.broadcastPacket(packet.getPacket());
+    }
 
-	/**
-	 * Broadcasts an ether tile to all clients.
-	 * 
-	 * @param entity
-	 *            The ether tile.
-	 * @param world
-	 *            The world object.
-	 */
-	public static void sendEtherTileToAllInRange(TileEntityRedstoneWireless entity, World world, int range) {
-		// Assemble packet.
-		PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
+    /**
+     * Broadcasts an ether tile to all clients.
+     * 
+     * @param entity
+     *            The ether tile.
+     * @param world
+     *            The world object.
+     */
+    public static void sendEtherTileToAllInRange(TileEntityRedstoneWireless entity, World world, int range) {
+        // Assemble packet.
+        PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
 
-		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	world.isRemote,
-																						"sendEtherTileToAllInRange("
-																								+ packet.toString()
-																								+ ", "
-																								+ range
-																								+ ")",
-																						LoggerRedstoneWireless.LogLevel.DEBUG);
+        LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(world.isRemote,
+                                                                                     "sendEtherTileToAllInRange("
+                                                                                             + packet.toString()
+                                                                                             + ", "
+                                                                                             + range
+                                                                                             + ")",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Broadcast packet.
-		PacketDispatcher.sendPacketToAllAround(	entity.xCoord,
-												entity.yCoord,
-												entity.zCoord,
-												range,
-												world.provider.dimensionId,
-												packet.getPacket());
-	}
+        // Broadcast packet.
+        PacketDispatcher.sendPacketToAllAround(entity.xCoord,
+                                               entity.yCoord,
+                                               entity.zCoord,
+                                               range,
+                                               world.provider.dimensionId,
+                                               packet.getPacket());
+    }
 
-	/**
-	 * Send an ether tile to a specific player.
-	 * 
-	 * @param entityplayermp
-	 *            The receiving player.
-	 * @param entity
-	 *            The ether tile.
-	 * @param world
-	 *            The world object.
-	 */
-	public static void sendEtherTileTo(EntityPlayerMP entityplayermp, TileEntityRedstoneWireless entity, World world) {
-		// Assemble packet.
-		PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
+    /**
+     * Send an ether tile to a specific player.
+     * 
+     * @param entityplayermp
+     *            The receiving player.
+     * @param entity
+     *            The ether tile.
+     * @param world
+     *            The world object.
+     */
+    public static void sendEtherTileTo(EntityPlayerMP entityplayermp, TileEntityRedstoneWireless entity, World world) {
+        // Assemble packet.
+        PacketRedstoneEther packet = new PacketRedstoneEther(entity, world);
 
-		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	world.isRemote,
-																						"sendEtherTileTo("
-																								+ entityplayermp.username
-																								+ ","
-																								+ packet.toString()
-																								+ ")",
-																						LoggerRedstoneWireless.LogLevel.DEBUG);
+        LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(world.isRemote,
+                                                                                     "sendEtherTileTo("
+                                                                                             + entityplayermp.username
+                                                                                             + ","
+                                                                                             + packet.toString()
+                                                                                             + ")",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Send packet.
-		ServerPacketHandler.sendPacketTo(	entityplayermp,
-											packet.getPacket());
-	}
+        // Send packet.
+        ServerPacketHandler.sendPacketTo(entityplayermp,
+                                         packet.getPacket());
+    }
 
-	/**
-	 * Broadcast a ether node to all clients.
-	 * 
-	 * @param node
-	 *            Ether node.
-	 */
-	public static void sendEtherNodeTileToAll(RedstoneEtherNode node) {
-		// Fetch required data.
-		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
-		TileEntity entity = world.getBlockTileEntity(	node.i,
-														node.j,
-														node.k);
+    /**
+     * Broadcast a ether node to all clients.
+     * 
+     * @param node
+     *            Ether node.
+     */
+    public static void sendEtherNodeTileToAll(RedstoneEtherNode node) {
+        // Fetch required data.
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+        TileEntity entity = world.getBlockTileEntity(node.i,
+                                                     node.j,
+                                                     node.k);
 
-		if (entity instanceof TileEntityRedstoneWireless) {
-			// Send the required data.
-			sendEtherTileToAll(	(TileEntityRedstoneWireless) entity,
-								world);
-		}
-	}
+        if (entity instanceof TileEntityRedstoneWireless) {
+            // Send the required data.
+            sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+                               world);
+        }
+    }
 
-	/**
-	 * Send all ether node to a specific player.
-	 * 
-	 * @param entityplayermp
-	 *            Receiving player.
-	 */
-	public static void sendEtherTilesTo(EntityPlayerMP entityplayermp) {
-		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	false,
-																						"sendEtherTilesTo("
-																								+ entityplayermp.username
-																								+ ")",
-																						LoggerRedstoneWireless.LogLevel.DEBUG);
+    /**
+     * Send all ether node to a specific player.
+     * 
+     * @param entityplayermp
+     *            Receiving player.
+     */
+    public static void sendEtherTilesTo(EntityPlayerMP entityplayermp) {
+        LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(false,
+                                                                                     "sendEtherTilesTo("
+                                                                                             + entityplayermp.username
+                                                                                             + ")",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Prepare required data.
-		PacketRedstoneEther packet;
-		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+        // Prepare required data.
+        PacketRedstoneEther packet;
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
-		// Fetch all receivers
-		List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
+        // Fetch all receivers
+        List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
 
-		// Send each receivers to the player.
-		for (RedstoneEtherNode node : list) {
-			TileEntity entity = world.getBlockTileEntity(	node.i,
-															node.j,
-															node.k);
-			if (entity instanceof TileEntityRedstoneWirelessR) {
-				sendEtherTileTo(entityplayermp,
-								(TileEntityRedstoneWirelessR) entity,
-								world);
-			}
-		}
+        // Send each receivers to the player.
+        for (RedstoneEtherNode node : list) {
+            TileEntity entity = world.getBlockTileEntity(node.i,
+                                                         node.j,
+                                                         node.k);
+            if (entity instanceof TileEntityRedstoneWirelessR) {
+                sendEtherTileTo(entityplayermp,
+                                (TileEntityRedstoneWirelessR) entity,
+                                world);
+            }
+        }
 
-		// Fetch all transmitters
-		list = RedstoneEther.getInstance().getTXNodes();
+        // Fetch all transmitters
+        list = RedstoneEther.getInstance().getTXNodes();
 
-		// Send all transmitters to the player.
-		for (RedstoneEtherNode node : list) {
-			TileEntity entity = world.getBlockTileEntity(	node.i,
-															node.j,
-															node.k);
-			if (entity instanceof TileEntityRedstoneWirelessT) {
-				sendEtherTileTo(entityplayermp,
-								(TileEntityRedstoneWirelessT) entity,
-								world);
-			}
-		}
-	}
+        // Send all transmitters to the player.
+        for (RedstoneEtherNode node : list) {
+            TileEntity entity = world.getBlockTileEntity(node.i,
+                                                         node.j,
+                                                         node.k);
+            if (entity instanceof TileEntityRedstoneWirelessT) {
+                sendEtherTileTo(entityplayermp,
+                                (TileEntityRedstoneWirelessT) entity,
+                                world);
+            }
+        }
+    }
 
-	/**
-	 * Broadcast all ether nodes
-	 */
-	public static void sendEtherTilesToAll() {
-		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	false,
-																						"sendEtherTilesToAll()",
-																						LoggerRedstoneWireless.LogLevel.DEBUG);
+    /**
+     * Broadcast all ether nodes
+     */
+    public static void sendEtherTilesToAll() {
+        LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(false,
+                                                                                     "sendEtherTilesToAll()",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Prepare required data.
-		PacketRedstoneEther packet;
-		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+        // Prepare required data.
+        PacketRedstoneEther packet;
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
-		// Fetch all receivers
-		List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
+        // Fetch all receivers
+        List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
 
-		// Broadcast all receivers
-		for (RedstoneEtherNode node : list) {
-			TileEntity entity = world.getBlockTileEntity(	node.i,
-															node.j,
-															node.k);
-			if (entity instanceof TileEntityRedstoneWirelessR) {
-				sendEtherTileToAll(	(TileEntityRedstoneWirelessR) entity,
-									world);
-			}
-		}
+        // Broadcast all receivers
+        for (RedstoneEtherNode node : list) {
+            TileEntity entity = world.getBlockTileEntity(node.i,
+                                                         node.j,
+                                                         node.k);
+            if (entity instanceof TileEntityRedstoneWirelessR) {
+                sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
+                                   world);
+            }
+        }
 
-		// Fetch all transmitters
-		list = RedstoneEther.getInstance().getTXNodes();
+        // Fetch all transmitters
+        list = RedstoneEther.getInstance().getTXNodes();
 
-		// Broadcast all transmitters
-		for (RedstoneEtherNode node : list) {
-			TileEntity entity = world.getBlockTileEntity(	node.i,
-															node.j,
-															node.k);
-			if (entity instanceof TileEntityRedstoneWirelessT) {
-				sendEtherTileToAll(	(TileEntityRedstoneWirelessT) entity,
-									world);
-			}
-		}
-	}
+        // Broadcast all transmitters
+        for (RedstoneEtherNode node : list) {
+            TileEntity entity = world.getBlockTileEntity(node.i,
+                                                         node.j,
+                                                         node.k);
+            if (entity instanceof TileEntityRedstoneWirelessT) {
+                sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
+                                   world);
+            }
+        }
+    }
 
-	/**
-	 * Broadcast a set of transmitters and receivers to all.
-	 * 
-	 * @param txs
-	 * @param rxs
-	 */
-	public static void sendEtherFrequencyTilesToAll(List<RedstoneEtherNode> txs, List<RedstoneEtherNode> rxs) {
-		LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(	false,
-																						"sendEtherFrequencyTilesToAll()",
-																						LoggerRedstoneWireless.LogLevel.DEBUG);
+    /**
+     * Broadcast a set of transmitters and receivers to all.
+     * 
+     * @param txs
+     * @param rxs
+     */
+    public static void sendEtherFrequencyTilesToAll(List<RedstoneEtherNode> txs, List<RedstoneEtherNode> rxs) {
+        LoggerRedstoneWireless.getInstance("ServerRedstoneEtherPacketHandler").write(false,
+                                                                                     "sendEtherFrequencyTilesToAll()",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
 
-		// Assemble required data.
-		World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+        // Assemble required data.
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
-		// Broadcast receivers.
-		for (RedstoneEtherNode node : rxs) {
-			TileEntity entity = world.getBlockTileEntity(	node.i,
-															node.j,
-															node.k);
-			if (entity instanceof TileEntityRedstoneWirelessR) {
-				sendEtherTileToAll(	(TileEntityRedstoneWirelessR) entity,
-									world);
-			}
-		}
+        // Broadcast receivers.
+        for (RedstoneEtherNode node : rxs) {
+            TileEntity entity = world.getBlockTileEntity(node.i,
+                                                         node.j,
+                                                         node.k);
+            if (entity instanceof TileEntityRedstoneWirelessR) {
+                sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
+                                   world);
+            }
+        }
 
-		// Broadcast transmitters.
-		for (RedstoneEtherNode node : txs) {
-			TileEntity entity = world.getBlockTileEntity(	node.i,
-															node.j,
-															node.k);
-			if (entity instanceof TileEntityRedstoneWirelessT) {
-				sendEtherTileToAll(	(TileEntityRedstoneWirelessT) entity,
-									world);
-			}
-		}
-	}
+        // Broadcast transmitters.
+        for (RedstoneEtherNode node : txs) {
+            TileEntity entity = world.getBlockTileEntity(node.i,
+                                                         node.j,
+                                                         node.k);
+            if (entity instanceof TileEntityRedstoneWirelessT) {
+                sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
+                                   world);
+            }
+        }
+    }
 }

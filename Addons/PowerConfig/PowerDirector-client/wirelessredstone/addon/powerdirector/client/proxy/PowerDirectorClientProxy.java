@@ -34,71 +34,71 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public class PowerDirectorClientProxy extends PowerDirectorCommonProxy {
 
-	/**
-	 * Power Configurator GUI
-	 */
-	public static GuiRedstoneWirelessPowerDirector	guiPowerD;
+    /**
+     * Power Configurator GUI
+     */
+    public static GuiRedstoneWirelessPowerDirector guiPowerD;
 
-	@Override
-	public void init() {
-		initGUIs();
-		super.init();
-	}
+    @Override
+    public void init() {
+        initGUIs();
+        super.init();
+    }
 
-	/**
-	 * Initializes GUI objects.
-	 */
-	public static void initGUIs() {
-		// guiPowerD = new GuiRedstoneWirelessPowerDirector();
-		// TODO :: Overrides
-	}
+    /**
+     * Initializes GUI objects.
+     */
+    public static void initGUIs() {
+        // guiPowerD = new GuiRedstoneWirelessPowerDirector();
+        // TODO :: Overrides
+    }
 
-	@Override
-	public void registerRenderInformation() {
-	}
+    @Override
+    public void registerRenderInformation() {
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tileentity = world.getBlockTileEntity(	x,
-															y,
-															z);
-		if (tileentity instanceof TileEntityRedstoneWireless) {
-			// guiPowerD.assTileEntity((TileEntityRedstoneWireless) tileentity);
-			return new GuiRedstoneWirelessPowerDirector(new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity));// guiPowerD;
-		}
-		return null;
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        TileEntity tileentity = world.getBlockTileEntity(x,
+                                                         y,
+                                                         z);
+        if (tileentity instanceof TileEntityRedstoneWireless) {
+            // guiPowerD.assTileEntity((TileEntityRedstoneWireless) tileentity);
+            return new GuiRedstoneWirelessPowerDirector(new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity));// guiPowerD;
+        }
+        return null;
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return Minecraft.getMinecraft().mcDataDir.getPath();
-	}
+    @Override
+    public String getMinecraftDir() {
+        return Minecraft.getMinecraft().mcDataDir.getPath();
+    }
 
-	/**
-	 * Retrieves the world object with NetHandler parameters.
-	 * 
-	 * @return Minecraft world object.
-	 */
-	@Override
-	public World getWorld(NetHandler handler) {
-		if (handler instanceof NetClientHandler) {
-			return ((NetClientHandler) handler).getPlayer().worldObj;
-		}
-		return null;
-	}
+    /**
+     * Retrieves the world object with NetHandler parameters.
+     * 
+     * @return Minecraft world object.
+     */
+    @Override
+    public World getWorld(NetHandler handler) {
+        if (handler instanceof NetClientHandler) {
+            return ((NetClientHandler) handler).getPlayer().worldObj;
+        }
+        return null;
+    }
 
-	@Override
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-		World world = getWorld(handler);
-		if (world != null) {
-		}
-	}
+    @Override
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+        World world = getWorld(handler);
+        if (world != null) {
+        }
+    }
 
-	@Override
-	public void initPacketHandlers() {
-		super.initPacketHandlers();
-		// ///////////////////
-		// Client Handlers //
-		// ///////////////////
-	}
+    @Override
+    public void initPacketHandlers() {
+        super.initPacketHandlers();
+        // ///////////////////
+        // Client Handlers //
+        // ///////////////////
+    }
 }

@@ -28,10 +28,10 @@ import cpw.mods.fml.common.network.NetworkMod;
  * @author Eurymachus
  */
 @Mod(
-		modid = CoreLib.MOD_ID,
-		name = CoreLib.MOD_NAME,
-		version = CoreLib.MOD_VERSION,
-		dependencies = CoreLib.MOD_DEPENDENCIES)
+        modid = CoreLib.MOD_ID,
+        name = CoreLib.MOD_NAME,
+        version = CoreLib.MOD_VERSION,
+        dependencies = CoreLib.MOD_DEPENDENCIES)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * FML fascade class.
@@ -45,39 +45,39 @@ import cpw.mods.fml.common.network.NetworkMod;
  */
 public class WirelessRemote {
 
-	@SidedProxy(
-			clientSide = CoreLib.CLIENT_PROXY,
-			serverSide = CoreLib.COMMON_PROXY)
-	public static IRemoteCommonProxy	proxy;
+    @SidedProxy(
+            clientSide = CoreLib.CLIENT_PROXY,
+            serverSide = CoreLib.COMMON_PROXY)
+    public static IRemoteCommonProxy proxy;
 
-	@Instance(CoreLib.MOD_ID)
-	public static WirelessRemote		instance;
+    @Instance(CoreLib.MOD_ID)
+    public static WirelessRemote     instance;
 
-	/**
-	 * Pre-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRemotePreInit(FMLPreInitializationEvent event) {
-	}
+    /**
+     * Pre-initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessRemotePreInit(FMLPreInitializationEvent event) {
+    }
 
-	/**
-	 * Initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRemoteInit(FMLInitializationEvent event) {
-		WRemoteCore.initialize();
-	}
+    /**
+     * Initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessRemoteInit(FMLInitializationEvent event) {
+        WRemoteCore.initialize();
+    }
 
-	/**
-	 * Post-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
-	}
+    /**
+     * Post-initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessRemotePostInit(FMLPostInitializationEvent event) {
+    }
 }

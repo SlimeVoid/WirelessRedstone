@@ -32,19 +32,19 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  * @author ali4z
  */
 @Mod(
-		modid = CoreLib.MOD_ID,
-		name = CoreLib.MOD_NAME,
-		version = CoreLib.MOD_VERSION)
+        modid = CoreLib.MOD_ID,
+        name = CoreLib.MOD_NAME,
+        version = CoreLib.MOD_VERSION)
 @NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false,
-		connectionHandler = RedstoneWirelessConnectionHandler.class,
-		clientPacketHandlerSpec = @SidedPacketHandler(
-				channels = { CoreLib.MOD_CHANNEL },
-				packetHandler = ClientPacketHandler.class),
-		serverPacketHandlerSpec = @SidedPacketHandler(
-				channels = { CoreLib.MOD_CHANNEL },
-				packetHandler = ServerPacketHandler.class))
+        clientSideRequired = true,
+        serverSideRequired = false,
+        connectionHandler = RedstoneWirelessConnectionHandler.class,
+        clientPacketHandlerSpec = @SidedPacketHandler(
+                channels = { CoreLib.MOD_CHANNEL },
+                packetHandler = ClientPacketHandler.class),
+        serverPacketHandlerSpec = @SidedPacketHandler(
+                channels = { CoreLib.MOD_CHANNEL },
+                packetHandler = ServerPacketHandler.class))
 /**
  * FML fascade class.
  * This class uses FML annotations and sorts initialization.
@@ -57,40 +57,40 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
  */
 public class WirelessRedstone {
 
-	@SidedProxy(
-			clientSide = CoreLib.MOD_CLIENT_PROXY,
-			serverSide = CoreLib.MOD_COMMON_PROXY)
-	public static ICommonProxy		proxy;
+    @SidedProxy(
+            clientSide = CoreLib.MOD_CLIENT_PROXY,
+            serverSide = CoreLib.MOD_COMMON_PROXY)
+    public static ICommonProxy     proxy;
 
-	@Instance(CoreLib.MOD_ID)
-	public static WirelessRedstone	instance;
+    @Instance(CoreLib.MOD_ID)
+    public static WirelessRedstone instance;
 
-	/**
-	 * Pre-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
-		proxy.registerConfiguration(event.getSuggestedConfigurationFile());
-	}
+    /**
+     * Pre-initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
+        proxy.registerConfiguration(event.getSuggestedConfigurationFile());
+    }
 
-	/**
-	 * Initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRedstoneInit(FMLInitializationEvent event) {
-		WRCore.initialize();
-	}
+    /**
+     * Initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessRedstoneInit(FMLInitializationEvent event) {
+        WRCore.initialize();
+    }
 
-	/**
-	 * Post-initialization
-	 * 
-	 * @param event
-	 */
-	@EventHandler
-	public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
-	}
+    /**
+     * Post-initialization
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void WirelessRedstonePostInit(FMLPostInitializationEvent event) {
+    }
 }

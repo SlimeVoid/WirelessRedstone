@@ -25,52 +25,52 @@ import net.minecraft.network.packet.Packet250CustomPayload;
  * 
  */
 public abstract class EurysPacket {
-	/**
-	 * Only true for Packet51MapChunk, Packet52MultiBlockChange,
-	 * Packet53BlockChange and Packet59ComplexEntity. Used to separate them into
-	 * a different send queue.
-	 */
-	public boolean	isChunkDataPacket	= false;
+    /**
+     * Only true for Packet51MapChunk, Packet52MultiBlockChange,
+     * Packet53BlockChange and Packet59ComplexEntity. Used to separate them into
+     * a different send queue.
+     */
+    public boolean isChunkDataPacket = false;
 
-	private String	channel;
+    private String channel;
 
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
 
-	public abstract void writeData(DataOutputStream data) throws IOException;
+    public abstract void writeData(DataOutputStream data) throws IOException;
 
-	public abstract void readData(DataInputStream data) throws IOException;
+    public abstract void readData(DataInputStream data) throws IOException;
 
-	protected abstract int getPacketID();
+    protected abstract int getPacketID();
 
-	public String toString(boolean full) {
-		return toString();
-	}
+    public String toString(boolean full) {
+        return toString();
+    }
 
-	@Override
-	public String toString() {
-		return getPacketID() + " " + getClass().getSimpleName();
-	}
+    @Override
+    public String toString() {
+        return getPacketID() + " " + getClass().getSimpleName();
+    }
 
-	/**
-	 * Retrieves the Custom Packet and Payload data as a Forge
-	 * Packet250CustomPayload
-	 */
-	public Packet250CustomPayload getPacket() {
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		DataOutputStream data = new DataOutputStream(bytes);
-		try {
-			data.writeByte(getPacketID());
-			writeData(data);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Packet250CustomPayload packet = new Packet250CustomPayload();
-		packet.channel = this.channel;
-		packet.data = bytes.toByteArray();
-		packet.length = packet.data.length;
-		packet.isChunkDataPacket = this.isChunkDataPacket;
-		return packet;
-	}
+    /**
+     * Retrieves the Custom Packet and Payload data as a Forge
+     * Packet250CustomPayload
+     */
+    public Packet250CustomPayload getPacket() {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        DataOutputStream data = new DataOutputStream(bytes);
+        try {
+            data.writeByte(getPacketID());
+            writeData(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Packet250CustomPayload packet = new Packet250CustomPayload();
+        packet.channel = this.channel;
+        packet.data = bytes.toByteArray();
+        packet.length = packet.data.length;
+        packet.isChunkDataPacket = this.isChunkDataPacket;
+        return packet;
+    }
 }

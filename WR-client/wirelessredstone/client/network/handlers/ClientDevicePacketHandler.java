@@ -22,8 +22,8 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
  */
 public class ClientDevicePacketHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketWireless createNewPacketWireless() {
-		return new PacketWirelessDevice();
-	}
+    @Override
+    protected PacketWireless createNewPacketWireless() {
+        return new PacketWirelessDevice();
+    }
 }

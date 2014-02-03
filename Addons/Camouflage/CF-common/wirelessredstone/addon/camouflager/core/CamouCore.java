@@ -13,78 +13,78 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class CamouCore {
 
-	public static int	camouID	= 6244;
-	public static Item	itemCamouflager;
+    public static int  camouID = 6244;
+    public static Item itemCamouflager;
 
-	/**
-	 * Fires off all the canons.<br>
-	 * Loads configurations and initializes objects. Loads ModLoader related
-	 * stuff.
-	 */
-	public static boolean initialize() {
-		loadConfig();
+    /**
+     * Fires off all the canons.<br>
+     * Loads configurations and initializes objects. Loads ModLoader related
+     * stuff.
+     */
+    public static boolean initialize() {
+        loadConfig();
 
-		WirelessCamouflager.proxy.init();
+        WirelessCamouflager.proxy.init();
 
-		WirelessCamouflager.proxy.initPacketHandlers();
+        WirelessCamouflager.proxy.initPacketHandlers();
 
-		initItems();
+        initItems();
 
-		WirelessCamouflager.proxy.addOverrides();
+        WirelessCamouflager.proxy.addOverrides();
 
-		registerItems();
+        registerItems();
 
-		WirelessCamouflager.proxy.registerRenderInformation();
+        WirelessCamouflager.proxy.registerRenderInformation();
 
-		registerdRecipes();
-		return true;
-	}
+        registerdRecipes();
+        return true;
+    }
 
-	private static void loadConfig() {
-		Configuration wirelessconfig = ConfigurationLib.getConfig();
+    private static void loadConfig() {
+        Configuration wirelessconfig = ConfigurationLib.getConfig();
 
-		wirelessconfig.load();
+        wirelessconfig.load();
 
-		camouID = wirelessconfig.get(	Configuration.CATEGORY_ITEM,
-										"Camouflager",
-										camouID).getInt();
+        camouID = wirelessconfig.get(Configuration.CATEGORY_ITEM,
+                                     "Camouflager",
+                                     camouID).getInt();
 
-		wirelessconfig.save();
-	}
+        wirelessconfig.save();
+    }
 
-	private static void initItems() {
-		itemCamouflager = (new ItemRedstoneWirelessCamouflager(camouID)).setUnlocalizedName(ItemLib.CAMOUFLAGER).setTextureName(IconLib.CAMOUFLAGER);
-	}
+    private static void initItems() {
+        itemCamouflager = (new ItemRedstoneWirelessCamouflager(camouID)).setUnlocalizedName(ItemLib.CAMOUFLAGER).setTextureName(IconLib.CAMOUFLAGER);
+    }
 
-	/*
-	 * private static void addOverrides() {
-	 * TileEntityRedstoneWirelessCamouflagerOverride tileOverride = new
-	 * TileEntityRedstoneWirelessCamouflagerOverride();
-	 * TileEntityRedstoneWireless.addOverride(tileOverride);
-	 * PacketWirelessCamouflagerOverride packetOverride = new
-	 * PacketWirelessCamouflagerOverride();
-	 * PacketWireless.addOverride(packetOverride); }
-	 */
+    /*
+     * private static void addOverrides() {
+     * TileEntityRedstoneWirelessCamouflagerOverride tileOverride = new
+     * TileEntityRedstoneWirelessCamouflagerOverride();
+     * TileEntityRedstoneWireless.addOverride(tileOverride);
+     * PacketWirelessCamouflagerOverride packetOverride = new
+     * PacketWirelessCamouflagerOverride();
+     * PacketWireless.addOverride(packetOverride); }
+     */
 
-	/**
-	 * Registers the item names
-	 */
-	private static void registerItems() {
-		LanguageRegistry.addName(	itemCamouflager,
-									"Wireless Camouflager");
-	}
+    /**
+     * Registers the item names
+     */
+    private static void registerItems() {
+        LanguageRegistry.addName(itemCamouflager,
+                                 "Wireless Camouflager");
+    }
 
-	private static void registerdRecipes() {
-		GameRegistry.addRecipe(	new ItemStack(itemCamouflager, 1),
-								new Object[] {
-										"GRG",
-										"RXR",
-										"RGR",
-										Character.valueOf('G'),
-										Block.glass,
-										Character.valueOf('R'),
-										Item.redstone,
-										Character.valueOf('X'),
-										Block.blockIron });
-	}
+    private static void registerdRecipes() {
+        GameRegistry.addRecipe(new ItemStack(itemCamouflager, 1),
+                               new Object[] {
+                                       "GRG",
+                                       "RXR",
+                                       "RGR",
+                                       Character.valueOf('G'),
+                                       Block.glass,
+                                       Character.valueOf('R'),
+                                       Item.redstone,
+                                       Character.valueOf('X'),
+                                       Block.blockIron });
+    }
 }

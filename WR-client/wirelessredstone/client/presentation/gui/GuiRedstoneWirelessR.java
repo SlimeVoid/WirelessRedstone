@@ -21,12 +21,12 @@ import wirelessredstone.inventory.ContainerRedstoneWireless;
  * @author ali4z
  */
 public class GuiRedstoneWirelessR extends GuiRedstoneWirelessInventory {
-	public GuiRedstoneWirelessR(ContainerRedstoneWireless container) {
-		super(container);
-	}
+    public GuiRedstoneWirelessR(ContainerRedstoneWireless container) {
+        super(container);
+    }
 
-	@Override
-	protected ResourceLocation getBackgroundImage() {
-		return GuiLib.GUI_SMALL;
-	}
+    @Override
+    protected ResourceLocation getBackgroundImage() {
+        return GuiLib.GUI_SMALL;
+    }
 }

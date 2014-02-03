@@ -23,36 +23,36 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 public class ItemRedstoneWirelessCamouflager extends Item {
 
-	public ItemRedstoneWirelessCamouflager(int i) {
-		super(i);
-		setCreativeTab(WRCore.wirelessRedstone);
-		maxStackSize = 1;
-		setMaxDamage(64);
-	}
+    public ItemRedstoneWirelessCamouflager(int i) {
+        super(i);
+        setCreativeTab(WRCore.wirelessRedstone);
+        maxStackSize = 1;
+        setMaxDamage(64);
+    }
 
-	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
-		TileEntity tileentity = world.getBlockTileEntity(	i,
-															j,
-															k);
+    @Override
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l, float a, float b, float c) {
+        TileEntity tileentity = world.getBlockTileEntity(i,
+                                                         j,
+                                                         k);
 
-		if (tileentity != null
-			&& tileentity instanceof TileEntityRedstoneWireless) {
-			entityplayer.openGui(	WirelessCamouflager.instance,
-									GuiLib.GUIID_DEVICE,
-									world,
-									i,
-									j,
-									k);
-			itemstack.damageItem(	1,
-									entityplayer);
-			return true;
-		}
-		return false;
-	}
+        if (tileentity != null
+            && tileentity instanceof TileEntityRedstoneWireless) {
+            entityplayer.openGui(WirelessCamouflager.instance,
+                                 GuiLib.GUIID_DEVICE,
+                                 world,
+                                 i,
+                                 j,
+                                 k);
+            itemstack.damageItem(1,
+                                 entityplayer);
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
+    @Override
+    public boolean isFull3D() {
+        return true;
+    }
 }

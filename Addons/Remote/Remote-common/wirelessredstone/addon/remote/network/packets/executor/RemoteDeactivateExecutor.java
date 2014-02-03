@@ -20,13 +20,13 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
 
 public class RemoteDeactivateExecutor implements IDevicePacketExecutor {
 
-	@Override
-	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
-		if (p instanceof PacketWirelessDevice) {
-			PacketWirelessDevice packet = (PacketWirelessDevice) p;
-			WirelessRemoteDevice.deactivateWirelessRemote(	world,
-															entityplayer,
-															null);
-		}
-	}
+    @Override
+    public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
+        if (p instanceof PacketWirelessDevice) {
+            PacketWirelessDevice packet = (PacketWirelessDevice) p;
+            WirelessRemoteDevice.deactivateWirelessRemote(world,
+                                                          entityplayer,
+                                                          null);
+        }
+    }
 }

@@ -29,59 +29,59 @@ import cpw.mods.fml.common.TickType;
 
 public class ClientTickHandler implements ITickHandler {
 
-	public static boolean	mouseDown, wasMouseDown, remotePulsing;
-	Minecraft				mc	= FMLClientHandler.instance().getClient();
+    public static boolean mouseDown, wasMouseDown, remotePulsing;
+    Minecraft             mc = FMLClientHandler.instance().getClient();
 
-	public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop) {
-		if (world.isRemote) {
-			if (WirelessRemoteDevice.remoteTransmitter != null && !mouseDown) {
-				WirelessRemoteDevice.sendDeactivateRemote(	world,
-															entityplayer);
-			}
+    public static void processRemote(World world, EntityPlayer entityplayer, GuiScreen gui, MovingObjectPosition mop) {
+        if (world.isRemote) {
+            if (WirelessRemoteDevice.remoteTransmitter != null && !mouseDown) {
+                WirelessRemoteDevice.sendDeactivateRemote(world,
+                                                          entityplayer);
+            }
 
-			if (mouseClicked()
-				&& WirelessRemoteDevice.remoteTransmitter == null
-				&& entityplayer.inventory.getCurrentItem() != null
-				&& entityplayer.inventory.getCurrentItem().getItem() == WRemoteCore.itemRemote
-				&& !entityplayer.isSneaking()) {
-				WirelessRemoteDevice.activatePlayerWirelessRemote(	world,
-																	entityplayer);
-			}
-		}
-	}
+            if (mouseClicked()
+                && WirelessRemoteDevice.remoteTransmitter == null
+                && entityplayer.inventory.getCurrentItem() != null
+                && entityplayer.inventory.getCurrentItem().getItem() == WRemoteCore.itemRemote
+                && !entityplayer.isSneaking()) {
+                WirelessRemoteDevice.activatePlayerWirelessRemote(world,
+                                                                  entityplayer);
+            }
+        }
+    }
 
-	public static boolean mouseClicked() {
-		return mouseDown && !wasMouseDown;
-	}
+    public static boolean mouseClicked() {
+        return mouseDown && !wasMouseDown;
+    }
 
-	public static void checkMouseClicks() {
-		wasMouseDown = mouseDown;
-		mouseDown = Mouse.isButtonDown(1);
-	}
+    public static void checkMouseClicks() {
+        wasMouseDown = mouseDown;
+        mouseDown = Mouse.isButtonDown(1);
+    }
 
-	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {
-		checkMouseClicks();
-	}
+    @Override
+    public void tickStart(EnumSet<TickType> type, Object... tickData) {
+        checkMouseClicks();
+    }
 
-	@Override
-	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		if (mc.theWorld != null && mc.theWorld.isRemote) {
-			processRemote(	mc.theWorld,
-							mc.thePlayer,
-							mc.currentScreen,
-							mc.objectMouseOver);
-		}
-	}
+    @Override
+    public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+        if (mc.theWorld != null && mc.theWorld.isRemote) {
+            processRemote(mc.theWorld,
+                          mc.thePlayer,
+                          mc.currentScreen,
+                          mc.objectMouseOver);
+        }
+    }
 
-	@Override
-	public EnumSet<TickType> ticks() {
-		return EnumSet.of(TickType.CLIENT);
-	}
+    @Override
+    public EnumSet<TickType> ticks() {
+        return EnumSet.of(TickType.CLIENT);
+    }
 
-	@Override
-	public String getLabel() {
-		return "Client Tickhandler - Wireless Redstone - Remote";
-	}
+    @Override
+    public String getLabel() {
+        return "Client Tickhandler - Wireless Redstone - Remote";
+    }
 
 }

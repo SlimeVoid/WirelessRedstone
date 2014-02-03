@@ -44,109 +44,109 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class WRCommonProxy implements ICommonProxy {
 
-	@Override
-	public void registerRenderInformation() {
-	}
+    @Override
+    public void registerRenderInformation() {
+    }
 
-	@Override
-	public void registerConfiguration(File configFile) {
-		ConfigurationLib.CommonConfig(configFile);
-	}
+    @Override
+    public void registerConfiguration(File configFile) {
+        ConfigurationLib.CommonConfig(configFile);
+    }
 
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == GuiLib.GUIID_INVENTORY) {
-			TileEntity tileentity = world.getBlockTileEntity(	x,
-																y,
-																z);
-			if (tileentity != null
-				&& tileentity instanceof TileEntityRedstoneWireless) {
-				return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
-			}
-		}
-		return null;
-	}
+    @Override
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == GuiLib.GUIID_INVENTORY) {
+            TileEntity tileentity = world.getBlockTileEntity(x,
+                                                             y,
+                                                             z);
+            if (tileentity != null
+                && tileentity instanceof TileEntityRedstoneWireless) {
+                return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return null;
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        return null;
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return ".";
-	}
+    @Override
+    public String getMinecraftDir() {
+        return ".";
+    }
 
-	@Override
-	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-	}
+    @Override
+    public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
+    }
 
-	@Override
-	public void addOverrides() {
-	}
+    @Override
+    public void addOverrides() {
+    }
 
-	@Override
-	public void init() {
-		NetworkRegistry.instance().registerGuiHandler(	WirelessRedstone.instance,
-														WirelessRedstone.proxy);
-	}
+    @Override
+    public void init() {
+        NetworkRegistry.instance().registerGuiHandler(WirelessRedstone.instance,
+                                                      WirelessRedstone.proxy);
+    }
 
-	@Override
-	public World getWorld(NetHandler handler) {
-		return null;
-	}
+    @Override
+    public World getWorld(NetHandler handler) {
+        return null;
+    }
 
-	@Override
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-	}
+    @Override
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+    }
 
-	@Override
-	public void initPacketHandlers() {
-		// ///////////////////
-		// Server Handlers //
-		// ///////////////////
-		// TODO Re-Inititiate Handlers
-		ServerPacketHandler.init();
-		// Ether Packets
-		ServerRedstoneEtherPacketHandler etherPacketHandler = new ServerRedstoneEtherPacketHandler();
-		// Executors
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.changeFreq.toString(),
-													new EtherPacketChangeFreqExecutor());
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
-													new EtherPacketTXAddExecutor());
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.setTransmitterState.toString(),
-													new EtherPacketTXSetStateExecutor());
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.remTransmitter.toString(),
-													new EtherPacketTXRemExecutor());
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
-													new EtherPacketRXAddExecutor());
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.remReceiver.toString(),
-													new EtherPacketRXRemExecutor());
-		etherPacketHandler.registerPacketHandler(	PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString(),
-													new EtherPacketFetchEtherExecutor());
-		ServerPacketHandler.registerPacketHandler(	PacketIds.ETHER,
-													etherPacketHandler);
+    @Override
+    public void initPacketHandlers() {
+        // ///////////////////
+        // Server Handlers //
+        // ///////////////////
+        // TODO Re-Inititiate Handlers
+        ServerPacketHandler.init();
+        // Ether Packets
+        ServerRedstoneEtherPacketHandler etherPacketHandler = new ServerRedstoneEtherPacketHandler();
+        // Executors
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.changeFreq.toString(),
+                                                 new EtherPacketChangeFreqExecutor());
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
+                                                 new EtherPacketTXAddExecutor());
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.setTransmitterState.toString(),
+                                                 new EtherPacketTXSetStateExecutor());
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.remTransmitter.toString(),
+                                                 new EtherPacketTXRemExecutor());
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
+                                                 new EtherPacketRXAddExecutor());
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.remReceiver.toString(),
+                                                 new EtherPacketRXRemExecutor());
+        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString(),
+                                                 new EtherPacketFetchEtherExecutor());
+        ServerPacketHandler.registerPacketHandler(PacketIds.ETHER,
+                                                  etherPacketHandler);
 
-		// Device Packets
-		ServerDevicePacketHandler devicePacketHandler = new ServerDevicePacketHandler();
-		ServerPacketHandler.registerPacketHandler(	PacketIds.DEVICE,
-													devicePacketHandler);
-		// GUI Packets
-		ServerGuiPacketHandler guiPacketHandler = new ServerGuiPacketHandler();
-		ServerPacketHandler.registerPacketHandler(	PacketIds.GUI,
-													guiPacketHandler);
-		// TODO GUI Executors (Should be none)
-		// Tile Packets
-		ServerTilePacketHandler tilePacketHandler = new ServerTilePacketHandler();
-		ServerPacketHandler.registerPacketHandler(	PacketIds.TILE,
-													tilePacketHandler);
-		// Addon
-		ServerAddonPacketHandler addonPacketHandler = new ServerAddonPacketHandler();
-		ServerPacketHandler.registerPacketHandler(	PacketIds.ADDON,
-													addonPacketHandler);
-	}
+        // Device Packets
+        ServerDevicePacketHandler devicePacketHandler = new ServerDevicePacketHandler();
+        ServerPacketHandler.registerPacketHandler(PacketIds.DEVICE,
+                                                  devicePacketHandler);
+        // GUI Packets
+        ServerGuiPacketHandler guiPacketHandler = new ServerGuiPacketHandler();
+        ServerPacketHandler.registerPacketHandler(PacketIds.GUI,
+                                                  guiPacketHandler);
+        // TODO GUI Executors (Should be none)
+        // Tile Packets
+        ServerTilePacketHandler tilePacketHandler = new ServerTilePacketHandler();
+        ServerPacketHandler.registerPacketHandler(PacketIds.TILE,
+                                                  tilePacketHandler);
+        // Addon
+        ServerAddonPacketHandler addonPacketHandler = new ServerAddonPacketHandler();
+        ServerPacketHandler.registerPacketHandler(PacketIds.ADDON,
+                                                  addonPacketHandler);
+    }
 
-	@Override
-	public void connectionClosed(INetworkManager manager) {
-	}
+    @Override
+    public void connectionClosed(INetworkManager manager) {
+    }
 }

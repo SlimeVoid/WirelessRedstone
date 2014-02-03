@@ -6,13 +6,13 @@ import wirelessredstone.inventory.ContainerRedstoneDevice;
 
 public class ContainerWirelessRemote extends ContainerRedstoneDevice {
 
-	public ContainerWirelessRemote(IWirelessDevice device) {
-		super(device);
-	}
+    public ContainerWirelessRemote(IWirelessDevice device) {
+        super(device);
+    }
 
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return true;
-	}
+    @Override
+    public boolean canInteractWith(EntityPlayer entityplayer) {
+        return true;
+    }
 
 }

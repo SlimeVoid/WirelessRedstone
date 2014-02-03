@@ -23,24 +23,24 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
 public class ReceiverChangeFreqExecutor implements IPacketExecutor {
 
-	@Override
-	public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
-		if (p instanceof PacketRedstoneEther) {
-			PacketRedstoneEther packet = (PacketRedstoneEther) p;
-			TileEntityRedstoneWireless tileentity = BlockLib.getBlockTileEntity(world,
-																				packet.xPosition,
-																				packet.yPosition,
-																				packet.zPosition);
-			if (tileentity != null
-				&& tileentity instanceof TileEntityRedstoneWirelessR) {
-				String freq = packet.getFreq();
-				tileentity.setFreq(freq);
-				tileentity.onInventoryChanged();
-				ServerRedstoneEtherPacketHandler.sendEtherTileToAllInRange(	tileentity,
-																			world,
-																			16);
-			}
+    @Override
+    public void execute(PacketWireless p, World world, EntityPlayer entityplayer) {
+        if (p instanceof PacketRedstoneEther) {
+            PacketRedstoneEther packet = (PacketRedstoneEther) p;
+            TileEntityRedstoneWireless tileentity = BlockLib.getBlockTileEntity(world,
+                                                                                packet.xPosition,
+                                                                                packet.yPosition,
+                                                                                packet.zPosition);
+            if (tileentity != null
+                && tileentity instanceof TileEntityRedstoneWirelessR) {
+                String freq = packet.getFreq();
+                tileentity.setFreq(freq);
+                tileentity.onInventoryChanged();
+                ServerRedstoneEtherPacketHandler.sendEtherTileToAllInRange(tileentity,
+                                                                           world,
+                                                                           16);
+            }
 
-		}
-	}
+        }
+    }
 }

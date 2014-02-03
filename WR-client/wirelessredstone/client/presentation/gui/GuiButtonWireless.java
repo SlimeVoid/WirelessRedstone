@@ -24,124 +24,124 @@ import wirelessredstone.core.lib.GuiLib;
  * 
  */
 public class GuiButtonWireless extends GuiButton {
-	private String	popupText;
+    private String popupText;
 
-	public GuiButtonWireless(int i, int j, int k, int l, int i1, String s, String popupText) {
-		super(i, j, k, l, i1, s);
-		this.popupText = popupText;
-	}
+    public GuiButtonWireless(int i, int j, int k, int l, int i1, String s, String popupText) {
+        super(i, j, k, l, i1, s);
+        this.popupText = popupText;
+    }
 
-	public GuiButtonWireless(int i, int j, int k, int l, int i1, String s) {
-		super(i, j, k, l, i1, s);
-	}
+    public GuiButtonWireless(int i, int j, int k, int l, int i1, String s) {
+        super(i, j, k, l, i1, s);
+    }
 
-	public boolean inBounds(int x, int y) {
-		return x >= xPosition && y >= yPosition && x < xPosition + width
-				&& y < yPosition + height;
-	}
+    public boolean inBounds(int x, int y) {
+        return x >= xPosition && y >= yPosition && x < xPosition + width
+               && y < yPosition + height;
+    }
 
-	public String getPopupText() {
-		if (popupText != null && !popupText.isEmpty()) return this.popupText;
-		return "";
-	}
+    public String getPopupText() {
+        if (popupText != null && !popupText.isEmpty()) return this.popupText;
+        return "";
+    }
 
-	/**
-	 * Draw a tooltip at the mouse pointer when.<br>
-	 * Called when the mouse pointer is within button bounds.
-	 * 
-	 * @param button
-	 *            A GuiButtonWireless
-	 * @param x
-	 *            mouse X coordinate
-	 * @param y
-	 *            mouse Y coordinate
-	 */
-	protected void drawToolTip(Minecraft mc, int x, int y) {
-		String buttonPopupText = this.getPopupText();
-		if (!buttonPopupText.isEmpty()) {
+    /**
+     * Draw a tooltip at the mouse pointer when.<br>
+     * Called when the mouse pointer is within button bounds.
+     * 
+     * @param button
+     *            A GuiButtonWireless
+     * @param x
+     *            mouse X coordinate
+     * @param y
+     *            mouse Y coordinate
+     */
+    protected void drawToolTip(Minecraft mc, int x, int y) {
+        String buttonPopupText = this.getPopupText();
+        if (!buttonPopupText.isEmpty()) {
 
-			int l1 = mc.fontRenderer.getStringWidth(buttonPopupText);
-			int i = 0;
-			int j = -10;
-			int j2 = (x - i) + 12;
-			int l2 = y - j - 12;
-			int i3 = l1 + 5;
-			int j3 = 8;
+            int l1 = mc.fontRenderer.getStringWidth(buttonPopupText);
+            int i = 0;
+            int j = -10;
+            int j2 = (x - i) + 12;
+            int l2 = y - j - 12;
+            int i3 = l1 + 5;
+            int j3 = 8;
 
-			zLevel = 300.0F;
-			int k3 = 0xf0100010;
-			drawGradientRect(	j2 - 3,
-								l2 - 4,
-								j2 + i3 + 3,
-								l2 - 3,
-								k3,
-								k3);
-			drawGradientRect(	j2 - 3,
-								l2 + j3 + 3,
-								j2 + i3 + 3,
-								l2 + j3 + 4,
-								k3,
-								k3);
-			drawGradientRect(	j2 - 3,
-								l2 - 3,
-								j2 + i3 + 3,
-								l2 + j3 + 3,
-								k3,
-								k3);
-			drawGradientRect(	j2 - 4,
-								l2 - 3,
-								j2 - 3,
-								l2 + j3 + 3,
-								k3,
-								k3);
-			drawGradientRect(	j2 + i3 + 3,
-								l2 - 3,
-								j2 + i3 + 4,
-								l2 + j3 + 3,
-								k3,
-								k3);
-			int l3 = 0x505000ff;
-			int i4 = (l3 & 0xfefefe) >> 1 | l3 & 0xff000000;
-			drawGradientRect(	j2 - 3,
-								(l2 - 3) + 1,
-								(j2 - 3) + 1,
-								(l2 + j3 + 3) - 1,
-								l3,
-								i4);
-			drawGradientRect(	j2 + i3 + 2,
-								(l2 - 3) + 1,
-								j2 + i3 + 3,
-								(l2 + j3 + 3) - 1,
-								l3,
-								i4);
-			drawGradientRect(	j2 - 3,
-								l2 - 3,
-								j2 + i3 + 3,
-								(l2 - 3) + 1,
-								l3,
-								l3);
-			drawGradientRect(	j2 - 3,
-								l2 + j3 + 2,
-								j2 + i3 + 3,
-								l2 + j3 + 3,
-								i4,
-								i4);
+            zLevel = 300.0F;
+            int k3 = 0xf0100010;
+            drawGradientRect(j2 - 3,
+                             l2 - 4,
+                             j2 + i3 + 3,
+                             l2 - 3,
+                             k3,
+                             k3);
+            drawGradientRect(j2 - 3,
+                             l2 + j3 + 3,
+                             j2 + i3 + 3,
+                             l2 + j3 + 4,
+                             k3,
+                             k3);
+            drawGradientRect(j2 - 3,
+                             l2 - 3,
+                             j2 + i3 + 3,
+                             l2 + j3 + 3,
+                             k3,
+                             k3);
+            drawGradientRect(j2 - 4,
+                             l2 - 3,
+                             j2 - 3,
+                             l2 + j3 + 3,
+                             k3,
+                             k3);
+            drawGradientRect(j2 + i3 + 3,
+                             l2 - 3,
+                             j2 + i3 + 4,
+                             l2 + j3 + 3,
+                             k3,
+                             k3);
+            int l3 = 0x505000ff;
+            int i4 = (l3 & 0xfefefe) >> 1 | l3 & 0xff000000;
+            drawGradientRect(j2 - 3,
+                             (l2 - 3) + 1,
+                             (j2 - 3) + 1,
+                             (l2 + j3 + 3) - 1,
+                             l3,
+                             i4);
+            drawGradientRect(j2 + i3 + 2,
+                             (l2 - 3) + 1,
+                             j2 + i3 + 3,
+                             (l2 + j3 + 3) - 1,
+                             l3,
+                             i4);
+            drawGradientRect(j2 - 3,
+                             l2 - 3,
+                             j2 + i3 + 3,
+                             (l2 - 3) + 1,
+                             l3,
+                             l3);
+            drawGradientRect(j2 - 3,
+                             l2 + j3 + 2,
+                             j2 + i3 + 3,
+                             l2 + j3 + 3,
+                             i4,
+                             i4);
 
-			mc.fontRenderer.drawSplitString(buttonPopupText,
-											x + 15,
-											y - 1,
-											l1 * 2,
-											0xFFFFFFFF);
-			zLevel = 0.0F;
-		}
-	}
+            mc.fontRenderer.drawSplitString(buttonPopupText,
+                                            x + 15,
+                                            y - 1,
+                                            l1 * 2,
+                                            0xFFFFFFFF);
+            zLevel = 0.0F;
+        }
+    }
 
-	/**
-	 * Used to return a String Texture based on the button state
-	 * 
-	 * @param state
-	 */
-	protected ResourceLocation getButtonTexture(boolean state) {
-		return state ? GuiLib.GUI_ON : GuiLib.GUI_OFF;
-	}
+    /**
+     * Used to return a String Texture based on the button state
+     * 
+     * @param state
+     */
+    protected ResourceLocation getButtonTexture(boolean state) {
+        return state ? GuiLib.GUI_ON : GuiLib.GUI_OFF;
+    }
 }

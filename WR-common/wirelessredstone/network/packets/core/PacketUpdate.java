@@ -27,158 +27,158 @@ import net.minecraft.world.World;
  * 
  */
 public abstract class PacketUpdate extends EurysPacket {
-	private int		packetId;
+    private int  packetId;
 
-	public int		xPosition;
-	public int		yPosition;
-	public int		zPosition;
-	public int		side;
+    public int   xPosition;
+    public int   yPosition;
+    public int   zPosition;
+    public int   side;
 
-	public float	vecX;
-	public float	vecY;
-	public float	vecZ;
+    public float vecX;
+    public float vecY;
+    public float vecZ;
 
-	public void setPosition(int x, int y, int z, int side) {
-		this.xPosition = x;
-		this.yPosition = y;
-		this.zPosition = z;
-		this.side = side;
-	}
+    public void setPosition(int x, int y, int z, int side) {
+        this.xPosition = x;
+        this.yPosition = y;
+        this.zPosition = z;
+        this.side = side;
+    }
 
-	public void setVecs(float vecX, float vecY, float vecZ) {
-		this.vecX = vecX;
-		this.vecY = vecY;
-		this.vecZ = vecZ;
-	}
+    public void setVecs(float vecX, float vecY, float vecZ) {
+        this.vecX = vecX;
+        this.vecY = vecY;
+        this.vecZ = vecZ;
+    }
 
-	public PacketPayload	payload;
+    public PacketPayload payload;
 
-	public PacketUpdate() {
-	}
+    public PacketUpdate() {
+    }
 
-	public PacketUpdate(int packetId, PacketPayload payload) {
-		this(packetId);
-		this.payload = payload;
-	}
+    public PacketUpdate(int packetId, PacketPayload payload) {
+        this(packetId);
+        this.payload = payload;
+    }
 
-	public PacketUpdate(int packetId) {
-		this.packetId = packetId;
-		this.isChunkDataPacket = true;
-	}
+    public PacketUpdate(int packetId) {
+        this.packetId = packetId;
+        this.isChunkDataPacket = true;
+    }
 
-	/**
-	 * Writes a String to the DataOutputStream
-	 */
-	public static void writeString(String par0Str, DataOutputStream par1DataOutputStream) throws IOException {
-		if (par0Str.length() > 32767) {
-			throw new IOException("String too big");
-		} else {
-			par1DataOutputStream.writeShort(par0Str.length());
-			par1DataOutputStream.writeChars(par0Str);
-		}
-	}
+    /**
+     * Writes a String to the DataOutputStream
+     */
+    public static void writeString(String par0Str, DataOutputStream par1DataOutputStream) throws IOException {
+        if (par0Str.length() > 32767) {
+            throw new IOException("String too big");
+        } else {
+            par1DataOutputStream.writeShort(par0Str.length());
+            par1DataOutputStream.writeChars(par0Str);
+        }
+    }
 
-	/**
-	 * Reads a string from a packet
-	 */
-	public static String readString(DataInputStream par0DataInputStream, int par1) throws IOException {
-		short var2 = par0DataInputStream.readShort();
+    /**
+     * Reads a string from a packet
+     */
+    public static String readString(DataInputStream par0DataInputStream, int par1) throws IOException {
+        short var2 = par0DataInputStream.readShort();
 
-		if (var2 > par1) {
-			throw new IOException("Received string length longer than maximum allowed ("
-									+ var2 + " > " + par1 + ")");
-		} else if (var2 < 0) {
-			throw new IOException("Received string length is less than zero! Weird string!");
-		} else {
-			StringBuilder var3 = new StringBuilder();
+        if (var2 > par1) {
+            throw new IOException("Received string length longer than maximum allowed ("
+                                  + var2 + " > " + par1 + ")");
+        } else if (var2 < 0) {
+            throw new IOException("Received string length is less than zero! Weird string!");
+        } else {
+            StringBuilder var3 = new StringBuilder();
 
-			for (int var4 = 0; var4 < var2; ++var4) {
-				var3.append(par0DataInputStream.readChar());
-			}
+            for (int var4 = 0; var4 < var2; ++var4) {
+                var3.append(par0DataInputStream.readChar());
+            }
 
-			return var3.toString();
-		}
-	}
+            return var3.toString();
+        }
+    }
 
-	@Override
-	public void writeData(DataOutputStream data) throws IOException {
+    @Override
+    public void writeData(DataOutputStream data) throws IOException {
 
-		data.writeInt(this.xPosition);
-		data.writeInt(this.yPosition);
-		data.writeInt(this.zPosition);
-		data.writeInt(Integer.valueOf(this.side) != null ? this.side : 0);
-		data.writeFloat(Float.valueOf(this.vecX) != null ? this.vecX : 0.0F);
-		data.writeFloat(Float.valueOf(this.vecY) != null ? this.vecY : 0.0F);
-		data.writeFloat(Float.valueOf(this.vecZ) != null ? this.vecZ : 0.0F);
+        data.writeInt(this.xPosition);
+        data.writeInt(this.yPosition);
+        data.writeInt(this.zPosition);
+        data.writeInt(Integer.valueOf(this.side) != null ? this.side : 0);
+        data.writeFloat(Float.valueOf(this.vecX) != null ? this.vecX : 0.0F);
+        data.writeFloat(Float.valueOf(this.vecY) != null ? this.vecY : 0.0F);
+        data.writeFloat(Float.valueOf(this.vecZ) != null ? this.vecZ : 0.0F);
 
-		// No payload means no data
-		if (this.payload == null) {
-			data.writeInt(0);
-			data.writeInt(0);
-			data.writeInt(0);
-			data.writeInt(0);
-			data.writeInt(0);
-			return;
-		}
+        // No payload means no data
+        if (this.payload == null) {
+            data.writeInt(0);
+            data.writeInt(0);
+            data.writeInt(0);
+            data.writeInt(0);
+            data.writeInt(0);
+            return;
+        }
 
-		data.writeInt(this.payload.getIntSize());
-		data.writeInt(this.payload.getFloatSize());
-		data.writeInt(this.payload.getStringSize());
-		data.writeInt(this.payload.getBoolSize());
-		data.writeInt(this.payload.getDoubleSize());
+        data.writeInt(this.payload.getIntSize());
+        data.writeInt(this.payload.getFloatSize());
+        data.writeInt(this.payload.getStringSize());
+        data.writeInt(this.payload.getBoolSize());
+        data.writeInt(this.payload.getDoubleSize());
 
-		for (int i = 0; i < this.payload.getIntSize(); i++)
-			data.writeInt(this.payload.getIntPayload(i));
-		for (int i = 0; i < this.payload.getFloatSize(); i++)
-			data.writeFloat(this.payload.getFloatPayload(i));
-		for (int i = 0; i < this.payload.getStringSize(); i++)
-			data.writeUTF(this.payload.getStringPayload(i));
-		for (int i = 0; i < this.payload.getBoolSize(); i++)
-			data.writeBoolean(this.payload.getBoolPayload(i));
-		for (int i = 0; i < this.payload.getDoubleSize(); i++)
-			data.writeDouble(this.payload.getDoublePayload(i));
-	}
+        for (int i = 0; i < this.payload.getIntSize(); i++)
+            data.writeInt(this.payload.getIntPayload(i));
+        for (int i = 0; i < this.payload.getFloatSize(); i++)
+            data.writeFloat(this.payload.getFloatPayload(i));
+        for (int i = 0; i < this.payload.getStringSize(); i++)
+            data.writeUTF(this.payload.getStringPayload(i));
+        for (int i = 0; i < this.payload.getBoolSize(); i++)
+            data.writeBoolean(this.payload.getBoolPayload(i));
+        for (int i = 0; i < this.payload.getDoubleSize(); i++)
+            data.writeDouble(this.payload.getDoublePayload(i));
+    }
 
-	@Override
-	public void readData(DataInputStream data) throws IOException {
+    @Override
+    public void readData(DataInputStream data) throws IOException {
 
-		this.setPosition(	data.readInt(),
-							data.readInt(),
-							data.readInt(),
-							data.readInt());
-		this.setVecs(	data.readFloat(),
-						data.readFloat(),
-						data.readFloat());
+        this.setPosition(data.readInt(),
+                         data.readInt(),
+                         data.readInt(),
+                         data.readInt());
+        this.setVecs(data.readFloat(),
+                     data.readFloat(),
+                     data.readFloat());
 
-		int intSize = data.readInt();
-		int floatSize = data.readInt();
-		int stringSize = data.readInt();
-		int boolSize = data.readInt();
-		int doubleSize = data.readInt();
+        int intSize = data.readInt();
+        int floatSize = data.readInt();
+        int stringSize = data.readInt();
+        int boolSize = data.readInt();
+        int doubleSize = data.readInt();
 
-		this.payload = new PacketPayload(intSize, floatSize, stringSize, boolSize, doubleSize);
+        this.payload = new PacketPayload(intSize, floatSize, stringSize, boolSize, doubleSize);
 
-		for (int i = 0; i < this.payload.getIntSize(); i++)
-			this.payload.setIntPayload(	i,
-										data.readInt());
-		for (int i = 0; i < this.payload.getFloatSize(); i++)
-			this.payload.setFloatPayload(	i,
-											data.readFloat());
-		for (int i = 0; i < this.payload.getStringSize(); i++)
-			this.payload.setStringPayload(	i,
-											data.readUTF());
-		for (int i = 0; i < this.payload.getBoolSize(); i++)
-			this.payload.setBoolPayload(i,
-										data.readBoolean());
-		for (int i = 0; i < this.payload.getDoubleSize(); i++)
-			this.payload.setDoublePayload(	i,
-											data.readDouble());
-	}
+        for (int i = 0; i < this.payload.getIntSize(); i++)
+            this.payload.setIntPayload(i,
+                                       data.readInt());
+        for (int i = 0; i < this.payload.getFloatSize(); i++)
+            this.payload.setFloatPayload(i,
+                                         data.readFloat());
+        for (int i = 0; i < this.payload.getStringSize(); i++)
+            this.payload.setStringPayload(i,
+                                          data.readUTF());
+        for (int i = 0; i < this.payload.getBoolSize(); i++)
+            this.payload.setBoolPayload(i,
+                                        data.readBoolean());
+        for (int i = 0; i < this.payload.getDoubleSize(); i++)
+            this.payload.setDoublePayload(i,
+                                          data.readDouble());
+    }
 
-	public abstract boolean targetExists(World world);
+    public abstract boolean targetExists(World world);
 
-	@Override
-	protected int getPacketID() {
-		return this.packetId;
-	}
+    @Override
+    protected int getPacketID() {
+        return this.packetId;
+    }
 }

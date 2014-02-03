@@ -21,26 +21,26 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
 public class ActivateGuiTileEntityOverride implements IActivateGuiOverride {
 
-	@Override
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
-		if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
-			// WRClientProxy.guiWirelessR.assTileEntity(tileentityredstonewireless);
-			// FMLClientHandler.instance().displayGuiScreen( entityplayer,
-			// WRClientProxy.guiWirelessR);
-			return true;
-		}
-		if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
-			// WRClientProxy.guiWirelessT.assTileEntity(tileentityredstonewireless);
-			// FMLClientHandler.instance().displayGuiScreen( entityplayer,
-			// WRClientProxy.guiWirelessT);
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean beforeOpenGui(World world, EntityPlayer entityplayer, TileEntityRedstoneWireless tileentityredstonewireless) {
+        if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
+            // WRClientProxy.guiWirelessR.assTileEntity(tileentityredstonewireless);
+            // FMLClientHandler.instance().displayGuiScreen( entityplayer,
+            // WRClientProxy.guiWirelessR);
+            return true;
+        }
+        if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
+            // WRClientProxy.guiWirelessT.assTileEntity(tileentityredstonewireless);
+            // FMLClientHandler.instance().displayGuiScreen( entityplayer,
+            // WRClientProxy.guiWirelessT);
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDevice wirelessDevice) {
-		return false;
-	}
+    @Override
+    public boolean beforeOpenGui(World world, EntityPlayer entityplayer, IWirelessDevice wirelessDevice) {
+        return false;
+    }
 
 }

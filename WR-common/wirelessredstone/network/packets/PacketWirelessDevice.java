@@ -18,26 +18,26 @@ import wirelessredstone.network.packets.core.PacketPayload;
 
 public class PacketWirelessDevice extends PacketWireless {
 
-	public PacketWirelessDevice() {
-		super(PacketIds.DEVICE);
-	}
+    public PacketWirelessDevice() {
+        super(PacketIds.DEVICE);
+    }
 
-	public PacketWirelessDevice(IWirelessDevice device) {
-		this();
-		this.payload = new PacketPayload(0, 0, 1, 1);
-		this.setFreq(device.getFreq());
-		this.setState(device.getState());
-	}
+    public PacketWirelessDevice(IWirelessDevice device) {
+        this();
+        this.payload = new PacketPayload(0, 0, 1, 1);
+        this.setFreq(device.getFreq());
+        this.setState(device.getState());
+    }
 
-	public PacketWirelessDevice(String freq, boolean state) {
-		this();
-		this.payload = new PacketPayload(0, 0, 1, 1);
-		this.setFreq(freq);
-		this.setState(state);
-	}
+    public PacketWirelessDevice(String freq, boolean state) {
+        this();
+        this.payload = new PacketPayload(0, 0, 1, 1);
+        this.setFreq(freq);
+        this.setState(state);
+    }
 
-	@Override
-	public boolean targetExists(World world) {
-		return true;
-	}
+    @Override
+    public boolean targetExists(World world) {
+        return true;
+    }
 }

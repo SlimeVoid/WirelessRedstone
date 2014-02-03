@@ -46,108 +46,108 @@ import cpw.mods.fml.relauncher.Side;
  */
 public class WRemoteClientProxy extends WRemoteCommonProxy {
 
-	/**
-	 * Wireless Remote GUI
-	 */
-	// public static GuiRedstoneWirelessRemote guiWirelessRemote;
+    /**
+     * Wireless Remote GUI
+     */
+    // public static GuiRedstoneWirelessRemote guiWirelessRemote;
 
-	@Override
-	public void init() {
-		TickRegistry.registerTickHandler(	new ClientTickHandler(),
-											Side.CLIENT);
-		initGUIs();
-		super.init();
-	}
+    @Override
+    public void init() {
+        TickRegistry.registerTickHandler(new ClientTickHandler(),
+                                         Side.CLIENT);
+        initGUIs();
+        super.init();
+    }
 
-	/**
-	 * Initializes GUI objects.
-	 */
-	public static void initGUIs() {
-	}
+    /**
+     * Initializes GUI objects.
+     */
+    public static void initGUIs() {
+    }
 
-	@Override
-	public void registerRenderInformation() {
-	}
+    @Override
+    public void registerRenderInformation() {
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == GuiLib.GUIID_DEVICE) {
-			WirelessRemoteDevice remote = new WirelessRemoteDevice(world, player, player.getHeldItem());
-			// guiWirelessRemote.assWirelessDevice(remote,
-			// player);
-			return new GuiRedstoneWirelessRemote(world, player, new ContainerWirelessRemote(remote));
-		}
-		return null;
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == GuiLib.GUIID_DEVICE) {
+            WirelessRemoteDevice remote = new WirelessRemoteDevice(world, player, player.getHeldItem());
+            // guiWirelessRemote.assWirelessDevice(remote,
+            // player);
+            return new GuiRedstoneWirelessRemote(world, player, new ContainerWirelessRemote(remote));
+        }
+        return null;
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return Minecraft.getMinecraft().mcDataDir.getPath();
-	}
+    @Override
+    public String getMinecraftDir() {
+        return Minecraft.getMinecraft().mcDataDir.getPath();
+    }
 
-	@Override
-	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-	}
+    @Override
+    public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
+    }
 
-	/**
-	 * Retrieves the world object with NetHandler parameters.
-	 * 
-	 * @return Minecraft world object.
-	 */
-	@Override
-	public World getWorld(NetHandler handler) {
-		if (handler instanceof NetClientHandler) {
-			return ((NetClientHandler) handler).getPlayer().worldObj;
-		}
-		return null;
-	}
+    /**
+     * Retrieves the world object with NetHandler parameters.
+     * 
+     * @return Minecraft world object.
+     */
+    @Override
+    public World getWorld(NetHandler handler) {
+        if (handler instanceof NetClientHandler) {
+            return ((NetClientHandler) handler).getPlayer().worldObj;
+        }
+        return null;
+    }
 
-	@Override
-	public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-		World world = getWorld(handler);
-		if (world != null) {
-			ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
-		}
-	}
+    @Override
+    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+        World world = getWorld(handler);
+        if (world != null) {
+            ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
+        }
+    }
 
-	@Override
-	public void initPacketHandlers() {
-		super.initPacketHandlers();
-		// ///////////////////
-		// Client Handlers //
-		// ///////////////////
-		ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(	PacketRemoteCommands.remoteCommands.changeFreq.toString(),
-																						new ClientRemoteChangeFreqExecutor());
-	}
+    @Override
+    public void initPacketHandlers() {
+        super.initPacketHandlers();
+        // ///////////////////
+        // Client Handlers //
+        // ///////////////////
+        ClientPacketHandler.getPacketHandler(PacketIds.DEVICE).registerPacketHandler(PacketRemoteCommands.remoteCommands.changeFreq.toString(),
+                                                                                     new ClientRemoteChangeFreqExecutor());
+    }
 
-	@Override
-	public void activateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
-		if (!world.isRemote) {
-			super.activateRemote(	world,
-									entityliving,
-									itemstack);
-		}
-	}
+    @Override
+    public void activateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+        if (!world.isRemote) {
+            super.activateRemote(world,
+                                 entityliving,
+                                 itemstack);
+        }
+    }
 
-	@Override
-	public boolean deactivateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
-		if (!world.isRemote) {
-			return super.deactivateRemote(	world,
-											entityliving,
-											itemstack);
-		}
-		return WirelessRemoteDevice.deactivatePlayerWirelessRemote(	world,
-																	entityliving);
-	}
+    @Override
+    public boolean deactivateRemote(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+        if (!world.isRemote) {
+            return super.deactivateRemote(world,
+                                          entityliving,
+                                          itemstack);
+        }
+        return WirelessRemoteDevice.deactivatePlayerWirelessRemote(world,
+                                                                   entityliving);
+    }
 
-	@Override
-	public boolean isRemoteOn(World world, EntityLivingBase entitylivingbase, String freq) {
-		if (!world.isRemote) {
-			return super.isRemoteOn(world,
-									entitylivingbase,
-									freq);
-		}
-		boolean flag = WirelessRemoteDevice.remoteTransmitter == null ? false : WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
-		return flag;
-	}
+    @Override
+    public boolean isRemoteOn(World world, EntityLivingBase entitylivingbase, String freq) {
+        if (!world.isRemote) {
+            return super.isRemoteOn(world,
+                                    entitylivingbase,
+                                    freq);
+        }
+        boolean flag = WirelessRemoteDevice.remoteTransmitter == null ? false : WirelessRemoteDevice.remoteTransmitter.getFreq() == freq;
+        return flag;
+    }
 }

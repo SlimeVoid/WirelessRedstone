@@ -19,30 +19,30 @@ import wirelessredstone.ether.RedstoneEther;
 
 public abstract class WirelessReceiverDevice extends WirelessDevice {
 
-	public WirelessReceiverDevice(World world, EntityLiving entityliving, ItemStack itemstack) {
-		super(world, entityliving, itemstack);
-	}
+    public WirelessReceiverDevice(World world, EntityLiving entityliving, ItemStack itemstack) {
+        super(world, entityliving, itemstack);
+    }
 
-	@Override
-	public String getInvName() {
-		return DeviceLib.RECEIVER;
-	}
+    @Override
+    public String getInvName() {
+        return DeviceLib.RECEIVER;
+    }
 
-	@Override
-	public void doActivateCommand() {
-		RedstoneEther.getInstance().addReceiver(this.getWorld(),
-												this.getCoords().getX(),
-												this.getCoords().getY(),
-												this.getCoords().getZ(),
-												this.getFreq());
-	}
+    @Override
+    public void doActivateCommand() {
+        RedstoneEther.getInstance().addReceiver(this.getWorld(),
+                                                this.getCoords().getX(),
+                                                this.getCoords().getY(),
+                                                this.getCoords().getZ(),
+                                                this.getFreq());
+    }
 
-	@Override
-	public void doDeactivateCommand() {
-		RedstoneEther.getInstance().remReceiver(this.getWorld(),
-												this.getCoords().getX(),
-												this.getCoords().getY(),
-												this.getCoords().getZ(),
-												this.getFreq());
-	}
+    @Override
+    public void doDeactivateCommand() {
+        RedstoneEther.getInstance().remReceiver(this.getWorld(),
+                                                this.getCoords().getX(),
+                                                this.getCoords().getY(),
+                                                this.getCoords().getZ(),
+                                                this.getFreq());
+    }
 }

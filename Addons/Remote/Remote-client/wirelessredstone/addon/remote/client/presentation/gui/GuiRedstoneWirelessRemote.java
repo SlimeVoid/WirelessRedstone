@@ -23,19 +23,19 @@ import wirelessredstone.inventory.ContainerRedstoneDevice;
 
 public class GuiRedstoneWirelessRemote extends GuiRedstoneWirelessDevice {
 
-	public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer, ContainerRedstoneDevice device) {
-		super(world, entityplayer, device);
-		IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
-		this.addOverride(override);
-	}
+    public GuiRedstoneWirelessRemote(World world, EntityPlayer entityplayer, ContainerRedstoneDevice device) {
+        super(world, entityplayer, device);
+        IGuiRedstoneWirelessDeviceOverride override = new GuiRedstoneWirelessRemoteOverride();
+        this.addOverride(override);
+    }
 
-	@Override
-	protected ResourceLocation getBackgroundImage() {
-		return GuiLib.GUI_SMALL;
-	}
+    @Override
+    protected ResourceLocation getBackgroundImage() {
+        return GuiLib.GUI_SMALL;
+    }
 
-	@Override
-	protected String getCommand() {
-		return PacketRemoteCommands.remoteCommands.changeFreq.toString();
-	}
+    @Override
+    protected String getCommand() {
+        return PacketRemoteCommands.remoteCommands.changeFreq.toString();
+    }
 }

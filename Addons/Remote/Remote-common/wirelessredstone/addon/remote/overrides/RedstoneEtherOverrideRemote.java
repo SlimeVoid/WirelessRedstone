@@ -18,96 +18,96 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.WirelessCoordinates;
 
 public class RedstoneEtherOverrideRemote implements IRedstoneEtherOverride {
-	@Override
-	public boolean beforeAddTransmitter(World world, int i, int j, int k, Object freq) {
-		return false;
-	}
+    @Override
+    public boolean beforeAddTransmitter(World world, int i, int j, int k, Object freq) {
+        return false;
+    }
 
-	@Override
-	public void afterAddTransmitter(World world, int i, int j, int k, Object freq) {
-	}
+    @Override
+    public void afterAddTransmitter(World world, int i, int j, int k, Object freq) {
+    }
 
-	@Override
-	public boolean beforeRemTransmitter(World world, int i, int j, int k, Object freq) {
-		return false;
-	}
+    @Override
+    public boolean beforeRemTransmitter(World world, int i, int j, int k, Object freq) {
+        return false;
+    }
 
-	@Override
-	public void afterRemTransmitter(World world, int i, int j, int k, Object freq) {
+    @Override
+    public void afterRemTransmitter(World world, int i, int j, int k, Object freq) {
 
-	}
+    }
 
-	@Override
-	public boolean beforeSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
-		return false;
-	}
+    @Override
+    public boolean beforeSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
+        return false;
+    }
 
-	@Override
-	public void afterSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
+    @Override
+    public void afterSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
 
-	}
+    }
 
-	@Override
-	public boolean beforeAddReceiver(World world, int i, int j, int k, Object freq) {
-		return false;
-	}
+    @Override
+    public boolean beforeAddReceiver(World world, int i, int j, int k, Object freq) {
+        return false;
+    }
 
-	@Override
-	public void afterAddReceiver(World world, int i, int j, int k, Object freq) {
-	}
+    @Override
+    public void afterAddReceiver(World world, int i, int j, int k, Object freq) {
+    }
 
-	@Override
-	public boolean beforeRemReceiver(World world, int i, int j, int k, Object freq) {
-		return false;
-	}
+    @Override
+    public boolean beforeRemReceiver(World world, int i, int j, int k, Object freq) {
+        return false;
+    }
 
-	@Override
-	public void afterRemReceiver(World world, int i, int j, int k, Object freq) {
-	}
+    @Override
+    public void afterRemReceiver(World world, int i, int j, int k, Object freq) {
+    }
 
-	@Override
-	public boolean beforeGetFreqState(World world, Object freq) {
-		return false;
-	}
+    @Override
+    public boolean beforeGetFreqState(World world, Object freq) {
+        return false;
+    }
 
-	@Override
-	public boolean afterGetFreqState(World world, Object freq, boolean returnState) {
-		return returnState;
-	}
+    @Override
+    public boolean afterGetFreqState(World world, Object freq, boolean returnState) {
+        return returnState;
+    }
 
-	@Override
-	public boolean beforeIsLoaded(World world, int i, int j, int k) {
-		return false;
-	}
+    @Override
+    public boolean beforeIsLoaded(World world, int i, int j, int k) {
+        return false;
+    }
 
-	@Override
-	public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
-		LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideRemote").write(world.isRemote,
-																				"isLoaded(world, "
-																						+ i
-																						+ ", "
-																						+ j
-																						+ ", "
-																						+ k
-																						+ ")",
-																				LoggerRedstoneWireless.LogLevel.DEBUG);
-		int[] a = { i, j, k };
-		WirelessCoordinates deviceCoords = new WirelessCoordinates(a);
-		if (WirelessRemoteDevice.remoteWirelessCoords.containsKey(deviceCoords)) {
-			return true;
-		}
-		return returnState;
-	}
+    @Override
+    public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
+        LoggerRedstoneWireless.getInstance("RedstoneEtherOverrideRemote").write(world.isRemote,
+                                                                                "isLoaded(world, "
+                                                                                        + i
+                                                                                        + ", "
+                                                                                        + j
+                                                                                        + ", "
+                                                                                        + k
+                                                                                        + ")",
+                                                                                LoggerRedstoneWireless.LogLevel.DEBUG);
+        int[] a = { i, j, k };
+        WirelessCoordinates deviceCoords = new WirelessCoordinates(a);
+        if (WirelessRemoteDevice.remoteWirelessCoords.containsKey(deviceCoords)) {
+            return true;
+        }
+        return returnState;
+    }
 
-	@Override
-	public int[] beforeGetClosestActiveTransmitter(int i, int j, int k, String freq) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public int[] beforeGetClosestActiveTransmitter(int i, int j, int k, String freq) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public int[] afterGetClosestActiveTransmitter(int i, int j, int k, String freq, int[] coords) {
-		// TODO Auto-generated method stub
-		return coords;
-	}
+    @Override
+    public int[] afterGetClosestActiveTransmitter(int i, int j, int k, String freq, int[] coords) {
+        // TODO Auto-generated method stub
+        return coords;
+    }
 }
