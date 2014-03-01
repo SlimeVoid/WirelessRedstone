@@ -1,8 +1,9 @@
 package wirelessredstone.addon.slimevoid.overrides;
 
+import com.slimevoid.library.util.helpers.SlimevoidHelper;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import slimevoidlib.util.helpers.SlimevoidHelper;
 import wirelessredstone.api.IPacketWirelessOverride;
 
 public class PacketWirelessSlimeVoidOverride implements IPacketWirelessOverride {

@@ -1,9 +1,10 @@
 package wirelessredstone.addon.slimevoid.overrides;
 
+import com.slimevoid.library.util.helpers.SlimevoidHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import slimevoidlib.util.helpers.SlimevoidHelper;
 import wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import wirelessredstone.api.IWirelessData;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
