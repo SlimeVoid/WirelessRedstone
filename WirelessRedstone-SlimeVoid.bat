@@ -7,7 +7,7 @@ set forgedir=%programdir%\Forge
 set mcpdir=%forgedir%\mcp
 cd %mcpdir%
 set wirelessredstone=%repodir%\WirelessRedstone-FML
-set slimevoidlib=%repodir%\SlimevoidLibrary
+set slimevoidlib=%repodir%\SlimevoidLibrary\src\main\java
 set slimevoid=%wirelessredstone%\addons\slimevoid
 
 if not exist %wirelessredstone% GOTO :WRFAIL
@@ -31,7 +31,7 @@ GOTO :WRFAIL
 :COPYWR
 xcopy "%wirelessredstone%\WR-common\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%wirelessredstone%\WR-client\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%slimevoidlib%\SV-common\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%slimevoidlib%\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%slimevoid%\SlimeVoid-common\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%slimevoid%\SlimeVoid-client\*.*" "%mcpdir%\src\minecraft" /S
 pause
