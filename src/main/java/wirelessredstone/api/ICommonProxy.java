@@ -13,11 +13,9 @@ package wirelessredstone.api;
 
 import java.io.File;
 
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.NetHandler;
-import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 // import net.minecraft.network.INetworkManager;
 // import net.minecraft.network.packet.NetHandler;
@@ -60,15 +58,6 @@ public interface ICommonProxy extends IGuiHandler {
     public void addOverrides();
 
     /**
-     * Fetches the current minecraft world object relating to the NetHandler.
-     * 
-     * handler the NetHandler (Server or Client)
-     * 
-     * @return Minecraft world object.
-     */
-    public World getWorld(NetHandler handler);
-
-    /**
      * Called on initialization.
      */
     public void init();
@@ -83,26 +72,19 @@ public interface ICommonProxy extends IGuiHandler {
     public void initPacketHandlers();
 
     /**
-     * Called on player/client login
-     * 
-     * @param handler
-     * @param manager
-     * @param login
-     */
-    public void login(NetHandler handler, INetworkManager manager, Packet1Login login);
-
-    /**
-     * Called when a connection to a server is closed
-     * 
-     * @param manager
-     */
-    public void connectionClosed(INetworkManager manager);
-
-    /**
      * Registers a configuration file allows sided properties
      * 
      * @param configFile
      *            usually the suggested Configuration File
      */
     public void registerConfiguration(File configFile);
+
+    /**
+     * Called on player/client login
+     * 
+     * @param handler
+     * @param manager
+     * @param login
+     */
+    public void login(INetHandler handler, NetworkManager manager);
 }

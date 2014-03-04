@@ -25,7 +25,7 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
         ITileEntityRedstoneWirelessOverride {
     @Override
     public boolean beforeUpdateEntity(TileEntityRedstoneWireless tileentity) {
-        return tileentity.worldObj.isRemote;
+        return tileentity.getWorldObj().isRemote;
     }
 
     @Override
@@ -40,10 +40,10 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
                 if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessT) {
                     TileEntityRedstoneWirelessT teRWT = (TileEntityRedstoneWirelessT) tileentityredstonewireless;
                     teRWT.setFreq(packetData.getFreq().toString());
-                    teRWT.onInventoryChanged();
-                    teRWT.worldObj.markBlockForRenderUpdate(packetData.xPosition,
-                                                            packetData.yPosition,
-                                                            packetData.zPosition);
+                    teRWT.markDirty();
+                    teRWT.getWorldObj().markBlockForUpdate(packetData.xPosition,
+                                                           packetData.yPosition,
+                                                           packetData.zPosition);
                 }
 
                 if (tileentityredstonewireless instanceof TileEntityRedstoneWirelessR) {
@@ -51,10 +51,10 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
                     teRWR.setFreq(packetData.getFreq().toString());
                     teRWR.setInDirectlyPowering(packetData.getInDirectlyPowering());
                     teRWR.setPowerDirections(packetData.getPowerDirections());
-                    teRWR.onInventoryChanged();
-                    teRWR.worldObj.markBlockForRenderUpdate(packetData.xPosition,
-                                                            packetData.yPosition,
-                                                            packetData.zPosition);
+                    teRWR.markDirty();
+                    teRWR.getWorldObj().markBlockForUpdate(packetData.xPosition,
+                                                           packetData.yPosition,
+                                                           packetData.zPosition);
                 }
             }
         }

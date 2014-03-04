@@ -13,10 +13,12 @@ package wirelessredstone.network.handlers;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGuiInventory;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+
+import com.slimevoid.library.network.handlers.SubPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
 
 /**
  * A server-side GUI packet sub-handler.
@@ -26,7 +28,7 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 public class ServerGuiPacketHandler extends SubPacketHandler {
 
     @Override
-    protected PacketWireless createNewPacketWireless() {
+    protected PacketWireless createNewPacket() {
         return new PacketRedstoneWirelessOpenGuiInventory();
     }
 
@@ -43,13 +45,13 @@ public class ServerGuiPacketHandler extends SubPacketHandler {
 
         LoggerRedstoneWireless.getInstance("ServerGuiPacketHandler").write(false,
                                                                            "sendGuiPacketTo("
-                                                                                   + player.username
+                                                                                   + player.getDisplayName()
                                                                                    + ", entity)",
                                                                            LoggerRedstoneWireless.LogLevel.DEBUG);
 
         PacketRedstoneWirelessOpenGuiInventory packet = new PacketRedstoneWirelessOpenGuiInventory(data);
         // Send the packet.
-        ServerPacketHandler.sendPacketTo(player,
-                                         packet.getPacket());
+        PacketHelper.sendToPlayer(packet,
+                                  player);
     }
 }

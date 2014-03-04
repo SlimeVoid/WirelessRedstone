@@ -14,6 +14,8 @@ package wirelessredstone.network.handlers;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 
+import com.slimevoid.library.network.handlers.SubPacketHandler;
+
 /**
  * A server-side Tile packet sub-handler.
  * 
@@ -22,7 +24,7 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
 public class ServerDevicePacketHandler extends SubPacketHandler {
 
     @Override
-    protected PacketWireless createNewPacketWireless() {
+    protected PacketWireless createNewPacket() {
         return new PacketWirelessDevice();
     }
 }

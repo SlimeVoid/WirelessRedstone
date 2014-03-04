@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import wirelessredstone.api.IRedstoneEtherOverride;
 import wirelessredstone.data.LoggerRedstoneWireless;
@@ -756,13 +757,13 @@ public class RedstoneEther {
                                                                           + ", "
                                                                           + k
                                                                           + ") ["
-                                                                          + (world.getBlockId(i,
-                                                                                              j,
-                                                                                              k) != 0)
+                                                                          + (world.getBlock(i,
+                                                                                            j,
+                                                                                            k) != Blocks.air)
                                                                           + "&"
-                                                                          + (world.getBlockTileEntity(i,
-                                                                                                      j,
-                                                                                                      k) != null)
+                                                                          + (world.getTileEntity(i,
+                                                                                                 j,
+                                                                                                 k) != null)
                                                                           + "]",
                                                                   LoggerRedstoneWireless.LogLevel.DEBUG);
         // Run before overrides.
@@ -777,12 +778,12 @@ public class RedstoneEther {
         // Check if blockId and tile is set if premature exit was not called.
         boolean returnState = false;
         if (!prematureExit) {
-            returnState = world.getBlockId(i,
-                                           j,
-                                           k) != 0
-                          && world.getBlockTileEntity(i,
-                                                      j,
-                                                      k) != null;
+            returnState = world.getBlock(i,
+                                         j,
+                                         k) != Blocks.air
+                          && world.getTileEntity(i,
+                                                 j,
+                                                 k) != null;
         }
         boolean out = returnState;
 

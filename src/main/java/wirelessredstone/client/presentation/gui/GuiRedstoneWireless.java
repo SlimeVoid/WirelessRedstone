@@ -17,7 +17,6 @@ import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -227,15 +226,15 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
      */
     protected void drawGuiName() {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+                                 - (fontRendererObj.getStringWidth(this.getGuiName()) / 2),
                          6,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth(this.getGuiName()) / 2));
-        fontRenderer.drawString(getGuiName(),
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth(this.getGuiName()) / 2),
-                                6,
-                                0x404040);
+                                 + (fontRendererObj.getStringWidth(this.getGuiName()) / 2));
+        fontRendererObj.drawString(getGuiName(),
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth(this.getGuiName()) / 2),
+                                   6,
+                                   0x404040);
     }
 
     /**
@@ -244,12 +243,12 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
      * @param y
      */
     protected void drawFrequency(int y) {
-        fontRenderer.drawString(this.getFreq() + "",
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth(this.getFreq()
-                                                                       + "") / 2),
-                                (ySize / 2) + y,
-                                0x404040);
+        fontRendererObj.drawString(this.getFreq() + "",
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth(this.getFreq()
+                                                                             + "") / 2),
+                                   (ySize / 2) + y,
+                                   0x404040);
     }
 
     /**
@@ -260,27 +259,29 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
      */
     protected void drawFrequencyAndBox(int y) {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth(getFreq() + "") / 2),
+                                 - (fontRendererObj.getStringWidth(getFreq()
+                                                                   + "") / 2),
                          (ySize / 2) + y,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth(getFreq() + "") / 2));
+                                 + (fontRendererObj.getStringWidth(getFreq()
+                                                                   + "") / 2));
         drawFrequency(y);
     }
 
     protected void drawFrequencyLabel(int y) {
-        fontRenderer.drawString("Frequency",
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth("Frequency") / 2),
-                                y,
-                                0x404040);
+        fontRendererObj.drawString("Frequency",
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth("Frequency") / 2),
+                                   y,
+                                   0x404040);
     }
 
     protected void drawFrequencyLabelAndBox(int y) {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth("Frequency") / 2),
+                                 - (fontRendererObj.getStringWidth("Frequency") / 2),
                          y,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth("Frequency") / 2));
+                                 + (fontRendererObj.getStringWidth("Frequency") / 2));
         drawFrequencyLabel(y);
     }
 
@@ -365,11 +366,8 @@ public abstract class GuiRedstoneWireless extends GuiScreen {
 
             if (Keyboard.getEventKeyState()) {
                 int inventoryKey = 0;
-                for (Object o : KeyBinding.keybindArray) {
-                    if (((KeyBinding) o).keyDescription.equals("key.inventory")) {
-                        inventoryKey = ((KeyBinding) o).keyCode;
-                        break;
-                    }
+                if (this.mc.gameSettings.keyBindInventory.isPressed()) {
+                    inventoryKey = this.mc.gameSettings.keyBindInventory.getKeyCode();
                 }
                 if (Keyboard.getEventKey() == inventoryKey
                     || Keyboard.getEventKey() == 28) {

@@ -14,13 +14,14 @@ package wirelessredstone.block;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import wirelessredstone.core.WirelessRedstone;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.IconLib;
@@ -37,8 +38,8 @@ import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
 
     @Override
-    public void registerIcons(IconRegister iconRegister) {
-        this.iconBuffer = new Icon[2][6];
+    public void registerIcons(IIconRegister iconRegister) {
+        this.iconBuffer = new IIcon[2][6];
         this.iconBuffer[0][0] = iconRegister.registerIcon(IconLib.WIRELESS_BOTTOM_OFF);
         this.iconBuffer[0][1] = iconRegister.registerIcon(IconLib.WIRELESS_TOP_OFF);
         this.iconBuffer[0][2] = iconRegister.registerIcon(IconLib.WIRELESS_TX_SIDE_OFF);
@@ -62,7 +63,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      */
     public BlockRedstoneWirelessT(int i, float hardness, float resistance) {
         super(i, hardness, resistance);
-        setStepSound(Block.soundMetalFootstep);
+        setStepSound(Block.soundTypeMetal);
     }
 
     /**
@@ -142,7 +143,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
                                               i,
                                               j,
                                               k,
-                                              Block.redstoneWire.blockID);
+                                              Blocks.redstone_wire);
     }
 
     /**
@@ -168,9 +169,9 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      */
     @Override
     protected boolean onBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-        TileEntity tileentity = world.getBlockTileEntity(i,
-                                                         j,
-                                                         k);
+        TileEntity tileentity = world.getTileEntity(i,
+                                                    j,
+                                                    k);
 
         if (tileentity != null
             && tileentity instanceof TileEntityRedstoneWirelessT) {
@@ -193,12 +194,13 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * indirectly, and the power is already on, set the power off.
      */
     @Override
-    protected void onBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l) {
-        if (l == this.blockID) return;
+    protected void onBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block) {
+        if (block.equals(this)) return;
 
         // It was not removed, can provide power and is indirectly getting
         // powered.
-        if (l > 0
+        if (block != null
+            && !block.equals(Blocks.air)
             && !getState(world,
                          i,
                          j,
@@ -229,7 +231,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
     }
 
     @Override
-    protected Icon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+    protected IIcon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         if (getState(iblockaccess,
                      i,
                      j,
@@ -242,7 +244,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
     }
 
     @Override
-    protected Icon getBlockRedstoneWirelessTextureFromSide(int l) {
+    protected IIcon getBlockRedstoneWirelessTextureFromSide(int l) {
         return this.getIconFromStateAndSide(0,
                                             l);
     }
@@ -278,7 +280,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
     }
 
     @Override
-    protected boolean isBlockRedstoneWirelessSolidOnSide(World world, int x, int y, int z, ForgeDirection side) {
+    protected boolean isBlockRedstoneWirelessSolidOnSide(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
         return true;
     }
 

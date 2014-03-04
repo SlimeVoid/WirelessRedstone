@@ -13,8 +13,9 @@ package wirelessredstone.api;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -71,11 +72,11 @@ public interface IBlockRedstoneWirelessOverride {
      * @param k
      *            World Z coordinate
      * @param m
-     * @param l
+     * @param block
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, int l, int m);
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, Block block, int m);
 
     /**
      * Triggers after the Block is removed from the world.
@@ -138,12 +139,12 @@ public interface IBlockRedstoneWirelessOverride {
      *            World Y coordinate
      * @param k
      *            World Z coordinate
-     * @param l
+     * @param block
      *            Direction
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l);
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block);
 
     /**
      * Triggers after the Block's neighboring Block changes.
@@ -156,10 +157,10 @@ public interface IBlockRedstoneWirelessOverride {
      *            World Y coordinate
      * @param k
      *            World Z coordinate
-     * @param l
+     * @param block
      *            Direction
      */
-    public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, int l);
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block);
 
     /**
      * Triggers before the Block is updated
@@ -197,5 +198,5 @@ public interface IBlockRedstoneWirelessOverride {
 
     public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side);
 
-    public Icon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, Icon output);
+    public IIcon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, IIcon output);
 }

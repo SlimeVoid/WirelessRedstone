@@ -1,6 +1,6 @@
 package wirelessredstone.device;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +8,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.core.lib.NBTHelper;
@@ -16,30 +16,30 @@ import wirelessredstone.core.lib.NBTLib;
 
 public abstract class ItemWirelessDevice extends Item {
 
-    protected Icon[] iconList;
+    protected IIcon[] iconList;
 
     public ItemWirelessDevice(int itemID) {
-        super(itemID);
+        super();
         this.setMaxStackSize(1);
         this.setCreativeTab(WRCore.wirelessRedstone);
     }
 
     @Override
-    public void registerIcons(IconRegister iconRegister) {
-        this.iconList = new Icon[2];
+    public void registerIcons(IIconRegister iconRegister) {
+        this.iconList = new IIcon[2];
         this.registerIconList(iconRegister);
     }
 
-    protected abstract void registerIconList(IconRegister iconRegister);
+    protected abstract void registerIconList(IIconRegister iconRegister);
 
     @Override
-    public Icon getIconIndex(ItemStack itemstack) {
+    public IIcon getIconIndex(ItemStack itemstack) {
         return this.getIcon(itemstack,
                             0);
     }
 
     @Override
-    public Icon getIcon(ItemStack itemstack, int pass) {
+    public IIcon getIcon(ItemStack itemstack, int pass) {
         if (!getState(itemstack)) return iconList[0];
         return iconList[1];
     }

@@ -16,12 +16,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
-import wirelessredstone.network.packets.PacketWireless;
+
+import com.slimevoid.library.network.PacketUpdate;
 
 public class EtherPacketFetchEtherExecutor implements IEtherPacketExecutor {
 
     @Override
-    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (entityplayer instanceof EntityPlayerMP) {
             ServerRedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
         }

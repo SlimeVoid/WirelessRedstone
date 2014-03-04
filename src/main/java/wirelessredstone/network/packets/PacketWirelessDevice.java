@@ -14,7 +14,8 @@ package wirelessredstone.network.packets;
 import net.minecraft.world.World;
 import wirelessredstone.api.IWirelessDevice;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.network.packets.core.PacketPayload;
+
+import com.slimevoid.library.network.PacketPayload;
 
 public class PacketWirelessDevice extends PacketWireless {
 

@@ -15,16 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.NetClientHandler;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.NetHandler;
-import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
-import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.client.network.handlers.ClientAddonPacketHandler;
 import wirelessredstone.client.network.handlers.ClientDevicePacketHandler;
 import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
@@ -37,6 +34,7 @@ import wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessT;
+import wirelessredstone.core.lib.CoreLib;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
@@ -48,6 +46,11 @@ import wirelessredstone.proxy.WRCommonProxy;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+
+import com.slimevoid.library.network.handlers.ClientPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
+
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -129,9 +132,9 @@ public class WRClientProxy extends WRCommonProxy {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == GuiLib.GUIID_INVENTORY) {
-            TileEntity tileentity = world.getBlockTileEntity(x,
-                                                             y,
-                                                             z);
+            TileEntity tileentity = world.getTileEntity(x,
+                                                        y,
+                                                        z);
             if (tileentity != null) {
                 if (tileentity instanceof TileEntityRedstoneWirelessT) {
                     // guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT)
@@ -201,24 +204,11 @@ public class WRClientProxy extends WRCommonProxy {
         overrides.add(override);
     }
 
-    /**
-     * Retrieves the world object with NetHandler parameters.
-     * 
-     * @return Minecraft world object.
-     */
     @Override
-    public World getWorld(NetHandler handler) {
-        if (handler instanceof NetClientHandler) {
-            return ((NetClientHandler) handler).getPlayer().worldObj;
-        }
-        return null;
-    }
-
-    @Override
-    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
-        World world = getWorld(handler);
+    public void login(INetHandler handler, NetworkManager manager) {
+        World world = FMLClientHandler.instance().getWorldClient();
         if (world != null) {
-            ClientPacketHandler.sendPacket(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString())).getPacket()));
+            PacketHelper.sendToServer(((new PacketRedstoneEther(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString()))));
         }
     }
 
@@ -228,24 +218,27 @@ public class WRClientProxy extends WRCommonProxy {
         // ///////////////////
         // Client Handlers //
         // ///////////////////
-        ClientPacketHandler.init();
+        ClientPacketHandler handler = new ClientPacketHandler();
         // Ether Packets
         ClientRedstoneEtherPacketHandler etherPacketHandler = new ClientRedstoneEtherPacketHandler();
         etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
                                                  new ClientEtherPacketTXAddExecutor());
         etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
                                                  new ClientEtherPacketRXAddExecutor());
-        ClientPacketHandler.registerPacketHandler(PacketIds.ETHER,
-                                                  etherPacketHandler);
+        handler.registerPacketHandler(PacketIds.ETHER,
+                                      etherPacketHandler);
         // Device Packets
-        ClientPacketHandler.registerPacketHandler(PacketIds.DEVICE,
-                                                  new ClientDevicePacketHandler());
+        handler.registerPacketHandler(PacketIds.DEVICE,
+                                      new ClientDevicePacketHandler());
         // Tile Packets
-        ClientPacketHandler.registerPacketHandler(PacketIds.TILE,
-                                                  new ClientTilePacketHandler());
+        handler.registerPacketHandler(PacketIds.TILE,
+                                      new ClientTilePacketHandler());
         // Addon
         ClientAddonPacketHandler addonPacketHandler = new ClientAddonPacketHandler();
-        ClientPacketHandler.registerPacketHandler(PacketIds.ADDON,
-                                                  addonPacketHandler);
+        handler.registerPacketHandler(PacketIds.ADDON,
+                                      addonPacketHandler);
+
+        PacketHelper.registerClientListener(CoreLib.MOD_CHANNEL,
+                                            handler);
     }
 }

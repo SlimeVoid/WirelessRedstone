@@ -116,7 +116,7 @@ public class BlockRedstoneWirelessRenderer implements
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-        renderBlockAsItem(Block.blocksList[block.blockID],
+        renderBlockAsItem(block,
                           metadata,
                           renderer);
     }
@@ -146,7 +146,7 @@ public class BlockRedstoneWirelessRenderer implements
     }
 
     @Override
-    public boolean shouldRender3DInInventory() {
+    public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 

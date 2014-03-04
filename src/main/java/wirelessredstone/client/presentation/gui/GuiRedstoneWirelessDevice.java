@@ -17,10 +17,11 @@ import net.minecraft.world.World;
 import wirelessredstone.api.IGuiRedstoneWirelessDeviceOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import wirelessredstone.api.IWirelessDevice;
-import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.inventory.ContainerRedstoneDevice;
 import wirelessredstone.network.packets.PacketWirelessDevice;
+
+import com.slimevoid.library.util.helpers.PacketHelper;
 
 /**
  * Wireless Redstone GUI screen.
@@ -125,7 +126,7 @@ public abstract class GuiRedstoneWirelessDevice extends
         PacketWirelessDevice packet = new PacketWirelessDevice(this.wirelessDevice);
         packet.setCommand(this.getCommand());
         packet.setFreq(freq);
-        ClientPacketHandler.sendPacket(packet.getPacket());
+        PacketHelper.sendToServer(packet);
     }
 
     protected abstract String getCommand();
@@ -136,12 +137,12 @@ public abstract class GuiRedstoneWirelessDevice extends
      * @param y
      */
     protected void drawFrequency(int y) {
-        fontRenderer.drawString(this.getFreq() + "",
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth(this.getFreq()
-                                                                       + "") / 2),
-                                (ySize / 2) + y,
-                                0x404040);
+        fontRendererObj.drawString(this.getFreq() + "",
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth(this.getFreq()
+                                                                             + "") / 2),
+                                   (ySize / 2) + y,
+                                   0x404040);
     }
 
     /**
@@ -152,27 +153,29 @@ public abstract class GuiRedstoneWirelessDevice extends
      */
     protected void drawFrequencyAndBox(int y) {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth(getFreq() + "") / 2),
+                                 - (fontRendererObj.getStringWidth(getFreq()
+                                                                   + "") / 2),
                          (ySize / 2) + y,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth(getFreq() + "") / 2));
+                                 + (fontRendererObj.getStringWidth(getFreq()
+                                                                   + "") / 2));
         drawFrequency(y);
     }
 
     protected void drawFrequencyLabel(int y) {
-        fontRenderer.drawString("Frequency",
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth("Frequency") / 2),
-                                y,
-                                0x404040);
+        fontRendererObj.drawString("Frequency",
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth("Frequency") / 2),
+                                   y,
+                                   0x404040);
     }
 
     protected void drawFrequencyLabelAndBox(int y) {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth("Frequency") / 2),
+                                 - (fontRendererObj.getStringWidth("Frequency") / 2),
                          y,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth("Frequency") / 2));
+                                 + (fontRendererObj.getStringWidth("Frequency") / 2));
         drawFrequencyLabel(y);
     }
 
@@ -189,7 +192,7 @@ public abstract class GuiRedstoneWirelessDevice extends
      */
     @Override
     protected String getGuiName() {
-        return this.wirelessDevice.getInvName();
+        return this.wirelessDevice.getInventoryName();
     }
 
     protected Object getFreq() {

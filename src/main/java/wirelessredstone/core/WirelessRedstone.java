@@ -12,10 +12,7 @@
 package wirelessredstone.core;
 
 import wirelessredstone.api.ICommonProxy;
-import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.core.lib.CoreLib;
-import wirelessredstone.network.RedstoneWirelessConnectionHandler;
-import wirelessredstone.network.ServerPacketHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -23,8 +20,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 /**
  * Wireless Redstone ModLoader initializing class.
@@ -34,17 +29,8 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 @Mod(
         modid = CoreLib.MOD_ID,
         name = CoreLib.MOD_NAME,
-        version = CoreLib.MOD_VERSION)
-@NetworkMod(
-        clientSideRequired = true,
-        serverSideRequired = false,
-        connectionHandler = RedstoneWirelessConnectionHandler.class,
-        clientPacketHandlerSpec = @SidedPacketHandler(
-                channels = { CoreLib.MOD_CHANNEL },
-                packetHandler = ClientPacketHandler.class),
-        serverPacketHandlerSpec = @SidedPacketHandler(
-                channels = { CoreLib.MOD_CHANNEL },
-                packetHandler = ServerPacketHandler.class))
+        version = CoreLib.MOD_VERSION,
+        dependencies = CoreLib.MOD_DEPENDENCIES)
 /**
  * FML fascade class.
  * This class uses FML annotations and sorts initialization.
@@ -73,6 +59,7 @@ public class WirelessRedstone {
     @EventHandler
     public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
         proxy.registerConfiguration(event.getSuggestedConfigurationFile());
+        WRCore.initialize();
     }
 
     /**
@@ -82,7 +69,6 @@ public class WirelessRedstone {
      */
     @EventHandler
     public void WirelessRedstoneInit(FMLInitializationEvent event) {
-        WRCore.initialize();
     }
 
     /**

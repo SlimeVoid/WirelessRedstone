@@ -16,10 +16,11 @@ import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.network.packets.core.PacketPayload;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
+
+import com.slimevoid.library.network.PacketPayload;
 
 /**
  * Used to send Redstone Ether packet data
@@ -83,8 +84,8 @@ public class PacketRedstoneEther extends PacketWireless {
 
     @Override
     public boolean targetExists(World world) {
-        return world.blockHasTileEntity(this.xPosition,
-                                        this.yPosition,
-                                        this.zPosition);
+        return world.getTileEntity(this.xPosition,
+                                   this.yPosition,
+                                   this.zPosition) != null;
     }
 }

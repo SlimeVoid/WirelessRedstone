@@ -11,14 +11,14 @@
  */
 package wirelessredstone.client.network.handlers;
 
-import wirelessredstone.network.handlers.SubPacketHandler;
+import com.slimevoid.library.network.handlers.SubPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessOpenGuiInventory;
 import wirelessredstone.network.packets.PacketWireless;
 
 public class ClientInventoryGuiPacketHandler extends SubPacketHandler {
 
     @Override
-    protected PacketWireless createNewPacketWireless() {
+    protected PacketWireless createNewPacket() {
         return new PacketRedstoneWirelessOpenGuiInventory();
     }
 }

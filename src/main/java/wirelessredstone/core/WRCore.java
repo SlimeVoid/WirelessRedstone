@@ -13,9 +13,10 @@ package wirelessredstone.core;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import wirelessredstone.block.BlockRedstoneWireless;
@@ -23,6 +24,7 @@ import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.core.lib.BlockLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
+import wirelessredstone.network.NetworkEvent;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
@@ -107,6 +109,8 @@ public class WRCore {
 
         addRecipes();
 
+        NetworkEvent.registerNetworkEvents();
+
         return true;
 
     }
@@ -115,8 +119,8 @@ public class WRCore {
      * Initializes Block objects.
      */
     private static void initBlocks() {
-        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.receiver");
-        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.transmitter");
+        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setBlockName("wirelessredstone.receiver");
+        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setBlockName("wirelessredstone.transmitter");
     }
 
     /**
@@ -147,22 +151,22 @@ public class WRCore {
                                        "RLR",
                                        "IRI",
                                        Character.valueOf('I'),
-                                       Item.ingotIron,
+                                       Items.iron_ingot,
                                        Character.valueOf('R'),
-                                       Item.redstone,
+                                       Items.redstone,
                                        Character.valueOf('L'),
-                                       Block.lever });
+                                       Blocks.lever });
         GameRegistry.addRecipe(new ItemStack(blockWirelessT, 1),
                                new Object[] {
                                        "IRI",
                                        "RTR",
                                        "IRI",
                                        Character.valueOf('I'),
-                                       Item.ingotIron,
+                                       Items.iron_ingot,
                                        Character.valueOf('R'),
-                                       Item.redstone,
+                                       Items.redstone,
                                        Character.valueOf('T'),
-                                       Block.torchRedstoneActive });
+                                       Blocks.redstone_torch });
     }
 
     /**
@@ -218,7 +222,7 @@ public class WRCore {
                 stackInSlot = slot.getStack();
 
                 if (stackInSlot != null
-                    && stackInSlot.itemID == stackToMerge.itemID
+                    && stackInSlot.getItem().equals(stackToMerge.getItem())
                     && (!stackToMerge.getHasSubtypes() || stackToMerge.getItemDamage() == stackInSlot.getItemDamage())
                     && ItemStack.areItemStackTagsEqual(stackToMerge,
                                                        stackInSlot)) {

@@ -78,7 +78,7 @@ public class GuiButtonBoolean extends GuiButtonWireless {
      */
     @Override
     public void drawButton(Minecraft mc, int i, int j) {
-        if (this.drawButton) {
+        if (this.visible) {
             FontRenderer fontrenderer = mc.fontRenderer;
             if (state) {
                 mc.getTextureManager().bindTexture(this.getButtonTexture(state));
@@ -90,12 +90,12 @@ public class GuiButtonBoolean extends GuiButtonWireless {
                            1.0F,
                            1.0F,
                            1.0F);
-            this.field_82253_i = inBounds(i,
-                                          j);// >= xPosition && j >= yPosition
-                                             // && i <
+            this.field_146123_n = inBounds(i,
+                                           j);// >= xPosition && j >= yPosition
+                                              // && i <
             // xPosition + width && j < yPosition +
             // height;
-            int k = getHoverState(this.field_82253_i);
+            int k = getHoverState(this.field_146123_n);
             drawTexturedModalRect(xPosition,
                                   yPosition,
                                   0,
@@ -116,7 +116,7 @@ public class GuiButtonBoolean extends GuiButtonWireless {
 
             if (!this.enabled) {
                 l = -6250336;/* 0xffa0a0a0 */
-            } else if (this.field_82253_i) {
+            } else if (this.field_146123_n) {
                 l = 16777120;/* 0xffffa0 */
             } else {
                 l = 0xe0e0e0;

@@ -17,6 +17,8 @@ import wirelessredstone.api.IEtherPacketExecutor;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.PacketWireless;
 
+import com.slimevoid.library.network.PacketUpdate;
+
 /**
  * Execute a add transmitter command.<br>
  * <br>
@@ -27,12 +29,12 @@ import wirelessredstone.network.packets.PacketWireless;
 public class EtherPacketTXAddExecutor implements IEtherPacketExecutor {
 
     @Override
-    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         RedstoneEther.getInstance().addTransmitter(world,
                                                    packet.xPosition,
                                                    packet.yPosition,
                                                    packet.zPosition,
-                                                   packet.getFreq());
+                                                   ((PacketWireless) packet).getFreq());
     }
 
 }

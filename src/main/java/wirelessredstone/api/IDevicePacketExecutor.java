@@ -13,7 +13,9 @@ package wirelessredstone.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import wirelessredstone.network.packets.PacketWireless;
+
+import com.slimevoid.library.IPacketExecutor;
+import com.slimevoid.library.network.PacketUpdate;
 
 public interface IDevicePacketExecutor extends IPacketExecutor {
     /**
@@ -27,5 +29,5 @@ public interface IDevicePacketExecutor extends IPacketExecutor {
      *            the player
      */
     @Override
-    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer);
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer);
 }

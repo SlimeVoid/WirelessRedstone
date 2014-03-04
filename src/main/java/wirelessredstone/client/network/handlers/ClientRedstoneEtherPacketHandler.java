@@ -11,16 +11,17 @@
  */
 package wirelessredstone.client.network.handlers;
 
-import wirelessredstone.client.network.ClientPacketHandler;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.handlers.SubPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneEther;
-import wirelessredstone.network.packets.PacketWireless;
+
+import com.slimevoid.library.network.PacketUpdate;
+import com.slimevoid.library.network.handlers.SubPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
 
 public class ClientRedstoneEtherPacketHandler extends SubPacketHandler {
 
     @Override
-    protected PacketWireless createNewPacketWireless() {
+    protected PacketUpdate createNewPacket() {
         return new PacketRedstoneEther();
     }
 
@@ -37,6 +38,6 @@ public class ClientRedstoneEtherPacketHandler extends SubPacketHandler {
                                                                                              + packet.toString()
                                                                                              + ")",
                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
-        ClientPacketHandler.sendPacket(packet.getPacket());
+        PacketHelper.sendToServer(packet);
     }
 }

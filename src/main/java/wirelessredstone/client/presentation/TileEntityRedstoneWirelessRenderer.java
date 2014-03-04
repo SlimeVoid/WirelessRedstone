@@ -101,8 +101,8 @@ public class TileEntityRedstoneWirelessRenderer extends
     }
 
     private void renderFreq(TileEntityRedstoneWireless tileentity) {
-        FontRenderer fontrenderer = getFontRenderer();
-        String s = tileentity.getFreq() + "";
+        FontRenderer fontrenderer = this.func_147498_b();// getFontRenderer();
+        String s = String.valueOf(tileentity.getFreq()) + "";
         GL11.glDepthMask(false);
         fontrenderer.drawString(s,
                                 -fontrenderer.getStringWidth(s) / 2,

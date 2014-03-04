@@ -17,32 +17,38 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import wirelessredstone.data.LoggerRedstoneWireless;
-import wirelessredstone.network.handlers.SubPacketHandler;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessTile;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+
+import com.slimevoid.library.network.PacketUpdate;
+import com.slimevoid.library.network.handlers.SubPacketHandler;
+
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class ClientTilePacketHandler extends SubPacketHandler {
 
     @Override
-    protected PacketWireless createNewPacketWireless() {
+    protected PacketWireless createNewPacket() {
         return new PacketWirelessTile();
     }
 
     @Override
-    protected void handlePacket(PacketWireless packet, World world, EntityPlayer player) {
-        LoggerRedstoneWireless.getInstance("ClientTilePacketHandler").write(world.isRemote,
-                                                                            "handlePacket("
-                                                                                    + packet.toString()
-                                                                                    + ")",
-                                                                            LoggerRedstoneWireless.LogLevel.DEBUG);
+    protected void handlePacket(PacketUpdate packet, World world, EntityPlayer player) {
+        if (packet instanceof PacketWireless) {
+            PacketWireless wireless = (PacketWireless) packet;
+            LoggerRedstoneWireless.getInstance("ClientTilePacketHandler").write(world.isRemote,
+                                                                                "handlePacket("
+                                                                                        + packet.toString()
+                                                                                        + ")",
+                                                                                LoggerRedstoneWireless.LogLevel.DEBUG);
 
-        TileEntity tileentity = packet.getTarget(world);
-        if (packet.getCommand().equals(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString())) {
-            handleFetchTile(packet,
-                            tileentity);
+            TileEntity tileentity = wireless.getTarget(world);
+            if (packet.getCommand().equals(PacketRedstoneWirelessCommands.wirelessCommands.fetchTile.toString())) {
+                handleFetchTile(wireless,
+                                tileentity);
+            }
         }
     }
 

@@ -19,6 +19,8 @@ import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
+import com.slimevoid.library.network.PacketUpdate;
+
 /**
  * Execute a change frequency command.<br>
  * <br>
@@ -30,24 +32,24 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
 
     @Override
-    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         // Fetch the tile from the packet
-        TileEntity entity = packet.getTarget(world);
+        TileEntity entity = ((PacketWireless) packet).getTarget(world);
 
         if (entity instanceof TileEntityRedstoneWireless) {
             // Assemble frequencies.
-            int dFreq = Integer.parseInt(packet.getFreq());
+            int dFreq = Integer.parseInt(((PacketWireless) packet).getFreq());
             int oldFreq = Integer.parseInt(((TileEntityRedstoneWireless) entity).getFreq().toString());
 
             // Set the frequency to the tile
             ((TileEntityRedstoneWireless) entity).setFreq(Integer.toString(oldFreq
                                                                            + dFreq));
-            entity.onInventoryChanged();
+            entity.markDirty();
 
             // Makr the block for update with the world.
-            world.markBlockForRenderUpdate(packet.xPosition,
-                                           packet.yPosition,
-                                           packet.zPosition);
+            world.markBlockForUpdate(packet.xPosition,
+                                     packet.yPosition,
+                                     packet.zPosition);
 
             // Broadcast change to all clients.
             ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,

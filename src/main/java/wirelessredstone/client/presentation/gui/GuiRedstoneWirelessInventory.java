@@ -55,12 +55,12 @@ public abstract class GuiRedstoneWirelessInventory extends
      * @param y
      */
     protected void drawFrequency(int y) {
-        fontRenderer.drawString(this.getFreq() + "",
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth(this.getFreq()
-                                                                       + "") / 2),
-                                (ySize / 2) + y,
-                                0x404040);
+        fontRendererObj.drawString(this.getFreq() + "",
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth(this.getFreq()
+                                                                             + "") / 2),
+                                   (ySize / 2) + y,
+                                   0x404040);
     }
 
     /**
@@ -71,27 +71,29 @@ public abstract class GuiRedstoneWirelessInventory extends
      */
     protected void drawFrequencyAndBox(int y) {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth(getFreq() + "") / 2),
+                                 - (fontRendererObj.getStringWidth(getFreq()
+                                                                   + "") / 2),
                          (ySize / 2) + y,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth(getFreq() + "") / 2));
+                                 + (fontRendererObj.getStringWidth(getFreq()
+                                                                   + "") / 2));
         drawFrequency(y);
     }
 
     protected void drawFrequencyLabel(int y) {
-        fontRenderer.drawString("Frequency",
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth("Frequency") / 2),
-                                y,
-                                0x404040);
+        fontRendererObj.drawString("Frequency",
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth("Frequency") / 2),
+                                   y,
+                                   0x404040);
     }
 
     protected void drawFrequencyLabelAndBox(int y) {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth("Frequency") / 2),
+                                 - (fontRendererObj.getStringWidth("Frequency") / 2),
                          y,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth("Frequency") / 2));
+                                 + (fontRendererObj.getStringWidth("Frequency") / 2));
         drawFrequencyLabel(y);
     }
 
@@ -214,7 +216,7 @@ public abstract class GuiRedstoneWirelessInventory extends
      */
     @Override
     protected String getGuiName() {
-        return inventory.getInvName();
+        return inventory.getInventoryName();
     }
 
     /**

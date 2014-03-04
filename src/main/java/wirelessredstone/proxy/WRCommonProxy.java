@@ -14,17 +14,16 @@ package wirelessredstone.proxy;
 import java.io.File;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.NetHandler;
-import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.WirelessRedstone;
 import wirelessredstone.core.lib.ConfigurationLib;
+import wirelessredstone.core.lib.CoreLib;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.inventory.ContainerRedstoneWireless;
-import wirelessredstone.network.ServerPacketHandler;
 import wirelessredstone.network.handlers.ServerAddonPacketHandler;
 import wirelessredstone.network.handlers.ServerDevicePacketHandler;
 import wirelessredstone.network.handlers.ServerGuiPacketHandler;
@@ -40,6 +39,10 @@ import wirelessredstone.network.packets.executor.EtherPacketTXAddExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXRemExecutor;
 import wirelessredstone.network.packets.executor.EtherPacketTXSetStateExecutor;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+
+import com.slimevoid.library.network.handlers.ServerPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
+
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class WRCommonProxy implements ICommonProxy {
@@ -56,9 +59,9 @@ public class WRCommonProxy implements ICommonProxy {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == GuiLib.GUIID_INVENTORY) {
-            TileEntity tileentity = world.getBlockTileEntity(x,
-                                                             y,
-                                                             z);
+            TileEntity tileentity = world.getTileEntity(x,
+                                                        y,
+                                                        z);
             if (tileentity != null
                 && tileentity instanceof TileEntityRedstoneWireless) {
                 return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);
@@ -87,17 +90,8 @@ public class WRCommonProxy implements ICommonProxy {
 
     @Override
     public void init() {
-        NetworkRegistry.instance().registerGuiHandler(WirelessRedstone.instance,
-                                                      WirelessRedstone.proxy);
-    }
-
-    @Override
-    public World getWorld(NetHandler handler) {
-        return null;
-    }
-
-    @Override
-    public void login(NetHandler handler, INetworkManager manager, Packet1Login login) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(WirelessRedstone.instance,
+                                                    WirelessRedstone.proxy);
     }
 
     @Override
@@ -106,7 +100,8 @@ public class WRCommonProxy implements ICommonProxy {
         // Server Handlers //
         // ///////////////////
         // TODO Re-Inititiate Handlers
-        ServerPacketHandler.init();
+        ServerPacketHandler handler = new ServerPacketHandler();
+
         // Ether Packets
         ServerRedstoneEtherPacketHandler etherPacketHandler = new ServerRedstoneEtherPacketHandler();
         // Executors
@@ -124,29 +119,32 @@ public class WRCommonProxy implements ICommonProxy {
                                                  new EtherPacketRXRemExecutor());
         etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.fetchEther.toString(),
                                                  new EtherPacketFetchEtherExecutor());
-        ServerPacketHandler.registerPacketHandler(PacketIds.ETHER,
-                                                  etherPacketHandler);
+        handler.registerPacketHandler(PacketIds.ETHER,
+                                      etherPacketHandler);
 
         // Device Packets
         ServerDevicePacketHandler devicePacketHandler = new ServerDevicePacketHandler();
-        ServerPacketHandler.registerPacketHandler(PacketIds.DEVICE,
-                                                  devicePacketHandler);
+        handler.registerPacketHandler(PacketIds.DEVICE,
+                                      devicePacketHandler);
         // GUI Packets
         ServerGuiPacketHandler guiPacketHandler = new ServerGuiPacketHandler();
-        ServerPacketHandler.registerPacketHandler(PacketIds.GUI,
-                                                  guiPacketHandler);
+        handler.registerPacketHandler(PacketIds.GUI,
+                                      guiPacketHandler);
         // TODO GUI Executors (Should be none)
         // Tile Packets
         ServerTilePacketHandler tilePacketHandler = new ServerTilePacketHandler();
-        ServerPacketHandler.registerPacketHandler(PacketIds.TILE,
-                                                  tilePacketHandler);
+        handler.registerPacketHandler(PacketIds.TILE,
+                                      tilePacketHandler);
         // Addon
         ServerAddonPacketHandler addonPacketHandler = new ServerAddonPacketHandler();
-        ServerPacketHandler.registerPacketHandler(PacketIds.ADDON,
-                                                  addonPacketHandler);
+        handler.registerPacketHandler(PacketIds.ADDON,
+                                      addonPacketHandler);
+
+        PacketHelper.registerListener(CoreLib.MOD_CHANNEL,
+                                      handler);
     }
 
     @Override
-    public void connectionClosed(INetworkManager manager) {
+    public void login(INetHandler handler, NetworkManager manager) {
     }
 }

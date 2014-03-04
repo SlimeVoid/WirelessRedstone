@@ -20,27 +20,32 @@ import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
+import com.slimevoid.library.network.PacketUpdate;
+
 public class ClientEtherPacketTXAddExecutor implements IEtherPacketExecutor {
 
     @Override
-    public void execute(PacketWireless packet, World world, EntityPlayer entityplayer) {
-        TileEntity tileentity = packet.getTarget(world);
-        if (tileentity != null
-            && tileentity instanceof TileEntityRedstoneWirelessT) {
-            ((TileEntityRedstoneWireless) tileentity).setFreq(packet.getFreq().toString());
-            /*
-             * } else { tileentity = new TileEntityRedstoneWirelessT();
-             * ((TileEntityRedstoneWireless)
-             * tileentity).setFreq(packet.getFreq().toString());
-             * world.setBlockTileEntity( packet.xPosition, packet.yPosition,
-             * packet.zPosition, tileentity );
-             */
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+        if (packet instanceof PacketWireless) {
+            PacketWireless wireless = (PacketWireless) packet;
+            TileEntity tileentity = wireless.getTarget(world);
+            if (tileentity != null
+                && tileentity instanceof TileEntityRedstoneWirelessT) {
+                ((TileEntityRedstoneWireless) tileentity).setFreq(wireless.getFreq().toString());
+                /*
+                 * } else { tileentity = new TileEntityRedstoneWirelessT();
+                 * ((TileEntityRedstoneWireless)
+                 * tileentity).setFreq(packet.getFreq().toString());
+                 * world.setBlockTileEntity( packet.xPosition, packet.yPosition,
+                 * packet.zPosition, tileentity );
+                 */
+            }
+            RedstoneEther.getInstance().addTransmitter(world,
+                                                       packet.xPosition,
+                                                       packet.yPosition,
+                                                       packet.zPosition,
+                                                       wireless.getFreq().toString());
         }
-        RedstoneEther.getInstance().addTransmitter(world,
-                                                   packet.xPosition,
-                                                   packet.yPosition,
-                                                   packet.zPosition,
-                                                   packet.getFreq().toString());
     }
 
 }

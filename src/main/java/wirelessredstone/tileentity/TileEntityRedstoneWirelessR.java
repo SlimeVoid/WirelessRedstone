@@ -11,10 +11,10 @@
  */
 package wirelessredstone.tileentity;
 
-import net.minecraft.item.ItemStack;
 import wirelessredstone.block.BlockRedstoneWireless;
 import wirelessredstone.block.BlockRedstoneWirelessR;
 import wirelessredstone.core.WRCore;
+import wirelessredstone.core.lib.BlockLib;
 
 public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
     public TileEntityRedstoneWirelessR() {
@@ -22,8 +22,8 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
     }
 
     @Override
-    public String getInvName() {
-        return "Wireless Receiver";
+    public String getInventoryName() {
+        return BlockLib.WIRELESS_RECEIVER;
     }
 
     @Override

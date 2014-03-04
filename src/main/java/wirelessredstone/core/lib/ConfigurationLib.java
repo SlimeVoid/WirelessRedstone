@@ -3,8 +3,8 @@ package wirelessredstone.core.lib;
 import java.io.File;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.config.Configuration;
 import wirelessredstone.core.WRCore;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import cpw.mods.fml.relauncher.Side;
@@ -31,10 +31,10 @@ public class ConfigurationLib {
 
         configuration.load();
 
-        WRCore.txID = configuration.get(Configuration.CATEGORY_BLOCK,
+        WRCore.txID = configuration.get(Configuration.CATEGORY_GENERAL,
                                         BlockLib.WIRELESS_TRANSMITTER,
                                         1750).getInt();
-        WRCore.rxID = configuration.get(Configuration.CATEGORY_BLOCK,
+        WRCore.rxID = configuration.get(Configuration.CATEGORY_GENERAL,
                                         BlockLib.WIRELESS_RECEIVER,
                                         1751).getInt();
 
@@ -45,8 +45,9 @@ public class ConfigurationLib {
         configuration.save();
 
         WRCore.wirelessRedstone = new CreativeTabs(CoreLib.MOD_RESOURCES) {
-            public ItemStack getIconItemStack() {
-                return new ItemStack(WRCore.blockWirelessT, 1, 0);
+            @Override
+            public Item getTabIconItem() {
+                return Item.getItemFromBlock(WRCore.blockWirelessT);
             }
 
         };

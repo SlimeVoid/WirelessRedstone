@@ -11,7 +11,7 @@
  */
 package wirelessredstone.client.network.handlers;
 
-import wirelessredstone.network.handlers.SubPacketHandler;
+import com.slimevoid.library.network.handlers.SubPacketHandler;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessDevice;
 
@@ -23,7 +23,7 @@ import wirelessredstone.network.packets.PacketWirelessDevice;
 public class ClientDevicePacketHandler extends SubPacketHandler {
 
     @Override
-    protected PacketWireless createNewPacketWireless() {
+    protected PacketWireless createNewPacket() {
         return new PacketWirelessDevice();
     }
 }

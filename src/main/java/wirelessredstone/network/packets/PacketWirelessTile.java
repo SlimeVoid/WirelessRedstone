@@ -17,8 +17,9 @@ import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.data.LoggerRedstoneWireless.LogLevel;
 import wirelessredstone.ether.RedstoneEther;
 import wirelessredstone.network.packets.core.PacketIds;
-import wirelessredstone.network.packets.core.PacketPayload;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
+
+import com.slimevoid.library.network.PacketPayload;
 
 public class PacketWirelessTile extends PacketWireless implements IWirelessData {
     public PacketWirelessTile() {
@@ -31,7 +32,7 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
                          entity.getBlockCoord(1),
                          entity.getBlockCoord(2),
                          0);
-        LoggerRedstoneWireless.getInstance("PacketWirelessTile").write(entity.worldObj.isRemote,
+        LoggerRedstoneWireless.getInstance("PacketWirelessTile").write(entity.getWorldObj().isRemote,
                                                                        this.getCommand()
                                                                                + " - ("
                                                                                + this.xPosition
@@ -43,7 +44,7 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
                                                                        LogLevel.INFO);
         this.setCommand(command);
         this.setFreq(entity.getFreq());
-        this.setState(RedstoneEther.getInstance().getFreqState(entity.worldObj,
+        this.setState(RedstoneEther.getInstance().getFreqState(entity.getWorldObj(),
                                                                entity.getFreq()));
         this.setPowerDirections(entity.getPowerDirections());
         this.setInDirectlyPowering(entity.getInDirectlyPowering());
@@ -95,8 +96,8 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
 
     @Override
     public boolean targetExists(World world) {
-        return world.blockHasTileEntity(this.xPosition,
-                                        this.yPosition,
-                                        this.zPosition);
+        return world.getTileEntity(this.xPosition,
+                                   this.yPosition,
+                                   this.zPosition) != null;
     }
 }

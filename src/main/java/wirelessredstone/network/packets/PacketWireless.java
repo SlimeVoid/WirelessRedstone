@@ -21,8 +21,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IPacketWirelessOverride;
 import wirelessredstone.api.IRedstoneWirelessData;
-import wirelessredstone.network.packets.core.PacketPayload;
-import wirelessredstone.network.packets.core.PacketUpdate;
+
+import com.slimevoid.library.network.PacketPayload;
+import com.slimevoid.library.network.PacketUpdate;
 
 /**
  * Extend for new packets
@@ -160,9 +161,9 @@ public abstract class PacketWireless extends PacketUpdate implements
         TileEntity tileentity = null;
         if (!skipDefault) {
             if (this.targetExists(world)) {
-                tileentity = world.getBlockTileEntity(this.xPosition,
-                                                      this.yPosition,
-                                                      this.zPosition);
+                tileentity = world.getTileEntity(this.xPosition,
+                                                 this.yPosition,
+                                                 this.zPosition);
             }
         }
         for (IPacketWirelessOverride override : overrides) {

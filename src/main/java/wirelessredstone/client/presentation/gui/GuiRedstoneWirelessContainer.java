@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -153,15 +152,15 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
      */
     protected void drawGuiName() {
         drawStringBorder((xSize / 2)
-                                 - (fontRenderer.getStringWidth(this.getGuiName()) / 2),
+                                 - (fontRendererObj.getStringWidth(this.getGuiName()) / 2),
                          7,
                          (xSize / 2)
-                                 + (fontRenderer.getStringWidth(this.getGuiName()) / 2));
-        fontRenderer.drawString(getGuiName(),
-                                (xSize / 2)
-                                        - (fontRenderer.getStringWidth(this.getGuiName()) / 2),
-                                7,
-                                0x404040);
+                                 + (fontRendererObj.getStringWidth(this.getGuiName()) / 2));
+        fontRendererObj.drawString(getGuiName(),
+                                   (xSize / 2)
+                                           - (fontRendererObj.getStringWidth(this.getGuiName()) / 2),
+                                   7,
+                                   0x404040);
     }
 
     @Override
@@ -227,11 +226,8 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
 
             if (Keyboard.getEventKeyState()) {
                 int inventoryKey = 0;
-                for (Object o : KeyBinding.keybindArray) {
-                    if (((KeyBinding) o).keyDescription.equals("key.inventory")) {
-                        inventoryKey = ((KeyBinding) o).keyCode;
-                        break;
-                    }
+                if (this.mc.gameSettings.keyBindInventory.isPressed()) {
+                    inventoryKey = this.mc.gameSettings.keyBindInventory.getKeyCode();
                 }
                 if (Keyboard.getEventKey() == inventoryKey
                     || Keyboard.getEventKey() == 28) {

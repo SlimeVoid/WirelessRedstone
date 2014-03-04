@@ -175,7 +175,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
     }
 
     @Override
-    public void onInventoryChanged() {
+    public void markDirty() {
         ItemStack heldItem = this.entityliving.getHeldItem();
         if (heldItem != null && heldItem.getItem() != null
             && heldItem.getItem() instanceof ItemWirelessDevice) {
@@ -192,11 +192,11 @@ public abstract class WirelessDevice implements IWirelessDevice {
     }
 
     @Override
-    public void openChest() {
+    public void openInventory() {
     }
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     }
 
     @Override
@@ -205,7 +205,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
     }
 
     @Override
-    public boolean isInvNameLocalized() {
+    public boolean hasCustomInventoryName() {
         return false;
     }
 
