@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -483,10 +484,10 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
                                                         itemstack);
     }
 
-    public void onBlockRemoval(int side, int metadata) {
+    public void onBlockRemoval(Block block, int metadata) {
         for (ITileEntityRedstoneWirelessOverride override : overrides) {
             override.onBlockRemoval(this,
-                                    side,
+                                    block,
                                     metadata);
         }
     }

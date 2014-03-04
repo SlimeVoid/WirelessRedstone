@@ -11,6 +11,7 @@
  */
 package wirelessredstone.api;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -170,8 +171,8 @@ public interface ITileEntityRedstoneWirelessOverride {
      * Called when we remove the TileEntity
      * 
      * @param tileEntityRedstoneWireless
-     * @param side
+     * @param block
      * @param metadata
      */
-    public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata);
+    public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, Block block, int metadata);
 }

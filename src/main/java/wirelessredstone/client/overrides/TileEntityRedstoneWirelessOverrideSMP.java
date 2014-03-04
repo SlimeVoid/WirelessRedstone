@@ -11,6 +11,7 @@
  */
 package wirelessredstone.client.overrides;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -116,8 +117,6 @@ public class TileEntityRedstoneWirelessOverrideSMP implements
     }
 
     @Override
-    public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, int side, int metadata) {
-        // TODO Auto-generated method stub
-
+    public void onBlockRemoval(TileEntityRedstoneWireless tileEntityRedstoneWireless, Block block, int metadata) {
     }
 }
