@@ -25,7 +25,6 @@ import wirelessredstone.block.BlockRedstoneWirelessT;
 import wirelessredstone.core.lib.BlockLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.network.NetworkEvent;
-import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
@@ -90,12 +89,6 @@ public class WRCore {
         // loadConfig();
 
         WirelessRedstone.proxy.init();
-
-        PacketRedstoneWirelessCommands.registerCommands();
-
-        // PacketWirelessDeviceCommands.registerCommands();
-
-        WirelessRedstone.proxy.initPacketHandlers();
 
         initBlocks();
 

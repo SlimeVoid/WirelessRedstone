@@ -140,7 +140,7 @@ public class WRCommonProxy implements ICommonProxy {
         handler.registerPacketHandler(PacketIds.ADDON,
                                       addonPacketHandler);
 
-        PacketHelper.registerListener(CoreLib.MOD_CHANNEL,
+        PacketHelper.registerServerHandler(CoreLib.MOD_CHANNEL,
                                       handler);
     }
 

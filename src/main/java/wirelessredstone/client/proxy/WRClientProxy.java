@@ -238,7 +238,7 @@ public class WRClientProxy extends WRCommonProxy {
         handler.registerPacketHandler(PacketIds.ADDON,
                                       addonPacketHandler);
 
-        PacketHelper.registerClientListener(CoreLib.MOD_CHANNEL,
+        PacketHelper.registerClientHandler(CoreLib.MOD_CHANNEL,
                                             handler);
     }
 }

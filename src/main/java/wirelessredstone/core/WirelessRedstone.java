@@ -13,6 +13,10 @@ package wirelessredstone.core;
 
 import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.lib.CoreLib;
+import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+
+import com.slimevoid.library.util.helpers.PacketHelper;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -69,6 +73,9 @@ public class WirelessRedstone {
      */
     @EventHandler
     public void WirelessRedstoneInit(FMLInitializationEvent event) {
+        PacketHelper.registerListener(CoreLib.MOD_CHANNEL);
+        PacketRedstoneWirelessCommands.registerCommands();
+        WirelessRedstone.proxy.initPacketHandlers();
     }
 
     /**
