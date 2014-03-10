@@ -1,5 +1,7 @@
 package wirelessredstone.device;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -123,6 +125,10 @@ public abstract class ItemWirelessDevice extends Item {
                                 NBTLib.FREQUENCY,
                                 String.valueOf(freq));
         }
+    }
+
+    public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List lines, boolean showAdvancedInfo) {
+        lines.add("Frequency [" + this.getFreq(itemstack) + "]");
     }
 
     @Override
