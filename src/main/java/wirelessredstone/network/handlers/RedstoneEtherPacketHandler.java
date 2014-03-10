@@ -35,7 +35,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
  * 
  * @author ali4z
  */
-public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
+public class RedstoneEtherPacketHandler extends SubPacketHandler {
 
     @Override
     protected PacketWireless createNewPacket() {
@@ -264,5 +264,24 @@ public class ServerRedstoneEtherPacketHandler extends SubPacketHandler {
                                    world);
             }
         }
+    }
+
+    /*
+     * CLIENT SIDE
+     */
+    public static void sendEtherPacketToServer(String command, int i, int j, int k, Object freq, boolean state) {
+        PacketRedstoneEther packet = new PacketRedstoneEther(command);
+        packet.setPosition(i,
+                           j,
+                           k,
+                           0);
+        packet.setFreq(freq);
+        packet.setState(state);
+        LoggerRedstoneWireless.getInstance("ClientRedstoneEtherPacketHandler").write(true,
+                                                                                     "sendRedstoneEtherPacket("
+                                                                                             + packet.toString()
+                                                                                             + ")",
+                                                                                     LoggerRedstoneWireless.LogLevel.DEBUG);
+        PacketHelper.sendToServer(packet);
     }
 }

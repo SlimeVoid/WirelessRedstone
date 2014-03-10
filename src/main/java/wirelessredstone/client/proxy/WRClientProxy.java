@@ -22,10 +22,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IActivateGuiOverride;
 import wirelessredstone.api.IGuiRedstoneWirelessOverride;
-import wirelessredstone.client.network.handlers.ClientAddonPacketHandler;
-import wirelessredstone.client.network.handlers.ClientDevicePacketHandler;
-import wirelessredstone.client.network.handlers.ClientRedstoneEtherPacketHandler;
-import wirelessredstone.client.network.handlers.ClientTilePacketHandler;
 import wirelessredstone.client.network.packets.executor.ClientEtherPacketRXAddExecutor;
 import wirelessredstone.client.network.packets.executor.ClientEtherPacketTXAddExecutor;
 import wirelessredstone.client.overrides.ActivateGuiTileEntityOverride;
@@ -34,7 +30,7 @@ import wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
 import wirelessredstone.client.presentation.gui.GuiRedstoneWirelessT;
-import wirelessredstone.core.lib.CoreLib;
+import wirelessredstone.core.WirelessRedstone;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.data.LoggerRedstoneWireless;
 import wirelessredstone.ether.RedstoneEther;
@@ -47,7 +43,6 @@ import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
-import com.slimevoid.library.network.handlers.ClientPacketHandler;
 import com.slimevoid.library.util.helpers.PacketHelper;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -218,27 +213,11 @@ public class WRClientProxy extends WRCommonProxy {
         // ///////////////////
         // Client Handlers //
         // ///////////////////
-        ClientPacketHandler handler = new ClientPacketHandler();
-        // Ether Packets
-        ClientRedstoneEtherPacketHandler etherPacketHandler = new ClientRedstoneEtherPacketHandler();
-        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
-                                                 new ClientEtherPacketTXAddExecutor());
-        etherPacketHandler.registerPacketHandler(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
-                                                 new ClientEtherPacketRXAddExecutor());
-        handler.registerPacketHandler(PacketIds.ETHER,
-                                      etherPacketHandler);
-        // Device Packets
-        handler.registerPacketHandler(PacketIds.DEVICE,
-                                      new ClientDevicePacketHandler());
-        // Tile Packets
-        handler.registerPacketHandler(PacketIds.TILE,
-                                      new ClientTilePacketHandler());
-        // Addon
-        ClientAddonPacketHandler addonPacketHandler = new ClientAddonPacketHandler();
-        handler.registerPacketHandler(PacketIds.ADDON,
-                                      addonPacketHandler);
 
-        PacketHelper.registerClientHandler(CoreLib.MOD_CHANNEL,
-                                            handler);
+        // Ether Client Packet Executors
+        WirelessRedstone.handler.getPacketHandler(PacketIds.ETHER).registerClientExecutor(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
+                                                                                               new ClientEtherPacketTXAddExecutor());
+        WirelessRedstone.handler.getPacketHandler(PacketIds.ETHER).registerClientExecutor(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
+                                                                                               new ClientEtherPacketRXAddExecutor());
     }
 }

@@ -9,7 +9,7 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package wirelessredstone.client.network.handlers;
+package wirelessredstone.network.handlers;
 
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.network.packets.PacketWirelessAddon;
@@ -17,11 +17,11 @@ import wirelessredstone.network.packets.PacketWirelessAddon;
 import com.slimevoid.library.network.handlers.SubPacketHandler;
 
 /**
- * A client-side ADDON packet sub-handler.
+ * A server-side ADDON packet sub-handler.
  * 
  * @author Eurymachus
  */
-public class ClientAddonPacketHandler extends SubPacketHandler {
+public class AddonPacketHandler extends SubPacketHandler {
 
     @Override
     protected PacketWireless createNewPacket() {

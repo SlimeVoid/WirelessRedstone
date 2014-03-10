@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import wirelessredstone.api.IEtherPacketExecutor;
-import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
 
 import com.slimevoid.library.network.PacketUpdate;
 
@@ -24,7 +24,7 @@ public class EtherPacketFetchEtherExecutor implements IEtherPacketExecutor {
     @Override
     public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (entityplayer instanceof EntityPlayerMP) {
-            ServerRedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
+            RedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
         }
     }
 }

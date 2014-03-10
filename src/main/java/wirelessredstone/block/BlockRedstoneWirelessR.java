@@ -25,7 +25,7 @@ import wirelessredstone.core.WirelessRedstone;
 import wirelessredstone.core.lib.GuiLib;
 import wirelessredstone.core.lib.IconLib;
 import wirelessredstone.ether.RedstoneEther;
-import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
@@ -255,7 +255,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
                 TileEntity entity = world.getTileEntity(i,
                                                         j,
                                                         k);
-                if (entity instanceof TileEntityRedstoneWireless) ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+                if (entity instanceof TileEntityRedstoneWireless) RedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
                                                                                                                       world);
             }
         }

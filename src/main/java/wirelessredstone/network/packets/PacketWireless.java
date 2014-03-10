@@ -11,9 +11,9 @@
  */
 package wirelessredstone.network.packets;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IPacketWirelessOverride;
 import wirelessredstone.api.IRedstoneWirelessData;
+import wirelessredstone.core.lib.CoreLib;
 
 import com.slimevoid.library.network.PacketPayload;
 import com.slimevoid.library.network.PacketUpdate;
@@ -42,18 +43,16 @@ public abstract class PacketWireless extends PacketUpdate implements
         }
     }
 
-    private String command;
-
     @Override
-    public void writeData(DataOutputStream data) throws IOException {
-        super.writeData(data);
-        data.writeUTF(this.command);
+    public void writeData(ChannelHandlerContext ctx, ByteBuf data) {
+        super.writeData(ctx,
+                        data);
     }
 
     @Override
-    public void readData(DataInputStream data) throws IOException {
-        super.readData(data);
-        this.command = data.readUTF();
+    public void readData(ChannelHandlerContext ctx, ByteBuf data) {
+        super.readData(ctx,
+                       data);
     }
 
     /**
@@ -65,7 +64,7 @@ public abstract class PacketWireless extends PacketUpdate implements
      */
     public PacketWireless(int packetId) {
         super(packetId);
-        this.setChannel("WR");
+        this.setChannel(CoreLib.MOD_CHANNEL);
     }
 
     /**
@@ -80,32 +79,13 @@ public abstract class PacketWireless extends PacketUpdate implements
      */
     public PacketWireless(int packetId, PacketPayload payload) {
         super(packetId, payload);
-        this.setChannel("WR");
+        this.setChannel(CoreLib.MOD_CHANNEL);
     }
 
     @Override
     public String toString() {
         return this.getCommand() + "(" + xPosition + "," + yPosition + ","
                + zPosition + ")[" + this.getFreq() + "]";
-    }
-
-    /**
-     * Retrieves the command String corresponding to the executor
-     * 
-     * @return Returns command
-     */
-    public String getCommand() {
-        return this.command;
-    }
-
-    /**
-     * Sets the command in the packet
-     * 
-     * @param command
-     *            The command to be added
-     */
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     /**

@@ -26,11 +26,11 @@ import com.slimevoid.library.util.helpers.PacketHelper;
  * 
  * @author ali4z
  */
-public class ServerTilePacketHandler extends SubPacketHandler {
+public class TilePacketHandler extends SubPacketHandler {
 
     @Override
     protected PacketWireless createNewPacket() {
-        return null;
+        return new PacketWirelessTile();
     }
 
     /**

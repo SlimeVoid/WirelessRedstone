@@ -15,6 +15,7 @@ import wirelessredstone.api.ICommonProxy;
 import wirelessredstone.core.lib.CoreLib;
 import wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
 
+import com.slimevoid.library.network.handlers.PacketPipeline;
 import com.slimevoid.library.util.helpers.PacketHelper;
 
 import cpw.mods.fml.common.Mod;
@@ -47,6 +48,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
  */
 public class WirelessRedstone {
 
+    public static PacketPipeline   handler = new PacketPipeline();
+
     @SidedProxy(
             clientSide = CoreLib.MOD_CLIENT_PROXY,
             serverSide = CoreLib.MOD_COMMON_PROXY)
@@ -73,9 +76,10 @@ public class WirelessRedstone {
      */
     @EventHandler
     public void WirelessRedstoneInit(FMLInitializationEvent event) {
-        PacketHelper.registerListener(CoreLib.MOD_CHANNEL);
         PacketRedstoneWirelessCommands.registerCommands();
         WirelessRedstone.proxy.initPacketHandlers();
+        PacketHelper.registerHandler(CoreLib.MOD_CHANNEL,
+                                     handler);
     }
 
     /**

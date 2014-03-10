@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import wirelessredstone.api.IEtherPacketExecutor;
-import wirelessredstone.network.handlers.ServerRedstoneEtherPacketHandler;
+import wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
 import wirelessredstone.network.packets.PacketWireless;
 import wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -52,7 +52,7 @@ public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
                                      packet.zPosition);
 
             // Broadcast change to all clients.
-            ServerRedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+            RedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
                                                                 world);
         }
     }

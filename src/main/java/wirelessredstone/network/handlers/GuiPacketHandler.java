@@ -25,7 +25,7 @@ import com.slimevoid.library.util.helpers.PacketHelper;
  * 
  * @author ali4z
  */
-public class ServerGuiPacketHandler extends SubPacketHandler {
+public class GuiPacketHandler extends SubPacketHandler {
 
     @Override
     protected PacketWireless createNewPacket() {
