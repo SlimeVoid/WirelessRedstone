@@ -17,6 +17,7 @@ import java.util.List;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
@@ -152,15 +153,19 @@ public abstract class GuiRedstoneWirelessContainer extends GuiContainer {
      */
     protected void drawGuiName() {
         drawStringBorder((xSize / 2)
-                                 - (fontRendererObj.getStringWidth(this.getGuiName()) / 2),
+                                 - (fontRendererObj.getStringWidth(this.getLocalizedName()) / 2),
                          7,
                          (xSize / 2)
-                                 + (fontRendererObj.getStringWidth(this.getGuiName()) / 2));
-        fontRendererObj.drawString(getGuiName(),
+                                 + (fontRendererObj.getStringWidth(this.getLocalizedName()) / 2));
+        fontRendererObj.drawString(this.getLocalizedName(),
                                    (xSize / 2)
-                                           - (fontRendererObj.getStringWidth(this.getGuiName()) / 2),
+                                           - (fontRendererObj.getStringWidth(this.getLocalizedName()) / 2),
                                    7,
                                    0x404040);
+    }
+
+    private String getLocalizedName() {
+        return StatCollector.translateToLocal(this.getGuiName());
     }
 
     @Override

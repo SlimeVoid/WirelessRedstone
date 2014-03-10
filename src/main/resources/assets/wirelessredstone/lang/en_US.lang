@@ -5,3 +5,5 @@ item.wirelessredstone.name=Example Item
 itemGroup.wirelessredstone=Wireless Redstone
 wirelessredstone.device.receiver=Wireless Receiving Device
 wirelessredstone.device.transmitter=Wireless Transmitting Device
+wirelessredstone.receiver=Wireless Receiver
+wirelessredstone.transmitter=Wireless Transmitter
