@@ -1,4 +1,13 @@
-/bin
-/jars
-/lib
-/EasterEggs
+# gradle stuff
+build
+.gradle
+
+# eclipse stuff
+.classpath
+.project
+.settings
+eclipse
+bin
+
+# run configuration
+run
