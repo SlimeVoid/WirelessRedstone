@@ -35,62 +35,62 @@ public interface IBlockRedstoneWirelessOverride {
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k);
+    public boolean beforeBlockRedstoneWirelessAdded(World world, int x, int y, int z);
 
     /**
      * Triggered after the Block is added to the world.
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      */
-    public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k);
+    public void afterBlockRedstoneWirelessAdded(World world, int x, int y, int z);
 
     /**
      * Triggers before the Block is removed from the world.
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param m
      * @param block
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, Block block, int m);
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int x, int y, int z, Block block, int m);
 
     /**
      * Triggers after the Block is removed from the world.
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      */
-    public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k);
+    public void afterBlockRedstoneWirelessRemoved(World world, int x, int y, int z);
 
     /**
      * Triggers when the Block is activated/right clicked.<br>
@@ -98,18 +98,18 @@ public interface IBlockRedstoneWirelessOverride {
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param entityplayer
      *            Player that activated the block.
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer);
+    public boolean beforeBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer);
 
     /**
      * Triggers when the Block is activated/right clicked.<br>
@@ -117,86 +117,106 @@ public interface IBlockRedstoneWirelessOverride {
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param entityplayer
      *            Player that activated the block.
      */
-    public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer);
+    public void afterBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer);
 
     /**
      * Triggers before the Block's neighboring Block changes.
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param block
      *            Direction
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block);
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block);
 
     /**
      * Triggers after the Block's neighboring Block changes.
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param block
      *            Direction
      */
-    public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block);
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block);
 
     /**
      * Triggers before the Block is updated
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param random
      *            Randomization object
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random);
+    public boolean beforeUpdateRedstoneWirelessTick(World world, int x, int y, int z, Random random);
 
     /**
      * Triggers after the Block is updated
      * 
      * @param world
      *            The world object
-     * @param i
+     * @param x
      *            World X coordinate
-     * @param j
+     * @param y
      *            World Y coordinate
-     * @param k
+     * @param z
      *            World Z coordinate
      * @param random
      *            Randomization object
      */
-    public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random);
+    public void afterUpdateRedstoneWirelessTick(World world, int x, int y, int z, Random random);
 
-    public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side);
+    /**
+     * Return true if the texture override method should be called
+     * 
+     * @param iblockaccess
+     * @param x
+     * @param y
+     * @param z
+     * @param side
+     * @return
+     */
+    public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int x, int y, int z, int side);
 
-    public IIcon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, IIcon output);
+    /**
+     * Returns the existing texture or a new texture
+     * @param iblockaccess
+     * @param x
+     * @param y
+     * @param z
+     * @param side
+     * @param output
+     * @return
+     */
+    public IIcon getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side, IIcon output);
 }

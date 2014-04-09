@@ -17,48 +17,48 @@ import net.slimevoid.wirelessredstone.api.IRedstoneEtherOverride;
 public class RedstoneEtherOverrideSMP implements IRedstoneEtherOverride {
 
     @Override
-    public boolean beforeAddTransmitter(World world, int i, int j, int k, Object freq) {
+    public boolean beforeAddTransmitter(World world, int x, int y, int z, Object freq) {
         return (world == null || world.isRemote);
     }
 
     @Override
-    public void afterAddTransmitter(World world, int i, int j, int k, Object freq) {
+    public void afterAddTransmitter(World world, int x, int y, int z, Object freq) {
     }
 
     @Override
-    public boolean beforeRemTransmitter(World world, int i, int j, int k, Object freq) {
+    public boolean beforeRemTransmitter(World world, int x, int y, int z, Object freq) {
         return (world == null || world.isRemote);
     }
 
     @Override
-    public void afterRemTransmitter(World world, int i, int j, int k, Object freq) {
+    public void afterRemTransmitter(World world, int x, int y, int z, Object freq) {
     }
 
     @Override
-    public boolean beforeSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
+    public boolean beforeSetTransmitterState(World world, int x, int y, int z, Object freq, boolean state) {
         return (world == null || world.isRemote);
     }
 
     @Override
-    public void afterSetTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
+    public void afterSetTransmitterState(World world, int x, int y, int z, Object freq, boolean state) {
     }
 
     @Override
-    public boolean beforeAddReceiver(World world, int i, int j, int k, Object freq) {
+    public boolean beforeAddReceiver(World world, int x, int y, int z, Object freq) {
         return (world == null || world.isRemote);
     }
 
     @Override
-    public void afterAddReceiver(World world, int i, int j, int k, Object freq) {
+    public void afterAddReceiver(World world, int x, int y, int z, Object freq) {
     }
 
     @Override
-    public boolean beforeRemReceiver(World world, int i, int j, int k, Object freq) {
+    public boolean beforeRemReceiver(World world, int x, int y, int z, Object freq) {
         return (world == null || world.isRemote);
     }
 
     @Override
-    public void afterRemReceiver(World world, int i, int j, int k, Object freq) {
+    public void afterRemReceiver(World world, int x, int y, int z, Object freq) {
     }
 
     @Override
@@ -72,22 +72,22 @@ public class RedstoneEtherOverrideSMP implements IRedstoneEtherOverride {
     }
 
     @Override
-    public boolean beforeIsLoaded(World world, int i, int j, int k) {
+    public boolean beforeIsLoaded(World world, int x, int y, int z) {
         return (world == null || world.isRemote);
     }
 
     @Override
-    public boolean afterIsLoaded(World world, int i, int j, int k, boolean returnState) {
+    public boolean afterIsLoaded(World world, int x, int y, int z, boolean returnState) {
         return returnState;
     }
 
     @Override
-    public int[] beforeGetClosestActiveTransmitter(int i, int j, int k, String freq) {
+    public int[] beforeGetClosestActiveTransmitter(int x, int y, int z, String freq) {
         return null;
     }
 
     @Override
-    public int[] afterGetClosestActiveTransmitter(int i, int j, int k, String freq, int[] coords) {
+    public int[] afterGetClosestActiveTransmitter(int x, int y, int z, String freq, int[] coords) {
         return coords;
     }
 }

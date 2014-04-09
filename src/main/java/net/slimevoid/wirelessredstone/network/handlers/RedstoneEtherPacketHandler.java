@@ -16,6 +16,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.slimevoid.library.network.handlers.SubPacketHandler;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
@@ -127,9 +128,9 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
     public static void sendEtherNodeTileToAll(RedstoneEtherNode node) {
         // Fetch required data.
         World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
-        TileEntity entity = world.getTileEntity(node.i,
-                                                node.j,
-                                                node.k);
+        TileEntity entity = world.getTileEntity(node.x,
+                                                node.y,
+                                                node.z);
 
         if (entity instanceof TileEntityRedstoneWireless) {
             // Send the required data.
@@ -156,13 +157,13 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
         World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
 
         // Fetch all receivers
-        List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
+        List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes(entityplayermp.getEntityWorld());
 
         // Send each receivers to the player.
         for (RedstoneEtherNode node : list) {
-            TileEntity entity = world.getTileEntity(node.i,
-                                                    node.j,
-                                                    node.k);
+            TileEntity entity = world.getTileEntity(node.x,
+                                                    node.y,
+                                                    node.z);
             if (entity instanceof TileEntityRedstoneWirelessR) {
                 sendEtherTileTo(entityplayermp,
                                 (TileEntityRedstoneWirelessR) entity,
@@ -171,13 +172,13 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
         }
 
         // Fetch all transmitters
-        list = RedstoneEther.getInstance().getTXNodes();
+        list = RedstoneEther.getInstance().getTXNodes(entityplayermp.getEntityWorld());
 
         // Send all transmitters to the player.
         for (RedstoneEtherNode node : list) {
-            TileEntity entity = world.getTileEntity(node.i,
-                                                    node.j,
-                                                    node.k);
+            TileEntity entity = world.getTileEntity(node.x,
+                                                    node.y,
+                                                    node.z);
             if (entity instanceof TileEntityRedstoneWirelessT) {
                 sendEtherTileTo(entityplayermp,
                                 (TileEntityRedstoneWirelessT) entity,
@@ -195,34 +196,34 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
         // Prepare required data.
-        PacketRedstoneEther packet;
-        World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+        for (World world : DimensionManager.getWorlds()) {
 
-        // Fetch all receivers
-        List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes();
+            // Fetch all receivers
+            List<RedstoneEtherNode> list = RedstoneEther.getInstance().getRXNodes(world);
 
-        // Broadcast all receivers
-        for (RedstoneEtherNode node : list) {
-            TileEntity entity = world.getTileEntity(node.i,
-                                                    node.j,
-                                                    node.k);
-            if (entity instanceof TileEntityRedstoneWirelessR) {
-                sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
-                                   world);
+            // Broadcast all receivers
+            for (RedstoneEtherNode node : list) {
+                TileEntity entity = world.getTileEntity(node.x,
+                                                        node.y,
+                                                        node.z);
+                if (entity instanceof TileEntityRedstoneWirelessR) {
+                    sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
+                                       world);
+                }
             }
-        }
 
-        // Fetch all transmitters
-        list = RedstoneEther.getInstance().getTXNodes();
+            // Fetch all transmitters
+            list = RedstoneEther.getInstance().getTXNodes(world);
 
-        // Broadcast all transmitters
-        for (RedstoneEtherNode node : list) {
-            TileEntity entity = world.getTileEntity(node.i,
-                                                    node.j,
-                                                    node.k);
-            if (entity instanceof TileEntityRedstoneWirelessT) {
-                sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
-                                   world);
+            // Broadcast all transmitters
+            for (RedstoneEtherNode node : list) {
+                TileEntity entity = world.getTileEntity(node.x,
+                                                        node.y,
+                                                        node.z);
+                if (entity instanceof TileEntityRedstoneWirelessT) {
+                    sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
+                                       world);
+                }
             }
         }
     }
@@ -243,9 +244,9 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
 
         // Broadcast receivers.
         for (RedstoneEtherNode node : rxs) {
-            TileEntity entity = world.getTileEntity(node.i,
-                                                    node.j,
-                                                    node.k);
+            TileEntity entity = world.getTileEntity(node.x,
+                                                    node.y,
+                                                    node.z);
             if (entity instanceof TileEntityRedstoneWirelessR) {
                 sendEtherTileToAll((TileEntityRedstoneWirelessR) entity,
                                    world);
@@ -254,9 +255,9 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
 
         // Broadcast transmitters.
         for (RedstoneEtherNode node : txs) {
-            TileEntity entity = world.getTileEntity(node.i,
-                                                    node.j,
-                                                    node.k);
+            TileEntity entity = world.getTileEntity(node.x,
+                                                    node.y,
+                                                    node.z);
             if (entity instanceof TileEntityRedstoneWirelessT) {
                 sendEtherTileToAll((TileEntityRedstoneWirelessT) entity,
                                    world);
@@ -267,11 +268,11 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
     /*
      * CLIENT SIDE
      */
-    public static void sendEtherPacketToServer(String command, int i, int j, int k, Object freq, boolean state) {
+    public static void sendEtherPacketToServer(String command, int x, int y, int z, Object freq, boolean state) {
         PacketRedstoneEther packet = new PacketRedstoneEther(command);
-        packet.setPosition(i,
-                           j,
-                           k,
+        packet.setPosition(x,
+                           y,
+                           z,
                            0);
         packet.setFreq(freq);
         packet.setState(state);

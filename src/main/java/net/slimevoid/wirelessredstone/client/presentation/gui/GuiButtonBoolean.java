@@ -31,11 +31,11 @@ public class GuiButtonBoolean extends GuiButtonWireless {
     /**
      * Constructor.
      * 
-     * @param i
+     * @param x
      *            button index handle
-     * @param j
+     * @param y
      *            screen X coordinate
-     * @param k
+     * @param z
      *            screen Y coordinate
      * @param l
      *            width
@@ -46,13 +46,13 @@ public class GuiButtonBoolean extends GuiButtonWireless {
      * @param state
      *            initial state
      */
-    public GuiButtonBoolean(int i, int j, int k, int l, int i1, String s, boolean state, String popupText) {
-        super(i, j, k, l, i1, s, popupText);
+    public GuiButtonBoolean(int x, int y, int z, int l, int i1, String s, boolean state, String popupText) {
+        super(x, y, z, l, i1, s, popupText);
         changeState(state);
     }
 
-    public GuiButtonBoolean(int i, int j, int k, int l, int i1, String s, boolean state) {
-        super(i, j, k, l, i1, s);
+    public GuiButtonBoolean(int x, int y, int z, int l, int i1, String s, boolean state) {
+        super(x, y, z, l, i1, s);
         changeState(state);
     }
 
@@ -71,13 +71,13 @@ public class GuiButtonBoolean extends GuiButtonWireless {
      * 
      * @param mc
      *            minecraft instance
-     * @param i
+     * @param x
      *            mouse X coordinate
-     * @param j
+     * @param y
      *            mouse Y coordinate
      */
     @Override
-    public void drawButton(Minecraft mc, int i, int j) {
+    public void drawButton(Minecraft mc, int x, int y) {
         if (this.visible) {
             FontRenderer fontrenderer = mc.fontRenderer;
             if (state) {
@@ -90,8 +90,8 @@ public class GuiButtonBoolean extends GuiButtonWireless {
                            1.0F,
                            1.0F,
                            1.0F);
-            this.field_146123_n = inBounds(i,
-                                           j);// >= xPosition && j >= yPosition
+            this.field_146123_n = inBounds(x,
+                                           y);// >= xPosition && j >= yPosition
                                               // && i <
             // xPosition + width && j < yPosition +
             // height;
@@ -109,8 +109,8 @@ public class GuiButtonBoolean extends GuiButtonWireless {
                                   width / 2,
                                   height);
             mouseDragged(mc,
-                         i,
-                         j);
+                         x,
+                         y);
 
             int l = 14737632;
 

@@ -26,13 +26,13 @@ import net.slimevoid.wirelessredstone.core.lib.GuiLib;
 public class GuiButtonWireless extends GuiButton {
     private String popupText;
 
-    public GuiButtonWireless(int i, int j, int k, int l, int i1, String s, String popupText) {
-        super(i, j, k, l, i1, s);
+    public GuiButtonWireless(int x, int y, int z, int l, int i1, String s, String popupText) {
+        super(x, y, z, l, i1, s);
         this.popupText = popupText;
     }
 
-    public GuiButtonWireless(int i, int j, int k, int l, int i1, String s) {
-        super(i, j, k, l, i1, s);
+    public GuiButtonWireless(int x, int y, int z, int l, int i1, String s) {
+        super(x, y, z, l, i1, s);
     }
 
     public boolean inBounds(int x, int y) {

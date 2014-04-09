@@ -61,8 +61,8 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * @param i
      *            Block ID
      */
-    public BlockRedstoneWirelessT(int i, float hardness, float resistance) {
-        super(i, hardness, resistance);
+    public BlockRedstoneWirelessT(int x, float hardness, float resistance) {
+        super(x, hardness, resistance);
         setStepSound(Block.soundTypeMetal);
     }
 
@@ -71,21 +71,21 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * - Sets the transmitter state in the Ether.
      */
     @Override
-    public void setState(World world, int i, int j, int k, boolean state) {
+    public void setState(World world, int x, int y, int z, boolean state) {
         super.setState(world,
-                       i,
-                       j,
-                       k,
+                       x,
+                       y,
+                       z,
                        state);
 
         String freq = getFreq(world,
-                              i,
-                              j,
-                              k);
+                              x,
+                              y,
+                              z);
         RedstoneEther.getInstance().setTransmitterState(world,
-                                                        i,
-                                                        j,
-                                                        k,
+                                                        x,
+                                                        y,
+                                                        z,
                                                         freq,
                                                         state);
     }
@@ -97,29 +97,29 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * - Set transmitter state in the Ether.
      */
     @Override
-    public void changeFreq(World world, int i, int j, int k, Object oldFreq, Object freq) {
+    public void changeFreq(World world, int x, int y, int z, Object oldFreq, Object freq) {
         // Remove transmitter from current frequency on the ether.
         RedstoneEther.getInstance().remTransmitter(world,
-                                                   i,
-                                                   j,
-                                                   k,
+                                                   x,
+                                                   y,
+                                                   z,
                                                    oldFreq);
 
         // Add transmitter to the ether on new frequency.
         RedstoneEther.getInstance().addTransmitter(world,
-                                                   i,
-                                                   j,
-                                                   k,
+                                                   x,
+                                                   y,
+                                                   z,
                                                    freq);
         RedstoneEther.getInstance().setTransmitterState(world,
-                                                        i,
-                                                        j,
-                                                        k,
+                                                        x,
+                                                        y,
+                                                        z,
                                                         freq,
                                                         getState(world,
-                                                                 i,
-                                                                 j,
-                                                                 k));
+                                                                 x,
+                                                                 y,
+                                                                 z));
     }
 
     /**
@@ -129,20 +129,20 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * neighboring power sources)
      */
     @Override
-    protected void onBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+    protected void onBlockRedstoneWirelessAdded(World world, int x, int y, int z) {
         RedstoneEther.getInstance().addTransmitter(world,
-                                                   i,
-                                                   j,
-                                                   k,
+                                                   x,
+                                                   y,
+                                                   z,
                                                    getFreq(world,
-                                                           i,
-                                                           j,
-                                                           k));
+                                                           x,
+                                                           y,
+                                                           z));
 
         onBlockRedstoneWirelessNeighborChange(world,
-                                              i,
-                                              j,
-                                              k,
+                                              x,
+                                              y,
+                                              z,
                                               Blocks.redstone_wire);
     }
 
@@ -152,15 +152,15 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * - Remove transmitter from ether.
      */
     @Override
-    protected void onBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+    protected void onBlockRedstoneWirelessRemoved(World world, int x, int y, int z) {
         RedstoneEther.getInstance().remTransmitter(world,
-                                                   i,
-                                                   j,
-                                                   k,
+                                                   x,
+                                                   y,
+                                                   z,
                                                    getFreq(world,
-                                                           i,
-                                                           j,
-                                                           k));
+                                                           x,
+                                                           y,
+                                                           z));
     }
 
     /**
@@ -168,19 +168,19 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * - Associates the TileEntity with the GUI. - Opens the GUI.
      */
     @Override
-    protected boolean onBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
-        TileEntity tileentity = world.getTileEntity(i,
-                                                    j,
-                                                    k);
+    protected boolean onBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+        TileEntity tileentity = world.getTileEntity(x,
+                                                    y,
+                                                    z);
 
         if (tileentity != null
             && tileentity instanceof TileEntityRedstoneWirelessT) {
             entityplayer.openGui(WirelessRedstone.instance,
                                  GuiLib.GUIID_INVENTORY,
                                  world,
-                                 i,
-                                 j,
-                                 k);
+                                 x,
+                                 y,
+                                 z);
         }
 
         return true;
@@ -194,7 +194,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * indirectly, and the power is already on, set the power off.
      */
     @Override
-    protected void onBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block) {
+    protected void onBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block) {
         if (block.equals(this)) return;
 
         // It was not removed, can provide power and is indirectly getting
@@ -202,40 +202,40 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
         if (block != null
             && !block.equals(Blocks.air)
             && !getState(world,
-                         i,
-                         j,
-                         k)
-            && (world.getBlockPowerInput(i,
-                                         j,
-                                         k) > 0 || world.isBlockIndirectlyGettingPowered(i,
-                                                                                         j,
-                                                                                         k))) setState(world,
-                                                                                                       i,
-                                                                                                       j,
-                                                                                                       k,
+                         x,
+                         y,
+                         z)
+            && (world.getBlockPowerInput(x,
+                                         y,
+                                         z) > 0 || world.isBlockIndirectlyGettingPowered(x,
+                                                                                         y,
+                                                                                         z))) setState(world,
+                                                                                                       x,
+                                                                                                       y,
+                                                                                                       z,
                                                                                                        true);
         // There are no powering entities, state is deactivated.
         else if (getState(world,
-                          i,
-                          j,
-                          k)
-                 && !(world.getBlockPowerInput(i,
-                                               j,
-                                               k) > 0 || world.isBlockIndirectlyGettingPowered(i,
-                                                                                               j,
-                                                                                               k))) setState(world,
-                                                                                                             i,
-                                                                                                             j,
-                                                                                                             k,
+                          x,
+                          y,
+                          z)
+                 && !(world.getBlockPowerInput(x,
+                                               y,
+                                               z) > 0 || world.isBlockIndirectlyGettingPowered(x,
+                                                                                               y,
+                                                                                               z))) setState(world,
+                                                                                                             x,
+                                                                                                             y,
+                                                                                                             z,
                                                                                                              false);
     }
 
     @Override
-    protected IIcon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+    protected IIcon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int x, int y, int z, int l) {
         if (getState(iblockaccess,
-                     i,
-                     j,
-                     k)) {
+                     x,
+                     y,
+                     z)) {
             return this.getIconFromStateAndSide(1,
                                                 l);
         } else {
@@ -258,7 +258,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * Does nothing.
      */
     @Override
-    protected void updateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+    protected void updateRedstoneWirelessTick(World world, int x, int y, int z, Random random) {
     }
 
     /**
@@ -266,7 +266,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * Transmitters never emitt power.
      */
     @Override
-    protected int isRedstoneWirelessPoweringTo(World world, int i, int j, int k, int l) {
+    protected int isRedstoneWirelessPoweringTo(World world, int x, int y, int z, int l) {
         return 0;
     }
 
@@ -275,7 +275,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * Transmitters never emitt power.
      */
     @Override
-    protected int isRedstoneWirelessIndirectlyPoweringTo(World world, int i, int j, int k, int l) {
+    protected int isRedstoneWirelessIndirectlyPoweringTo(World world, int x, int y, int z, int l) {
         return 0;
     }
 

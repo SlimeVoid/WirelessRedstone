@@ -29,15 +29,15 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
      * Constructor.<br>
      * Height and Width is always 13, text is empty.
      * 
-     * @param i
+     * @param x
      *            button index handle
-     * @param j
+     * @param y
      *            screen X coordinate
-     * @param k
+     * @param z
      *            screen Y coordinate
      */
-    public GuiButtonWirelessExit(int i, int j, int k) {
-        super(i, j, k, 13, 13, "");
+    public GuiButtonWirelessExit(int x, int y, int z) {
+        super(x, y, z, 13, 13, "");
     }
 
     /**
@@ -46,13 +46,13 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
      * 
      * @param minecraft
      *            minecraft instance
-     * @param i
+     * @param x
      *            mouse X coordinate
-     * @param j
+     * @param y
      *            mouse Y coordinate
      */
     @Override
-    public void drawButton(Minecraft minecraft, int i, int j) {
+    public void drawButton(Minecraft minecraft, int x, int y) {
         FontRenderer fontrenderer = minecraft.fontRenderer;
 
         minecraft.getTextureManager().bindTexture(this.getButtonTexture(false));
@@ -60,8 +60,8 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
                        1.0F,
                        1.0F,
                        1.0F);
-        boolean flag = i >= xPosition && j >= yPosition
-                       && i < xPosition + width && j < yPosition + height;
+        boolean flag = x >= xPosition && y >= yPosition
+                       && x < xPosition + width && y < yPosition + height;
         int k = getHoverState(flag);
         drawTexturedModalRect(xPosition,
                               yPosition,
@@ -76,8 +76,8 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
                               width / 2,
                               height);
         mouseDragged(minecraft,
-                     i,
-                     j);
+                     x,
+                     y);
     }
 
     @Override

@@ -24,58 +24,58 @@ public class BlockRedstoneWirelessOverrideSMP implements
         IBlockRedstoneWirelessOverride {
 
     @Override
-    public boolean beforeBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+    public boolean beforeBlockRedstoneWirelessAdded(World world, int x, int y, int z) {
         return (world.isRemote);
     }
 
     @Override
-    public void afterBlockRedstoneWirelessAdded(World world, int i, int j, int k) {
+    public void afterBlockRedstoneWirelessAdded(World world, int x, int y, int z) {
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessRemoved(World world, int i, int j, int k, Block block, int m) {
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int x, int y, int z, Block block, int m) {
         return (world.isRemote);
     }
 
     @Override
-    public void afterBlockRedstoneWirelessRemoved(World world, int i, int j, int k) {
+    public void afterBlockRedstoneWirelessRemoved(World world, int x, int y, int z) {
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+    public boolean beforeBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
         return (world.isRemote);
     }
 
     @Override
-    public void afterBlockRedstoneWirelessActivated(World world, int i, int j, int k, EntityPlayer entityplayer) {
+    public void afterBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block) {
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block) {
         return (world.isRemote);
     }
 
     @Override
-    public void afterBlockRedstoneWirelessNeighborChange(World world, int i, int j, int k, Block block) {
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block) {
     }
 
     @Override
-    public boolean beforeUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+    public boolean beforeUpdateRedstoneWirelessTick(World world, int x, int y, int z, Random random) {
         return (world.isRemote);
     }
 
     @Override
-    public void afterUpdateRedstoneWirelessTick(World world, int i, int j, int k, Random random) {
+    public void afterUpdateRedstoneWirelessTick(World world, int x, int y, int z, Random random) {
     }
 
     @Override
-    public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int i, int j, int k, int side) {
+    public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int x, int y, int z, int side) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public IIcon getBlockTexture(IBlockAccess iblockaccess, int i, int j, int k, int side, IIcon output) {
+    public IIcon getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side, IIcon output) {
         // TODO Auto-generated method stub
         return null;
     }
