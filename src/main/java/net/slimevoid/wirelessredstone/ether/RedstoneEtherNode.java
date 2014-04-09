@@ -23,15 +23,15 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
     /**
      * World X coordinate.
      */
-    public int          i;
+    public int          x;
     /**
      * World Y coordinate.
      */
-    public int          j;
+    public int          y;
     /**
      * World Z coordinate.
      */
-    public int          k;
+    public int          z;
     /**
      * State
      */
@@ -48,17 +48,17 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
     /**
      * Constructor.
      * 
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      */
-    public RedstoneEtherNode(int i, int j, int k) {
-        this.i = i;
-        this.j = j;
-        this.k = k;
+    public RedstoneEtherNode(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
         state = false;
         freq = "0";
         time = System.currentTimeMillis();
@@ -77,23 +77,23 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
 
     @Override
     public int compareTo(RedstoneEtherNode arg0) {
-        if (arg0.i == i) {
-            if (arg0.j == j) {
-                if (arg0.k == k) return 0;
-                else return k - arg0.k;
-            } else return j - arg0.j;
-        } else return i - arg0.i;
+        if (arg0.x == x) {
+            if (arg0.y == y) {
+                if (arg0.z == z) return 0;
+                else return z - arg0.z;
+            } else return y - arg0.y;
+        } else return x - arg0.x;
     }
 
     @Override
     public boolean equals(Object node) {
-        if (node instanceof RedstoneEtherNode) return (((RedstoneEtherNode) node).i == i
-                                                       && ((RedstoneEtherNode) node).j == j && ((RedstoneEtherNode) node).k == k);
+        if (node instanceof RedstoneEtherNode) return (((RedstoneEtherNode) node).x == x
+                                                       && ((RedstoneEtherNode) node).y == y && ((RedstoneEtherNode) node).z == z);
         else return false;
     }
 
     @Override
     public String toString() {
-        return "[" + freq + "] - (" + i + "," + j + "," + k + ") - " + state;
+        return "[" + freq + "] - (" + x + "," + y + "," + z + ") - " + state;
     }
 }

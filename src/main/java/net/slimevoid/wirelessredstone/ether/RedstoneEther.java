@@ -56,6 +56,26 @@ public class RedstoneEther {
     }
 
     /**
+     * Retrieves a ether HashMap for a given world
+     * 
+     * @param world for hash
+     * @return ether instance
+     */
+    @SuppressWarnings("unchecked")
+    private HashMap<String, RedstoneEtherFrequency> getEtherClone(World world) {
+        return (HashMap<String, RedstoneEtherFrequency>) ((HashMap<String, RedstoneEtherFrequency>) this.ether.get(world.hashCode())).clone();
+    }
+
+    private Map<String, RedstoneEtherFrequency> getEtherSafe(World world) {
+        this.checkWorldHash(world);
+        return ether.get(world.hashCode());
+    }
+
+    private Map<String, RedstoneEtherFrequency> getEtherRaw(World world) {
+        return ether.get(world.hashCode());
+    }
+
+    /**
      * Adds a Ether override.
      * 
      * @param override
@@ -81,25 +101,25 @@ public class RedstoneEther {
      * 
      * @param world
      *            the world object
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param object
      *            frequency
      */
-    public synchronized void addTransmitter(World world, int i, int j, int k, Object object) {
+    public synchronized void addTransmitter(World world, int x, int y, int z, Object object) {
         if (world == null) return;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "addTransmitter(world, "
-                                                                          + i
+                                                                          + x
                                                                           + ", "
-                                                                          + j
+                                                                          + y
                                                                           + ", "
-                                                                          + k
+                                                                          + z
                                                                           + ", "
                                                                           + object
                                                                           + ")",
@@ -109,9 +129,9 @@ public class RedstoneEther {
         boolean prematureExit = false;
         for (IRedstoneEtherOverride override : overrides) {
             if (override.beforeAddTransmitter(world,
-                                              i,
-                                              j,
-                                              k,
+                                              x,
+                                              y,
+                                              z,
                                               object)) prematureExit = true;
         }
         // Exit if premature exit was given.
@@ -119,16 +139,16 @@ public class RedstoneEther {
 
         try {
             // Make sure the frequency and world is set up properly.
-            checkWorldHash(world);
-            if (!freqIsset(world,
-                           object)) createFreq(world,
-                                               object);
+            this.checkWorldHash(world);
+            if (!this.freqIsset(world,
+                                object)) createFreq(world,
+                                                    object);
 
             // Assemble and store node.
-            RedstoneEtherNode node = new RedstoneEtherNode(i, j, k);
+            RedstoneEtherNode node = new RedstoneEtherNode(x, y, z);
             node.freq = object;
-            ether.get(world.hashCode()).get(object).addTransmitter(world,
-                                                                   node);
+            this.getEtherRaw(world).get(object).addTransmitter(world,
+                                                               node);
 
             // Repaint GUI.
             if (gui != null) gui.repaint();
@@ -140,9 +160,9 @@ public class RedstoneEther {
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides)
             override.afterAddTransmitter(world,
-                                         i,
-                                         j,
-                                         k,
+                                         x,
+                                         y,
+                                         z,
                                          object);
     }
 
@@ -151,25 +171,25 @@ public class RedstoneEther {
      * 
      * @param world
      *            the world object
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param object
      *            frequency
      */
-    public synchronized void remTransmitter(World world, int i, int j, int k, Object object) {
+    public synchronized void remTransmitter(World world, int x, int y, int z, Object object) {
         if (world == null) return;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "remTransmitter(world, "
-                                                                          + i
+                                                                          + x
                                                                           + ", "
-                                                                          + j
+                                                                          + y
                                                                           + ", "
-                                                                          + k
+                                                                          + z
                                                                           + ", "
                                                                           + object
                                                                           + ")",
@@ -179,9 +199,9 @@ public class RedstoneEther {
         boolean prematureExit = false;
         for (IRedstoneEtherOverride override : overrides) {
             if (override.beforeRemTransmitter(world,
-                                              i,
-                                              j,
-                                              k,
+                                              x,
+                                              y,
+                                              z,
                                               object)) prematureExit = true;
         }
         // Exit if premature exit was given.
@@ -194,12 +214,12 @@ public class RedstoneEther {
             if (freqIsset(world,
                           object)) {
                 // Remove the node.
-                ether.get(world.hashCode()).get(object).remTransmitter(world,
-                                                                       i,
-                                                                       j,
-                                                                       k);
+                this.getEtherRaw(world).get(object).remTransmitter(world,
+                                                                   x,
+                                                                   y,
+                                                                   z);
                 // Remove the frequency if empty.
-                if (ether.get(world.hashCode()).get(object).count() == 0) ether.get(world.hashCode()).remove(object);
+                if (this.getEtherRaw(world).get(object).count() == 0) this.getEtherRaw(world).remove(object);
             }
 
             // Repaint GUI.
@@ -211,9 +231,9 @@ public class RedstoneEther {
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides)
             override.afterRemTransmitter(world,
-                                         i,
-                                         j,
-                                         k,
+                                         x,
+                                         y,
+                                         z,
                                          object);
     }
 
@@ -222,25 +242,25 @@ public class RedstoneEther {
      * 
      * @param world
      *            the world object
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param freq
      *            frequency
      */
-    public synchronized void addReceiver(World world, int i, int j, int k, Object freq) {
+    public synchronized void addReceiver(World world, int x, int y, int z, Object freq) {
         if (world == null) return;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "addReceiver(world, "
-                                                                          + i
+                                                                          + x
                                                                           + ", "
-                                                                          + j
+                                                                          + y
                                                                           + ", "
-                                                                          + k
+                                                                          + z
                                                                           + ", "
                                                                           + freq
                                                                           + ")",
@@ -250,9 +270,9 @@ public class RedstoneEther {
         boolean prematureExit = false;
         for (IRedstoneEtherOverride override : overrides) {
             if (override.beforeAddReceiver(world,
-                                           i,
-                                           j,
-                                           k,
+                                           x,
+                                           y,
+                                           z,
                                            freq)) prematureExit = true;
         }
         // Exit if premature exit was given.
@@ -267,10 +287,10 @@ public class RedstoneEther {
                                              freq);
 
             // Assemble and store node.
-            RedstoneEtherNode node = new RedstoneEtherNode(i, j, k);
+            RedstoneEtherNode node = new RedstoneEtherNode(x, y, z);
             node.freq = freq;
-            ether.get(world.hashCode()).get(freq).addReceiver(world,
-                                                              node);
+            this.getEtherRaw(world).get(freq).addReceiver(world,
+                                                          node);
 
             // Repaint GUI.
             if (gui != null) gui.repaint();
@@ -282,9 +302,9 @@ public class RedstoneEther {
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides)
             override.afterAddReceiver(world,
-                                      i,
-                                      j,
-                                      k,
+                                      x,
+                                      y,
+                                      z,
                                       freq);
     }
 
@@ -293,25 +313,25 @@ public class RedstoneEther {
      * 
      * @param world
      *            the world object
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param oldFreq
      *            frequency
      */
-    public synchronized void remReceiver(World world, int i, int j, int k, Object oldFreq) {
+    public synchronized void remReceiver(World world, int x, int y, int z, Object oldFreq) {
         if (world == null) return;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "remReceiver(world, "
-                                                                          + i
+                                                                          + x
                                                                           + ", "
-                                                                          + j
+                                                                          + y
                                                                           + ", "
-                                                                          + k
+                                                                          + z
                                                                           + ", "
                                                                           + oldFreq
                                                                           + ")",
@@ -321,9 +341,9 @@ public class RedstoneEther {
         boolean prematureExit = false;
         for (IRedstoneEtherOverride override : overrides) {
             if (override.beforeRemReceiver(world,
-                                           i,
-                                           j,
-                                           k,
+                                           x,
+                                           y,
+                                           z,
                                            oldFreq)) prematureExit = true;
         }
         // Exit if premature exit was given.
@@ -332,16 +352,16 @@ public class RedstoneEther {
         try {
 
             // Make sure the frequency and world is set up properly.
-            checkWorldHash(world);
-            if (freqIsset(world,
-                          oldFreq)) {
+            this.checkWorldHash(world);
+            if (this.freqIsset(world,
+                               oldFreq)) {
                 // Remove the node.
-                ether.get(world.hashCode()).get(oldFreq).remReceiver(world,
-                                                                     i,
-                                                                     j,
-                                                                     k);
+                this.getEtherRaw(world).get(oldFreq).remReceiver(world,
+                                                                 x,
+                                                                 y,
+                                                                 z);
                 // Remove the frequency if empty.
-                if (ether.get(world.hashCode()).get(oldFreq).count() == 0) ether.get(world.hashCode()).remove(oldFreq);
+                if (this.getEtherRaw(world).get(oldFreq).count() == 0) this.getEtherRaw(world).remove(oldFreq);
             }
 
             // Repaint GUI.
@@ -353,9 +373,9 @@ public class RedstoneEther {
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides)
             override.afterRemReceiver(world,
-                                      i,
-                                      j,
-                                      k,
+                                      x,
+                                      y,
+                                      z,
                                       oldFreq);
     }
 
@@ -390,8 +410,8 @@ public class RedstoneEther {
      */
     private synchronized void createFreq(World world, Object freq) {
         checkWorldHash(world);
-        ether.get(world.hashCode()).put(String.valueOf(freq),
-                                        new RedstoneEtherFrequency());
+        this.getEtherSafe(world).put(String.valueOf(freq),
+                                     new RedstoneEtherFrequency());
     }
 
     /**
@@ -403,7 +423,7 @@ public class RedstoneEther {
      */
     private synchronized boolean freqIsset(World world, Object object) {
         checkWorldHash(world);
-        return ether.get(world.hashCode()).containsKey(object);
+        return this.getEtherRaw(world).containsKey(object);
     }
 
     /**
@@ -432,8 +452,8 @@ public class RedstoneEther {
         // If premature exit was not given, set the initial return state.
         boolean returnState = false;
         if (!prematureExit) {
-            if (freqIsset(world,
-                          object)) returnState = ether.get(world.hashCode()).get(object).getState(world);
+            if (this.freqIsset(world,
+                               object)) returnState = this.getEtherRaw(world).get(object).getState(world);
         }
         boolean out = returnState;
 
@@ -452,27 +472,27 @@ public class RedstoneEther {
      * 
      * @param world
      *            the world object
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param freq
      *            frequency
      * @param state
      *            transmitter state
      */
-    public synchronized void setTransmitterState(World world, int i, int j, int k, Object freq, boolean state) {
+    public synchronized void setTransmitterState(World world, int x, int y, int z, Object freq, boolean state) {
         if (world == null) return;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "setTransmitterState(world, "
-                                                                          + i
+                                                                          + x
                                                                           + ", "
-                                                                          + j
+                                                                          + y
                                                                           + ", "
-                                                                          + k
+                                                                          + z
                                                                           + ", "
                                                                           + freq
                                                                           + ", "
@@ -484,9 +504,9 @@ public class RedstoneEther {
         boolean prematureExit = false;
         for (IRedstoneEtherOverride override : overrides) {
             if (override.beforeSetTransmitterState(world,
-                                                   i,
-                                                   j,
-                                                   k,
+                                                   x,
+                                                   y,
+                                                   z,
                                                    freq,
                                                    state)) prematureExit = true;
         }
@@ -496,12 +516,12 @@ public class RedstoneEther {
         try {
 
             // Set the transmitter state if frequency exists.
-            if (freqIsset(world,
-                          freq)) ether.get(world.hashCode()).get(freq).setTransmitterState(world,
-                                                                                           i,
-                                                                                           j,
-                                                                                           k,
-                                                                                           state);
+            if (this.freqIsset(world,
+                               freq)) this.getEtherRaw(world).get(freq).setTransmitterState(world,
+                                                                                            x,
+                                                                                            y,
+                                                                                            z,
+                                                                                            state);
 
             // Repaint GUI.
             if (gui != null) gui.repaint();
@@ -512,9 +532,9 @@ public class RedstoneEther {
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides)
             override.afterSetTransmitterState(world,
-                                              i,
-                                              j,
-                                              k,
+                                              x,
+                                              y,
+                                              z,
                                               freq,
                                               state);
     }
@@ -523,23 +543,23 @@ public class RedstoneEther {
      * Fetch the coordinate array of the closest ACTIVE transmitter from a given
      * point on the world and on a given frequency.
      * 
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param freq
      *            frequency
      * @return Closest transmitter coordinate: {X,Y,Z}
      */
-    public synchronized int[] getClosestActiveTransmitter(World world, int i, int j, int k, String freq) {
+    public synchronized int[] getClosestActiveTransmitter(World world, int x, int y, int z, String freq) {
         int[] coords = null;
         // Run before overrides.
         for (IRedstoneEtherOverride override : overrides) {
-            coords = override.beforeGetClosestActiveTransmitter(i,
-                                                                j,
-                                                                k,
+            coords = override.beforeGetClosestActiveTransmitter(x,
+                                                                y,
+                                                                z,
                                                                 freq);
         }
 
@@ -547,11 +567,11 @@ public class RedstoneEther {
         if (coords == null) {
             try {
                 // Fetch the closest TX from the frequency.
-                if (freqIsset(world,
-                              freq)) coords = ether.get(world.hashCode()).get(freq).getClosestActiveTransmitter(world,
-                                                                                                                i,
-                                                                                                                j,
-                                                                                                                k);
+                if (this.freqIsset(world,
+                                   freq)) coords = this.getEtherRaw(world).get(freq).getClosestActiveTransmitter(world,
+                                                                                                                 x,
+                                                                                                                 y,
+                                                                                                                 z);
             } catch (Exception e) {
                 LoggerRedstoneWireless.getInstance("RedstoneEther").writeStackTrace(e);
             }
@@ -559,9 +579,9 @@ public class RedstoneEther {
 
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides) {
-            coords = override.afterGetClosestActiveTransmitter(i,
-                                                               j,
-                                                               k,
+            coords = override.afterGetClosestActiveTransmitter(x,
+                                                               y,
+                                                               z,
                                                                freq,
                                                                coords);
         }
@@ -573,22 +593,22 @@ public class RedstoneEther {
      * Fetch the coordinate array of the closest transmitter from a given point
      * on the world and on a given frequency.
      * 
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @param freq
      *            frequency
      * @return Closest transmitter coordinate: {X,Y,Z}
      */
-    public synchronized int[] getClosestTransmitter(World world, int i, int j, int k, String freq) {
-        if (freqIsset(world,
-                      freq)) return ether.get(world.hashCode()).get(freq).getClosestTransmitter(world,
-                                                                                                i,
-                                                                                                j,
-                                                                                                k);
+    public synchronized int[] getClosestTransmitter(World world, int x, int y, int z, String freq) {
+        if (this.freqIsset(world,
+                           freq)) return this.getEtherRaw(world).get(freq).getClosestTransmitter(world,
+                                                                                                 x,
+                                                                                                 y,
+                                                                                                 z);
         else return null;
     }
 
@@ -603,7 +623,7 @@ public class RedstoneEther {
      * @return State of the given frequency
      */
     public synchronized boolean isFrequencyActive(World world, String freq) {
-        return ether.get(world.hashCode()).get(freq).getState(world);
+        return this.getEtherRaw(world).get(freq).getState(world);
     }
 
     /**
@@ -640,17 +660,16 @@ public class RedstoneEther {
      * 
      * @return receiver nodes.
      */
-    @SuppressWarnings("unchecked")
-    public synchronized List<RedstoneEtherNode> getRXNodes() {
+    public synchronized List<RedstoneEtherNode> getRXNodes(World world) {
         List<RedstoneEtherNode> list = new LinkedList<RedstoneEtherNode>();
         try {
             // Make a clone of the ether to prevent concurrency.
-            HashMap<Integer, Map<String, RedstoneEtherFrequency>> etherClone = (HashMap<Integer, Map<String, RedstoneEtherFrequency>>) ((HashMap<Integer, Map<String, RedstoneEtherFrequency>>) ether).clone();
+            HashMap<String, RedstoneEtherFrequency> etherClone = this.getEtherClone(world);
 
             // Add all RX nodes to the list.
-            for (Map<String, RedstoneEtherFrequency> world : etherClone.values())
-                for (RedstoneEtherFrequency freq : world.values())
-                    list.addAll(freq.rxs.values());
+            for (RedstoneEtherFrequency freq : etherClone.values()) {
+                list.addAll(freq.rxs.values());
+            }
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance("RedstoneEther").writeStackTrace(e);
         }
@@ -662,17 +681,16 @@ public class RedstoneEther {
      * 
      * @return receiver nodes.
      */
-    @SuppressWarnings("unchecked")
-    public synchronized List<RedstoneEtherNode> getTXNodes() {
+    public synchronized List<RedstoneEtherNode> getTXNodes(World world) {
         List<RedstoneEtherNode> list = new LinkedList<RedstoneEtherNode>();
         try {
             // Make a clone of the ether to prevent concurrency.
-            HashMap<Integer, Map<String, RedstoneEtherFrequency>> etherClone = (HashMap<Integer, Map<String, RedstoneEtherFrequency>>) ((HashMap<Integer, Map<String, RedstoneEtherFrequency>>) ether).clone();
+            HashMap<String, RedstoneEtherFrequency> etherClone = this.getEtherClone(world);
 
             // Add all TX nodes to the list.
-            for (Map<String, RedstoneEtherFrequency> world : etherClone.values())
-                for (RedstoneEtherFrequency freq : world.values())
-                    list.addAll(freq.txs.values());
+            for (RedstoneEtherFrequency freq : etherClone.values()) {
+                list.addAll(freq.txs.values());
+            }
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance("RedstoneEther").writeStackTrace(e);
         }
@@ -685,12 +703,11 @@ public class RedstoneEther {
      * 
      * @return Loaded frequencies: [freq=>nodeCount, ...]
      */
-    @SuppressWarnings("unchecked")
     public synchronized Map<String, Integer> getLoadedFrequenciesForWorld(World world) {
         Map<String, Integer> list = new HashMap<String, Integer>();
         try {
             // Make a clone of the ether to prevent concurrency.
-            HashMap<String, RedstoneEtherFrequency> etherClone = (HashMap<String, RedstoneEtherFrequency>) ((HashMap<String, RedstoneEtherFrequency>) ether.get(world)).clone();
+            HashMap<String, RedstoneEtherFrequency> etherClone = (HashMap<String, RedstoneEtherFrequency>) this.getEtherClone(world);
 
             // Add all counters for each frequency to the list.
             for (String freq : etherClone.keySet()) {
@@ -707,92 +724,65 @@ public class RedstoneEther {
     }
 
     /**
-     * Gets a map of all loaded frequencies and the number of nodes on each.
-     * 
-     * @return Loaded frequencies: [freq=>nodeCount, ...]
-     */
-    @SuppressWarnings("unchecked")
-    public synchronized Map<String, Integer> getLoadedFrequencies() {
-        Map<String, Integer> list = new HashMap<String, Integer>();
-        try {
-            // Make a clone of the ether to prevent concurrency.
-            HashMap<Integer, Map<String, RedstoneEtherFrequency>> etherClone = (HashMap<Integer, Map<String, RedstoneEtherFrequency>>) ((HashMap<Integer, Map<String, RedstoneEtherFrequency>>) ether).clone();
-
-            // Add all counters for each frequency to the list.
-            for (Integer world : etherClone.keySet())
-                for (String freq : etherClone.get(world).keySet()) {
-                    if (list.containsKey(freq)) list.put(freq,
-                                                         list.get(freq)
-                                                                 + etherClone.get(world).get(freq).count());
-                    else list.put(freq,
-                                  etherClone.get(world).get(freq).count());
-                }
-        } catch (Exception e) {
-            LoggerRedstoneWireless.getInstance("RedstoneEther").writeStackTrace(e);
-        }
-        return list;
-    }
-
-    /**
      * Checks if a block is loaded on the world.
      * 
      * @param world
      *            the world object
-     * @param i
+     * @param x
      *            world X coordinate
-     * @param j
+     * @param y
      *            world Y coordinate
-     * @param k
+     * @param z
      *            world Z coordinate
      * @return false if the block is not loaded, true if it is.
      */
-    public synchronized boolean isLoaded(World world, int i, int j, int k) {
+    public synchronized boolean isLoaded(World world, int x, int y, int z) {
         if (world == null) return false;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "isLoaded(world, "
-                                                                          + i
+                                                                          + x
                                                                           + ", "
-                                                                          + j
+                                                                          + y
                                                                           + ", "
-                                                                          + k
+                                                                          + z
                                                                           + ") ["
-                                                                          + (world.getBlock(i,
-                                                                                            j,
-                                                                                            k) != Blocks.air)
+                                                                          + (world.getBlock(x,
+                                                                                            y,
+                                                                                            z) != Blocks.air)
                                                                           + "&"
-                                                                          + (world.getTileEntity(i,
-                                                                                                 j,
-                                                                                                 k) != null)
+                                                                          + (world.getTileEntity(x,
+                                                                                                 y,
+                                                                                                 z) != null)
                                                                           + "]",
                                                                   LoggerRedstoneWireless.LogLevel.DEBUG);
         // Run before overrides.
         boolean prematureExit = false;
         for (IRedstoneEtherOverride override : overrides) {
             if (override.beforeIsLoaded(world,
-                                        i,
-                                        j,
-                                        k)) prematureExit = true;
+                                        x,
+                                        y,
+                                        z)) prematureExit = true;
         }
 
         // Check if blockId and tile is set if premature exit was not called.
         boolean returnState = false;
         if (!prematureExit) {
-            returnState = world.getBlock(i,
-                                         j,
-                                         k) != Blocks.air
-                          && world.getTileEntity(i,
-                                                 j,
-                                                 k) != null;
+            returnState = world.getBlock(x,
+                                         y,
+                                         z) != Blocks.air
+                          && world.getTileEntity(x,
+                                                 y,
+                                                 z) != null;
         }
         boolean out = returnState;
 
         // Run after overrides.
         for (IRedstoneEtherOverride override : overrides) {
             out = override.afterIsLoaded(world,
-                                         i,
-                                         j,
-                                         k,
+                                         x,
+                                         y,
+                                         z,
                                          out);
         }
 

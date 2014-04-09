@@ -75,9 +75,9 @@ public class RedstoneEtherFrequency {
             for (RedstoneEtherNode tx : txs.values()) {
                 // Add to remove list if block is not loaded.
                 if (!RedstoneEther.getInstance().isLoaded(world,
-                                                          tx.i,
-                                                          tx.j,
-                                                          tx.k)) {
+                                                          tx.x,
+                                                          tx.y,
+                                                          tx.z)) {
                     LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(world.isRemote,
                                                                                        "getState(world) - "
                                                                                                + tx.toString()
@@ -97,9 +97,9 @@ public class RedstoneEtherFrequency {
             // Remove unloaded transmitters.
             for (RedstoneEtherNode tx : rem)
                 remTransmitter(world,
-                               tx.i,
-                               tx.j,
-                               tx.k);
+                               tx.x,
+                               tx.y,
+                               tx.z);
 
         } catch (InterruptedException e) {
             LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").writeStackTrace(e);
@@ -123,23 +123,23 @@ public class RedstoneEtherFrequency {
      * @param state
      *            state of transmitter
      */
-    public void setTransmitterState(World world, int i, int j, int k, boolean state) {
+    public void setTransmitterState(World world, int x, int y, int z, boolean state) {
         try {
-            if (!txs.containsKey(new RedstoneEtherNode(i, j, k))) return;
+            if (!txs.containsKey(new RedstoneEtherNode(x, y, z))) return;
 
             txLock.readLock(world);
             LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(world.isRemote,
                                                                                "setTransmitterState(world, "
-                                                                                       + i
+                                                                                       + x
                                                                                        + ", "
-                                                                                       + j
+                                                                                       + y
                                                                                        + ", "
-                                                                                       + k
+                                                                                       + z
                                                                                        + ", "
                                                                                        + state
                                                                                        + ")",
                                                                                LoggerRedstoneWireless.LogLevel.DEBUG);
-            txs.get(new RedstoneEtherNode(i, j, k)).state = state;
+            txs.get(new RedstoneEtherNode(x, y, z)).state = state;
             txLock.readUnlock();
 
             updateReceivers(world);
@@ -205,21 +205,21 @@ public class RedstoneEtherFrequency {
      * @param k
      *            world Z coordinate of transmitter
      */
-    public void remTransmitter(World world, int i, int j, int k) {
+    public void remTransmitter(World world, int x, int y, int z) {
         try {
-            if (!txs.containsKey(new RedstoneEtherNode(i, j, k))) return;
+            if (!txs.containsKey(new RedstoneEtherNode(x, y, z))) return;
 
             txLock.writeLock(world);
             LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(world.isRemote,
                                                                                "remTransmitter(world, "
-                                                                                       + i
+                                                                                       + x
                                                                                        + ", "
-                                                                                       + j
+                                                                                       + y
                                                                                        + ", "
-                                                                                       + k
+                                                                                       + z
                                                                                        + ")",
                                                                                LoggerRedstoneWireless.LogLevel.DEBUG);
-            txs.remove(new RedstoneEtherNode(i, j, k));
+            txs.remove(new RedstoneEtherNode(x, y, z));
             txLock.writeUnlock();
 
             updateReceivers(world);
@@ -238,21 +238,21 @@ public class RedstoneEtherFrequency {
      * @param k
      *            world Z coordinate of receiver
      */
-    public void remReceiver(World world, int i, int j, int k) {
+    public void remReceiver(World world, int x, int y, int z) {
         try {
-            if (!rxs.containsKey(new RedstoneEtherNode(i, j, k))) return;
+            if (!rxs.containsKey(new RedstoneEtherNode(x, y, z))) return;
 
             rxLock.writeLock(world);
             LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(world.isRemote,
                                                                                "remReceiver("
-                                                                                       + i
+                                                                                       + x
                                                                                        + ", "
-                                                                                       + j
+                                                                                       + y
                                                                                        + ", "
-                                                                                       + k
+                                                                                       + z
                                                                                        + ")",
                                                                                LoggerRedstoneWireless.LogLevel.DEBUG);
-            rxs.remove(new RedstoneEtherNode(i, j, k));
+            rxs.remove(new RedstoneEtherNode(x, y, z));
             rxLock.writeUnlock();
         } catch (InterruptedException e) {
             LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").writeStackTrace(e);
@@ -280,9 +280,9 @@ public class RedstoneEtherFrequency {
             for (RedstoneEtherNode rx : rxs.values()) {
                 // Add to remove list if block is not loaded.
                 if (!RedstoneEther.getInstance().isLoaded(world,
-                                                          rx.i,
-                                                          rx.j,
-                                                          rx.k)) {
+                                                          rx.x,
+                                                          rx.y,
+                                                          rx.z)) {
                     LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").write(world.isRemote,
                                                                                        "updateReceivers(world) "
                                                                                                + rx.toString()
@@ -294,9 +294,9 @@ public class RedstoneEtherFrequency {
 
                 // Update RX tick.
                 WRCore.blockWirelessR.updateTick(world,
-                                                 rx.i,
-                                                 rx.j,
-                                                 rx.k,
+                                                 rx.x,
+                                                 rx.y,
+                                                 rx.z,
                                                  null);
             }
             rxLock.readUnlock();
@@ -304,9 +304,9 @@ public class RedstoneEtherFrequency {
             // Remove unloaded receivers.
             for (RedstoneEtherNode rx : rem)
                 remReceiver(world,
-                            rx.i,
-                            rx.j,
-                            rx.k);
+                            rx.x,
+                            rx.y,
+                            rx.z);
         } catch (InterruptedException e) {
             LoggerRedstoneWireless.getInstance("RedstoneEtherFrequency").writeStackTrace(e);
         }
@@ -334,10 +334,10 @@ public class RedstoneEtherFrequency {
      * @return Closest transmitter coordinate: {X,Y,Z}
      */
     @SuppressWarnings("unchecked")
-    public int[] getClosestActiveTransmitter(World world, int i, int j, int k) {
+    public int[] getClosestActiveTransmitter(World world, int x, int y, int z) {
         try {
             int[] pos = new int[3];
-            int[] myPos = { i, j, k };
+            int[] myPos = { x, y, z };
             int[] tmpPos = new int[3];
             boolean first = true;
             float h = 0.0f;
@@ -347,21 +347,21 @@ public class RedstoneEtherFrequency {
                 if (node.state) {
                     if (first) {
                         pos = new int[3];
-                        pos[0] = node.i;
-                        pos[1] = node.j;
-                        pos[2] = node.k;
+                        pos[0] = node.x;
+                        pos[1] = node.y;
+                        pos[2] = node.z;
                         h = RedstoneEther.pythagoras(myPos,
                                                      pos);
                         first = false;
                     } else {
-                        tmpPos[0] = node.i;
-                        tmpPos[1] = node.j;
-                        tmpPos[2] = node.k;
+                        tmpPos[0] = node.x;
+                        tmpPos[1] = node.y;
+                        tmpPos[2] = node.z;
                         if (h > RedstoneEther.pythagoras(myPos,
                                                          tmpPos)) {
-                            pos[0] = node.i;
-                            pos[1] = node.j;
-                            pos[2] = node.k;
+                            pos[0] = node.x;
+                            pos[1] = node.y;
+                            pos[2] = node.z;
                         }
                     }
                 }
@@ -391,10 +391,10 @@ public class RedstoneEtherFrequency {
      *            frequency
      * @return Closest transmitter coordinate: {X,Y,Z}
      */
-    public int[] getClosestTransmitter(World world, int i, int j, int k) {
+    public int[] getClosestTransmitter(World world, int x, int y, int z) {
         try {
             int[] pos = new int[3];
-            int[] myPos = { i, j, k };
+            int[] myPos = { x, y, z };
             int[] tmpPos = new int[3];
             boolean first = true;
             float h = 0.0f;
@@ -403,21 +403,21 @@ public class RedstoneEtherFrequency {
             for (RedstoneEtherNode node : txs.values()) {
                 if (first) {
                     pos = new int[3];
-                    pos[0] = node.i;
-                    pos[1] = node.j;
-                    pos[2] = node.k;
+                    pos[0] = node.x;
+                    pos[1] = node.y;
+                    pos[2] = node.z;
                     h = RedstoneEther.pythagoras(myPos,
                                                  pos);
                     first = false;
                 } else {
-                    tmpPos[0] = node.i;
-                    tmpPos[1] = node.j;
-                    tmpPos[2] = node.k;
+                    tmpPos[0] = node.x;
+                    tmpPos[1] = node.y;
+                    tmpPos[2] = node.z;
                     if (h > RedstoneEther.pythagoras(myPos,
                                                      tmpPos)) {
-                        pos[0] = node.i;
-                        pos[1] = node.j;
-                        pos[2] = node.k;
+                        pos[0] = node.x;
+                        pos[1] = node.y;
+                        pos[2] = node.z;
                     }
                 }
             }
