@@ -14,8 +14,10 @@ package net.slimevoid.wirelessredstone.api;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -76,7 +78,7 @@ public interface IBlockRedstoneWirelessOverride {
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessRemoved(World world, int x, int y, int z, Block block, int m);
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int x, int y, int z, IBlockState state);
 
     /**
      * Triggers after the Block is removed from the world.
@@ -109,7 +111,7 @@ public interface IBlockRedstoneWirelessOverride {
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer);
+    public boolean beforeBlockRedstoneWirelessActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side);
 
     /**
      * Triggers when the Block is activated/right clicked.<br>
@@ -131,7 +133,7 @@ public interface IBlockRedstoneWirelessOverride {
     /**
      * Triggers before the Block's neighboring Block changes.
      * 
-     * @param world
+     * @param iblockaccess
      *            The world object
      * @param x
      *            World X coordinate
@@ -139,17 +141,17 @@ public interface IBlockRedstoneWirelessOverride {
      *            World Y coordinate
      * @param z
      *            World Z coordinate
-     * @param block
+     * @param neighbor
      *            Direction
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block);
+    public boolean beforeBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor);
 
     /**
      * Triggers after the Block's neighboring Block changes.
      * 
-     * @param world
+     * @param iblockaccess
      *            The world object
      * @param x
      *            World X coordinate
@@ -157,10 +159,10 @@ public interface IBlockRedstoneWirelessOverride {
      *            World Y coordinate
      * @param z
      *            World Z coordinate
-     * @param block
+     * @param neighbor
      *            Direction
      */
-    public void afterBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block);
+    public void afterBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor);
 
     /**
      * Triggers before the Block is updated
@@ -218,5 +220,5 @@ public interface IBlockRedstoneWirelessOverride {
      * @param output
      * @return
      */
-    public IIcon getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side, IIcon output);
+    //public IIcon getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side, IIcon output);
 }

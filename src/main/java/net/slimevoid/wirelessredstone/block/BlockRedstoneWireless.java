@@ -18,13 +18,13 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.slimevoid.wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import net.slimevoid.wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import net.slimevoid.wirelessredstone.core.WRCore;
@@ -45,7 +45,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
     /**
      * The icon list
      */
-    protected IIcon[][]                          iconBuffer;
+    //protected IIcon[][]                          iconBuffer;
 
     /**
      * Retrieves the IIcon based on state
@@ -56,7 +56,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            the side of the block
      * @return an IIcon
      */
-    protected IIcon getIconFromStateAndSide(int state, int side) {
+    /**protected IIcon getIconFromStateAndSide(int state, int side) {
         if (this.iconBuffer == null) return this.blockIcon;
         state = (state < 0 || state >= this.iconBuffer.length) ? 0 : state;
         side = (side < 0 || side >= this.iconBuffer[state].length) ? 0 : side;
@@ -68,7 +68,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         this.registerIcons(iconRegister);
     }
 
-    public abstract void registerIcons(IIconRegister iconRegister);
+    public abstract void registerIcons(IIconRegister iconRegister);**/
 
     /**
      * Constructor sets the block ID, material and initializes the override
@@ -127,9 +127,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
         // Store meta.
         try {
-            TileEntity tRW = world.getTileEntity(x,
-                                                 y,
-                                                 z);
+            TileEntity tRW = world.getTileEntity(new BlockPos(x, y, z));
             if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
                 ((TileEntityRedstoneWireless) tRW).setState(state);
             }
@@ -138,9 +136,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
             // z,
             // meta,
             // 0x02);
-            world.markBlockForUpdate(x,
-                                     y,
-                                     z);
+            world.markBlockForUpdate(new BlockPos(x, y, z));
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
         }
@@ -174,9 +170,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         // int meta = 0;
         boolean state = false;
         try {
-            TileEntity tRW = iblockaccess.getTileEntity(x,
-                                                        y,
-                                                        z);
+            TileEntity tRW = iblockaccess.getTileEntity(new BlockPos(x, y, z));
             if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
                 state = ((TileEntityRedstoneWireless) tRW).getState();
             }
@@ -228,9 +222,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
         try {
-            TileEntity tileentity = world.getTileEntity(x,
-                                                        y,
-                                                        z);
+            TileEntity tileentity = world.getTileEntity(new BlockPos(x, y, z));
             if (tileentity == null) return null;
 
             if (tileentity instanceof TileEntityRedstoneWireless) return ((TileEntityRedstoneWireless) tileentity).getFreq().toString();
@@ -256,7 +248,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param freq
      *            New frequency to change to.
      */
-    public abstract void changeFreq(World world, int x, int y, int z, Object oldFreq, Object freq);
+    public abstract void changeFreq(World world, BlockPos pos, Object oldFreq, Object freq);
 
     /**
      * Triggers when the Block is added to the world.<br>
@@ -274,7 +266,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            World Z coordinate
      */
     @Override
-    public void onBlockAdded(World world, int x, int y, int z) {
+    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "onBlockAdded(world,"
                                                                                                                              + x
@@ -298,15 +291,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         try {
             TileEntityRedstoneWireless entity = (TileEntityRedstoneWireless) createNewTileEntity(world,
                                                                                                  0);
-            world.setTileEntity(x,
-                                y,
-                                z,
+            world.setTileEntity(pos,
                                 entity);
 
-            onBlockRedstoneWirelessAdded(world,
-                                         x,
-                                         y,
-                                         z);
+            onBlockRedstoneWirelessAdded(world, pos, state);
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
         }
@@ -314,9 +302,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         // Run overrides.
         for (IBlockRedstoneWirelessOverride override : overrides)
             override.afterBlockRedstoneWirelessAdded(world,
-                                                     x,
-                                                     y,
-                                                     z);
+                    x,
+                    y,
+                    z);
     }
 
     /**
@@ -331,7 +319,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param k
      *            World Z coordinate
      */
-    protected abstract void onBlockRedstoneWirelessAdded(World world, int x, int y, int z);
+    protected abstract void onBlockRedstoneWirelessAdded(World world, BlockPos pos, IBlockState state);
 
     /**
      * Triggers when the Block is removed from the world.<br>
@@ -349,7 +337,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            World Z coordinate
      */
     @Override
-    public void breakBlock(World world, int x, int y, int z, Block block, int m) {
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "onBlockRemoval(world,"
                                                                                                                              + x
@@ -367,20 +356,16 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                             x,
                                                             y,
                                                             z,
-                                                            block,
-                                                            m)) prematureExit = true;
+                                                            state)) prematureExit = true;
         }
         if (prematureExit) return;
 
         try {
             onBlockRedstoneWirelessRemoved(world,
-                                           x,
-                                           y,
-                                           z);
+                                           pos,
+                                           state);
 
-            world.removeTileEntity(x,
-                                   y,
-                                   z);
+            world.removeTileEntity(pos);
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
         }
@@ -406,7 +391,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param k
      *            World Z coordinate
      */
-    protected abstract void onBlockRedstoneWirelessRemoved(World world, int x, int y, int z);
+    protected abstract void onBlockRedstoneWirelessRemoved(World world, BlockPos pos, IBlockState state);
 
     /**
      * Triggers when the Block is activated/right clicked.<br>
@@ -429,7 +414,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @return Activation status.
      */
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int q, float a, float b, float c) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side, float a, float b, float c) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "blockActivated(world,"
                                                                                                                              + x
@@ -444,20 +430,20 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         // Run overrides.
         for (IBlockRedstoneWirelessOverride override : overrides) {
             if (override.beforeBlockRedstoneWirelessActivated(world,
-                                                              x,
-                                                              y,
-                                                              z,
-                                                              entityplayer)) prematureExit = true;
+                                                              pos,
+                                                              state,
+                                                              entityplayer,
+                                                              side)) prematureExit = true;
         }
         if (prematureExit) return false;
 
         boolean output = false;
         try {
             output = onBlockRedstoneWirelessActivated(world,
-                                                      x,
-                                                      y,
-                                                      z,
-                                                      entityplayer);
+                                                      pos,
+                                                      state,
+                                                      entityplayer,
+                                                      side);
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
             return false;
@@ -485,19 +471,19 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            World Y coordinate
      * @param k
      *            World Z coordinate
-     * @param entityplayer
+     * @param side
      *            The player that activated it
      * 
      * @return Activation status.
      */
-    protected abstract boolean onBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer);
+    protected abstract boolean onBlockRedstoneWirelessActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side);
 
     /**
      * Triggers when the Block's neighboring Block changes.<br>
      * - Triggers onBlockRedstoneWirelessNeighborChange<br>
      * - Runs all override afterBlockRedstoneWirelessNeighborChange
      * 
-     * @param world
+     * @param iblockaccess
      *            The world object
      * @param i
      *            World X coordinate
@@ -509,8 +495,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            Neighbor Block ID
      */
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
+    public void onNeighborChange(IBlockAccess iblockaccess, BlockPos pos, BlockPos neighbor) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
+        LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(((World) iblockaccess).isRemote,
                                                                                                                      "onNeighborBlockChange(world,"
                                                                                                                              + x
                                                                                                                              + ","
@@ -518,27 +505,25 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                                                                                              + ","
                                                                                                                              + z
                                                                                                                              + ","
-                                                                                                                             + block.getLocalizedName()
+                                                                                                                             //+ block.getLocalizedName()
                                                                                                                              + ")",
                                                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
         boolean prematureExit = false;
         // Run overrides.
         for (IBlockRedstoneWirelessOverride override : overrides) {
-            if (override.beforeBlockRedstoneWirelessNeighborChange(world,
+            if (override.beforeBlockRedstoneWirelessNeighborChange(iblockaccess,
                                                                    x,
                                                                    y,
                                                                    z,
-                                                                   block)) prematureExit = true;
+                                                                   neighbor)) prematureExit = true;
         }
         if (prematureExit) return;
 
         try {
-            onBlockRedstoneWirelessNeighborChange(world,
-                                                  x,
-                                                  y,
-                                                  z,
-                                                  block);
+            onBlockRedstoneWirelessNeighborChange(iblockaccess,
+                                                  pos,
+                                                  iblockaccess.getBlockState(neighbor).getBlock());
 
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
@@ -546,18 +531,18 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
         // Run overrides.
         for (IBlockRedstoneWirelessOverride override : overrides) {
-            override.afterBlockRedstoneWirelessNeighborChange(world,
+            override.afterBlockRedstoneWirelessNeighborChange(iblockaccess,
                                                               x,
                                                               y,
                                                               z,
-                                                              block);
+                                                              neighbor);
         }
     }
 
     /**
      * Is triggered on Block's neighboring Block change.
      * 
-     * @param world
+     * @param iblockaccess
      *            The world object
      * @param i
      *            World X coordinate
@@ -565,10 +550,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            World Y coordinate
      * @param k
      *            World Z coordinate
-     * @param block
+     * @param neighbor
      *            Direction
      */
-    protected abstract void onBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block);
+    protected abstract void onBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, BlockPos pos, Block neighbor);
 
     /**
      * Checks whether or not the Block is an Opaque Cube.
@@ -608,7 +593,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * 
      * @return Block texture ID
      */
-    @Override
+   /**@Override
     public IIcon getIcon(IBlockAccess iblockaccess, int x, int y, int z, int l) {
 
         IIcon output;
@@ -640,7 +625,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
             }
         }
         return output;
-    }
+    }**/
 
     /**
      * Fetch the Block texture ID at a given side.
@@ -658,7 +643,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * 
      * @return Block texture ID
      */
-    protected abstract IIcon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int x, int y, int z, int l);
+    //protected abstract IIcon getBlockRedstoneWirelessTexture(IBlockAccess iblockaccess, int x, int y, int z, int l);
 
     /**
      * Fetch the Block texture ID at a given side.
@@ -668,7 +653,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * 
      * @return Block texture IIcon
      */
-    protected abstract IIcon getBlockRedstoneWirelessTextureFromSide(int side);
+    //protected abstract IIcon getBlockRedstoneWirelessTextureFromSide(int side);
 
     /**
      * Fetch the Block texture ID at a given side.<br>
@@ -680,7 +665,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * 
      * @return metadata item damage usually
      */
-    @Override
+    /**@Override
     public IIcon getIcon(int side, int metadata) {
         try {
             return getBlockRedstoneWirelessTextureFromSide(side);
@@ -688,7 +673,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
             return this.blockIcon;
         }
-    }
+    }**/
 
     /**
      * Fetches a new Block TileEntity.<br>
@@ -720,7 +705,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param k
      *            World Z coordinate
      */
-    public static void notifyNeighbors(World world, int x, int y, int z, Block block) {
+    public static void notifyNeighbors(World world, BlockPos pos, Block block) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         LoggerRedstoneWireless.getInstance("BlockRedstoneWireless").write(world.isRemote,
                                                                           "notifyNeighbors(world,"
                                                                                   + x
@@ -731,48 +717,27 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                                                   + ")",
                                                                           LoggerRedstoneWireless.LogLevel.DEBUG);
 
-        world.notifyBlocksOfNeighborChange(x,
-                                           y,
-                                           z,
-                                           block,
-                                           0);
-        world.notifyBlocksOfNeighborChange(x - 1,
-                                           y,
-                                           z,
-                                           block,
-                                           0);
-        world.notifyBlocksOfNeighborChange(x + 1,
-                                           y,
-                                           z,
-                                           block,
-                                           0);
-        world.notifyBlocksOfNeighborChange(x,
-                                           y - 1,
-                                           z,
-                                           block,
-                                           0);
-        world.notifyBlocksOfNeighborChange(x,
-                                           y + 1,
-                                           z,
-                                           block,
-                                           0);
-        world.notifyBlocksOfNeighborChange(x,
-                                           y,
-                                           z - 1,
-                                           block,
-                                           0);
-        world.notifyBlocksOfNeighborChange(x,
-                                           y,
-                                           z + 1,
-                                           block,
-                                           0);
+        world.notifyNeighborsOfStateChange(pos,
+                                           block);
+        world.notifyNeighborsOfStateChange(pos.add(-1, 0, 0),
+                                           block);
+        world.notifyNeighborsOfStateChange(pos.add(1, 0, 0),
+                                           block);
+        world.notifyNeighborsOfStateChange(pos.add(0, -1, 0),
+                                           block);
+        world.notifyNeighborsOfStateChange(pos.add(0, 1, 0),
+                                           block);
+        world.notifyNeighborsOfStateChange(pos.add(0, 0, -1),
+                                           block);
+        world.notifyNeighborsOfStateChange(pos.add(0, 0, 1),
+                                           block);
     }
 
     /**
      * Overridden to do nothing at all.
      */
     @Override
-    public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+    public void randomDisplayTick(World world, BlockPos pos, IBlockState state, Random random) {
     }
 
     /**
@@ -793,7 +758,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            Randomization object
      */
     @Override
-    public void updateTick(World world, int x, int y, int z, Random random) {
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "updateTick(world,"
                                                                                                                              + x
@@ -817,9 +783,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
         try {
             updateRedstoneWirelessTick(world,
-                                       x,
-                                       y,
-                                       z,
+                                       pos,
+                                       state,
                                        random);
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
@@ -849,7 +814,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param random
      *            Randomization object
      */
-    protected abstract void updateRedstoneWirelessTick(World world, int x, int y, int z, Random random);
+    protected abstract void updateRedstoneWirelessTick(World world, BlockPos pos, IBlockState state, Random random);
 
     /**
      * Checks whether or not the Block is directly emitting power to a
@@ -870,8 +835,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @return Powering state.
      */
     @Override
-    public int isProvidingStrongPower(IBlockAccess iblockaccess, int x, int y, int z, int l) {
-
+    public int isProvidingStrongPower(IBlockAccess iblockaccess, BlockPos pos, IBlockState state, EnumFacing side) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         try {
             if (iblockaccess instanceof World) {
                 LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(((World) iblockaccess).isRemote,
@@ -882,14 +847,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                                                                                                      + ","
                                                                                                                                      + z
                                                                                                                                      + ","
-                                                                                                                                     + l
+                                                                                                                                     + side.getName()
                                                                                                                                      + ")",
                                                                                                                              LoggerRedstoneWireless.LogLevel.DEBUG);
                 return isRedstoneWirelessPoweringTo((World) iblockaccess,
-                                                    x,
-                                                    y,
-                                                    z,
-                                                    l);
+                                                    pos,
+                                                    state,
+                                                    side);
             }
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
@@ -909,12 +873,12 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            World Y coordinate
      * @param k
      *            World Z coordinate
-     * @param l
+     * @param side
      *            Direction
      * 
      * @return Powering state.
      */
-    protected abstract int isRedstoneWirelessPoweringTo(World world, int x, int y, int z, int l);
+    protected abstract int isRedstoneWirelessPoweringTo(World world, BlockPos pos, IBlockState state, EnumFacing side);
 
     /**
      * Checks whether or not the Block is indirectly emitting power to a
@@ -935,7 +899,8 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @return Powering state.
      */
     @Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int l) {
+    public int isProvidingWeakPower(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing side) {
+    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         if (world instanceof World) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(((World) world).isRemote,
                                                                                                                          "isIndirectlyPoweringTo(world,"
@@ -945,15 +910,14 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                                                                                                  + ","
                                                                                                                                  + z
                                                                                                                                  + ","
-                                                                                                                                 + l
+                                                                                                                                 + side.getName()
                                                                                                                                  + ")",
                                                                                                                          LoggerRedstoneWireless.LogLevel.DEBUG);
             try {
                 return isRedstoneWirelessIndirectlyPoweringTo((World) world,
-                                                              x,
-                                                              y,
-                                                              z,
-                                                              l);
+                                                              pos,
+                                                              state,
+                                                              side);
             } catch (Exception e) {
                 LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
             }
@@ -973,19 +937,17 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            World Y coordinate
      * @param k
      *            World Z coordinate
-     * @param l
+     * @param side
      *            Direction
      * 
      * @return Powering state.
      */
-    protected abstract int isRedstoneWirelessIndirectlyPoweringTo(World world, int x, int y, int z, int l);
+    protected abstract int isRedstoneWirelessIndirectlyPoweringTo(World world, BlockPos pos, IBlockState state, EnumFacing side);
 
     @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
-        return this.isBlockRedstoneWirelessSolidOnSide(world,
-                                                       x,
-                                                       y,
-                                                       z,
+    public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
+        return isBlockRedstoneWirelessSolidOnSide(world,
+                                                       pos,
                                                        side);
     }
 
@@ -1000,7 +962,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param side
      * @return
      */
-    protected abstract boolean isBlockRedstoneWirelessSolidOnSide(IBlockAccess world, int x, int y, int z, ForgeDirection side);
+    protected abstract boolean isBlockRedstoneWirelessSolidOnSide(IBlockAccess world, BlockPos pos, EnumFacing side);
 
     protected abstract boolean isBlockRedstoneWirelessOpaqueCube();
 

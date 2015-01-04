@@ -25,6 +25,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.slimevoid.wirelessredstone.api.IRedstoneWirelessData;
 import net.slimevoid.wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import net.slimevoid.wirelessredstone.api.IWirelessData;
@@ -169,16 +170,16 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     @Override
-    public abstract String getInventoryName();
+    public abstract String getName();
 
-    public boolean isPoweringDirection(int l) {
-        if (l < 6) return powerRoute[l];
+    public boolean isPoweringDirection(EnumFacing side) {
+        if (side.getIndex() < 6) return powerRoute[side.getIndex()];
         else return false;
     }
 
-    public void flipPowerDirection(int l) {
-        if (isPoweringIndirectly(l) && powerRoute[l]) flipIndirectPower(l);
-        powerRoute[l] = !powerRoute[l];
+    public void flipPowerDirection(EnumFacing side) {
+        if (isPoweringIndirectly(side) && powerRoute[side.getIndex()]) flipIndirectPower(side);
+        powerRoute[side.getIndex()] = !powerRoute[side.getIndex()];
         this.markDirty();
         this.notifyNeighbors();
     }
@@ -236,15 +237,15 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
         }
     }
 
-    public void flipIndirectPower(int l) {
-        if (!isPoweringDirection(l) && !indirPower[l]) flipPowerDirection(l);
-        indirPower[l] = !indirPower[l];
+    public void flipIndirectPower(EnumFacing side) {
+        if (!isPoweringDirection(side) && !indirPower[side.getIndex()]) flipPowerDirection(side);
+        indirPower[side.getIndex()] = !indirPower[side.getIndex()];
         this.markDirty();
         this.notifyNeighbors();
     }
 
-    public boolean isPoweringIndirectly(int l) {
-        if (l < 6) return indirPower[l];
+    public boolean isPoweringIndirectly(EnumFacing side) {
+        if (side.getIndex() < 6) return indirPower[side.getIndex()];
         else return false;
     }
 

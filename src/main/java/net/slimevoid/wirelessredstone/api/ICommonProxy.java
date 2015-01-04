@@ -16,11 +16,7 @@ import java.io.File;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
-import cpw.mods.fml.common.network.IGuiHandler;
-// import net.minecraft.network.INetworkManager;
-// import net.minecraft.network.packet.NetHandler;
-// import net.minecraft.network.packet.Packet1Login;
-// import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
 /**
  * 
