@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import net.slimevoid.wirelessredstone.core.WirelessRedstone;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Wireless Redstone logging engine.<br>

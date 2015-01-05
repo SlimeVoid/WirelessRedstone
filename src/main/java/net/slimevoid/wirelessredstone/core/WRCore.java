@@ -28,7 +28,7 @@ import net.slimevoid.wirelessredstone.network.NetworkEvent;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * WirelessRedstone class
@@ -112,8 +112,8 @@ public class WRCore {
      * Initializes Block objects.
      */
     private static void initBlocks() {
-        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setBlockName("wirelessredstone.receiver");
-        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setBlockName("wirelessredstone.transmitter");
+        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.receiver");
+        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.transmitter");
     }
 
     /**

@@ -11,6 +11,7 @@
  */
 package net.slimevoid.wirelessredstone.network.packets;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketPayload;
 import net.slimevoid.wirelessredstone.api.IWirelessData;
@@ -31,7 +32,7 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
                          entity.getBlockCoord(1),
                          entity.getBlockCoord(2),
                          0);
-        LoggerRedstoneWireless.getInstance("PacketWirelessTile").write(entity.getWorldObj().isRemote,
+        LoggerRedstoneWireless.getInstance("PacketWirelessTile").write(entity.getWorld().isRemote,
                                                                        this.getCommand()
                                                                                + " - ("
                                                                                + this.xPosition
@@ -43,7 +44,7 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
                                                                        LogLevel.INFO);
         this.setCommand(command);
         this.setFreq(entity.getFreq());
-        this.setState(RedstoneEther.getInstance().getFreqState(entity.getWorldObj(),
+        this.setState(RedstoneEther.getInstance().getFreqState(entity.getWorld(),
                                                                entity.getFreq()));
         this.setPowerDirections(entity.getPowerDirections());
         this.setInDirectlyPowering(entity.getInDirectlyPowering());
@@ -95,8 +96,8 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
 
     @Override
     public boolean targetExists(World world) {
-        return world.getTileEntity(this.xPosition,
-                                   this.yPosition,
-                                   this.zPosition) != null;
+        return world.getTileEntity(new BlockPos(this.xPosition,
+                this.yPosition,
+                this.zPosition)) != null;
     }
 }

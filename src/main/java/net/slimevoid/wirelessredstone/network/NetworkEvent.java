@@ -2,8 +2,8 @@ package net.slimevoid.wirelessredstone.network;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.slimevoid.wirelessredstone.core.WirelessRedstone;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 
 public class NetworkEvent {
 

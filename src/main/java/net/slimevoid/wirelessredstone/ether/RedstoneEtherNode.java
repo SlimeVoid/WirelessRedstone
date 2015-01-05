@@ -12,6 +12,7 @@
 package net.slimevoid.wirelessredstone.ether;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 
 /**
  * Wireless ether node.
@@ -95,5 +96,9 @@ public class RedstoneEtherNode implements Comparable<RedstoneEtherNode> {
     @Override
     public String toString() {
         return "[" + freq + "] - (" + x + "," + y + "," + z + ") - " + state;
+    }
+    
+    public BlockPos getPos() {
+    	return new BlockPos(this.x, this.y, this.z);
     }
 }

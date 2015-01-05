@@ -118,9 +118,7 @@ public abstract class GuiRedstoneWirelessInventory extends
      */
     public boolean compareInventory(TileEntityRedstoneWireless tileentity) {
         if (this.inventory != null) {
-            if (this.inventory.xCoord == tileentity.xCoord
-                && this.inventory.yCoord == tileentity.yCoord
-                && this.inventory.zCoord == tileentity.zCoord) {
+            if (this.inventory.getPos().equals(tileentity.getPos())) {
                 return true;
             }
         }
@@ -216,7 +214,7 @@ public abstract class GuiRedstoneWirelessInventory extends
      */
     @Override
     protected String getGuiName() {
-        return inventory.getInventoryName();
+        return inventory.getName();
     }
 
     /**

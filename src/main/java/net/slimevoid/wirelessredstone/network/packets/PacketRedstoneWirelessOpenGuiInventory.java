@@ -11,6 +11,7 @@
  */
 package net.slimevoid.wirelessredstone.network.packets;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketPayload;
 import net.slimevoid.wirelessredstone.network.packets.core.PacketIds;
@@ -74,8 +75,8 @@ public class PacketRedstoneWirelessOpenGuiInventory extends PacketWireless {
 
     @Override
     public boolean targetExists(World world) {
-        return world.getTileEntity(this.xPosition,
-                                   this.yPosition,
-                                   this.zPosition) != null;
+        return world.getTileEntity(new BlockPos(this.xPosition,
+                this.yPosition,
+                this.zPosition)) != null;
     }
 }

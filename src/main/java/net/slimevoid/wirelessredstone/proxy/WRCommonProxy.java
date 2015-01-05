@@ -17,7 +17,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.slimevoid.wirelessredstone.api.ICommonProxy;
 import net.slimevoid.wirelessredstone.core.WirelessRedstone;
 import net.slimevoid.wirelessredstone.core.lib.ConfigurationLib;
@@ -38,7 +40,6 @@ import net.slimevoid.wirelessredstone.network.packets.executor.EtherPacketTXAddE
 import net.slimevoid.wirelessredstone.network.packets.executor.EtherPacketTXRemExecutor;
 import net.slimevoid.wirelessredstone.network.packets.executor.EtherPacketTXSetStateExecutor;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class WRCommonProxy implements ICommonProxy {
 
@@ -54,9 +55,9 @@ public class WRCommonProxy implements ICommonProxy {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == GuiLib.GUIID_INVENTORY) {
-            TileEntity tileentity = world.getTileEntity(x,
+            TileEntity tileentity = world.getTileEntity(new BlockPos(x,
                                                         y,
-                                                        z);
+                                                        z));
             if (tileentity != null
                 && tileentity instanceof TileEntityRedstoneWireless) {
                 return new ContainerRedstoneWireless((TileEntityRedstoneWireless) tileentity);

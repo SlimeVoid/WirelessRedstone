@@ -24,7 +24,7 @@ public abstract class WirelessReceiverDevice extends WirelessDevice {
     }
 
     @Override
-    public String getInventoryName() {
+    public String getName() {
         return DeviceLib.RECEIVER;
     }
 

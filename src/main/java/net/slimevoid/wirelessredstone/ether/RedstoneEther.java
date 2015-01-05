@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.api.IRedstoneEtherOverride;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
@@ -737,6 +738,7 @@ public class RedstoneEther {
      * @return false if the block is not loaded, true if it is.
      */
     public synchronized boolean isLoaded(World world, int x, int y, int z) {
+    	BlockPos pos = new BlockPos(x, y, z);
         if (world == null) return false;
 
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
@@ -747,13 +749,9 @@ public class RedstoneEther {
                                                                           + ", "
                                                                           + z
                                                                           + ") ["
-                                                                          + (world.getBlock(x,
-                                                                                            y,
-                                                                                            z) != Blocks.air)
+                                                                          + (world.getBlockState(pos).getBlock() != Blocks.air)
                                                                           + "&"
-                                                                          + (world.getTileEntity(x,
-                                                                                                 y,
-                                                                                                 z) != null)
+                                                                          + (world.getTileEntity(pos) != null)
                                                                           + "]",
                                                                   LoggerRedstoneWireless.LogLevel.DEBUG);
         // Run before overrides.
@@ -768,12 +766,8 @@ public class RedstoneEther {
         // Check if blockId and tile is set if premature exit was not called.
         boolean returnState = false;
         if (!prematureExit) {
-            returnState = world.getBlock(x,
-                                         y,
-                                         z) != Blocks.air
-                          && world.getTileEntity(x,
-                                                 y,
-                                                 z) != null;
+            returnState = world.getBlockState(pos).getBlock() != Blocks.air
+                          && world.getTileEntity(pos) != null;
         }
         boolean out = returnState;
 

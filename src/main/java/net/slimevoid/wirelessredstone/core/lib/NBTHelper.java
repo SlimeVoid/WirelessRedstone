@@ -36,9 +36,9 @@ public class NBTHelper {
     public static void setString(ItemStack itemstack, String key, String value) {
         if (itemstack != null) {
             if (!itemstack.hasTagCompound()) {
-                itemstack.stackTagCompound = new NBTTagCompound();
+                itemstack.setTagCompound(new NBTTagCompound());
             }
-            itemstack.stackTagCompound.setString(key,
+            itemstack.getTagCompound().setString(key,
                                                  value);
         }
     }
@@ -46,9 +46,9 @@ public class NBTHelper {
     public static void setBoolean(ItemStack itemstack, String key, boolean value) {
         if (itemstack != null) {
             if (!itemstack.hasTagCompound()) {
-                itemstack.stackTagCompound = new NBTTagCompound();
+                itemstack.setTagCompound(new NBTTagCompound());
             }
-            itemstack.stackTagCompound.setBoolean(key,
+            itemstack.getTagCompound().setBoolean(key,
                                                   value);
         }
     }

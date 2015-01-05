@@ -7,8 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ConfigurationLib {
 

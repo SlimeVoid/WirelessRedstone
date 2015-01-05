@@ -19,7 +19,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.api.IActivateGuiOverride;
 import net.slimevoid.wirelessredstone.api.IGuiRedstoneWirelessOverride;
@@ -29,7 +32,6 @@ import net.slimevoid.wirelessredstone.client.network.packets.executor.ClientTile
 import net.slimevoid.wirelessredstone.client.overrides.ActivateGuiTileEntityOverride;
 import net.slimevoid.wirelessredstone.client.overrides.RedstoneEtherOverrideSMP;
 import net.slimevoid.wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
-import net.slimevoid.wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import net.slimevoid.wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
 import net.slimevoid.wirelessredstone.client.presentation.gui.GuiRedstoneWirelessT;
 import net.slimevoid.wirelessredstone.core.WirelessRedstone;
@@ -44,9 +46,6 @@ import net.slimevoid.wirelessredstone.proxy.WRCommonProxy;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 /**
  * WRClientProxy class
@@ -119,16 +118,15 @@ public class WRClientProxy extends WRCommonProxy {
 
     @Override
     public void registerRenderInformation() {
-        RenderingRegistry.registerBlockHandler(BlockRedstoneWirelessRenderer.renderID,
-                                               new BlockRedstoneWirelessRenderer());
+        //RenderingRegistry.registerBlockHandler(BlockRedstoneWirelessRenderer.renderID,
+        //                                       new BlockRedstoneWirelessRenderer());
     }
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == GuiLib.GUIID_INVENTORY) {
-            TileEntity tileentity = world.getTileEntity(x,
-                                                        y,
-                                                        z);
+        	BlockPos pos = new BlockPos(x, y, z);
+            TileEntity tileentity = world.getTileEntity(pos);
             if (tileentity != null) {
                 if (tileentity instanceof TileEntityRedstoneWirelessT) {
                     // guiWirelessT.assTileEntity((TileEntityRedstoneWirelessT)
@@ -153,8 +151,8 @@ public class WRClientProxy extends WRCommonProxy {
 
     @Override
     public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-        ClientRegistry.bindTileEntitySpecialRenderer(clazz,
-                                                     new TileEntityRedstoneWirelessRenderer());
+        //ClientRegistry.bindTileEntitySpecialRenderer(clazz,
+        //                                             new TileEntityRedstoneWirelessRenderer());
     }
 
     @Override

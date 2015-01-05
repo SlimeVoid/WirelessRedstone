@@ -19,8 +19,7 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
-public class TileEntityRedstoneWirelessRenderer extends
-        TileEntitySpecialRenderer {
+public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, float f) {
@@ -109,6 +108,6 @@ public class TileEntityRedstoneWirelessRenderer extends
                                 0);
         GL11.glDepthMask(true);
         // GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-    }
+    }**/
 
 }

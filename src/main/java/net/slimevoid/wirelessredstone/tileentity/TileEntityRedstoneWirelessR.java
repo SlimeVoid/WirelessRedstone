@@ -11,6 +11,7 @@
  */
 package net.slimevoid.wirelessredstone.tileentity;
 
+import net.minecraft.util.IChatComponent;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWireless;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.core.WRCore;
@@ -22,18 +23,17 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
     }
 
     @Override
-    public String getInventoryName() {
+    public String getName() {
         return BlockLib.WIRELESS_RECEIVER;
     }
 
     @Override
     protected void onUpdateEntity() {
         if (!((BlockRedstoneWirelessR) blockRedstoneWireless).hasTicked()) {
-            ((BlockRedstoneWirelessR) blockRedstoneWireless).updateTick(worldObj,
-                                                                        getBlockCoord(0),
-                                                                        getBlockCoord(1),
-                                                                        getBlockCoord(2),
-                                                                        null);
+            ((BlockRedstoneWirelessR) blockRedstoneWireless).updateTick(this.getWorld(),
+                                                                        this.pos,
+                                                                        this.getWorld().getBlockState(pos),
+                                                                        this.getWorld().rand);
         }
     }
 }

@@ -13,6 +13,7 @@ package net.slimevoid.wirelessredstone.network.packets.executor;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketUpdate;
 import net.slimevoid.wirelessredstone.api.IEtherPacketExecutor;
@@ -46,9 +47,9 @@ public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
             entity.markDirty();
 
             // Makr the block for update with the world.
-            world.markBlockForUpdate(packet.xPosition,
+            world.markBlockForUpdate(new BlockPos(packet.xPosition,
                                      packet.yPosition,
-                                     packet.zPosition);
+                                     packet.zPosition));
 
             // Broadcast change to all clients.
             RedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,

@@ -2,7 +2,6 @@ package net.slimevoid.wirelessredstone.device;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +9,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.core.lib.NBTHelper;
@@ -18,7 +16,7 @@ import net.slimevoid.wirelessredstone.core.lib.NBTLib;
 
 public abstract class ItemWirelessDevice extends Item {
 
-    protected IIcon[] iconList;
+    // protected IIcon[] iconList;
 
     public ItemWirelessDevice(int itemID) {
         super();
@@ -26,7 +24,7 @@ public abstract class ItemWirelessDevice extends Item {
         this.setCreativeTab(WRCore.wirelessRedstone);
     }
 
-    @Override
+    /**@Override
     public void registerIcons(IIconRegister iconRegister) {
         this.iconList = new IIcon[2];
         this.registerIconList(iconRegister);
@@ -44,7 +42,7 @@ public abstract class ItemWirelessDevice extends Item {
     public IIcon getIcon(ItemStack itemstack, int pass) {
         if (!getState(itemstack)) return iconList[0];
         return iconList[1];
-    }
+    }**/
 
     @Override
     public int getMaxItemUseDuration(ItemStack itemstack) {
@@ -53,7 +51,7 @@ public abstract class ItemWirelessDevice extends Item {
 
     @Override
     public EnumAction getItemUseAction(ItemStack itemstack) {
-        return EnumAction.none;
+        return EnumAction.NONE;
     }
 
     @Override
@@ -68,7 +66,7 @@ public abstract class ItemWirelessDevice extends Item {
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean isHeld) {
         if (this.isValidDevice(itemstack)) {
             if (!itemstack.hasTagCompound()) {
-                itemstack.stackTagCompound = new NBTTagCompound();
+                itemstack.setTagCompound(new NBTTagCompound());
                 this.getFreq(itemstack);
                 this.getState(itemstack);
             }

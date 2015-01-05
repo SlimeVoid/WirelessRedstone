@@ -968,6 +968,6 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return BlockRedstoneWirelessRenderer.renderID;
+        return 0;//BlockRedstoneWirelessRenderer.renderID;
     }
 }

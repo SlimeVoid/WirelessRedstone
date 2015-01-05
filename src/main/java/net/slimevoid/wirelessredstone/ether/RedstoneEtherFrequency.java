@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
@@ -291,13 +292,14 @@ public class RedstoneEtherFrequency {
                     rem.add(rx);
                     continue;
                 }
-
+                BlockPos pos = new BlockPos(rx.x,
+					                        rx.y,
+					                        rx.z);
                 // Update RX tick.
                 WRCore.blockWirelessR.updateTick(world,
-                                                 rx.x,
-                                                 rx.y,
-                                                 rx.z,
-                                                 null);
+                                                 pos,
+                                                 world.getBlockState(pos),
+                                                 world.rand);
             }
             rxLock.readUnlock();
 

@@ -4,12 +4,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
 import net.slimevoid.wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import net.slimevoid.wirelessredstone.network.packets.PacketWirelessTile;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ClientTilePacketExecutor implements IPacketExecutor {
 

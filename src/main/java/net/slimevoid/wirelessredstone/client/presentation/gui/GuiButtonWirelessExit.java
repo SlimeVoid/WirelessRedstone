@@ -53,7 +53,7 @@ public class GuiButtonWirelessExit extends GuiButtonWireless {
      */
     @Override
     public void drawButton(Minecraft minecraft, int x, int y) {
-        FontRenderer fontrenderer = minecraft.fontRenderer;
+        FontRenderer fontrenderer = minecraft.fontRendererObj;
 
         minecraft.getTextureManager().bindTexture(this.getButtonTexture(false));
         GL11.glColor4f(1.0F,

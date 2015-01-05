@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketPayload;
 import net.slimevoid.library.network.PacketUpdate;
@@ -130,6 +131,9 @@ public abstract class PacketWireless extends PacketUpdate implements
     }
 
     public TileEntity getTarget(World world) {
+    	BlockPos pos = new BlockPos(this.xPosition,
+                this.yPosition,
+                this.zPosition);
         boolean skipDefault = false;
         for (IPacketWirelessOverride override : overrides) {
             if (override.shouldSkipDefault()) {
@@ -140,9 +144,7 @@ public abstract class PacketWireless extends PacketUpdate implements
         TileEntity tileentity = null;
         if (!skipDefault) {
             if (this.targetExists(world)) {
-                tileentity = world.getTileEntity(this.xPosition,
-                                                 this.yPosition,
-                                                 this.zPosition);
+                tileentity = world.getTileEntity(pos);
             }
         }
         for (IPacketWirelessOverride override : overrides) {

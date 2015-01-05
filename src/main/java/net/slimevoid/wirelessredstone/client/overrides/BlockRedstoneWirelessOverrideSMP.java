@@ -14,8 +14,10 @@ package net.slimevoid.wirelessredstone.client.overrides;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.api.IBlockRedstoneWirelessOverride;
@@ -33,7 +35,7 @@ public class BlockRedstoneWirelessOverrideSMP implements
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessRemoved(World world, int x, int y, int z, Block block, int m) {
+    public boolean beforeBlockRedstoneWirelessRemoved(World world, int x, int y, int z, IBlockState state) {
         return (world.isRemote);
     }
 
@@ -42,7 +44,7 @@ public class BlockRedstoneWirelessOverrideSMP implements
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+    public boolean beforeBlockRedstoneWirelessActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumFacing side) {
         return (world.isRemote);
     }
 
@@ -51,12 +53,12 @@ public class BlockRedstoneWirelessOverrideSMP implements
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block) {
-        return (world.isRemote);
+    public boolean beforeBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor) {
+        return (((World) iblockaccess).isRemote);
     }
 
     @Override
-    public void afterBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block block) {
+    public void afterBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor) {
     }
 
     @Override
@@ -72,11 +74,5 @@ public class BlockRedstoneWirelessOverrideSMP implements
     public boolean shouldOverrideTextureAt(IBlockAccess iblockaccess, int x, int y, int z, int side) {
         // TODO Auto-generated method stub
         return false;
-    }
-
-    @Override
-    public IIcon getBlockTexture(IBlockAccess iblockaccess, int x, int y, int z, int side, IIcon output) {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

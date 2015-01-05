@@ -180,9 +180,9 @@ public abstract class WirelessDevice implements IWirelessDevice {
         if (heldItem != null && heldItem.getItem() != null
             && heldItem.getItem() instanceof ItemWirelessDevice) {
             if (!heldItem.hasTagCompound()) {
-                heldItem.stackTagCompound = new NBTTagCompound();
+                heldItem.setTagCompound(new NBTTagCompound());
             }
-            this.writeToNBT(heldItem.stackTagCompound);
+            this.writeToNBT(heldItem.getTagCompound());
         }
     }
 
@@ -192,11 +192,11 @@ public abstract class WirelessDevice implements IWirelessDevice {
     }
 
     @Override
-    public void openInventory() {
+    public void openInventory(EntityPlayer entityplayer) {
     }
 
     @Override
-    public void closeInventory() {
+    public void closeInventory(EntityPlayer entityplayer) {
     }
 
     @Override
@@ -205,7 +205,7 @@ public abstract class WirelessDevice implements IWirelessDevice {
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
+    public boolean hasCustomName() {
         return false;
     }
 

@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
-public class BlockRedstoneWirelessRenderer implements
-        ISimpleBlockRenderingHandler {
+public class BlockRedstoneWirelessRenderer { /**implements ISimpleBlockRenderingHandler {
 
     public static int                                 renderID  = RenderingRegistry.getNextAvailableRenderId();
 
@@ -153,6 +150,6 @@ public class BlockRedstoneWirelessRenderer implements
     @Override
     public int getRenderId() {
         return renderID;
-    }
+    }**/
 
 }

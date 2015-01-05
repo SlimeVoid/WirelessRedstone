@@ -57,7 +57,7 @@ public class RedstoneEtherCoordsPlayerMem {
      */
     public void addMem(EntityPlayer entityplayer, WirelessCoordinates newcoords) {
         PlayerEtherCoordsMemNode memnode = new PlayerEtherCoordsMemNode(entityplayer, newcoords);
-        coords.put(entityplayer.getDisplayName(),
+        coords.put(entityplayer.getDisplayNameString(),
                    memnode);
     }
 

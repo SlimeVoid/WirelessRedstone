@@ -60,7 +60,7 @@ public class GuiButtonWireless extends GuiButton {
         String buttonPopupText = this.getPopupText();
         if (!buttonPopupText.isEmpty()) {
 
-            int l1 = mc.fontRenderer.getStringWidth(buttonPopupText);
+            int l1 = mc.fontRendererObj.getStringWidth(buttonPopupText);
             int i = 0;
             int j = -10;
             int j2 = (x - i) + 12;
@@ -127,7 +127,7 @@ public class GuiButtonWireless extends GuiButton {
                              i4,
                              i4);
 
-            mc.fontRenderer.drawSplitString(buttonPopupText,
+            mc.fontRendererObj.drawSplitString(buttonPopupText,
                                             x + 15,
                                             y - 1,
                                             l1 * 2,

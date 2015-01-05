@@ -24,8 +24,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.slimevoid.wirelessredstone.api.IRedstoneWirelessData;
 import net.slimevoid.wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import net.slimevoid.wirelessredstone.api.IWirelessData;
@@ -33,7 +35,7 @@ import net.slimevoid.wirelessredstone.block.BlockRedstoneWireless;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
-        IInventory {
+        IInventory, IUpdatePlayerListBox {
     protected BlockRedstoneWireless                            blockRedstoneWireless;
     private boolean                                            state     = false;
     public boolean                                             firstTick = true;
@@ -87,7 +89,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     public void setFreq(Object freq) {
         try {
             currentFreq = freq;
-            updateEntity();
+            update();
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance("WirelessRedstone: "
                                                + this.getClass().toString()).writeStackTrace(e);
@@ -97,18 +99,18 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     public int getBlockCoord(int i) {
         switch (i) {
         case 0:
-            return this.xCoord;
+            return this.pos.getX();
         case 1:
-            return this.yCoord;
+            return this.pos.getY();
         case 2:
-            return this.zCoord;
+            return this.pos.getZ();
         default:
             return 0;
         }
     }
 
     @Override
-    public void updateEntity() {
+    public void update() {
         boolean prematureExit = false;
         for (ITileEntityRedstoneWirelessOverride override : overrides) {
             if (override.beforeUpdateEntity(this)) prematureExit = true;
@@ -118,9 +120,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
             String freq = getFreq().toString();
             if (!oldFreq.equals(freq) || firstTick) {
                 blockRedstoneWireless.changeFreq(worldObj,
-                                                 getBlockCoord(0),
-                                                 getBlockCoord(1),
-                                                 getBlockCoord(2),
+                                                 pos,
                                                  oldFreq,
                                                  freq);
                 oldFreq = freq;
@@ -257,13 +257,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     private void notifyNeighbors() {
-        int i = this.getBlockCoord(0);
-        int j = this.getBlockCoord(1);
-        int k = this.getBlockCoord(2);
         BlockRedstoneWireless.notifyNeighbors(this.worldObj,
-                                              i,
-                                              j,
-                                              k,
+                                              this.pos,
                                               this.getBlockType());
     }
 
@@ -402,22 +397,20 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     private boolean isTileRedstoneWirelessUseable(EntityPlayer entityplayer) {
-        if (worldObj.getTileEntity(xCoord,
-                                   yCoord,
-                                   zCoord) != this) {
+        if (worldObj.getTileEntity(this.pos) != this) {
             return false;
         }
-        return entityplayer.getDistanceSq(xCoord + 0.5D,
-                                          yCoord + 0.5D,
-                                          zCoord + 0.5D) <= 64D;
+        return entityplayer.getDistanceSq(this.pos.getX() + 0.5D,
+                                          this.pos.getY() + 0.5D,
+                                          this.pos.getZ() + 0.5D) <= 64D;
     }
 
     @Override
-    public void openInventory() {
+    public void openInventory(EntityPlayer entityplayer) {
     }
 
     @Override
-    public void closeInventory() {
+    public void closeInventory(EntityPlayer entityplayer) {
     }
 
     @Override
@@ -435,18 +428,16 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.func_148857_g());
+        this.readFromNBT(pkt.getNbtCompound());
         this.markDirty();
-        this.getWorldObj().markBlockForUpdate(this.xCoord,
-                                              this.yCoord,
-                                              this.zCoord);
+        this.getWorld().markBlockForUpdate(this.pos);
     }
 
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
-        Packet packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbttagcompound);
+        Packet packet = new S35PacketUpdateTileEntity(this.pos, 0, nbttagcompound);
         return packet;
     }
 
@@ -462,7 +453,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
+    public boolean hasCustomName() {
         return false;
     }
 
@@ -513,4 +504,34 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     public boolean getState() {
         return this.state;
     }
+
+	@Override
+	public int getField(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getFieldCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IChatComponent getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
