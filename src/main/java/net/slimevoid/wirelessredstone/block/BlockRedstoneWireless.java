@@ -495,9 +495,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            Neighbor Block ID
      */
     @Override
-    public void onNeighborChange(IBlockAccess iblockaccess, BlockPos pos, BlockPos neighbor) {
+    public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighbor) {
     	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
-        LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(((World) iblockaccess).isRemote,
+        LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "onNeighborBlockChange(world,"
                                                                                                                              + x
                                                                                                                              + ","
@@ -512,7 +512,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         boolean prematureExit = false;
         // Run overrides.
         for (IBlockRedstoneWirelessOverride override : overrides) {
-            if (override.beforeBlockRedstoneWirelessNeighborChange(iblockaccess,
+            if (override.beforeBlockRedstoneWirelessNeighborChange(world,
                                                                    x,
                                                                    y,
                                                                    z,
@@ -521,9 +521,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         if (prematureExit) return;
 
         try {
-            onBlockRedstoneWirelessNeighborChange(iblockaccess,
+            onBlockRedstoneWirelessNeighborChange(world,
                                                   pos,
-                                                  iblockaccess.getBlockState(neighbor).getBlock());
+                                                  neighbor);
 
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
@@ -531,7 +531,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
         // Run overrides.
         for (IBlockRedstoneWirelessOverride override : overrides) {
-            override.afterBlockRedstoneWirelessNeighborChange(iblockaccess,
+            override.afterBlockRedstoneWirelessNeighborChange(world,
                                                               x,
                                                               y,
                                                               z,

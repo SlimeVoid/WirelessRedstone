@@ -486,7 +486,6 @@ public class RedstoneEther {
      */
     public synchronized void setTransmitterState(World world, int x, int y, int z, Object freq, boolean state) {
         if (world == null) return;
-
         LoggerRedstoneWireless.getInstance("RedstoneEther").write(world.isRemote,
                                                                   "setTransmitterState(world, "
                                                                           + x

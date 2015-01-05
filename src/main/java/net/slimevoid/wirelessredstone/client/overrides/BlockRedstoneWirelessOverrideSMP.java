@@ -53,12 +53,12 @@ public class BlockRedstoneWirelessOverrideSMP implements
     }
 
     @Override
-    public boolean beforeBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor) {
-        return (((World) iblockaccess).isRemote);
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block neighbor) {
+        return (world.isRemote);
     }
 
     @Override
-    public void afterBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor) {
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block neighbor) {
     }
 
     @Override

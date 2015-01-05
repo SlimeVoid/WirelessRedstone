@@ -146,7 +146,7 @@ public interface IBlockRedstoneWirelessOverride {
      * 
      * @return Exits prematurely if true, skipping existing code.
      */
-    public boolean beforeBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor);
+    public boolean beforeBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block neighbor);
 
     /**
      * Triggers after the Block's neighboring Block changes.
@@ -162,7 +162,7 @@ public interface IBlockRedstoneWirelessOverride {
      * @param neighbor
      *            Direction
      */
-    public void afterBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, int x, int y, int z, BlockPos neighbor);
+    public void afterBlockRedstoneWirelessNeighborChange(World world, int x, int y, int z, Block neighbor);
 
     /**
      * Triggers before the Block is updated
