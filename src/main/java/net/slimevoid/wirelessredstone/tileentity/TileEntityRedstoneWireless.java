@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -26,8 +27,10 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.api.IRedstoneWirelessData;
 import net.slimevoid.wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
 import net.slimevoid.wirelessredstone.api.IWirelessData;
@@ -503,6 +506,11 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
     public boolean getState() {
         return this.state;
+    }
+    
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+    	return !oldState.getBlock().equals(oldState.getBlock());
     }
 
 	@Override
