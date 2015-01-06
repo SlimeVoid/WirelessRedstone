@@ -1,0 +1,11 @@
+{
+	"parent": "block/cube",
+    "textures": {
+        "up": "wirelessredstone:blocks/topon",
+        "down": "wirelessredstone:blocks/bottomon",
+        "north": "wirelessredstone:blocks/txon",
+        "south": "wirelessredstone:blocks/txon",
+        "east": "wirelessredstone:blocks/txon",
+        "west": "wirelessredstone:blocks/txon"
+    }
+}

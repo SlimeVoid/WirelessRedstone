@@ -1,0 +1,7 @@
+{
+    "variants": {
+    	"normal": {"model": "wirelessredstone:txoff" },
+        "powered=false": {"model": "wirelessredstone:txoff" },
+        "powered=true": {"model": "wirelessredstone:txon" }
+    }
+}

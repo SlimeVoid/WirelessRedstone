@@ -18,6 +18,9 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -26,7 +29,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.api.IBlockRedstoneWirelessOverride;
-import net.slimevoid.wirelessredstone.client.presentation.BlockRedstoneWirelessRenderer;
 import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -37,6 +39,24 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * @author ali4z
  */
 public abstract class BlockRedstoneWireless extends BlockContainer {
+	
+/*	public static final PropertyBool POWERED = PropertyBool.create("powered");
+	
+	@Override
+    protected BlockState createBlockState() {
+    	return new BlockState(this, new IProperty[] { POWERED });
+    }
+    
+	@Override
+    public int getMetaFromState(IBlockState state) {
+    	return ((Boolean) state.getValue(POWERED)).booleanValue() ? 1 : 0;
+    }
+    
+	@Override
+    public IBlockState getStateFromMeta(int meta) {
+    	return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(meta > 0));
+    }*/
+	
     /**
      * A list of overrides.
      */
@@ -83,6 +103,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         setResistance(resistance);
         setCreativeTab(WRCore.wirelessRedstone);
         overrides = new ArrayList<IBlockRedstoneWirelessOverride>();
+        //this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
     }
 
     /**
@@ -127,16 +148,13 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 
         // Store meta.
         try {
-            TileEntity tRW = world.getTileEntity(new BlockPos(x, y, z));
+        	BlockPos pos = new BlockPos(x, y, z);
+            TileEntity tRW = world.getTileEntity(pos);
             if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
                 ((TileEntityRedstoneWireless) tRW).setState(state);
             }
-            // world.setBlockMetadataWithNotify( x,
-            // y,
-            // z,
-            // meta,
-            // 0x02);
-            world.markBlockForUpdate(new BlockPos(x, y, z));
+            //world.setBlockState(pos, world.getBlockState(pos).withProperty(POWERED, Boolean.valueOf(state)));
+            world.markBlockForUpdate(pos);
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
         }
