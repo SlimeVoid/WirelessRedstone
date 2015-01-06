@@ -153,7 +153,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
             if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
                 ((TileEntityRedstoneWireless) tRW).setState(state);
             }
-            //world.setBlockState(pos, world.getBlockState(pos).withProperty(POWERED, Boolean.valueOf(state)));
+            // TODO :: world.setBlockState(pos, world.getBlockState(pos).withProperty(POWERED, Boolean.valueOf(state)));
             world.markBlockForUpdate(pos);
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
