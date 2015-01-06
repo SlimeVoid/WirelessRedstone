@@ -19,17 +19,17 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 import org.lwjgl.opengl.GL11;
 
-public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRenderer {
+public class TileEntityRedstoneWirelessRenderer extends TileEntitySpecialRenderer {
 
     @Override
-    public void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, float f) {
+    public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f, int a) {
         try {
             float f4 = 0.01F;
 
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) d + 0.5F,
-                              (float) d1 + 1.5F,
-                              (float) d2 + 1F + f4);
+            GL11.glTranslatef((float) x + 0.5F,
+                              (float) y + 1.5F,
+                              (float) z + 1F + f4);
             GL11.glScalef(f4,
                           -f4,
                           f4);
@@ -41,9 +41,9 @@ public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRe
             GL11.glPopMatrix();
 
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) d + 1F + f4,
-                              (float) d1 + 1.5F,
-                              (float) d2 + 0.5F);
+            GL11.glTranslatef((float) x + 1F + f4,
+                              (float) y + 1.5F,
+                              (float) z + 0.5F);
             GL11.glRotatef(90F,
                            0.0F,
                            1.0F,
@@ -59,9 +59,9 @@ public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRe
             GL11.glPopMatrix();
 
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) d + 0.5F,
-                              (float) d1 + 1.5F,
-                              (float) d2 - f4);
+            GL11.glTranslatef((float) x + 0.5F,
+                              (float) y + 1.5F,
+                              (float) z - f4);
             GL11.glRotatef(180F,
                            0.0F,
                            1.0F,
@@ -77,9 +77,9 @@ public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRe
             GL11.glPopMatrix();
 
             GL11.glPushMatrix();
-            GL11.glTranslatef((float) d - f4,
-                              (float) d1 + 1.5F,
-                              (float) d2 + 0.5F);
+            GL11.glTranslatef((float) x - f4,
+                              (float) y + 1.5F,
+                              (float) z + 0.5F);
             GL11.glRotatef(270F,
                            0.0F,
                            1.0F,
@@ -99,7 +99,7 @@ public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRe
     }
 
     private void renderFreq(TileEntityRedstoneWireless tileentity) {
-        FontRenderer fontrenderer = this.func_147498_b();// getFontRenderer();
+        FontRenderer fontrenderer = this.getFontRenderer();
         String s = String.valueOf(tileentity.getFreq()) + "";
         GL11.glDepthMask(false);
         fontrenderer.drawString(s,
@@ -108,6 +108,6 @@ public class TileEntityRedstoneWirelessRenderer { /**extends TileEntitySpecialRe
                                 0);
         GL11.glDepthMask(true);
         // GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-    }**/
+    }
 
 }

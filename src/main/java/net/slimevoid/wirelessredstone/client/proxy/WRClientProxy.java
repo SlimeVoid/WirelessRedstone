@@ -151,8 +151,8 @@ public class WRClientProxy extends WRCommonProxy {
 
     @Override
     public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-        //ClientRegistry.bindTileEntitySpecialRenderer(clazz,
-        //                                             new TileEntityRedstoneWirelessRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(clazz,
+                                                     new TileEntityRedstoneWirelessRenderer());
     }
 
     @Override
