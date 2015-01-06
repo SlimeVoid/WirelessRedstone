@@ -40,7 +40,7 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public abstract class BlockRedstoneWireless extends BlockContainer {
 	
-/*	public static final PropertyBool POWERED = PropertyBool.create("powered");
+	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
 	@Override
     protected BlockState createBlockState() {
@@ -55,7 +55,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	@Override
     public IBlockState getStateFromMeta(int meta) {
     	return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(meta > 0));
-    }*/
+    }
 	
     /**
      * A list of overrides.
@@ -103,7 +103,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         setResistance(resistance);
         setCreativeTab(WRCore.wirelessRedstone);
         overrides = new ArrayList<IBlockRedstoneWirelessOverride>();
-        //this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
     }
 
     /**

@@ -1,6 +1,5 @@
 {
     "variants": {
-    	"normal": {"model": "wirelessredstone:rxoff" },
         "powered=false": {"model": "wirelessredstone:rxoff" },
         "powered=true": {"model": "wirelessredstone:rxon" }
     }
