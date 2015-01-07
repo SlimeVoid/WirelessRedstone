@@ -64,7 +64,7 @@ public class WirelessRedstone {
     @EventHandler
     public void WirelessRedstonePreInit(FMLPreInitializationEvent event) {
         proxy.registerConfiguration(event.getSuggestedConfigurationFile());
-        WRCore.initialize();
+        WRCore.preInitialize();
     }
 
     /**
@@ -74,6 +74,7 @@ public class WirelessRedstone {
      */
     @EventHandler
     public void WirelessRedstoneInit(FMLInitializationEvent event) {
+        WRCore.initialize();
         PacketRedstoneWirelessCommands.registerCommands();
         WirelessRedstone.proxy.initPacketHandlers();
         PacketHelper.registerHandler(CoreLib.MOD_CHANNEL,

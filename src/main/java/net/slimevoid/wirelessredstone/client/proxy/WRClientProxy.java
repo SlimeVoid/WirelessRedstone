@@ -15,7 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.tileentity.TileEntity;
@@ -34,6 +37,7 @@ import net.slimevoid.wirelessredstone.client.overrides.RedstoneEtherOverrideSMP;
 import net.slimevoid.wirelessredstone.client.overrides.TileEntityRedstoneWirelessOverrideSMP;
 import net.slimevoid.wirelessredstone.client.presentation.TileEntityRedstoneWirelessRenderer;
 import net.slimevoid.wirelessredstone.client.presentation.gui.GuiRedstoneWirelessT;
+import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.core.WirelessRedstone;
 import net.slimevoid.wirelessredstone.core.lib.GuiLib;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
@@ -118,6 +122,14 @@ public class WRClientProxy extends WRCommonProxy {
 
     @Override
     public void registerRenderInformation() {
+    	Minecraft mc = FMLClientHandler.instance().getClient();
+    	ItemModelMesher mesher = mc.getRenderItem().getItemModelMesher();
+    	Item itemRX = Item.getItemFromBlock(WRCore.blockWirelessR);
+    	Item itemTX = Item.getItemFromBlock(WRCore.blockWirelessT);
+    	if (mesher != null) {
+	    	mesher.register(itemRX, 0, new ModelResourceLocation("wirelessredstone:wirelessredstone.receiver", "inventory"));
+	    	mesher.register(itemTX, 0, new ModelResourceLocation("wirelessredstone:wirelessredstone.transmitter", "inventory"));
+    	}
         //RenderingRegistry.registerBlockHandler(BlockRedstoneWirelessRenderer.renderID,
         //                                       new BlockRedstoneWirelessRenderer());
     }

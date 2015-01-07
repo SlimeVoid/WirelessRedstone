@@ -84,7 +84,7 @@ public class WRCore {
      * Loads configurations and initializes objects. Loads ModLoader related
      * stuff.
      */
-    public static boolean initialize() {
+    public static boolean preInitialize() {
 
         // loadConfig();
 
@@ -96,16 +96,18 @@ public class WRCore {
 
         registerBlocks();
 
-        WirelessRedstone.proxy.registerRenderInformation();
-
-        WirelessRedstone.proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
-
         addRecipes();
 
         NetworkEvent.registerNetworkEvents();
 
         return true;
 
+    }
+    
+    public static void initialize() {
+        WirelessRedstone.proxy.registerRenderInformation();
+
+        WirelessRedstone.proxy.registerTileEntitySpecialRenderer(TileEntityRedstoneWireless.class);
     }
 
     /**
