@@ -32,7 +32,7 @@ def forge = '11.14.0.1281'
 def mc = '1.8-' + forge + '-1.8'
 def pack = 'wirelessredstone'
 def github = 'WirelessRedstone'
-version = '1.8.1.0'
+version = '2.0.0.0-alpha-MC1.8'
 group = 'net.slimevoid'
 archivesBaseName = 'WirelessRedstoneCore'
 
