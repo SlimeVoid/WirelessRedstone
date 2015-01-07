@@ -510,7 +510,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
-    	return !oldState.getBlock().equals(oldState.getBlock());
+    	return !oldState.getBlock().isAssociatedBlock(oldState.getBlock());
     }
 
 	@Override
