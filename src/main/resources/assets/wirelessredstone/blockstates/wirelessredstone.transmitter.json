@@ -1,6 +1,12 @@
 {
     "variants": {
-        "powered=false": {"model": "wirelessredstone:txoff" },
-        "powered=true": {"model": "wirelessredstone:txon" }
+        "facing=north,powered=false": {"model": "wirelessredstone:txoff"},
+        "facing=south,powered=false": {"model": "wirelessredstone:txoff", "y": 180},
+        "facing=east,powered=false": {"model": "wirelessredstone:txoff", "y": 90},
+        "facing=west,powered=false": {"model": "wirelessredstone:txoff", "y": 270},
+        "facing=north,powered=true": {"model": "wirelessredstone:txon"},
+        "facing=south,powered=true": {"model": "wirelessredstone:txon", "y": 180},
+        "facing=east,powered=true": {"model": "wirelessredstone:txon", "y": 90},
+        "facing=west,powered=true": {"model": "wirelessredstone:txon", "y": 270}
     }
 }

@@ -20,6 +20,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,55 +41,81 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  */
 public abstract class BlockRedstoneWireless extends BlockContainer {
 	
+	/*
+	 * Meta data is as follows
+	 * 8:4:2:1
+	 * 0 0 0 0 = Unpowered North
+	 * 0 0 0 1 = Powered  North
+	 * From now on its unpowered
+	 * 0 0 1 0 = South
+	 * 0 1 0 0 = East
+	 * 0 1 1 0 = West
+	 */       
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	
 	@Override
     protected BlockState createBlockState() {
-    	return new BlockState(this, new IProperty[] { POWERED });
+    	return new BlockState(this, new IProperty[] { POWERED, FACING });
     }
     
 	@Override
     public int getMetaFromState(IBlockState state) {
-    	return ((Boolean) state.getValue(POWERED)).booleanValue() ? 1 : 0;
+		boolean powered = ((Boolean) state.getValue(POWERED)).booleanValue();
+		EnumFacing facing = (EnumFacing) state.getValue(FACING);
+    	return this.getMetaFromProps(powered, facing);
     }
+	
+	protected int getMetaFromProps(boolean powered, EnumFacing facing) {
+		int power = powered ? 1 : 0;
+		return this.setFacing(power, facing);
+	}
     
 	@Override
     public IBlockState getStateFromMeta(int meta) {
-    	return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(meta > 0));
+    	return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(this.getPoweredFromMeta(meta) > 0));
+    }
+
+	protected IBlockState getInitialState() {
+		return this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)).withProperty(FACING, EnumFacing.NORTH);
+	}
+
+    protected int getPoweredFromMeta(int meta) {
+		return meta & 1;
+	}
+    
+    protected int getFacingFromMeta(int meta) {
+    	return meta >> 1;
+    }
+    
+    protected int getFacing(EnumFacing facing) {
+    	int index = facing == EnumFacing.SOUTH ? 1 : facing == EnumFacing.EAST ? 2 : facing == EnumFacing.WEST ? 3 : 0;
+    	return index;
+    }
+    
+    protected EnumFacing getFacing(int index) {
+    	EnumFacing facing;
+    	switch (index) {
+	    	case 1 : facing = EnumFacing.SOUTH;
+	    	case 2 : facing = EnumFacing.EAST;
+	    	case 3 : facing = EnumFacing.WEST;
+	    	default : facing = EnumFacing.NORTH;
+    	}
+    	return facing;
+    }
+    
+    protected int setPowered(int meta, boolean state) {
+    	return meta |= state ? 1 : 0;
+    }
+    
+    protected int setFacing(int meta, EnumFacing facing) {
+    	return meta |= getFacing(facing) << 1;
     }
 	
     /**
      * A list of overrides.
      */
     private List<IBlockRedstoneWirelessOverride> overrides;
-
-    /**
-     * The icon list
-     */
-    //protected IIcon[][]                          iconBuffer;
-
-    /**
-     * Retrieves the IIcon based on state
-     * 
-     * @param state
-     *            the block state
-     * @param side
-     *            the side of the block
-     * @return an IIcon
-     */
-    /**protected IIcon getIconFromStateAndSide(int state, int side) {
-        if (this.iconBuffer == null) return this.blockIcon;
-        state = (state < 0 || state >= this.iconBuffer.length) ? 0 : state;
-        side = (side < 0 || side >= this.iconBuffer[state].length) ? 0 : side;
-        return this.iconBuffer[state][side];
-    };
-
-    @Override
-    public void registerBlockIcons(IIconRegister iconRegister) {
-        this.registerIcons(iconRegister);
-    }
-
-    public abstract void registerIcons(IIconRegister iconRegister);**/
 
     /**
      * Constructor sets the block ID, material and initializes the override
@@ -103,10 +130,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
         setResistance(resistance);
         setCreativeTab(WRCore.wirelessRedstone);
         overrides = new ArrayList<IBlockRedstoneWirelessOverride>();
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.valueOf(false)));
+        this.setDefaultState(this.getInitialState());
     }
 
-    /**
+	/**
      * Adds a Block override.
      * 
      * @param override
@@ -454,8 +481,10 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                               side)) prematureExit = true;
         }
         if (prematureExit) return false;
-
         boolean output = false;
+    	if (entityplayer.isSneaking()) {
+    		this.rotateBlock(world, pos, EnumFacing.UP);
+    	} else {
         try {
             output = onBlockRedstoneWirelessActivated(world,
                                                       pos,
@@ -475,6 +504,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
                                                          z,
                                                          entityplayer);
         }
+    	}
         return output;
     }
 

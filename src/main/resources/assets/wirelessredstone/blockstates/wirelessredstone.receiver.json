@@ -1,6 +1,12 @@
 {
     "variants": {
-        "powered=false": {"model": "wirelessredstone:rxoff" },
-        "powered=true": {"model": "wirelessredstone:rxon" }
+        "facing=north,powered=false": {"model": "wirelessredstone:rxoff"},
+        "facing=south,powered=false": {"model": "wirelessredstone:rxoff", "y": 180},
+        "facing=east,powered=false": {"model": "wirelessredstone:rxoff", "y": 90},
+        "facing=west,powered=false": {"model": "wirelessredstone:rxoff", "y": 270},
+        "facing=north,powered=true": {"model": "wirelessredstone:rxon"},
+        "facing=south,powered=true": {"model": "wirelessredstone:rxon", "y": 180},
+        "facing=east,powered=true": {"model": "wirelessredstone:rxon", "y": 90},
+        "facing=west,powered=true": {"model": "wirelessredstone:rxon", "y": 270}
     }
 }

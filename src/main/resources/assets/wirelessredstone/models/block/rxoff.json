@@ -1,7 +1,8 @@
 {
-	"parent": "block/cube_column",
+	"parent": "wirelessredstone:block/cube_front",
     "textures": {
         "end": "wirelessredstone:blocks/topoff",
+        "front": "wirelessredstone:blocks/topoff",
         "side": "wirelessredstone:blocks/rxoff"
     }
 }
