@@ -287,11 +287,11 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
 
     @Override
     protected boolean isBlockRedstoneWirelessSolidOnSide(IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
-        return this.isOpaqueCube();
+        return true;
     }
 
     @Override
     protected boolean isBlockRedstoneWirelessOpaqueCube() {
-        return false;
+        return true;
     }
 }
