@@ -85,7 +85,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	}
     
     protected int getFacingFromMeta(int meta) {
-    	return meta >> 1;
+    	return (meta & 7) >> 1;
     }
     
     protected int getFacing(EnumFacing facing) {
