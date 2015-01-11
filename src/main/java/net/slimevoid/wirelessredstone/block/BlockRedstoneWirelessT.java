@@ -70,21 +70,17 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
      * - Sets the transmitter state in the Ether.
      */
     @Override
-    public void setState(World world, int x, int y, int z, boolean state) {
+    public void setState(World world, BlockPos pos, boolean state) {
         super.setState(world,
-                       x,
-                       y,
-                       z,
+                       pos,
                        state);
 
         String freq = getFreq(world,
-                              x,
-                              y,
-                              z);
+                              pos);
         RedstoneEther.getInstance().setTransmitterState(world,
-                                                        x,
-                                                        y,
-                                                        z,
+                                                        pos.getX(),
+                                                        pos.getY(),
+                                                        pos.getZ(),
                                                         freq,
                                                         state);
     }
@@ -117,9 +113,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
                                                         z,
                                                         freq,
                                                         getState(world,
-                                                                 x,
-                                                                 y,
-                                                                 z));
+                                                                 pos));
     }
 
     /**
@@ -136,9 +130,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
                                                    y,
                                                    z,
                                                    getFreq(world,
-                                                           x,
-                                                           y,
-                                                           z));
+                                                           pos));
 
         onBlockRedstoneWirelessNeighborChange(world,
                                               pos,
@@ -158,9 +150,7 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
                                                    y,
                                                    z,
                                                    getFreq(world,
-                                                           x,
-                                                           y,
-                                                           z));
+                                                           pos));
     }
 
     /**
@@ -195,7 +185,6 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
     @Override
     protected void onBlockRedstoneWirelessNeighborChange(IBlockAccess iblockaccess, BlockPos pos, Block neighbor) {
     	World world = (World) iblockaccess;
-    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         if (neighbor.equals(this)) return;
 
         // It was not removed, can provide power and is indirectly getting
@@ -203,23 +192,15 @@ public class BlockRedstoneWirelessT extends BlockRedstoneWireless {
         if (neighbor != null
             && !neighbor.equals(Blocks.air)
             && !getState(iblockaccess,
-                         x,
-                         y,
-                         z)
+                         pos)
             && (world.isBlockPowered(pos) || world.isBlockIndirectlyGettingPowered(pos) > 0)) setState(world,
-                                                                                                       x,
-                                                                                                       y,
-                                                                                                       z,
+                                                                                                       pos,
                                                                                                        true);
         // There are no powering entities, state is deactivated.
         else if (getState(world,
-                          x,
-                          y,
-                          z)
+                          pos)
                  && !(world.isBlockPowered(pos) || world.isBlockIndirectlyGettingPowered(pos) > 0)) setState(world,
-                                                                                                             x,
-                                                                                                             y,
-                                                                                                             z,
+                                                                                                             pos,
                                                                                                              false);
     }
 

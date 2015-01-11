@@ -12,7 +12,6 @@
 package net.slimevoid.wirelessredstone.network.handlers;
 
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.slimevoid.library.network.handlers.SubPacketHandler;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneWirelessOpenGuiInventory;
@@ -24,12 +23,12 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * 
  * @author ali4z
  */
-public class GuiPacketHandler extends SubPacketHandler {
+public class GuiPacketHandler {
 
-    @Override
-    protected PacketWireless createNewPacket() {
-        return new PacketRedstoneWirelessOpenGuiInventory();
-    }
+    //@Override
+    //protected PacketWireless createNewPacket() {
+    //    return new PacketRedstoneWirelessOpenGuiInventory();
+    //}
 
     /**
      * Send a GUI packet to specified player.

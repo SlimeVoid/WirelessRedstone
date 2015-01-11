@@ -15,15 +15,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketUpdate;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.wirelessredstone.api.IEtherPacketExecutor;
 import net.slimevoid.wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
 
-public class EtherPacketFetchEtherExecutor implements IEtherPacketExecutor {
+public class EtherPacketFetchEtherExecutor extends PacketExecutor {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (entityplayer instanceof EntityPlayerMP) {
             RedstoneEtherPacketHandler.sendEtherTilesTo((EntityPlayerMP) entityplayer);
         }
+        return null;
     }
 }

@@ -14,17 +14,19 @@ package net.slimevoid.wirelessredstone.client.network.packets.executor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.slimevoid.library.network.PacketUpdate;
-import net.slimevoid.wirelessredstone.api.IEtherPacketExecutor;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.wirelessredstone.ether.RedstoneEther;
 import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
+import net.slimevoid.wirelessredstone.network.packets.PacketWirelessTXAdd;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
 
-public class ClientEtherPacketTXAddExecutor implements IEtherPacketExecutor {
+public class ClientEtherPacketTXAddExecutor extends PacketExecutor<PacketWirelessTXAdd, IMessage> {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketWireless) {
             PacketWireless wireless = (PacketWireless) packet;
             TileEntity tileentity = wireless.getTarget(world);
@@ -45,6 +47,7 @@ public class ClientEtherPacketTXAddExecutor implements IEtherPacketExecutor {
                                                        packet.zPosition,
                                                        wireless.getFreq().toString());
         }
+        return null;
     }
 
 }

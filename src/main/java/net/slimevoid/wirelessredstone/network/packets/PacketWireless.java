@@ -11,9 +11,6 @@
  */
 package net.slimevoid.wirelessredstone.network.packets;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,17 +39,9 @@ public abstract class PacketWireless extends PacketUpdate implements
             overrides.add(override);
         }
     }
-
-    @Override
-    public void writeData(ChannelHandlerContext ctx, ByteBuf data) {
-        super.writeData(ctx,
-                        data);
-    }
-
-    @Override
-    public void readData(ChannelHandlerContext ctx, ByteBuf data) {
-        super.readData(ctx,
-                       data);
+    
+    public PacketWireless() {
+        this.setChannel(CoreLib.MOD_ID);
     }
 
     /**
@@ -63,8 +52,8 @@ public abstract class PacketWireless extends PacketUpdate implements
      *            sent or received
      */
     public PacketWireless(int packetId) {
-        super(packetId);
-        this.setChannel(CoreLib.MOD_CHANNEL);
+        this();
+        this.setPacketId(packetId);
     }
 
     /**
@@ -79,7 +68,7 @@ public abstract class PacketWireless extends PacketUpdate implements
      */
     public PacketWireless(int packetId, PacketPayload payload) {
         super(packetId, payload);
-        this.setChannel(CoreLib.MOD_CHANNEL);
+        this.setChannel(CoreLib.MOD_ID);
     }
 
     @Override

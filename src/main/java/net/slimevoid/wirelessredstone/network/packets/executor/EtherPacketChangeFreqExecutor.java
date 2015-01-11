@@ -13,11 +13,11 @@ package net.slimevoid.wirelessredstone.network.packets.executor;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.slimevoid.library.network.PacketUpdate;
-import net.slimevoid.wirelessredstone.api.IEtherPacketExecutor;
-import net.slimevoid.wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
+import net.slimevoid.library.network.executor.PacketExecutor;
+import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneEther;
 import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
@@ -29,10 +29,10 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * 
  * @author ali4z
  */
-public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
+public class EtherPacketChangeFreqExecutor extends PacketExecutor<PacketRedstoneEther, IMessage> {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         // Fetch the tile from the packet
         TileEntity entity = ((PacketWireless) packet).getTarget(world);
 
@@ -46,14 +46,13 @@ public class EtherPacketChangeFreqExecutor implements IEtherPacketExecutor {
                                                                            + dFreq));
             entity.markDirty();
 
-            // Makr the block for update with the world.
-            world.markBlockForUpdate(new BlockPos(packet.xPosition,
-                                     packet.yPosition,
-                                     packet.zPosition));
+            // Mark the block for update with the world.
+            world.markBlockForUpdate(entity.getPos());
 
             // Broadcast change to all clients.
-            RedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
-                                                                world);
+            //RedstoneEtherPacketHandler.sendEtherTileToAll((TileEntityRedstoneWireless) entity,
+            //                                                    world);
         }
+        return null;
     }
 }

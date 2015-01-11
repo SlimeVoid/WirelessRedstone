@@ -12,7 +12,6 @@
 package net.slimevoid.wirelessredstone.network.handlers;
 
 import net.minecraft.world.World;
-import net.slimevoid.library.network.handlers.SubPacketHandler;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
@@ -25,12 +24,12 @@ import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
  * 
  * @author ali4z
  */
-public class TilePacketHandler extends SubPacketHandler {
+public class TilePacketHandler {
 
-    @Override
-    protected PacketWireless createNewPacket() {
-        return new PacketWirelessTile();
-    }
+    //@Override
+    //protected PacketWireless createNewPacket() {
+    //    return new PacketWirelessTile();
+    //}
 
     /**
      * Broadcast a wireless tile.

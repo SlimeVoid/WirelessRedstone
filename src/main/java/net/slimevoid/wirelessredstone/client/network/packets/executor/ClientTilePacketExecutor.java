@@ -5,16 +5,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.slimevoid.library.IPacketExecutor;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.slimevoid.library.network.PacketUpdate;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.wirelessredstone.client.presentation.gui.GuiRedstoneWirelessInventory;
 import net.slimevoid.wirelessredstone.network.packets.PacketWirelessTile;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
-public class ClientTilePacketExecutor implements IPacketExecutor {
+public class ClientTilePacketExecutor extends PacketExecutor<PacketWirelessTile, IMessage> {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketWirelessTile) {
             PacketWirelessTile wireless = (PacketWirelessTile) packet;
             TileEntity tileentity = wireless.getTarget(world);
@@ -32,6 +33,7 @@ public class ClientTilePacketExecutor implements IPacketExecutor {
             }
 
         }
+        return null;
     }
 
 }

@@ -28,5 +28,5 @@ public interface IDevicePacketExecutor extends IPacketExecutor {
      *            the player
      */
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer);
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer);
 }

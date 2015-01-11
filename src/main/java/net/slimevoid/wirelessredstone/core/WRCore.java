@@ -18,6 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.api.IBlockRedstoneWirelessOverride;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWireless;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWirelessR;
@@ -85,6 +86,8 @@ public class WRCore {
      * stuff.
      */
     public static boolean preInitialize() {
+    	
+        PacketHelper.registerHandler();
 
         // loadConfig();
 

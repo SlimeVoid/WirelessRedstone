@@ -17,29 +17,22 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
-import net.slimevoid.library.network.handlers.SubPacketHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 import net.slimevoid.wirelessredstone.ether.RedstoneEther;
 import net.slimevoid.wirelessredstone.ether.RedstoneEtherNode;
 import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneEther;
-import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 /**
  * A server-side RedstoneEther packet sub-handler.
  * 
  * @author ali4z
  */
-public class RedstoneEtherPacketHandler extends SubPacketHandler {
-
-    @Override
-    protected PacketWireless createNewPacket() {
-        return new PacketRedstoneEther();
-    }
+public class RedstoneEtherPacketHandler {
 
     /**
      * Broadcasts an ether tile to all clients.
@@ -255,7 +248,7 @@ public class RedstoneEtherPacketHandler extends SubPacketHandler {
      * CLIENT SIDE
      */
     public static void sendEtherPacketToServer(String command, int x, int y, int z, Object freq, boolean state) {
-        PacketRedstoneEther packet = new PacketRedstoneEther(command);
+    	PacketRedstoneEther packet = new PacketRedstoneEther(command);
         packet.setPosition(x,
                            y,
                            z,

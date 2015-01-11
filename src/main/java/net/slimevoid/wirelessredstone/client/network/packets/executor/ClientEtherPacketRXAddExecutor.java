@@ -14,19 +14,21 @@ package net.slimevoid.wirelessredstone.client.network.packets.executor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.slimevoid.library.network.PacketUpdate;
-import net.slimevoid.wirelessredstone.api.IEtherPacketExecutor;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWireless;
 import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.ether.RedstoneEther;
 import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
+import net.slimevoid.wirelessredstone.network.packets.PacketWirelessTXAdd;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 
-public class ClientEtherPacketRXAddExecutor implements IEtherPacketExecutor {
+public class ClientEtherPacketRXAddExecutor extends PacketExecutor<PacketWirelessTXAdd, IMessage> {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketWireless) {
             PacketWireless wireless = (PacketWireless) packet;
             TileEntity tileentity = wireless.getTarget(world);
@@ -47,11 +49,10 @@ public class ClientEtherPacketRXAddExecutor implements IEtherPacketExecutor {
                                                     wireless.zPosition,
                                                     wireless.getFreq().toString());
             ((BlockRedstoneWireless) WRCore.blockWirelessR).setState(world,
-                                                                     wireless.xPosition,
-                                                                     wireless.yPosition,
-                                                                     wireless.zPosition,
+                                                                     wireless.getPosition(),
                                                                      wireless.getState());
         }
+        return null;
     }
 
 }

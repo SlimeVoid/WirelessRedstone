@@ -28,10 +28,7 @@ public class PacketWirelessTile extends PacketWireless implements IWirelessData 
 
     public PacketWirelessTile(String command, TileEntityRedstoneWireless entity) {
         super(PacketIds.TILE, new PacketPayload(0, 0, 1, 13));
-        this.setPosition(entity.getBlockCoord(0),
-                         entity.getBlockCoord(1),
-                         entity.getBlockCoord(2),
-                         0);
+        this.setPosition(entity.getPos(), 0);
         LoggerRedstoneWireless.getInstance("PacketWirelessTile").write(entity.getWorld().isRemote,
                                                                        this.getCommand()
                                                                                + " - ("

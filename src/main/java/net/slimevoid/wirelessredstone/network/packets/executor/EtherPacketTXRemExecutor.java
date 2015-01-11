@@ -14,6 +14,7 @@ package net.slimevoid.wirelessredstone.network.packets.executor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketUpdate;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.wirelessredstone.api.IEtherPacketExecutor;
 import net.slimevoid.wirelessredstone.ether.RedstoneEther;
 import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
@@ -25,15 +26,16 @@ import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
  * 
  * @author ali4z
  */
-public class EtherPacketTXRemExecutor implements IEtherPacketExecutor {
+public class EtherPacketTXRemExecutor extends PacketExecutor {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         RedstoneEther.getInstance().remTransmitter(world,
                                                    packet.xPosition,
                                                    packet.yPosition,
                                                    packet.zPosition,
                                                    ((PacketWireless) packet).getFreq());
+        return null;
     }
 
 }

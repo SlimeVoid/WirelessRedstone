@@ -114,9 +114,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
                                                 y,
                                                 z,
                                                 getFreq(world,
-                                                        x,
-                                                        y,
-                                                        z));
+                                                        pos));
         notifyNeighbors(world, pos, state.getBlock());
 
         updateTick(world,
@@ -139,9 +137,7 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
                                                 y,
                                                 z,
                                                 getFreq(world,
-                                                        x,
-                                                        y,
-                                                        z));
+                                                        pos));
         ;
     }
 
@@ -214,26 +210,19 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
      */
     @Override
     protected void updateRedstoneWirelessTick(World world, BlockPos pos, IBlockState state, Random random) {
-    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         if (initialSchedule) initialSchedule = false;
         if (world == null) return;
         String freq = getFreq(world,
-                              x,
-                              y,
-                              z);
+                              pos);
 
-        boolean oldState = getState(world,
-                                    x,
-                                    y,
-                                    z);
+        boolean oldState = this.getState(world,
+                                    	 pos);
         boolean newState = RedstoneEther.getInstance().getFreqState(world,
                                                                     freq);
 
         if (newState != oldState) {
             setState(world,
-                     x,
-                     y,
-                     z,
+                     pos,
                      newState);
             world.markBlockForUpdate(pos);
             notifyNeighbors(world,
@@ -255,13 +244,10 @@ public class BlockRedstoneWirelessR extends BlockRedstoneWireless {
      */
     @Override
     protected int isRedstoneWirelessPoweringTo(World world, BlockPos pos, IBlockState state, EnumFacing side) {
-    	int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof TileEntityRedstoneWireless) {
             return (((TileEntityRedstoneWireless) entity).isPoweringDirection(side) && getState(world,
-                                                                                             x,
-                                                                                             y,
-                                                                                             z)) ? 16 : 0;
+                                                                                             	pos)) ? 16 : 0;
         }
         return 0;
     }

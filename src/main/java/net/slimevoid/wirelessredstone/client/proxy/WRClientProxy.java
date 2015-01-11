@@ -45,6 +45,10 @@ import net.slimevoid.wirelessredstone.ether.RedstoneEther;
 import net.slimevoid.wirelessredstone.inventory.ContainerRedstoneWireless;
 import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneEther;
 import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
+import net.slimevoid.wirelessredstone.network.packets.PacketWirelessRXAdd;
+import net.slimevoid.wirelessredstone.network.packets.PacketWirelessTXAdd;
+import net.slimevoid.wirelessredstone.network.packets.PacketWirelessTile;
 import net.slimevoid.wirelessredstone.network.packets.core.PacketIds;
 import net.slimevoid.wirelessredstone.proxy.WRCommonProxy;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
@@ -224,11 +228,8 @@ public class WRClientProxy extends WRCommonProxy {
         // ///////////////////
 
         // Ether Client Packet Executors
-        WirelessRedstone.handler.getPacketHandler(PacketIds.ETHER).registerClientExecutor(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString(),
-                                                                                          new ClientEtherPacketTXAddExecutor());
-        WirelessRedstone.handler.getPacketHandler(PacketIds.ETHER).registerClientExecutor(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
-                                                                                          new ClientEtherPacketRXAddExecutor());
-        WirelessRedstone.handler.getPacketHandler(PacketIds.TILE).registerClientExecutor(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString(),
-                                                                                         new ClientTilePacketExecutor());
+        //PacketHelper.registerClientExecutor(ClientEtherPacketTXAddExecutor.class, PacketWireless.class, 50);
+        //PacketHelper.registerClientExecutor(ClientEtherPacketRXAddExecutor.class, PacketWireless.class, 51);
+        //PacketHelper.registerClientExecutor(ClientTilePacketExecutor.class, PacketWirelessTile.class, 52);
     }
 }

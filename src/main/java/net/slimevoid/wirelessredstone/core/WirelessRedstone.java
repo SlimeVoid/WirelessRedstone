@@ -11,7 +11,6 @@
  */
 package net.slimevoid.wirelessredstone.core;
 
-import net.slimevoid.library.network.handlers.PacketPipeline;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.api.ICommonProxy;
 import net.slimevoid.wirelessredstone.core.lib.CoreLib;
@@ -46,8 +45,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  */
 public class WirelessRedstone {
 
-    public static PacketPipeline   handler = new PacketPipeline();
-
     @SidedProxy(
             clientSide = CoreLib.MOD_CLIENT_PROXY,
             serverSide = CoreLib.MOD_COMMON_PROXY)
@@ -77,8 +74,6 @@ public class WirelessRedstone {
         WRCore.initialize();
         PacketRedstoneWirelessCommands.registerCommands();
         WirelessRedstone.proxy.initPacketHandlers();
-        PacketHelper.registerHandler(CoreLib.MOD_CHANNEL,
-                                     handler);
     }
 
     /**

@@ -40,22 +40,15 @@ public class PacketRedstoneEther extends PacketWireless {
 
     public PacketRedstoneEther(TileEntityRedstoneWireless entity, World world) {
         super(PacketIds.ETHER, new PacketPayload(0, 0, 1, 1));
-        this.setPosition(entity.getBlockCoord(0),
-                         entity.getBlockCoord(1),
-                         entity.getBlockCoord(2),
-                         0);
+        this.setPosition(entity.getPos(), 0);
         if (entity instanceof TileEntityRedstoneWirelessR) {
             setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addReceiver.toString());
             setState(((BlockRedstoneWireless) WRCore.blockWirelessR).getState(world,
-                                                                              this.xPosition,
-                                                                              this.yPosition,
-                                                                              this.zPosition));
+                                                                              this.getPosition()));
         } else if (entity instanceof TileEntityRedstoneWirelessT) {
             setCommand(PacketRedstoneWirelessCommands.wirelessCommands.addTransmitter.toString());
             setState(((BlockRedstoneWireless) WRCore.blockWirelessT).getState(world,
-                                                                              this.xPosition,
-                                                                              this.yPosition,
-                                                                              this.zPosition));
+                                                                              this.getPosition()));
         }
         setFreq(entity.getFreq());
     }

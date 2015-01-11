@@ -11,7 +11,6 @@
  */
 package net.slimevoid.wirelessredstone.network.handlers;
 
-import net.slimevoid.library.network.handlers.SubPacketHandler;
 import net.slimevoid.wirelessredstone.network.packets.PacketWireless;
 import net.slimevoid.wirelessredstone.network.packets.PacketWirelessAddon;
 
@@ -20,10 +19,10 @@ import net.slimevoid.wirelessredstone.network.packets.PacketWirelessAddon;
  * 
  * @author Eurymachus
  */
-public class AddonPacketHandler extends SubPacketHandler {
+public class AddonPacketHandler {
 
-    @Override
-    protected PacketWireless createNewPacket() {
-        return new PacketWirelessAddon();
-    }
+    //@Override
+    //protected PacketWireless createNewPacket() {
+    //    return new PacketWirelessAddon();
+    //}
 }

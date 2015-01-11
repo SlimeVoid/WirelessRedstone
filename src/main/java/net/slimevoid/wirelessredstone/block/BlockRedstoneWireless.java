@@ -68,7 +68,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	
 	protected int getMetaFromProps(boolean powered, EnumFacing facing) {
 		int power = powered ? 1 : 0;
-		return this.setFacing(power, facing);
+		return power | (this.getFacingIndex(facing) << 1);
 	}
     
 	@Override
@@ -88,7 +88,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
     	return (meta & 7) >> 1;
     }
     
-    protected int getFacing(EnumFacing facing) {
+    protected int getFacingIndex(EnumFacing facing) {
     	int index = facing == EnumFacing.SOUTH ? 1 : facing == EnumFacing.EAST ? 2 : facing == EnumFacing.WEST ? 3 : 0;
     	return index;
     }
@@ -102,14 +102,6 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
 	    	default : facing = EnumFacing.NORTH;
     	}
     	return facing;
-    }
-    
-    protected int setPowered(int meta, boolean state) {
-    	return meta |= state ? 1 : 0;
-    }
-    
-    protected int setFacing(int meta, EnumFacing facing) {
-    	return meta |= getFacing(facing) << 1;
     }
 	
     /**
@@ -157,29 +149,25 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * @param state
      *            The state to be set
      */
-    public synchronized void setState(World world, int x, int y, int z, boolean state) {
+    public synchronized void setState(World world, BlockPos pos, boolean state) {
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "setState(world,"
-                                                                                                                             + x
+                                                                                                                             + pos.getX()
                                                                                                                              + ","
-                                                                                                                             + y
+                                                                                                                             + pos.getY()
                                                                                                                              + ","
-                                                                                                                             + z
+                                                                                                                             + pos.getZ()
                                                                                                                              + ","
                                                                                                                              + state
                                                                                                                              + ")",
                                                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
-        // int meta = 0;
-        // if (state) meta = 1;
 
-        // Store meta.
         try {
-        	BlockPos pos = new BlockPos(x, y, z);
-            TileEntity tRW = world.getTileEntity(pos);
-            if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
-                ((TileEntityRedstoneWireless) tRW).setState(state);
-            }
+            //TileEntity tRW = world.getTileEntity(pos);
+            //if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
+            //    ((TileEntityRedstoneWireless) tRW).setState(state);
+            //}
             world.setBlockState(pos, world.getBlockState(pos).withProperty(POWERED, Boolean.valueOf(state)));
             world.markBlockForUpdate(pos);
         } catch (Exception e) {
@@ -201,27 +189,26 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * 
      * @return The state.
      */
-    public synchronized boolean getState(IBlockAccess iblockaccess, int x, int y, int z) {
+    public synchronized boolean getState(IBlockAccess iblockaccess, BlockPos pos) {
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(false,
                                                                                                                      "getState(world,"
-                                                                                                                             + x
+                                                                                                                             + pos.getX()
                                                                                                                              + ","
-                                                                                                                             + y
+                                                                                                                             + pos.getY()
                                                                                                                              + ","
-                                                                                                                             + z
+                                                                                                                             + pos.getZ()
                                                                                                                              + ")",
                                                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
         // int meta = 0;
         boolean state = false;
         try {
-            TileEntity tRW = iblockaccess.getTileEntity(new BlockPos(x, y, z));
-            if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
-                state = ((TileEntityRedstoneWireless) tRW).getState();
-            }
-            // meta = world.getBlockMetadata( x,
-            // y,
-            // z);
+        	IBlockState blockState = iblockaccess.getBlockState(pos);
+        	return this.getPoweredFromMeta(this.getMetaFromState(blockState)) == 1? true : false;
+            //TileEntity tRW = iblockaccess.getTileEntity(new BlockPos(x, y, z));
+            //if (tRW != null && tRW instanceof TileEntityRedstoneWireless) {
+            //    state = ((TileEntityRedstoneWireless) tRW).getState();
+            //}
         } catch (Exception e) {
             LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).writeStackTrace(e);
         }
@@ -237,9 +224,9 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      *            4-bit metadata
      * @return Boolean state
      */
-    public static boolean getState(int meta) {
-        return (meta & 1) == 1;
-    }
+    //public static boolean getState(int meta) {
+    //    return (meta & 1) == 1;
+    //}
 
     /**
      * Gets the Block's frequency from it's TileEntity.
@@ -255,19 +242,19 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
      * 
      * @return Frequency.
      */
-    public String getFreq(World world, int x, int y, int z) {
+    public String getFreq(World world, BlockPos pos) {
         LoggerRedstoneWireless.getInstance(LoggerRedstoneWireless.filterClassName(this.getClass().toString())).write(world.isRemote,
                                                                                                                      "getFreq(world,"
-                                                                                                                             + x
+                                                                                                                             + pos.getX()
                                                                                                                              + ","
-                                                                                                                             + y
+                                                                                                                             + pos.getY()
                                                                                                                              + ","
-                                                                                                                             + z
+                                                                                                                             + pos.getZ()
                                                                                                                              + ")",
                                                                                                                      LoggerRedstoneWireless.LogLevel.DEBUG);
 
         try {
-            TileEntity tileentity = world.getTileEntity(new BlockPos(x, y, z));
+            TileEntity tileentity = world.getTileEntity(pos);
             if (tileentity == null) return null;
 
             if (tileentity instanceof TileEntityRedstoneWireless) return ((TileEntityRedstoneWireless) tileentity).getFreq().toString();
