@@ -40,7 +40,11 @@ group = 'net.slimevoid'
 archivesBaseName = 'WirelessRedstoneCore'
 
 dependencies {
-    compile 'net.slimevoid:SlimevoidLibrary:' + slimevoidVersion + ':dev'
+    if (findProject(':SlimevoidLibrary') != null ) {
+        compile project(':SlimevoidLibrary')
+    } else {
+        compile 'net.slimevoid:SlimevoidLibrary:' + slimevoidVersion + ':dev'
+    }
 }
 
 minecraft {
@@ -75,6 +79,12 @@ processResources {
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDir
     }
 }
 
