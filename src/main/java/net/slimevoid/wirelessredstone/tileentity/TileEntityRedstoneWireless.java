@@ -40,14 +40,14 @@ import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 public abstract class TileEntityRedstoneWireless extends TileEntity implements
         IInventory, IUpdatePlayerListBox {
     protected BlockRedstoneWireless                            blockRedstoneWireless;
-    private boolean                                            state     = false;
+    //private boolean                                            state     = false;
     public boolean                                             firstTick = true;
     public Object                                              oldFreq;
     public Object                                              currentFreq;
     protected boolean[]                                        powerRoute;
     protected boolean[]                                        indirPower;
     public HashMap<String, IRedstoneWirelessData>              tileData  = new HashMap<String, IRedstoneWirelessData>();
-    protected static List<ITileEntityRedstoneWirelessOverride> overrides = new ArrayList();
+    protected static List<ITileEntityRedstoneWirelessOverride> overrides = new ArrayList<ITileEntityRedstoneWirelessOverride>();
 
     public TileEntityRedstoneWireless(BlockRedstoneWireless block) {
         firstTick = true;
@@ -176,8 +176,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     public abstract String getName();
 
     public boolean isPoweringDirection(EnumFacing side) {
-        if (side.getIndex() < 6) return powerRoute[side.getIndex()];
-        else return false;
+        return side.getIndex() < 6 && powerRoute[side.getIndex()];
     }
 
     public void flipPowerDirection(EnumFacing side) {
@@ -206,7 +205,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     /**
      * Retrieves the directions the Wireless Tile Entity is indirectly powering
      * 
-     * @return
+     * @return Indirect Powering Sides
      */
     public boolean[] getInDirectlyPowering() {
         return indirPower;
@@ -248,8 +247,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     public boolean isPoweringIndirectly(EnumFacing side) {
-        if (side.getIndex() < 6) return indirPower[side.getIndex()];
-        else return false;
+        return side.getIndex() < 6 && indirPower[side.getIndex()];
     }
 
     public void flushIndirPower() {
@@ -272,14 +270,14 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 
             NBTTagList nbttaglist3 = nbttagcompound.getTagList("Frequency",
                                                                10);
-            NBTTagCompound nbttagcompound3 = (NBTTagCompound) nbttaglist3.getCompoundTagAt(0);
+            NBTTagCompound nbttagcompound3 = nbttaglist3.getCompoundTagAt(0);
             currentFreq = nbttagcompound3.getString("freq");
 
             NBTTagList nbttaglist1 = nbttagcompound.getTagList("PowerRoute",
                                                                10);
             if (nbttaglist1.tagCount() == 6) {
                 for (int i = 0; i < nbttaglist1.tagCount(); i++) {
-                    NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist1.getCompoundTagAt(i);
+                    NBTTagCompound nbttagcompound1 = nbttaglist1.getCompoundTagAt(i);
                     powerRoute[i] = nbttagcompound1.getBoolean("b");
                 }
             } else {
@@ -291,14 +289,14 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
                                                                10);
             if (nbttaglist4.tagCount() == 6) {
                 for (int i = 0; i < nbttaglist4.tagCount(); i++) {
-                    NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist4.getCompoundTagAt(i);
+                    NBTTagCompound nbttagcompound1 = nbttaglist4.getCompoundTagAt(i);
                     indirPower[i] = nbttagcompound1.getBoolean("b");
                 }
             } else {
                 flushIndirPower();
                 writeToNBT(nbttagcompound);
             }
-            state = nbttagcompound.getBoolean("State");
+            //state = nbttagcompound.getBoolean("State");
             for (ITileEntityRedstoneWirelessOverride override : overrides) {
                 if (override.handlesExtraNBTTags()) {
                     override.readFromNBT(this,
@@ -325,26 +323,26 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
                                   nbttaglist3);
 
             NBTTagList nbttaglist2 = new NBTTagList();
-            for (int i = 0; i < powerRoute.length; i++) {
+            for (boolean route : powerRoute) {
                 NBTTagCompound nbttagcompound2 = new NBTTagCompound();
                 nbttagcompound2.setBoolean("b",
-                                           powerRoute[i]);
+                                           route);
                 nbttaglist2.appendTag(nbttagcompound2);
             }
             nbttagcompound.setTag("PowerRoute",
                                   nbttaglist2);
 
             NBTTagList nbttaglist4 = new NBTTagList();
-            for (int i = 0; i < indirPower.length; i++) {
+            for (boolean power : indirPower) {
                 NBTTagCompound nbttagcompound2 = new NBTTagCompound();
                 nbttagcompound2.setBoolean("b",
-                                           indirPower[i]);
+                                           power);
                 nbttaglist4.appendTag(nbttagcompound2);
             }
             nbttagcompound.setTag("IndirPower",
                                   nbttaglist4);
-            nbttagcompound.setBoolean("State",
-                                      state);
+            //nbttagcompound.setBoolean("State",
+            //                          state);
             for (ITileEntityRedstoneWirelessOverride override : overrides) {
                 if (override.handlesExtraNBTTags()) {
                     override.writeToNBT(this,
@@ -400,10 +398,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     private boolean isTileRedstoneWirelessUseable(EntityPlayer entityplayer) {
-        if (worldObj.getTileEntity(this.pos) != this) {
-            return false;
-        }
-        return entityplayer.getDistanceSq(this.pos.getX() + 0.5D,
+        return worldObj.getTileEntity(this.pos) == this &&
+                entityplayer.getDistanceSq(this.pos.getX() + 0.5D,
                                           this.pos.getY() + 0.5D,
                                           this.pos.getZ() + 0.5D) <= 64D;
     }
@@ -440,8 +436,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     public Packet getDescriptionPacket() {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         this.writeToNBT(nbttagcompound);
-        Packet packet = new S35PacketUpdateTileEntity(this.pos, 0, nbttagcompound);
-        return packet;
+        return new S35PacketUpdateTileEntity(this.pos, 0, nbttagcompound);
     }
 
     public void handleData(IWirelessData data) {
@@ -500,13 +495,13 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
         }
     }
 
-    public void setState(boolean state) {
+    /*public void setState(boolean state) {
         this.state = state;
-    }
+    }*/
 
-    public boolean getState() {
+    /*public boolean getState() {
         return this.state;
-    }
+    }*/
     
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {

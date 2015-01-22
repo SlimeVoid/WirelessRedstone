@@ -2,7 +2,7 @@
 	"parent": "wirelessredstone:block/cube_front",
     "textures": {
         "end": "wirelessredstone:blocks/topon",
-        "front": "wirelessredstone:blocks/topon",
+        "front": "wirelessredstone:blocks/txon",
         "side": "wirelessredstone:blocks/txon"
     }
 }

@@ -11,7 +11,6 @@
  */
 package net.slimevoid.wirelessredstone.tileentity;
 
-import net.minecraft.util.IChatComponent;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWireless;
 import net.slimevoid.wirelessredstone.block.BlockRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.core.WRCore;
@@ -30,10 +29,10 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
     @Override
     protected void onUpdateEntity() {
         if (!((BlockRedstoneWirelessR) blockRedstoneWireless).hasTicked()) {
-            ((BlockRedstoneWirelessR) blockRedstoneWireless).updateTick(this.getWorld(),
-                                                                        this.pos,
-                                                                        this.getWorld().getBlockState(pos),
-                                                                        this.getWorld().rand);
+            blockRedstoneWireless.updateTick(this.getWorld(),
+                                            this.pos,
+                                            this.getWorld().getBlockState(pos),
+                                            this.getWorld().rand);
         }
     }
 }
