@@ -15,6 +15,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.slimevoid.library.network.PacketPayload;
 import net.slimevoid.wirelessredstone.network.packets.core.PacketIds;
+import net.slimevoid.wirelessredstone.network.packets.core.PacketRedstoneWirelessCommands;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;

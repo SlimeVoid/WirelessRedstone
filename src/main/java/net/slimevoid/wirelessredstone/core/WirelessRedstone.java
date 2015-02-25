@@ -11,10 +11,9 @@
  */
 package net.slimevoid.wirelessredstone.core;
 
-import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.wirelessredstone.api.ICommonProxy;
 import net.slimevoid.wirelessredstone.core.lib.CoreLib;
-import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import net.slimevoid.wirelessredstone.network.packets.core.PacketRedstoneWirelessCommands;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;

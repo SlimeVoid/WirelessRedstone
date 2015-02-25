@@ -18,6 +18,7 @@ import net.slimevoid.wirelessredstone.block.BlockRedstoneWireless;
 import net.slimevoid.wirelessredstone.core.WRCore;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 import net.slimevoid.wirelessredstone.network.packets.core.PacketIds;
+import net.slimevoid.wirelessredstone.network.packets.core.PacketRedstoneWirelessCommands;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessR;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWirelessT;

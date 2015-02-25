@@ -17,7 +17,7 @@ import net.slimevoid.wirelessredstone.api.IGuiRedstoneWirelessOverride;
 import net.slimevoid.wirelessredstone.data.LoggerRedstoneWireless;
 import net.slimevoid.wirelessredstone.inventory.ContainerRedstoneWireless;
 import net.slimevoid.wirelessredstone.network.handlers.RedstoneEtherPacketHandler;
-import net.slimevoid.wirelessredstone.network.packets.PacketRedstoneWirelessCommands;
+import net.slimevoid.wirelessredstone.network.packets.core.PacketRedstoneWirelessCommands;
 import net.slimevoid.wirelessredstone.tileentity.TileEntityRedstoneWireless;
 
 /**
