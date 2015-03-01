@@ -73,7 +73,7 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
     
 	@Override
     public IBlockState getStateFromMeta(int meta) {
-    	return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(this.getPoweredFromMeta(meta) > 0));
+    	return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(this.getPoweredFromMeta(meta) > 0)).withProperty(FACING, getFacing(getFacingFromMeta(meta)));
     }
 
 	protected IBlockState getInitialState() {
