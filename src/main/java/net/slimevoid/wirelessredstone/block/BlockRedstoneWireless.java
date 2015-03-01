@@ -96,10 +96,17 @@ public abstract class BlockRedstoneWireless extends BlockContainer {
     protected EnumFacing getFacing(int index) {
     	EnumFacing facing;
     	switch (index) {
-	    	case 1 : facing = EnumFacing.SOUTH;
-	    	case 2 : facing = EnumFacing.EAST;
-	    	case 3 : facing = EnumFacing.WEST;
-	    	default : facing = EnumFacing.NORTH;
+	    	case 1 :
+                facing = EnumFacing.SOUTH;
+                break;
+	    	case 2 :
+                facing = EnumFacing.EAST;
+                break;
+	    	case 3 :
+                facing = EnumFacing.WEST;
+                break;
+	    	default :
+                facing = EnumFacing.NORTH;
     	}
     	return facing;
     }
