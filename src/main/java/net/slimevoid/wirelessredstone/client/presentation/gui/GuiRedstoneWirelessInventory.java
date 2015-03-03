@@ -214,7 +214,7 @@ public abstract class GuiRedstoneWirelessInventory extends
      */
     @Override
     protected String getGuiName() {
-        return inventory.getName();
+        return inventory.getCommandSenderName();
     }
 
     /**

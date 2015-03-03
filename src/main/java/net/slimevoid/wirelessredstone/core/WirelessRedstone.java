@@ -72,7 +72,7 @@ public class WirelessRedstone {
     public void WirelessRedstoneInit(FMLInitializationEvent event) {
         WRCore.initialize();
         PacketRedstoneWirelessCommands.registerCommands();
-        WirelessRedstone.proxy.initPacketHandlers();
+        proxy.initPacketHandlers();
     }
 
     /**

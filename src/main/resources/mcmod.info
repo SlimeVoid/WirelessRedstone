@@ -1,6 +1,6 @@
 [
 {
-	"modid": "WirelessRedstoneCore",
+	"modid": "WirelessRedstone",
 	"name": "Wireless Redstone",
 	"description": "Wireless Redstone allows you to transmit and receive redstone signals without wires.",
 	"version": "${version}",

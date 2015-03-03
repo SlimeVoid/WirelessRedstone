@@ -21,7 +21,7 @@ public class TileEntityRedstoneWirelessT extends TileEntityRedstoneWireless {
     }
 
     @Override
-    public String getName() {
+    public String getCommandSenderName() {
         return BlockLib.WIRELESS_TRANSMITTER;
     }
 

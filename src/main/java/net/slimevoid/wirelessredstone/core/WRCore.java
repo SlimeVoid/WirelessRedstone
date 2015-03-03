@@ -117,8 +117,8 @@ public class WRCore {
      * Initializes Block objects.
      */
     private static void initBlocks() {
-        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.receiver");
-        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName("wirelessredstone.transmitter");
+        blockWirelessR = (new BlockRedstoneWirelessR(rxID, 1.0F, 8.0F)).setUnlocalizedName(BlockLib.WIRELESS_RECEIVER);
+        blockWirelessT = (new BlockRedstoneWirelessT(txID, 1.0F, 8.0F)).setUnlocalizedName(BlockLib.WIRELESS_TRANSMITTER);
     }
 
     /**

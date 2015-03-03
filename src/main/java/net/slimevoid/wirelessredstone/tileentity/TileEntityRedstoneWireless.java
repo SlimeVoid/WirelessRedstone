@@ -27,9 +27,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.slimevoid.wirelessredstone.api.IRedstoneWirelessData;
 import net.slimevoid.wirelessredstone.api.ITileEntityRedstoneWirelessOverride;
@@ -173,7 +171,7 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
     }
 
     @Override
-    public abstract String getName();
+    public abstract String getCommandSenderName();
 
     public boolean isPoweringDirection(EnumFacing side) {
         return side.getIndex() < 6 && powerRoute[side.getIndex()];
@@ -531,10 +529,8 @@ public abstract class TileEntityRedstoneWireless extends TileEntity implements
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public IChatComponent getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public IChatComponent getDisplayName()
+    {
+        return (IChatComponent)(this.hasCustomName() ? new ChatComponentText(this.getCommandSenderName()) : new ChatComponentTranslation(this.getCommandSenderName(), new Object[0]));
+    }
 }

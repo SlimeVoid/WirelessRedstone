@@ -22,7 +22,7 @@ public class TileEntityRedstoneWirelessR extends TileEntityRedstoneWireless {
     }
 
     @Override
-    public String getName() {
+    public String getCommandSenderName() {
         return BlockLib.WIRELESS_RECEIVER;
     }
 

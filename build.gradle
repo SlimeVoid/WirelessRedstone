@@ -26,13 +26,13 @@ repositories {
 apply plugin: 'maven'
 apply plugin: 'forge'
 apply plugin: 'eclipse'
-def slimevoidVersion = '3.0.0.3-beta-1.8'
-def number = '2.0.0.0'
+def slimevoidVersion = '3.0.0.4-beta-1.8'
+def number = '2.0.0.1'
 def release = 'alpha'
 def mcversion = '1.8'
-def forge = '11.14.0.1285'
-def map = 'snapshot_20150110'
-def mc = mcversion + '-' + forge + '-' + mcversion
+def forge = '11.14.1.1334'
+def map = 'snapshot_20150302'
+def mc = mcversion + '-' + forge
 def pack = 'wirelessredstone'
 def github = 'WirelessRedstone'
 version = number + '-' + release + '-' + mcversion
@@ -51,16 +51,13 @@ minecraft {
     version = mc
     mappings = map
     if  (file('../run').exists()) {
-       runDir = "../run/assets"
+       runDir = "../run"
     } else {
-       runDir = "assets"
+       runDir = "run"
     }
     replaceIn 'net/slimevoid/' + pack + '/core/lib/CoreLib.java'
     replace '@VERSION@', project.version
-    replace 'MOD_DEPENDENCIES', 'BLANK_DEPENDENCIES'
-    replace 'ACTUAL_DEPENDENCIES ', 'MOD_DEPENDENCIES'
-    replace '@FORGEVERSION@', forge
-    replace '@SLIMEVERSION@', slimevoidVersion
+    replace 'required-after:SlimevoidLib', 'required-after:Forge@[' + forge + ',);required-after:SlimevoidLib@['+ slimevoidVersion + ',)'
 }
 
 processResources {

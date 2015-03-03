@@ -191,7 +191,7 @@ public abstract class GuiRedstoneWirelessDevice extends
      */
     @Override
     protected String getGuiName() {
-        return this.wirelessDevice.getName();
+        return this.wirelessDevice.getCommandSenderName();
     }
 
     protected Object getFreq() {
