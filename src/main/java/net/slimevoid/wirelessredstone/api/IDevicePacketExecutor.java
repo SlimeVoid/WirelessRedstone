@@ -13,7 +13,7 @@ package net.slimevoid.wirelessredstone.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.slimevoid.library.IPacketExecutor;
+import net.slimevoid.library.network.executor.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
 
 public interface IDevicePacketExecutor extends IPacketExecutor {

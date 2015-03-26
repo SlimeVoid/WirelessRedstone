@@ -11,7 +11,7 @@
  */
 package net.slimevoid.wirelessredstone.api;
 
-import net.slimevoid.library.IPacketExecutor;
+import net.slimevoid.library.network.executor.IPacketExecutor;
 
 /**
  * A Redstone Ether Packet executor.<br>
